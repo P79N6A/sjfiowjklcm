@@ -108,7 +108,7 @@ export default {
     },
     setSort() {
       const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-      this.sortable = Sortable.create(el, {
+      Sortable.create(el, {
         ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
         setData: function(dataTransfer) {
           dataTransfer.setData('Text', '')
