@@ -1,7 +1,7 @@
 ﻿
 import vs from '../core';
 import $ from 'jquery';
-import config from '../../config'
+import config from '@/config'
 var downloadConfig = config.download;
 
 var BLOB_URL = downloadConfig .BLOB_URL;

@@ -1,7 +1,7 @@
 ﻿import vs from '../core';
 import $ from 'jquery';
 import store from 'store';
-import config from '../../config';
+import config from '@/config';
 import * as utils from '../utils';
 import * as services from '../services';
 import { resetEditorLayout } from './layout';

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './assets/css/style.scss';
 
 import Cookies from 'js-cookie'
 

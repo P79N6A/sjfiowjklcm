@@ -1,4 +1,4 @@
-﻿import config from '../../config';
+﻿import config from '@/config';
 
 /*
 * AMD 模块化加载

@@ -142,6 +142,23 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/codepage',
+    component: Layout,
+    alwaysShow: true, // will always show the root menu
+    redirect: '/codepage/edit',
+    meta: {
+      icon: 'table',
+      roles: ['admin'] // or you can only set roles in sub nav
+    },
+    children: [
+      {
+        path: 'codeedit',
+        component: () => import('@/views/codepen/index.vue'),
+        name: 'codeedit',
+        meta: { title: 'codeedit', noCache: true }
+      }]
+  },
+  {
     path: '/layoutpage',
     component: Layout,
     alwaysShow: true, // will always show the root menu
