@@ -18,7 +18,7 @@
       <div class="show" v-for="(block,i) in layoutData" :key="i" :style="block.style">
         <!-- 块区域 -->
         <el-button-group class="block-controls">
-          <el-button>容器{{EditStyleShow}}</el-button>
+          <el-button>容器</el-button>
           <el-button type="danger" icon="el-icon-edit-outline" @click="EditStyleShow=true;EditStyle=block.style"></el-button>
           <el-button type="danger" icon="el-icon-upload2" @click="moveBlock(i,-1)"></el-button>
           <el-button type="danger" icon="el-icon-download" @click="moveBlock(i,1)"></el-button>
