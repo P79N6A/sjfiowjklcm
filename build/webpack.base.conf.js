@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const { VueLoaderPlugin } = require('vue-loader')
 const vueLoaderConfig = require('./vue-loader.conf')
+const rootPath = path.resolve(__dirname, '../')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -36,7 +37,13 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '@': resolve('src'),
+      jquery: 'jquery/dist/jquery.min.js',
+      vue: 'vue/dist/vue.min.js',
+      dialog: path.resolve(rootPath, './libs/dialogwindows/dialog.js'),
+      noty: path.resolve(rootPath, './libs/noty/noty.js'),
+      store: path.resolve(rootPath, './libs/store/store.js'),
+      template: path.resolve(rootPath, './libs/art-template/template-web.js')
     }
   },
   module: {
