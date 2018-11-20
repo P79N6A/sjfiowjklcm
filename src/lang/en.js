@@ -8,6 +8,7 @@ export default {
     pagePermission: 'Page Permission',
     directivePermission: 'Directive Permission',
     icons: 'Icons',
+    codepage: 'codepage',
     components: 'Components',
     componentIndex: 'Introduction',
     tinymce: 'Tinymce',
