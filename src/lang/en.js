@@ -11,6 +11,7 @@ export default {
     codepage: 'codepage',
     components: 'Components',
     componentIndex: 'Introduction',
+    LinksList: 'Links List',
     tinymce: 'Tinymce',
     markdown: 'Markdown',
     jsonEditor: 'JSON Editor',

@@ -11,6 +11,7 @@ export default {
     codepage: '代码编辑器',
     components: '组件',
     componentIndex: '介绍',
+    LinksList: '链接列表',
     tinymce: '富文本编辑器',
     markdown: 'Markdown',
     jsonEditor: 'JSON编辑器',
