@@ -30,116 +30,239 @@ import nestedRouter from './modules/nested'
     noCache: true                if true ,the page will no be cached(default is false)
   }
 **/
-export const constantRouterMap = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
+export const constantRouterMap = [{
+  path: '/redirect',
+  component: Layout,
+  hidden: true,
+  children: [{
+    path: '/redirect/:path*',
+    component: () => import('@/views/redirect/index')
+  }]
+},
+{
+  path: '/login',
+  component: () => import('@/views/login/index'),
+  hidden: true
+},
+{
+  path: '/auth-redirect',
+  component: () => import('@/views/login/authredirect'),
+  hidden: true
+},
+{
+  path: '/404',
+  component: () => import('@/views/errorPage/404'),
+  hidden: true
+},
+  // {
+  //   path: '/401',
+  //   component: () => import('@/views/errorPage/401'),
+  //   hidden: true
+  // },
+{
+  path: '',
+  component: Layout,
+  redirect: 'entry',
+  children: [{
+    path: 'dashboard',
+    component: () => import('@/views/dashboard/index'),
+    name: 'Dashboard',
+    meta: {
+      title: 'dashboard',
+      icon: 'dashboard',
+      noCache: true
+    }
+  }]
+},
+  // {
+  //   path: '/documentation',
+  //   component: Layout,
+  //   redirect: '/documentation/index',
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/documentation/index'),
+  //     name: 'Documentation',
+  //     meta: {
+  //       title: 'documentation',
+  //       icon: 'documentation',
+  //       noCache: true
+  //     }
+  //   }]
+  // },
+{
+  path: '/entry',
+  component: () => import('@/views/entry/index'),
+  redirect: '/entry/projects',
+  hidden: true,
+  name: 'entry',
+  meta: {
+    // roles: ['admin', 'editor'] // you can set roles in root nav
+  },
+  children: [{
+    path: 'user',
+    component: () => import('@/views/users/setting'),
+    name: 'UserSetting',
+    meta: {
+      title: 'UserSetting',
+      noCache: true
+    }
   },
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/authredirect'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/errorPage/404'),
-    hidden: true
-  },
-  {
-    path: '/401',
-    component: () => import('@/views/errorPage/401'),
-    hidden: true
-  },
-  {
-    path: '',
-    component: Layout,
-    redirect: 'dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/documentation',
-    component: Layout,
-    redirect: '/documentation/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/documentation/index'),
-        name: 'Documentation',
-        meta: { title: 'documentation', icon: 'documentation', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/guide',
-    component: Layout,
-    redirect: '/guide/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/guide/index'),
-        name: 'Guide',
-        meta: { title: 'guide', icon: 'guide', noCache: true }
-      }
-    ]
+    path: 'projects',
+    component: () => import('@/views/projects/index'),
+    name: 'UserProjects',
+    meta: {
+      title: 'UserProjects',
+      noCache: true
+    }
   }
+  ]
+}
+  // {
+  //   path: '/guide',
+  //   component: Layout,
+  //   redirect: '/guide/index',
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/guide/index'),
+  //     name: 'Guide',
+  //     meta: {
+  //       title: 'guide',
+  //       icon: 'guide',
+  //       noCache: true
+  //     }
+  //   }]
+  // }
 ]
 
 export default new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: constantRouterMap
 })
 
 export const asyncRouterMap = [
+  //   {
+  //   path: '/permission',
+  //   component: Layout,
+  //   redirect: '/permission/index',
+  //   alwaysShow: true, // will always show the root menu
+  //   meta: {
+  //     title: 'permission',
+  //     icon: 'lock',
+  //     roles: ['admin', 'editor'] // you can set roles in root nav
+  //   },
+  //   children: [{
+  //     path: 'page',
+  //     component: () => import('@/views/permission/page'),
+  //     name: 'PagePermission',
+  //     meta: {
+  //       title: 'pagePermission',
+  //       roles: ['admin'] // or you can only set roles in sub nav
+  //     }
+  //   },
+  //   {
+  //     path: 'directive',
+  //     component: () => import('@/views/permission/directive'),
+  //     name: 'DirectivePermission',
+  //     meta: {
+  //       title: 'directivePermission'
+  //       // if do not set roles, means: this page does not require permission
+  //     }
+  //   }
+  //   ]
+  // },
   {
-    path: '/permission',
+    path: '/models',
     component: Layout,
-    redirect: '/permission/index',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: 'permission',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'page',
-        component: () => import('@/views/permission/page'),
-        name: 'PagePermission',
-        meta: {
-          title: 'pagePermission',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
-      },
-      {
-        path: 'directive',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
-        meta: {
-          title: 'directivePermission'
-          // if do not set roles, means: this page does not require permission
-        }
+    children: [{
+      path: 'index',
+      component: () => import('@/views/models/index'),
+      name: 'models',
+      meta: {
+        title: '数据模型',
+        icon: 'nested',
+        authorities: [110300, 110301]
+
       }
-    ]
+    }]
+  },
+  {
+    path: '/categories',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/categories/index'),
+      name: 'categories',
+      meta: {
+        title: '数据分类',
+        icon: 'nested',
+        authorities: [110300, 110301]
+
+      }
+    }]
+  },
+  {
+    path: '/medias',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/medias/index'),
+      name: 'medias',
+      meta: {
+        title: '媒体库',
+        icon: 'documentation',
+        authorities: [100400, 100400]
+
+      }
+    }]
+  },
+  {
+    path: '/site-set',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/site-set/index'),
+      name: 'SiteSet',
+      meta: {
+        title: '网站配置',
+        icon: 'component',
+        authorities: [110100, 110101]
+
+      }
+    }]
+  },
+  {
+    path: '/users',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/users/index'),
+      name: 'users',
+      meta: {
+        title: '后台用户',
+        icon: 'peoples',
+        authorities: [110600, 110601]
+
+      }
+    }]
+  },
+  {
+    path: '/roles',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/roles/index'),
+      name: 'roles',
+      meta: {
+        title: '权限角色',
+        icon: 'password',
+        authorities: [110500, 110501]
+
+      }
+    }]
   },
   {
     path: '/codepage',
@@ -151,13 +274,15 @@ export const asyncRouterMap = [
       title: 'codepage',
       roles: ['admin'] // or you can only set roles in sub nav
     },
-    children: [
-      {
-        path: 'codeedit',
-        component: () => import('@/views/codepen/index.vue'),
-        name: 'codeedit',
-        meta: { title: 'codeedit', noCache: true }
-      }]
+    children: [{
+      path: 'codeedit',
+      component: () => import('@/views/codepen/index.vue'),
+      name: 'codeedit',
+      meta: {
+        title: 'codeedit',
+        noCache: true
+      }
+    }]
   },
   {
     path: '/links',
@@ -169,13 +294,15 @@ export const asyncRouterMap = [
       title: 'links',
       roles: ['admin'] // or you can only set roles in sub nav
     },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/links/index.vue'),
-        name: 'LinksList',
-        meta: { title: 'LinksList', noCache: true }
-      }]
+    children: [{
+      path: 'index',
+      component: () => import('@/views/links/index.vue'),
+      name: 'LinksList',
+      meta: {
+        title: 'LinksList',
+        noCache: true
+      }
+    }]
   },
   {
     path: '/layoutpage',
@@ -187,38 +314,48 @@ export const asyncRouterMap = [
       icon: 'table',
       roles: ['admin'] // or you can only set roles in sub nav
     },
-    children: [
-      {
-        path: 'list',
-        component: () => import('@/views/layoutPage/LayoutList.vue'),
-        name: 'LayoutList',
-        meta: { title: 'LayoutList', noCache: true }
-      },
-      {
-        path: 'widget',
-        component: () => import('@/views/layoutPage/LayoutWidget.vue'),
-        name: 'LayoutWidget',
-        meta: { title: 'LayoutWidget', noCache: true }
-      },
-      {
-        path: 'design',
-        component: () => import('@/views/layoutPage/LayoutDesign.vue'),
-        name: 'LayoutDesign',
-        meta: { title: 'LayoutDesign', noCache: true }
+    children: [{
+      path: 'list',
+      component: () => import('@/views/layoutPage/LayoutList.vue'),
+      name: 'LayoutList',
+      meta: {
+        title: 'LayoutList',
+        noCache: true
       }
+    },
+    {
+      path: 'widget',
+      component: () => import('@/views/layoutPage/LayoutWidget.vue'),
+      name: 'LayoutWidget',
+      meta: {
+        title: 'LayoutWidget',
+        noCache: true
+      }
+    },
+    {
+      path: 'design',
+      component: () => import('@/views/layoutPage/LayoutDesign.vue'),
+      name: 'LayoutDesign',
+      meta: {
+        title: 'LayoutDesign',
+        noCache: true
+      }
+    }
     ]
   },
   {
     path: '/icon',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/svg-icons/index'),
-        name: 'Icons',
-        meta: { title: 'icons', icon: 'icon', noCache: true }
+    children: [{
+      path: 'index',
+      component: () => import('@/views/svg-icons/index'),
+      name: 'Icons',
+      meta: {
+        title: 'icons',
+        icon: 'icon',
+        noCache: true
       }
-    ]
+    }]
   },
 
   /** When your routing table is too long, you can split it into small modules**/
@@ -236,80 +373,95 @@ export const asyncRouterMap = [
       title: 'example',
       icon: 'example'
     },
-    children: [
-      {
-        path: 'create',
-        component: () => import('@/views/example/create'),
-        name: 'CreateArticle',
-        meta: { title: 'createArticle', icon: 'edit' }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: { title: 'editArticle', noCache: true },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: { title: 'articleList', icon: 'list' }
+    children: [{
+      path: 'create',
+      component: () => import('@/views/example/create'),
+      name: 'CreateArticle',
+      meta: {
+        title: 'createArticle',
+        icon: 'edit'
       }
+    },
+    {
+      path: 'edit/:id(\\d+)',
+      component: () => import('@/views/example/edit'),
+      name: 'EditArticle',
+      meta: {
+        title: 'editArticle',
+        noCache: true
+      },
+      hidden: true
+    },
+    {
+      path: 'list',
+      component: () => import('@/views/example/list'),
+      name: 'ArticleList',
+      meta: {
+        title: 'articleList',
+        icon: 'list'
+      }
+    }
     ]
   },
 
   {
     path: '/tab',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/tab/index'),
-        name: 'Tab',
-        meta: { title: 'tab', icon: 'tab' }
+    children: [{
+      path: 'index',
+      component: () => import('@/views/tab/index'),
+      name: 'Tab',
+      meta: {
+        title: 'tab',
+        icon: 'tab'
       }
-    ]
+    }]
   },
 
-  {
-    path: '/error',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'ErrorPages',
-    meta: {
-      title: 'errorPages',
-      icon: '404'
-    },
-    children: [
-      {
-        path: '401',
-        component: () => import('@/views/errorPage/401'),
-        name: 'Page401',
-        meta: { title: 'page401', noCache: true }
-      },
-      {
-        path: '404',
-        component: () => import('@/views/errorPage/404'),
-        name: 'Page404',
-        meta: { title: 'page404', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/error',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   name: 'ErrorPages',
+  //   meta: {
+  //     title: 'errorPages',
+  //     icon: '404'
+  //   },
+  //   children: [{
+  //     path: '401',
+  //     component: () => import('@/views/errorPage/401'),
+  //     name: 'Page401',
+  //     meta: {
+  //       title: 'page401',
+  //       noCache: true
+  //     }
+  //   },
+  //   {
+  //     path: '404',
+  //     component: () => import('@/views/errorPage/404'),
+  //     name: 'Page404',
+  //     meta: {
+  //       title: 'page404',
+  //       noCache: true
+  //     }
+  //   }
+  //   ]
+  // },
 
-  {
-    path: '/error-log',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'log',
-        component: () => import('@/views/errorLog/index'),
-        name: 'ErrorLog',
-        meta: { title: 'errorLog', icon: 'bug' }
-      }
-    ]
-  },
+  // {
+  //   path: '/error-log',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{
+  //     path: 'log',
+  //     component: () => import('@/views/errorLog/index'),
+  //     name: 'ErrorLog',
+  //     meta: {
+  //       title: 'errorLog',
+  //       icon: 'bug'
+  //     }
+  //   }]
+  // },
 
   {
     path: '/excel',
@@ -320,25 +472,30 @@ export const asyncRouterMap = [
       title: 'excel',
       icon: 'excel'
     },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/exportExcel'),
-        name: 'ExportExcel',
-        meta: { title: 'exportExcel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/selectExcel'),
-        name: 'SelectExcel',
-        meta: { title: 'selectExcel' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/uploadExcel'),
-        name: 'UploadExcel',
-        meta: { title: 'uploadExcel' }
+    children: [{
+      path: 'export-excel',
+      component: () => import('@/views/excel/exportExcel'),
+      name: 'ExportExcel',
+      meta: {
+        title: 'exportExcel'
       }
+    },
+    {
+      path: 'export-selected-excel',
+      component: () => import('@/views/excel/selectExcel'),
+      name: 'SelectExcel',
+      meta: {
+        title: 'selectExcel'
+      }
+    },
+    {
+      path: 'upload-excel',
+      component: () => import('@/views/excel/uploadExcel'),
+      name: 'UploadExcel',
+      meta: {
+        title: 'uploadExcel'
+      }
+    }
     ]
   },
 
@@ -347,67 +504,93 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/zip/download',
     alwaysShow: true,
-    meta: { title: 'zip', icon: 'zip' },
-    children: [
-      {
-        path: 'download',
-        component: () => import('@/views/zip/index'),
-        name: 'ExportZip',
-        meta: { title: 'exportZip' }
+    meta: {
+      title: 'zip',
+      icon: 'zip'
+    },
+    children: [{
+      path: 'download',
+      component: () => import('@/views/zip/index'),
+      name: 'ExportZip',
+      meta: {
+        title: 'exportZip'
       }
-    ]
+    }]
   },
 
-  {
-    path: '/theme',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/theme/index'),
-        name: 'Theme',
-        meta: { title: 'theme', icon: 'theme' }
-      }
-    ]
-  },
+  // {
+  //   path: '/theme',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/theme/index'),
+  //     name: 'Theme',
+  //     meta: {
+  //       title: 'theme',
+  //       icon: 'theme'
+  //     }
+  //   }]
+  // },
 
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/clipboard/index'),
-        name: 'ClipboardDemo',
-        meta: { title: 'clipboardDemo', icon: 'clipboard' }
-      }
-    ]
-  },
+  // {
+  //   path: '/clipboard',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/clipboard/index'),
+  //     name: 'ClipboardDemo',
+  //     meta: {
+  //       title: 'clipboardDemo',
+  //       icon: 'clipboard'
+  //     }
+  //   }]
+  // },
 
-  {
-    path: '/i18n',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/i18n-demo/index'),
-        name: 'I18n',
-        meta: { title: 'i18n', icon: 'international' }
-      }
-    ]
-  },
+  // {
+  //   path: '/i18n',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/i18n-demo/index'),
+  //     name: 'I18n',
+  //     meta: {
+  //       title: 'i18n',
+  //       icon: 'international'
+  //     }
+  //   }]
+  // },
+  // {
+  //   path: '/setting',
+  //   component: Layout,
+  //   // hidden: true,
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/users/setting'),
+  //     name: 'setting',
+  //     meta: {
+  //       title: '账户设置',
+  //       icon: 'international',
+  //       authorities: [109000,109001]
+  //     }
+  //   }]
+  // },
 
   {
     path: 'external-link',
     component: Layout,
-    children: [
-      {
-        path: 'https://github.com/PanJiaChen/vue-element-admin',
-        meta: { title: 'externalLink', icon: 'link' }
+    children: [{
+      path: 'https://nodercms.com',
+      meta: {
+        title: 'ITGO官网',
+        icon: 'link'
       }
-    ]
+    }]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]

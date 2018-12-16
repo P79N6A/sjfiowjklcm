@@ -2,11 +2,12 @@
   <section class="todoapp">
     <!-- header -->
     <header class="header">
-      <input class="new-todo" autocomplete="off" placeholder="Todo List" @keyup.enter="addTodo">
+      <input class="new-todo" autocomplete="off" placeholder="系统通知" readonly>
+      <!-- <input class="new-todo" autocomplete="off" placeholder="Todo List" @keyup.enter="addTodo"> -->
     </header>
     <!-- main section -->
     <section v-show="todos.length" class="main">
-      <input id="toggle-all" :checked="allChecked" class="toggle-all" type="checkbox" @change="toggleAll({ done: !allChecked })">
+      <!-- <input id="toggle-all" :checked="allChecked" class="toggle-all" type="checkbox" @change="toggleAll({ done: !allChecked })"> -->
       <label for="toggle-all"/>
       <ul class="todo-list">
         <todo
@@ -21,14 +22,14 @@
     <!-- footer -->
     <footer v-show="todos.length" class="footer">
       <span class="todo-count">
-        <strong>{{ remaining }}</strong>
-        {{ remaining | pluralize('item') }} left
+        <!-- <strong>{{ remaining }}</strong> -->
+        <!-- {{ remaining | pluralize('item') }} left -->
       </span>
-      <ul class="filters">
+      <!-- <ul class="filters">
         <li v-for="(val, key) in filters" :key="key">
           <a :class="{ selected: visibility === key }" @click.prevent="visibility = key">{{ key | capitalize }}</a>
         </li>
-      </ul>
+      </ul> -->
       <!-- <button class="clear-completed" v-show="todos.length > remaining" @click="clearCompleted">
         Clear completed
       </button> -->
@@ -46,14 +47,14 @@ const filters = {
   completed: todos => todos.filter(todo => todo.done)
 }
 const defalutList = [
-  { text: 'star this repository', done: false },
-  { text: 'fork this repository', done: false },
-  { text: 'follow author', done: false },
-  { text: 'vue-element-admin', done: true },
-  { text: 'vue', done: true },
-  { text: 'element-ui', done: true },
-  { text: 'axios', done: true },
-  { text: 'webpack', done: true }
+  { text: '游戏数据维护通知', done: false },
+  { text: '用户中心维护更新', done: false },
+  { text: '用户中心-站内信维护通知', done: false },
+  { text: '用户中心-提款维护', done: true },
+  { text: '用户中心-转账升级通知', done: false },
+  { text: '用户中心-存款升级通知', done: false },
+  { text: '用户中心-自助优惠升级通知', done: false },
+  { text: '游戏大厅升级通知', done: false }
 ]
 export default {
   components: { Todo },

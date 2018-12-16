@@ -1,0 +1,52 @@
+{
+  "extensions": [{
+    "key": "textsss",
+    "name": "文本框",
+    "type": "text",
+    "description": "文本框测试",
+    "mixed": {}
+  }, {
+    "key": "numbersss",
+    "name": "数字框",
+    "type": "number",
+    "description": "数字框测试",
+    "mixed": {}
+  }, {
+    "key": "textareasss",
+    "name": "文本域",
+    "type": "textarea",
+    "description": "文本域测试",
+    "mixed": {}
+  }, {
+    "key": "selectsss",
+    "name": "下拉",
+    "type": "select",
+    "description": "option测试",
+    "mixed": {
+      "select": [{
+        "name": "option1",
+        "value": "option1"
+      }, {
+        "name": "option2",
+        "value": "option2"
+      }, {
+        "name": "option3",
+        "value": "option3"
+      }, {
+        "name": "option4",
+        "value": "option4"
+      }, {
+        "name": "option5",
+        "value": "option5"
+      }]
+    }
+  }, {
+    "key": "mediass",
+    "name": "媒体框",
+    "type": "media",
+    "description": "媒体框测试",
+    "mixed": {
+      "limit": 3
+    }
+  }]
+}

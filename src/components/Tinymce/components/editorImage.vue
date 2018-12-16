@@ -11,7 +11,7 @@
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="https://httpbin.org/post"
+        action="/api/media"
         list-type="picture-card">
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     checkAllSuccess() {
+      console.log(this.listObj)
       return Object.keys(this.listObj).every(item => this.listObj[item].hasSuccess)
     },
     handleSubmit() {
@@ -55,11 +56,14 @@ export default {
       this.dialogVisible = false
     },
     handleSuccess(response, file) {
+      console.log(file)
       const uid = file.uid
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
+        
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file
+          console.log(response)
+          this.listObj[objKeyArr[i]].url = response.src
           this.listObj[objKeyArr[i]].hasSuccess = true
           return
         }

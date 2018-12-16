@@ -1,5 +1,6 @@
 export default {
   route: {
+    entry: 'Index',
     dashboard: 'Panel de control',
     introduction: 'Introducción',
     documentation: 'Documentación',
