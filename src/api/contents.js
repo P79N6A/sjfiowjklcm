@@ -10,7 +10,7 @@ export function getContents(params) {
 
 export function addContents(data) {
   return request({
-    url: '/api/categories',
+    url: '/api/contents',
     method: 'post',
     data
   })

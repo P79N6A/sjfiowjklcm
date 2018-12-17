@@ -293,7 +293,7 @@ export default {
     },
     // 查看数据集合的数据内容
     handleOpen(row) {
-      this.$router.push({ name: "contents", query: { categoryId: row._id } });
+      this.$router.push({ name: "contents", query: { categoryId: row._id}});
     }
   }
 };

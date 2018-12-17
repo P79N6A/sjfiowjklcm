@@ -260,10 +260,10 @@
           </el-select>
         </el-form-item>
         <!-- 媒体数量设定 -->
-        <el-form-item label="数量" v-if="keyTemp.type=='media'">
+        <!-- <el-form-item label="数量" v-if="keyTemp.type=='media'">
           <el-input-number v-model="keyTemp.mixed.limit" :min="1" :max="10" label="描述文字"></el-input-number>
           <div>限制在扩展信息中可添加的媒体数量</div>
-        </el-form-item>
+        </el-form-item> -->
         <!-- 选择菜单设置 -->
         <el-form-item label="数量" v-if="keyTemp.type=='select'||keyTemp.type=='checkbox'">
           <el-table
@@ -371,7 +371,7 @@ export default {
         type: "",
         description: "",
         mixed: {
-          limit: 3,
+          // limit: 3,
           select: []
         }
       },
@@ -381,10 +381,10 @@ export default {
           name: "文本框",
           value: "text"
         },
-        // {
-        //   name: "数字框",
-        //   value: "number"
-        // },
+        {
+          name: "数字框",
+          value: "number"
+        },
         {
           name: "日期输入框",
           value: "date"
@@ -398,12 +398,16 @@ export default {
           value: "checkbox"
         },
         {
-          name: "下拉/单选",
+          name: "下拉选择列表",
           value: "select"
         },
         {
-          name: "媒体框",
+          name: "文件上传框",
           value: "media"
+        },
+        {
+          name: "颜色选择器",
+          value: "color"
         }
       ],
       // 正在编辑的键，更新键用到
@@ -541,9 +545,12 @@ export default {
     },
     /*=====键值相关=====*/
     getKeyName(key) {
-      return this.keyType.some(item => {
-        return item.value == key;
+       const keyName=this.keyType.find(item => {
+        if(item.value==key)
+        return item.value==key;
       });
+      console.log(keyName.name)
+      return keyName.name
     },
     // 点击新增键按钮
     handleCreateKey() {
@@ -583,11 +590,11 @@ export default {
       }
       // 删除多余数据
       if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        delete newKeyTemp.mixed.limit;
+        // delete newKeyTemp.mixed.limit;
       } else if (newKeyTemp.type == "media") {
         delete newKeyTemp.mixed.select;
       } else {
-        delete newKeyTemp.mixed.limit;
+        // delete newKeyTemp.mixed.limit;
         delete newKeyTemp.mixed.select;
       }
       this.modelTemp.extensions.push(newKeyTemp);
@@ -599,11 +606,11 @@ export default {
       let newKeyTemp = Object.assign({}, this.keyTemp);
       // 数据调整
       if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        delete newKeyTemp.mixed.limit;
+        // delete newKeyTemp.mixed.limit;
       } else if (newKeyTemp.type == "media") {
         delete newKeyTemp.mixed.select;
       } else {
-        delete newKeyTemp.mixed.limit;
+        // delete newKeyTemp.mixed.limit;
         delete newKeyTemp.mixed.select;
       }
       // 更新键值
@@ -625,7 +632,7 @@ export default {
         type: "",
         description: "",
         mixed: {
-          limit: 3,
+          // limit: 3,
           select: []
         }
       };

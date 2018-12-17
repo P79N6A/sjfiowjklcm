@@ -56,15 +56,35 @@ export default {
       this.dialogVisible = false
     },
     handleSuccess(response, file) {
-      console.log(file)
       const uid = file.uid
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          console.log(response)
-          this.listObj[objKeyArr[i]].url = response.src
+          let canvas = document.createElement('canvas')
+          const ctx = canvas.getContext('2d')
+          const img = new Image()
+          const $this=this
+          // 图片必须设置，才会带cookie过去，否则验证码不起作用
+          img.crossOrigin = 'use-credentials'
+          img.crossOrigin = '';
+          img.onload = () => {
+            canvas.height = img.height
+            canvas.width = img.width
+            ctx.drawImage(img, 0, 0)
+            console.log(canvas.toDataURL('image/png'))
+            this.listObj[objKeyArr[i]].url = canvas.toDataURL('image/png')
+            canvas = null
+            // 返回字符串化的数据
+          }
+          img.onerror=(err)=>{
+            console.log('err')
+            console.log(err)
+          }
+          // 设置链接
           this.listObj[objKeyArr[i]].hasSuccess = true
+          img.src ='http://localhost:3000'+ response.src
+          // this.listObj[objKeyArr[i]].url = response.src
           return
         }
       }

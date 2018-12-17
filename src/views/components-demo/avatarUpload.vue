@@ -12,8 +12,8 @@
 
     <image-cropper
       v-show="imagecropperShow"
-      :width="640"
-      :height="640"
+      :width="1920"
+      :height="600"
       :key="imagecropperKey"
       url="https://httpbin.org/post"
       lang-type="en"
