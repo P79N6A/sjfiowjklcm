@@ -31,49 +31,49 @@ import nestedRouter from './modules/nested'
   }
 **/
 export const constantRouterMap = [{
-  path: '/redirect',
-  component: Layout,
-  hidden: true,
-  children: [{
-    path: '/redirect/:path*',
-    component: () => import('@/views/redirect/index')
-  }]
-},
-{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
-{
-  path: '/auth-redirect',
-  component: () => import('@/views/login/authredirect'),
-  hidden: true
-},
-{
-  path: '/404',
-  component: () => import('@/views/errorPage/404'),
-  hidden: true
-},
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: '/redirect/:path*',
+      component: () => import('@/views/redirect/index')
+    }]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/auth-redirect',
+    component: () => import('@/views/login/authredirect'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/errorPage/404'),
+    hidden: true
+  },
   // {
   //   path: '/401',
   //   component: () => import('@/views/errorPage/401'),
   //   hidden: true
   // },
-{
-  path: '',
-  component: Layout,
-  redirect: 'entry',
-  children: [{
-    path: 'dashboard',
-    component: () => import('@/views/dashboard/index'),
-    name: 'Dashboard',
-    meta: {
-      title: 'dashboard',
-      icon: 'dashboard',
-      noCache: true
-    }
-  }]
-},
+  {
+    path: '',
+    component: Layout,
+    redirect: 'entry',
+    children: [{
+      path: 'dashboard',
+      component: () => import('@/views/dashboard/index'),
+      name: 'Dashboard',
+      meta: {
+        title: 'dashboard',
+        icon: 'dashboard',
+        noCache: true
+      }
+    }]
+  },
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -89,35 +89,35 @@ export const constantRouterMap = [{
   //     }
   //   }]
   // },
-{
-  path: '/entry',
-  component: () => import('@/views/entry/index'),
-  redirect: '/entry/projects',
-  hidden: true,
-  name: 'entry',
-  meta: {
-    // roles: ['admin', 'editor'] // you can set roles in root nav
-  },
-  children: [{
-    path: 'user',
-    component: () => import('@/views/users/setting'),
-    name: 'UserSetting',
-    meta: {
-      title: 'UserSetting',
-      noCache: true
-    }
-  },
   {
-    path: 'projects',
-    component: () => import('@/views/projects/index'),
-    name: 'UserProjects',
+    path: '/entry',
+    component: () => import('@/views/entry/index'),
+    redirect: '/entry/projects',
+    hidden: true,
+    name: 'entry',
     meta: {
-      title: 'UserProjects',
-      noCache: true
-    }
+      // roles: ['admin', 'editor'] // you can set roles in root nav
+    },
+    children: [{
+        path: 'user',
+        component: () => import('@/views/users/setting'),
+        name: 'UserSetting',
+        meta: {
+          title: 'UserSetting',
+          noCache: true
+        }
+      },
+      {
+        path: 'projects',
+        component: () => import('@/views/projects/index'),
+        name: 'UserProjects',
+        meta: {
+          title: 'UserProjects',
+          noCache: true
+        }
+      }
+    ]
   }
-  ]
-}
   // {
   //   path: '/guide',
   //   component: Layout,
@@ -197,7 +197,23 @@ export const asyncRouterMap = [
       component: () => import('@/views/categories/index'),
       name: 'categories',
       meta: {
-        title: '数据分类',
+        title: '数据集合',
+        icon: 'nested',
+        authorities: [110300, 110301]
+
+      }
+    }]
+  },
+  {
+    path: '/contents',
+    component: Layout,
+    hidden: true,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/contents/index'),
+      name: 'contents',
+      meta: {
+        title: '数据内容',
         icon: 'nested',
         authorities: [110300, 110301]
 
@@ -315,32 +331,32 @@ export const asyncRouterMap = [
       roles: ['admin'] // or you can only set roles in sub nav
     },
     children: [{
-      path: 'list',
-      component: () => import('@/views/layoutPage/LayoutList.vue'),
-      name: 'LayoutList',
-      meta: {
-        title: 'LayoutList',
-        noCache: true
+        path: 'list',
+        component: () => import('@/views/layoutPage/LayoutList.vue'),
+        name: 'LayoutList',
+        meta: {
+          title: 'LayoutList',
+          noCache: true
+        }
+      },
+      {
+        path: 'widget',
+        component: () => import('@/views/layoutPage/LayoutWidget.vue'),
+        name: 'LayoutWidget',
+        meta: {
+          title: 'LayoutWidget',
+          noCache: true
+        }
+      },
+      {
+        path: 'design',
+        component: () => import('@/views/layoutPage/LayoutDesign.vue'),
+        name: 'LayoutDesign',
+        meta: {
+          title: 'LayoutDesign',
+          noCache: true
+        }
       }
-    },
-    {
-      path: 'widget',
-      component: () => import('@/views/layoutPage/LayoutWidget.vue'),
-      name: 'LayoutWidget',
-      meta: {
-        title: 'LayoutWidget',
-        noCache: true
-      }
-    },
-    {
-      path: 'design',
-      component: () => import('@/views/layoutPage/LayoutDesign.vue'),
-      name: 'LayoutDesign',
-      meta: {
-        title: 'LayoutDesign',
-        noCache: true
-      }
-    }
     ]
   },
   {
@@ -374,33 +390,33 @@ export const asyncRouterMap = [
       icon: 'example'
     },
     children: [{
-      path: 'create',
-      component: () => import('@/views/example/create'),
-      name: 'CreateArticle',
-      meta: {
-        title: 'createArticle',
-        icon: 'edit'
-      }
-    },
-    {
-      path: 'edit/:id(\\d+)',
-      component: () => import('@/views/example/edit'),
-      name: 'EditArticle',
-      meta: {
-        title: 'editArticle',
-        noCache: true
+        path: 'create',
+        component: () => import('@/views/example/create'),
+        name: 'CreateArticle',
+        meta: {
+          title: 'createArticle',
+          icon: 'edit'
+        }
       },
-      hidden: true
-    },
-    {
-      path: 'list',
-      component: () => import('@/views/example/list'),
-      name: 'ArticleList',
-      meta: {
-        title: 'articleList',
-        icon: 'list'
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/example/edit'),
+        name: 'EditArticle',
+        meta: {
+          title: 'editArticle',
+          noCache: true
+        },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/example/list'),
+        name: 'ArticleList',
+        meta: {
+          title: 'articleList',
+          icon: 'list'
+        }
       }
-    }
     ]
   },
 
@@ -473,29 +489,29 @@ export const asyncRouterMap = [
       icon: 'excel'
     },
     children: [{
-      path: 'export-excel',
-      component: () => import('@/views/excel/exportExcel'),
-      name: 'ExportExcel',
-      meta: {
-        title: 'exportExcel'
+        path: 'export-excel',
+        component: () => import('@/views/excel/exportExcel'),
+        name: 'ExportExcel',
+        meta: {
+          title: 'exportExcel'
+        }
+      },
+      {
+        path: 'export-selected-excel',
+        component: () => import('@/views/excel/selectExcel'),
+        name: 'SelectExcel',
+        meta: {
+          title: 'selectExcel'
+        }
+      },
+      {
+        path: 'upload-excel',
+        component: () => import('@/views/excel/uploadExcel'),
+        name: 'UploadExcel',
+        meta: {
+          title: 'uploadExcel'
+        }
       }
-    },
-    {
-      path: 'export-selected-excel',
-      component: () => import('@/views/excel/selectExcel'),
-      name: 'SelectExcel',
-      meta: {
-        title: 'selectExcel'
-      }
-    },
-    {
-      path: 'upload-excel',
-      component: () => import('@/views/excel/uploadExcel'),
-      name: 'UploadExcel',
-      meta: {
-        title: 'uploadExcel'
-      }
-    }
     ]
   },
 

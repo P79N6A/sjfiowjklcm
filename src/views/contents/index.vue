@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <h4>jdkasfhlksfjdslkafj</h4>
     <div class="filter-container">
       <el-button
         class="filter-item"
@@ -15,7 +16,7 @@
 
     <el-table
       v-loading="listLoading"
-      :data="categoryList"
+      :data="contentList"
       border
       fit
       highlight-current-row
@@ -23,9 +24,7 @@
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
-      <el-table-column label="目录" prop="path">
-        <template slot-scope="scope">{{ scope.row.path}}/{{ scope.row.name}}.json</template>
-      </el-table-column>
+      <el-table-column label="目录" prop="path"></el-table-column>
       <el-table-column label="内容模型">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.model">{{ scope.row.model.name}}</el-tag>
@@ -41,44 +40,25 @@
       <el-table-column
         :label="$t('table.actions')"
         align="center"
-        width="250"
+        width="230"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
           <el-button-group>
-            <el-tooltip class="item" effect="dark" content="编辑该文件" placement="top-start">
-              <el-button
-                size="mini"
-                type="primary"
-                icon="el-icon-edit"
-                @click="handleUpdate(scope.row)"
-              ></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="查看集合数据内容" placement="top-start">
-              <el-button
-                size="mini"
-                type="danger"
-                icon="el-icon-view"
-                @click="handleOpen(scope.row)"
-              ></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="复制外链地址" placement="top-start">
-              <el-button
-                size="mini"
-                type="danger"
-                icon="el-icon-printer"
-                v-clipboard:copy="`${scope.row.path}/${scope.row.name}.json`"
-                v-clipboard:success="clipboardSuccess"
-              ></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除该数据集合" placement="top-start">
-              <el-button
-                size="mini"
-                type="danger"
-                @click="handleDelete(scope.row)"
-                icon="el-icon-delete"
-              ></el-button>
-            </el-tooltip>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="handleUpdate(scope.row)"
+            >{{ $t('table.edit') }}</el-button>
+            <el-button
+              v-if="scope.row.status!='deleted'"
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.row)"
+            >
+              {{
+              $t('table.delete') }}
+            </el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -103,7 +83,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="外链地址" prop="path">
+        <el-form-item label="外链目录" prop="path">
           <el-input v-model="categoryTemp.path"/>
         </el-form-item>
 
@@ -126,9 +106,14 @@
 </template>
 
 <script>
+import {
+  getContents,
+  addRoles,
+  updateRoleOne,
+  deleteRoleOne
+} from "@/api/contents";
+import { getAuthorities } from "@/api/authorities";
 import { getModels } from "@/api/model";
-import clip from "@/utils/clipboard"; // use clipboard directly
-import clipboard from "@/directive/clipboard/index.js"; // use clipboard by v-directive
 import {
   getCategories,
   addCategories,
@@ -144,14 +129,13 @@ export default {
     Pagination
   },
   directives: {
-    waves,
-    clipboard
+    waves
   },
   data() {
     return {
       authorList: null,
       roleList: null,
-      categoryList: null,
+      contentList: null,
       modelList: null,
       // 栏目模版
       categoryTemp: {
@@ -163,12 +147,9 @@ export default {
 
       total: 0,
       listQuery: {
-        page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: "+id"
+        _id: this.$route.query.categoryId,
+        currentPage: "1",
+        pageSize: "20"
       },
       listLoading: true,
       dialogFormVisible: false,
@@ -181,13 +162,16 @@ export default {
   },
   created() {
     // this.getList()
-    this.getCategories();
+    console.log(this.$route);
+    console.log(this.$router);
+    this.getContents();
   },
   methods: {
     // 查询数据分类列表
-    getCategories() {
+    getContents() {
       this.listLoading = true;
-      getCategories()
+      console.log(this.listQuery);
+      getContents(this.listQuery)
         .then(res => {
           this.categoryList = res.data;
           this.listLoading = false;
@@ -208,7 +192,7 @@ export default {
     addCategories() {
       addCategories(this.categoryTemp)
         .then(res => {
-          this.getCategories();
+          this.getContents();
           this.dialogFormVisible = false;
           this.$notify({
             title: "成功",
@@ -257,7 +241,7 @@ export default {
             type: "success",
             duration: 2000
           });
-          this.getCategories();
+          this.getContents();
         })
         .catch(err => {});
     },
@@ -270,7 +254,7 @@ export default {
       })
         .then(() => {
           deleteCategories(data).then(res => {
-            this.getCategories();
+            this.getContents();
             this.$notify({
               title: "成功",
               message: "删除成功",
@@ -282,18 +266,6 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-    // 复制文件
-    clipboardSuccess() {
-      this.$message({
-        message: "已复制到剪贴板",
-        type: "success",
-        duration: 1500
-      });
-    },
-    // 查看数据集合的数据内容
-    handleOpen(row) {
-      this.$router.push({ name: "contents", query: { categoryId: row._id } });
     }
   }
 };

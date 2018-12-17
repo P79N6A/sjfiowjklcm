@@ -1,18 +1,18 @@
 import request from '@/utils/request'
 
-export function getMedias(query) {
+export function getMedias(params) {
   return request({
     url: '/api/media',
     method: 'get',
-    params: query
+    params: params
   })
 }
 
 export function deleteMedias(data) {
   return request({
     url: '/api/media/' + data._id,
-    method: 'delete',
-    params: data
+    method: 'delete'
+    // params: data
   })
 }
 
