@@ -141,7 +141,7 @@
       </el-table-column>
     </el-table>
     <!-- 内容编辑弹窗 -->
-    <el-dialog class="content-edit" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="900px" :append-to-body='true'>
+    <el-dialog class="content-edit" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="900px" v-if="dialogFormVisible">
       <el-card class="box-card" hover v-if="contentTemp">
         <div slot="header" class="clearfix">
           <span>系统参数--{{isthumbnail}}</span>
