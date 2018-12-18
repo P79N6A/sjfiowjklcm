@@ -18,6 +18,7 @@ import './icons' // icon
 import './errorLog' // error log
 import './permission' // permission control
 import './mock' // simulation data
+import lodash from 'lodash'
 
 import * as filters from './filters' // global filters
 
@@ -30,9 +31,8 @@ Vue.use(Element, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
+Vue.prototype._ = lodash
 Vue.config.productionTip = false
-
 new Vue({
   el: '#app',
   router,
@@ -40,3 +40,4 @@ new Vue({
   i18n,
   render: h => h(App)
 })
+window._ = lodash

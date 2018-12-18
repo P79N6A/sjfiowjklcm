@@ -239,7 +239,8 @@
       :visible.sync="dialogExtendVisible"
       width="500px"
     >
-      <el-form ref="dataFormKey" :model="keyTemp" label-position="right" label-width="50px">
+      {{keyTemp}}
+      <el-form ref="dataFormKey" :model="keyTemp" label-position="right" label-width="80px">
         <el-form-item label="*名称" prop="name">
           <el-input v-model="keyTemp.name"/>
         </el-form-item>
@@ -260,12 +261,14 @@
           </el-select>
         </el-form-item>
         <!-- 媒体数量设定 -->
-        <!-- <el-form-item label="数量" v-if="keyTemp.type=='media'">
-          <el-input-number v-model="keyTemp.mixed.limit" :min="1" :max="10" label="描述文字"></el-input-number>
-          <div>限制在扩展信息中可添加的媒体数量</div>
-        </el-form-item> -->
+        <el-form-item label="宽度" v-if="keyTemp.type=='image'">
+          <el-input-number v-model="keyTemp.mixed.thumbnailSize.width" :min="1" :max="1920"></el-input-number>
+        </el-form-item>
+        <el-form-item label="高度" v-if="keyTemp.type=='image'">
+          <el-input-number v-model="keyTemp.mixed.thumbnailSize.height" :min="1" :max="1920"></el-input-number>
+        </el-form-item>
         <!-- 选择菜单设置 -->
-        <el-form-item label="数量" v-if="keyTemp.type=='select'||keyTemp.type=='checkbox'">
+        <el-form-item label="选项列表" v-if="keyTemp.type=='select'||keyTemp.type=='checkbox'">
           <el-table
             v-loading="listLoading"
             :data="keyTemp.mixed.select"
@@ -371,7 +374,10 @@ export default {
         type: "",
         description: "",
         mixed: {
-          // limit: 3,
+          thumbnailSize: {
+            width: 300,
+            height: 300
+          },
           select: []
         }
       },
@@ -400,6 +406,10 @@ export default {
         {
           name: "下拉选择列表",
           value: "select"
+        },
+        {
+          name: "图片上传框",
+          value: "image"
         },
         {
           name: "文件上传框",
@@ -545,12 +555,10 @@ export default {
     },
     /*=====键值相关=====*/
     getKeyName(key) {
-       const keyName=this.keyType.find(item => {
-        if(item.value==key)
-        return item.value==key;
+      const keyName = this.keyType.find(item => {
+        if (item.value == key) return item.value == key;
       });
-      console.log(keyName.name)
-      return keyName.name
+      return keyName.name;
     },
     // 点击新增键按钮
     handleCreateKey() {
@@ -566,7 +574,18 @@ export default {
       this.dialogKeyStatus = "update";
       this.edittingKey = $index;
       this.dialogExtendVisible = true;
+      this.resetKeyTemp();
       this.keyTemp = Object.assign(this.keyTemp, $row);
+      //模型bug-fixed
+      if (!this.keyTemp.mixed.select) {
+        this.keyTemp.mixed.select = [];
+      }
+      if (!this.keyTemp.mixed.thumbnailSize) {
+        this.keyTemp.mixed.thumbnailSize = {
+          width: 300,
+          height: 300
+        };
+      }
     },
     // 点击删除键按钮
     deleteKey($index) {
@@ -590,11 +609,11 @@ export default {
       }
       // 删除多余数据
       if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        // delete newKeyTemp.mixed.limit;
-      } else if (newKeyTemp.type == "media") {
+        delete newKeyTemp.mixed.thumbnailSize;
+      } else if (newKeyTemp.type == "image") {
         delete newKeyTemp.mixed.select;
       } else {
-        // delete newKeyTemp.mixed.limit;
+        delete newKeyTemp.mixed.thumbnailSize;
         delete newKeyTemp.mixed.select;
       }
       this.modelTemp.extensions.push(newKeyTemp);
@@ -606,11 +625,11 @@ export default {
       let newKeyTemp = Object.assign({}, this.keyTemp);
       // 数据调整
       if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        // delete newKeyTemp.mixed.limit;
-      } else if (newKeyTemp.type == "media") {
+        delete newKeyTemp.mixed.thumbnailSize;
+      } else if (newKeyTemp.type == "image") {
         delete newKeyTemp.mixed.select;
       } else {
-        // delete newKeyTemp.mixed.limit;
+        delete newKeyTemp.mixed.thumbnailSize;
         delete newKeyTemp.mixed.select;
       }
       // 更新键值
@@ -632,7 +651,10 @@ export default {
         type: "",
         description: "",
         mixed: {
-          // limit: 3,
+          thumbnailSize: {
+            width: 300,
+            height: 300
+          },
           select: []
         }
       };

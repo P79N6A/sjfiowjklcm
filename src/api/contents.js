@@ -17,7 +17,7 @@ export function addContents(data) {
 }
 export function updateContents(data) {
   return request({
-    url: '/api/categories/' + data._id,
+    url: '/api/contents/' + data._id,
     method: 'put',
     data
   })

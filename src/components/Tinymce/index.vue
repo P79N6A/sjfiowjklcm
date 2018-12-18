@@ -66,7 +66,9 @@ export default {
   },
   watch: {
     value(val) {
-      if (!this.hasChange && this.hasInit) {
+      // 监听到数据变化，重写内容
+      if (this.hasInit) {
+        // if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
           window.tinymce.get(this.tinymceId).setContent(val || "")
         );
