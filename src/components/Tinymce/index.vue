@@ -68,10 +68,12 @@ export default {
     value(val) {
       // 监听到数据变化，重写内容
       if (this.hasInit) {
-        // if (!this.hasChange && this.hasInit) {
-        this.$nextTick(() =>
-          window.tinymce.get(this.tinymceId).setContent(val || "")
-        );
+        console.log("text-change")
+        if (!this.hasChange && this.hasInit) {
+          this.$nextTick(() =>
+            window.tinymce.get(this.tinymceId).setContent(val || "")
+          );
+        }
       }
     },
     language() {
@@ -80,12 +82,16 @@ export default {
     }
   },
   mounted() {
+    console.log("mounted")
     this.initTinymce();
   },
   activated() {
+    console.log("activated")
     this.initTinymce();
   },
+
   deactivated() {
+    console.log("deactivated")
     this.destroyTinymce();
   },
   destroyed() {

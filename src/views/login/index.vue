@@ -23,6 +23,7 @@
           name="username"
           type="text"
           auto-complete="on"
+          @keyup.enter.native="handleLogin"
         />
       </el-form-item>
 

@@ -25,7 +25,7 @@
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <!-- 渲染系统内置数据 -->
       <el-table-column
-        fixed
+        align="center"
         label="封面"
         prop="thumbnail"
         v-if="modelTemp.system.thumbnail"
@@ -41,8 +41,8 @@
           ></a>
         </template>
       </el-table-column>
-      <el-table-column label="摘要" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
-      <el-table-column label="标签" prop="tags" v-if="modelTemp.system.tags"></el-table-column>
+      <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
+      <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags"></el-table-column>
       <!-- 内容太多了，以缩略图展示 -->
       <el-table-column
         label="内容"
@@ -63,11 +63,42 @@
         </template>
       </el-table-column>
       <!-- 渲染扩展字段 -->
-      <el-table-column :label="extend.name" v-for="(extend,i) in modelTemp.extensions" :key="i">
-        <template slot-scope="scope">
-          <div
-            v-if="(extend.type=='media'||extend.type=='image')&&scope.row.extensions[extend.key]"
-          >{{scope.row.extensions[extend.key].fileName}}</div>
+      <el-table-column :label="extend.name" align="center" v-for="(extend,i) in modelTemp.extensions" :key="i">
+        <template slot-scope="scope" v-if="scope.row.extensions[extend.key]">
+          <!-- 普通多媒体 -->
+          <el-tooltip v-if="extend.type=='media'" class="item" effect="dark" content="访问源文件" placement="top-start">
+            <a
+              target="_blank"
+              :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+            >
+              <svg-icon icon-class="documentation"/>
+              {{scope.row.extensions[extend.key].fileName}}
+            </a>
+          </el-tooltip>
+          <!-- 图片 -->
+          <a
+            target="_blank"
+            v-else-if="extend.type=='image'&&scope.row.extensions[extend.key]._id"
+            :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+            class="img-view"
+            :style="`background-image:url(${cdnurl}${scope.row.extensions[extend.key].src});`"
+          ></a>
+          <!-- 文本域 -->
+          <el-tooltip v-else-if="extend.type=='textarea'" class="item" effect="dark" content="点击查看内容" placement="top-start">
+            <span
+              @click="hadleView(scope.row.extensions[extend.key])"
+              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+            >
+              <svg-icon icon-class="documentation"/>
+            </span>
+          </el-tooltip>
+          <!-- 颜色 -->
+          <el-tooltip v-else-if="extend.type=='color'" class="item" effect="dark" :content="scope.row.extensions[extend.key]" placement="top-start">
+            <span  style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;" :style="{background:scope.row.extensions[extend.key]}">
+            </span>
+          </el-tooltip>
+
           <div v-else>{{scope.row.extensions[extend.key]}}</div>
         </template>
       </el-table-column>
@@ -110,7 +141,7 @@
       </el-table-column>
     </el-table>
     <!-- 内容编辑弹窗 -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="900px">
+    <el-dialog class="content-edit" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="900px" :append-to-body='true'>
       <el-card class="box-card" hover v-if="contentTemp">
         <div slot="header" class="clearfix">
           <span>系统参数--{{isthumbnail}}</span>
@@ -125,7 +156,7 @@
               :before-upload="beforeAvatarUpload"
             >
               <a
-                v-if="contentTemp.thumbnail"
+                v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src"
                 @click="beforeClick('thumbnail',true,true)"
                 class="img-view"
                 style="width:120px;height:120px;display:block;"
@@ -141,7 +172,7 @@
                 @click="beforeClick('thumbnail',true,true)"
               ></i>
             </el-upload>
-            <div class="file-info">
+            <div class="file-info" v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src">
               <!-- <p v-if="contentTemp.thumbnail">文 件 名：{{contentTemp.thumbnail.fileName}}</p> -->
               <p>图片尺寸要求</p>
               <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p>
@@ -266,7 +297,7 @@
                   @click="beforeClick(extend.key,false,false)"
                 ></i>
               </el-upload>
-              <div class="file-info" v-if="contentTemp.extensions[extend.key].src">
+              <div class="file-info" v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src">
                 <p>{{contentTemp.extensions[extend.key].fileName}}</p>
                 <p>
                   <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
@@ -301,7 +332,7 @@
                   @click="beforeClick(extend.key,false,true)"
                 ></i>
               </el-upload>
-              <div class="file-info" v-if="contentTemp.extensions[extend.key].src">
+              <div class="file-info" v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src">
                 <p>图片尺寸要求</p>
                 <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p>
                 <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p>
@@ -704,6 +735,86 @@ export default {
 <style lang="scss">
 .content-container {
   padding: 20px;
+  .img-view {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #eee;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 2;
+  }
+
+  // mac预览
+  .mac {
+    background: url(./img/bg_mac.png) center center no-repeat/100% 100%;
+    width: 100%;
+    height: 729px;
+    overflow-y: hidden;
+    position: relative;
+    .color-picker {
+      position: absolute;
+      text-align: center;
+      line-height: 2;
+      top: 20px;
+      right: 30px;
+    }
+    .content {
+      width: 896px;
+      height: 553px;
+      overflow-y: scroll;
+      margin-top: 64px;
+      margin-left: 167px;
+      padding: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 1305px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+  .iphone {
+    background: url(./img/bg_iphone.png) center center no-repeat/100% 100%;
+    width: 380px;
+    margin: 0 auto;
+    height: 729px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    .color-picker {
+      position: absolute;
+      text-align: center;
+      top: 10px;
+      left: 36px;
+      vertical-align: middle;
+      .color-text {
+        line-height: 36px;
+        vertical-align: middle;
+        float: left;
+        color: #eee;
+        padding-right: 21px;
+      }
+    }
+    .content {
+      width: 338px;
+      height: 673px;
+      overflow-y: scroll;
+      margin-top: 41px;
+      margin-left: 20px;
+      padding: 10px;
+      border-radius: 0 0 20px 30px;
+    }
+    iframe {
+      width: 100%;
+      height: 1305px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+}
+.content-edit{
   .avatar-uploader {
     display: inline-block;
   }
@@ -774,73 +885,6 @@ export default {
   .favicon {
     height: 90px;
     display: block;
-  }
-  // mac预览
-  .mac {
-    background: url(./img/bg_mac.png) center center no-repeat/100% 100%;
-    width: 100%;
-    height: 729px;
-    overflow-y: hidden;
-    position: relative;
-    .color-picker {
-      position: absolute;
-      text-align: center;
-      line-height: 2;
-      top: 20px;
-      right: 30px;
-    }
-    .content {
-      width: 896px;
-      height: 553px;
-      overflow-y: scroll;
-      margin-top: 64px;
-      margin-left: 167px;
-      padding: 10px;
-    }
-    iframe {
-      width: 100%;
-      height: 1305px;
-      margin: 0 auto;
-      display: block;
-    }
-  }
-  .iphone {
-    background: url(./img/bg_iphone.png) center center no-repeat/100% 100%;
-    width: 380px;
-    margin: 0 auto;
-    height: 729px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    position: relative;
-    .color-picker {
-      position: absolute;
-      text-align: center;
-      top: 10px;
-      left: 36px;
-      vertical-align: middle;
-      .color-text {
-        line-height: 36px;
-        vertical-align: middle;
-        float: left;
-        color: #eee;
-        padding-right: 21px;
-      }
-    }
-    .content {
-      width: 338px;
-      height: 673px;
-      overflow-y: scroll;
-      margin-top: 41px;
-      margin-left: 20px;
-      padding: 10px;
-      border-radius: 0 0 20px 30px;
-    }
-    iframe {
-      width: 100%;
-      height: 1305px;
-      margin: 0 auto;
-      display: block;
-    }
   }
 }
 </style>
