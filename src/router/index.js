@@ -283,12 +283,12 @@ export const asyncRouterMap = [
   {
     path: '/codepage',
     component: Layout,
-    alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     redirect: '/codepage/edit',
     meta: {
       icon: 'table',
       title: 'codepage',
-      roles: ['admin'] // or you can only set roles in sub nav
+      // roles: ['admin'] // or you can only set roles in sub nav
     },
     children: [{
       path: 'codeedit',
@@ -323,12 +323,12 @@ export const asyncRouterMap = [
   {
     path: '/layoutpage',
     component: Layout,
-    alwaysShow: true, // will always show the root menu
+    // alwaysShow: true, // will always show the root menu
     redirect: '/layoutpage/list',
     meta: {
       title: 'layoutpage',
       icon: 'table',
-      roles: ['admin'] // or you can only set roles in sub nav
+      // roles: ['admin'] // or you can only set roles in sub nav
     },
     children: [{
         path: 'list',

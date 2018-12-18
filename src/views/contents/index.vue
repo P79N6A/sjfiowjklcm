@@ -398,6 +398,7 @@ import {
   getContents,
   addContents,
   deleteContents,
+  updateContents,
   addRoles,
   updateRoleOne,
   deleteRoleOne
@@ -607,7 +608,7 @@ export default {
     // 更新操作
     updateContents() {
       console.log(this.contentTemp);
-      return;
+      // return;
       updateContents(this.contentTemp)
         .then(res => {
           this.dialogFormVisible = false;
