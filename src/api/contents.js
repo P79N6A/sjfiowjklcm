@@ -25,8 +25,8 @@ export function updateContents(data) {
 
 export function deleteContents(data) {
   return request({
-    url: '/api/categories/' + data._id,
-    method: 'delete',
-    data
+    url: '/api/contents/' + data._id,
+    method: 'delete'
+    // data
   })
 }
