@@ -175,50 +175,123 @@ export const asyncRouterMap = [
   //   ]
   // },
   {
-    path: '/models',
+    path: '/datas',
     component: Layout,
+    meta: {
+      title: '数据管理',
+      icon: 'nested',
+      authorities: [110300, 110301]
+    },
     children: [{
-      path: 'index',
-      component: () => import('@/views/models/index'),
-      name: 'models',
+        path: 'moedls',
+        component: () => import('@/views/models/index'),
+        name: 'models',
+        meta: {
+          title: '数据模型',
+          icon: 'nested',
+          authorities: [110300, 110301]
+
+        }
+      }, {
+        path: 'categories',
+        component: () => import('@/views/categories/index'),
+        name: 'categories',
+        meta: {
+          title: '数据集合',
+          icon: 'nested',
+          authorities: [110300, 110301]
+
+        }
+      },
+      {
+        path: 'index',
+        component: () => import('@/views/contents/index'),
+        name: 'contents',
+        hidden: true,
+        meta: {
+          title: '数据内容',
+          icon: 'nested',
+          authorities: [110300, 110301],
+        }
+      }
+    ]
+  },
+  {
+    path: '/accounts',
+    component: Layout,
+    meta: {
+      title: '账号管理',
+      icon: 'peoples',
+      authorities: [110300, 110301]
+    },
+    children: [{
+      path: 'roles',
+      component: () => import('@/views/roles/index'),
+      name: 'roles',
       meta: {
-        title: '数据模型',
-        icon: 'nested',
-        authorities: [110300, 110301]
+        title: '权限角色',
+        icon: 'password',
+        authorities: [110500, 110501]
+
+      }
+    }, {
+      path: 'users',
+      component: () => import('@/views/users/index'),
+      name: 'users',
+      meta: {
+        title: '后台用户',
+        icon: 'peoples',
+        authorities: [110600, 110601]
 
       }
     }]
   },
   {
-    path: '/categories',
+    path: '/frames',
     component: Layout,
+    // alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '布局管理',
+      icon: 'table'
+      // roles: ['admin'] // or you can only set roles in sub nav
+    },
     children: [{
-      path: 'index',
-      component: () => import('@/views/categories/index'),
-      name: 'categories',
-      meta: {
-        title: '数据集合',
-        icon: 'nested',
-        authorities: [110300, 110301]
-
-      }
-    }]
-  },
-  {
-    path: '/contents',
-    component: Layout,
-    hidden: true,
-    children: [{
-      path: 'index',
-      component: () => import('@/views/contents/index'),
-      name: 'contents',
-      meta: {
-        title: '数据内容',
-        icon: 'nested',
-        authorities: [110300, 110301]
-
-      }
-    }]
+        path: 'index',
+        component: () => import('@/views/frames/index.vue'),
+        name: 'frames',
+        meta: {
+          title: '框架列表',
+          noCache: true
+        }
+      },
+      {
+        path: 'design',
+        component: () => import('@/views/frames/design.vue'),
+        name: 'LayoutDesign',
+        meta: {
+          title: '框架设计',
+          noCache: true
+        }
+      },
+      {
+        path: 'designdnd',
+        component: () => import('@/views/frames/LayoutDesign.vue'),
+        name: 'drag-dnd',
+        meta: {
+          title: '框架设计dnd',
+          noCache: true
+        }
+      },
+      {
+        path: 'widget',
+        component: () => import('@/views/frames/LayoutWidget.vue'),
+        name: 'LayoutWidget',
+        meta: {
+          title: '页面布局',
+          noCache: true
+        }
+      },
+    ]
   },
   {
     path: '/medias',
@@ -250,36 +323,36 @@ export const asyncRouterMap = [
       }
     }]
   },
-  {
-    path: '/users',
-    component: Layout,
-    children: [{
-      path: 'index',
-      component: () => import('@/views/users/index'),
-      name: 'users',
-      meta: {
-        title: '后台用户',
-        icon: 'peoples',
-        authorities: [110600, 110601]
+  // {
+  //   path: '/users',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/users/index'),
+  //     name: 'users',
+  //     meta: {
+  //       title: '后台用户',
+  //       icon: 'peoples',
+  //       authorities: [110600, 110601]
 
-      }
-    }]
-  },
-  {
-    path: '/roles',
-    component: Layout,
-    children: [{
-      path: 'index',
-      component: () => import('@/views/roles/index'),
-      name: 'roles',
-      meta: {
-        title: '权限角色',
-        icon: 'password',
-        authorities: [110500, 110501]
+  //     }
+  //   }]
+  // },
+  // {
+  //   path: '/roles',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/roles/index'),
+  //     name: 'roles',
+  //     meta: {
+  //       title: '权限角色',
+  //       icon: 'password',
+  //       authorities: [110500, 110501]
 
-      }
-    }]
-  },
+  //     }
+  //   }]
+  // },
   {
     path: '/codepage',
     component: Layout,
@@ -287,7 +360,7 @@ export const asyncRouterMap = [
     redirect: '/codepage/edit',
     meta: {
       icon: 'table',
-      title: 'codepage',
+      title: 'codepage'
       // roles: ['admin'] // or you can only set roles in sub nav
     },
     children: [{
@@ -320,45 +393,46 @@ export const asyncRouterMap = [
       }
     }]
   },
-  {
-    path: '/layoutpage',
-    component: Layout,
-    // alwaysShow: true, // will always show the root menu
-    redirect: '/layoutpage/list',
-    meta: {
-      title: 'layoutpage',
-      icon: 'table',
-      // roles: ['admin'] // or you can only set roles in sub nav
-    },
-    children: [{
-        path: 'list',
-        component: () => import('@/views/layoutPage/LayoutList.vue'),
-        name: 'LayoutList',
-        meta: {
-          title: 'LayoutList',
-          noCache: true
-        }
-      },
-      {
-        path: 'widget',
-        component: () => import('@/views/layoutPage/LayoutWidget.vue'),
-        name: 'LayoutWidget',
-        meta: {
-          title: 'LayoutWidget',
-          noCache: true
-        }
-      },
-      {
-        path: 'design',
-        component: () => import('@/views/layoutPage/LayoutDesign.vue'),
-        name: 'LayoutDesign',
-        meta: {
-          title: 'LayoutDesign',
-          noCache: true
-        }
-      }
-    ]
-  },
+
+  // {
+  //   path: '/layoutpage',
+  //   component: Layout,
+  //   // alwaysShow: true, // will always show the root menu
+  //   redirect: '/layoutpage/list',
+  //   meta: {
+  //     title: 'layoutpage',
+  //     icon: 'table',
+  //     // roles: ['admin'] // or you can only set roles in sub nav
+  //   },
+  //   children: [{
+  //       path: 'list',
+  //       component: () => import('@/views/layoutPage/LayoutList.vue'),
+  //       name: 'LayoutList',
+  //       meta: {
+  //         title: 'LayoutList',
+  //         noCache: true
+  //       }
+  //     },
+  //     {
+  //       path: 'widget',
+  //       component: () => import('@/views/layoutPage/LayoutWidget.vue'),
+  //       name: 'LayoutWidget',
+  //       meta: {
+  //         title: 'LayoutWidget',
+  //         noCache: true
+  //       }
+  //     },
+  //     {
+  //       path: 'design',
+  //       component: () => import('@/views/layoutPage/LayoutDesign.vue'),
+  //       name: 'LayoutDesign',
+  //       meta: {
+  //         title: 'LayoutDesign',
+  //         noCache: true
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: '/icon',
     component: Layout,

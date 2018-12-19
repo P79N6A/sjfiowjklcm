@@ -68,7 +68,6 @@ export default {
     value(val) {
       // 监听到数据变化，重写内容
       if (this.hasInit) {
-        console.log("text-change")
         if (!this.hasChange && this.hasInit) {
           this.$nextTick(() =>
             window.tinymce.get(this.tinymceId).setContent(val || "")
@@ -82,16 +81,13 @@ export default {
     }
   },
   mounted() {
-    console.log("mounted")
     this.initTinymce();
   },
   activated() {
-    console.log("activated")
     this.initTinymce();
   },
 
   deactivated() {
-    console.log("deactivated")
     this.destroyTinymce();
   },
   destroyed() {
@@ -185,7 +181,9 @@ export default {
       arr.forEach(v => {
         window.tinymce
           .get(_this.tinymceId)
-          .insertContent(`<img class="wscnph" src="${v.url}" >`);
+          .insertContent(
+            `<img class="wscnph" src="${v.url}" style="max-width:100%;"> `
+          );
       });
     }
   }

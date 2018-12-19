@@ -229,7 +229,7 @@
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button
           type="primary"
-          @click="dialogStatus==='create'?createModel():updateModel(modelTemp)"
+          @click="dialogStatus==='create'?createModel():updateModel()"
         >{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
@@ -239,7 +239,6 @@
       :visible.sync="dialogExtendVisible"
       width="500px"
     >
-      {{keyTemp}}
       <el-form ref="dataFormKey" :model="keyTemp" label-position="right" label-width="80px">
         <el-form-item label="*名称" prop="name">
           <el-input v-model="keyTemp.name"/>
@@ -516,8 +515,8 @@ export default {
         })
         .catch(err => {});
     },
-    updateModel(data) {
-      updateModels(data)
+    updateModel() {
+      updateModels(this.modelTemp)
         .then(res => {
           this.dialogFormVisible = false;
           this.getModels();

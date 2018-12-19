@@ -41,8 +41,13 @@
           ></a>
         </template>
       </el-table-column>
+
       <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
-      <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags"></el-table-column>
+      <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
+        <template slot-scope="scope">
+          <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
+        </template>
+      </el-table-column>
       <!-- 内容太多了，以缩略图展示 -->
       <el-table-column
         label="内容"
@@ -63,43 +68,86 @@
         </template>
       </el-table-column>
       <!-- 渲染扩展字段 -->
-      <el-table-column :label="extend.name" align="center" v-for="(extend,i) in modelTemp.extensions" :key="i">
-        <template slot-scope="scope" v-if="scope.row.extensions[extend.key]">
-          <!-- 普通多媒体 -->
-          <el-tooltip v-if="extend.type=='media'" class="item" effect="dark" content="访问源文件" placement="top-start">
-            <a
-              target="_blank"
-              :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+      <el-table-column
+        :label="extend.name"
+        align="center"
+        v-for="(extend,i) in modelTemp.extensions"
+        :key="i"
+      >
+        <template slot-scope="scope">
+          <div
+            v-if="scope.row.extensions[extend.key]&&(extend.type=='media'||extend.type=='image')"
+          >
+            <!-- 普通多媒体 -->
+            <el-tooltip
+              v-if="extend.type=='media'&&scope.row.extensions[extend.key].src"
+              class="item"
+              effect="dark"
+              content="访问源文件"
+              placement="top-start"
             >
-              <svg-icon icon-class="documentation"/>
-              {{scope.row.extensions[extend.key].fileName}}
-            </a>
-          </el-tooltip>
-          <!-- 图片 -->
-          <a
-            target="_blank"
-            v-else-if="extend.type=='image'&&scope.row.extensions[extend.key]._id"
-            :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
-            class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.extensions[extend.key].src});`"
-          ></a>
-          <!-- 文本域 -->
-          <el-tooltip v-else-if="extend.type=='textarea'" class="item" effect="dark" content="点击查看内容" placement="top-start">
-            <span
-              @click="hadleView(scope.row.extensions[extend.key])"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              <a
+                target="_blank"
+                :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+                <!-- {{scope.row.extensions[extend.key]}} -->
+                {{scope.row.extensions[extend.key].fileName}}
+              </a>
+            </el-tooltip>
+            <!-- 图片 -->
+            <el-tooltip
+              v-else-if="extend.type=='image'&&scope.row.extensions[extend.key].src"
+              class="item"
+              effect="dark"
+              content="访问源文件"
+              placement="top-start"
             >
-              <svg-icon icon-class="documentation"/>
-            </span>
-          </el-tooltip>
-          <!-- 颜色 -->
-          <el-tooltip v-else-if="extend.type=='color'" class="item" effect="dark" :content="scope.row.extensions[extend.key]" placement="top-start">
-            <span  style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;" :style="{background:scope.row.extensions[extend.key]}">
-            </span>
-          </el-tooltip>
-
-          <div v-else>{{scope.row.extensions[extend.key]}}</div>
+              <a
+                target="_blank"
+                :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+                class="img-view"
+                :style="`background-image:url(${cdnurl}${scope.row.extensions[extend.key].src});`"
+              ></a>
+            </el-tooltip>
+          </div>
+          <div v-else>
+            <!-- 文本域 -->
+            <el-tooltip
+              v-if="extend.type=='textarea'"
+              class="item"
+              effect="dark"
+              content="点击查看内容"
+              placement="top-start"
+            >
+              <span
+                @click="hadleView(scope.row.extensions[extend.key])"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+              </span>
+            </el-tooltip>
+            <!-- 颜色 -->
+            <el-tooltip
+              v-else-if="extend.type=='color'"
+              class="item"
+              effect="dark"
+              :content="scope.row.extensions[extend.key]"
+              placement="top-start"
+            >
+              <span
+                style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
+                :style="{background:scope.row.extensions[extend.key]}"
+              ></span>
+            </el-tooltip>
+            <!-- 时间 -->
+            <div
+              v-else-if="extend.type=='date'"
+            >{{scope.row.extensions[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
+            <!-- 其他文本 -->
+            <div v-else>{{scope.row.extensions[extend.key]}}</div>
+          </div>
         </template>
       </el-table-column>
       <!-- 操作部分 -->
@@ -120,14 +168,14 @@
                 @click="handleUpdate(scope.row)"
               ></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="预览该详情" placement="top-start">
+            <!-- <el-tooltip class="item" effect="dark" content="预览该详情" placement="top-start">
               <el-button
                 size="mini"
                 type="danger"
                 icon="el-icon-view"
                 @click="handleOpen(`${cdnurl}${scope.row.src}`)"
               ></el-button>
-            </el-tooltip>
+            </el-tooltip>-->
             <el-tooltip class="item" effect="dark" content="删除该数据" placement="top-start">
               <el-button
                 size="mini"
@@ -140,8 +188,14 @@
         </template>
       </el-table-column>
     </el-table>
-    <!-- 内容编辑弹窗 -->
-    <el-dialog class="content-edit" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="900px" v-if="dialogFormVisible">
+    <!-- 内容编辑弹窗,必须用v-if，促发文本域编辑器的重新渲染，可能会有其他问题，后续排查 -->
+    <el-dialog
+      class="content-edit"
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      width="900px"
+      v-if="dialogFormVisible"
+    >
       <el-card class="box-card" hover v-if="contentTemp">
         <div slot="header" class="clearfix">
           <span>系统参数--{{isthumbnail}}</span>
@@ -190,6 +244,7 @@
           </el-form-item>
           <el-form-item label="标签" prop="tags" v-if="modelTemp.system.tags">
             <el-input v-model="contentTemp.tags"/>
+            <div>标签以空格分开</div>
           </el-form-item>
           <el-form-item label="内容" prop="content">
             <tinymce :height="400" v-model="contentTemp.content"/>
@@ -297,7 +352,10 @@
                   @click="beforeClick(extend.key,false,false)"
                 ></i>
               </el-upload>
-              <div class="file-info" v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src">
+              <div
+                class="file-info"
+                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+              >
                 <p>{{contentTemp.extensions[extend.key].fileName}}</p>
                 <p>
                   <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
@@ -332,7 +390,10 @@
                   @click="beforeClick(extend.key,false,true)"
                 ></i>
               </el-upload>
-              <div class="file-info" v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src">
+              <div
+                class="file-info"
+                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+              >
                 <p>图片尺寸要求</p>
                 <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p>
                 <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p>
@@ -598,6 +659,9 @@ export default {
     handleUpdate(row) {
       this.resetContentTemp();
       _.mergeWith(this.contentTemp, row, customizer);
+      if (this.contentTemp.tags) {
+        this.contentTemp.tags = this.contentTemp.tags.join(" ");
+      }
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -815,7 +879,7 @@ export default {
     }
   }
 }
-.content-edit{
+.content-edit {
   .avatar-uploader {
     display: inline-block;
   }
