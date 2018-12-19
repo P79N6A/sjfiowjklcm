@@ -2,12 +2,13 @@
   <div class="frames-container">
     <el-card class="box-card">
       <div slot="header" class="cfx">
-        <span>卡片名称</span>
+        <span>框架列表</span>
       </div>
       <div class="frameList cfx">
         <div class="frames" v-for="(item,i) in frameList" :key="i">
           <div class="frames-content">
             <div>
+              <!-- 操作按钮区域 -->
               <el-button-group>
                 <el-button
                   type="primary"
@@ -25,8 +26,7 @@
             </div>
             <h3>{{item.name}}</h3>
             <div class="show" v-for="(block,i) in item.value" :key="i">
-              <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
-                <!-- 区块操作按钮 -->
+              <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :style="{width:`${row.style.width*100/1920}%`}">
                 <!-- 行区域 -->
                 <el-col
                   v-for="(col,j) in row.cols"
@@ -46,7 +46,7 @@
       </div>
       <div class="bottom cfx">
         <router-link :to="{ name: 'frameDesign'}">
-          <el-button icon="el-icon-plus" type="primary">添加布局</el-button>
+          <el-button icon="el-icon-plus" type="primary">添加框架</el-button>
         </router-link>
       </div>
     </el-card>
@@ -88,7 +88,7 @@ export default {
             this.getFrames();
             this.$notify({
               title: "成功",
-              message: "删除成功",
+              message: "操作成功",
               type: "success",
               duration: 2000
             });
@@ -97,13 +97,6 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-    back() {
-      if (this.$route.query.noGoBack) {
-        this.$router.push({ path: "/dashboard" });
-      } else {
-        this.$router.go(-1);
-      }
     }
   }
 };
@@ -117,9 +110,13 @@ export default {
     justify-content: start;
     flex-wrap: wrap;
     .frames {
-      width: 20%;
+      width: 25%;
       text-align: center;
       padding: 6px;
+      .rows{
+        background:#eee;
+        margin-bottom:2px;
+      }
       .frames-content {
         padding: 6px;
         display: block;

@@ -268,29 +268,30 @@ export const asyncRouterMap = [
         path: 'design',
         component: () => import('@/views/frames/design.vue'),
         name: 'frameDesign',
+        hidden: true,
         meta: {
           title: '框架设计',
           noCache: true
         }
       },
+      // {
+      //   path: 'designdnd',
+      //   component: () => import('@/views/frames/LayoutDesign.vue'),
+      //   name: 'drag-dnd',
+      //   meta: {
+      //     title: '框架设计dnd',
+      //     noCache: true
+      //   }
+      // },
       {
-        path: 'designdnd',
-        component: () => import('@/views/frames/LayoutDesign.vue'),
-        name: 'drag-dnd',
-        meta: {
-          title: '框架设计dnd',
-          noCache: true
-        }
-      },
-      {
-        path: 'widget',
-        component: () => import('@/views/frames/LayoutWidget.vue'),
-        name: 'LayoutWidget',
+        path: 'layout',
+        component: () => import('@/views/layouts/index.vue'),
+        name: 'layout',
         meta: {
           title: '页面布局',
           noCache: true
         }
-      },
+      }
     ]
   },
   {
