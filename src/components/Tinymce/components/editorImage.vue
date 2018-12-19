@@ -72,7 +72,6 @@ export default {
             canvas.height = img.height
             canvas.width = img.width
             ctx.drawImage(img, 0, 0)
-            console.log(canvas.toDataURL('image/png'))
             this.listObj[objKeyArr[i]].url = canvas.toDataURL('image/png')
             canvas = null
             // 返回字符串化的数据
