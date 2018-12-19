@@ -86,7 +86,8 @@ div:focus {
   display: block;
 }
 
-.clearfix {
+.clearfix,
+.cfx {
   &:after {
     visibility: hidden;
     display: block;

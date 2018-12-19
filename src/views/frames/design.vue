@@ -92,7 +92,13 @@
 </template>
 
 <script>
-import { getFrames, addFrames, deleteFrames, updateFrames } from "@/api/frames";
+import {
+  getFramesOne,
+  getFrames,
+  addFrames,
+  deleteFrames,
+  updateFrames
+} from "@/api/frames";
 
 import Sortable from "sortablejs";
 import StyleEdit from "./components/StyleEdit";
@@ -109,6 +115,7 @@ export default {
       },
       EditStyleShow: false,
       frameTemp: {
+        _id: "",
         name: "",
         device: "",
         value: [
@@ -285,16 +292,35 @@ export default {
     };
   },
   mounted() {
-    this.colMoveSet();
+    console.log(this.$route);
+    if (this.$route.query.frameId) {
+      this.getFrame({ _id: this.$route.query.frameId });
+    } else {
+      this.colMoveSet();
+    }
   },
   methods: {
     addFrames() {
+      this.frameTemp.value = this.layoutData;
       addFrames(this.frameTemp)
         .then(res => {})
         .catch(err => {});
     },
-    updateFrame() {},
-
+    updateFrame() {
+      this.frameTemp.value = this.layoutData;
+      updateFrames(this.frameTemp)
+        .then(res => {})
+        .catch(err => {});
+    },
+    getFrame(data) {
+      getFramesOne(data)
+        .then(res => {
+          this.frameTemp = res.data;
+          this.layoutData = res.data.value;
+          this.colMoveSet();
+        })
+        .catch(err => {});
+    },
     changeStyle(val) {
       console.log(val);
     },
@@ -560,15 +586,6 @@ export default {
         this.colMoveSet();
       });
     },
-    back() {
-      if (this.$route.query.noGoBack) {
-        this.$router.push({
-          path: "/dashboard"
-        });
-      } else {
-        this.$router.go(-1);
-      }
-    },
     setSortBlock() {
       const el = document.querySelectorAll(".drag-box")[0];
       Sortable.create(el, {
@@ -579,7 +596,7 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         onEnd: evt => {
-          // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
+          is.layoutData.splice(evt.oldIndex, 1)[0];
           // this.layoutData.splice(evt.newIndex, 0, targetRow)
           // this.$nextTick(() => {
           // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]

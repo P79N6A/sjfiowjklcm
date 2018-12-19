@@ -267,7 +267,7 @@ export const asyncRouterMap = [
       {
         path: 'design',
         component: () => import('@/views/frames/design.vue'),
-        name: 'LayoutDesign',
+        name: 'frameDesign',
         meta: {
           title: '框架设计',
           noCache: true

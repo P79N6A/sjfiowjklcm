@@ -2,11 +2,16 @@ import request from '@/utils/request'
 
 export function getFrames() {
   return request({
-    url: '/api/frames?type=content',
+    url: '/api/frames',
     method: 'get'
   })
 }
-
+export function getFramesOne(data) {
+  return request({
+    url: '/api/frames/' + data._id,
+    method: 'get'
+  })
+}
 export function addFrames(data) {
   return request({
     url: '/api/frames',
@@ -14,6 +19,7 @@ export function addFrames(data) {
     data
   })
 }
+
 export function updateFrames(data) {
   return request({
     url: '/api/frames/' + data._id,
@@ -26,6 +32,5 @@ export function deleteFrames(data) {
   return request({
     url: '/api/frames/' + data._id,
     method: 'delete',
-    data
   })
 }
