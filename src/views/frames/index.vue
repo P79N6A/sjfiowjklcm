@@ -1,54 +1,108 @@
 <template>
   <div class="frames-container">
     <el-card class="box-card">
-      <div slot="header" class="cfx">
-        <span>框架列表</span>
-      </div>
-      <div class="frameList cfx">
-        <div class="frames" v-for="(item,i) in frameList" :key="i">
-          <div class="frames-content">
-            <div>
-              <!-- 操作按钮区域 -->
-              <el-button-group>
-                <el-button
-                  type="primary"
-                  round
-                  icon="el-icon-edit"
-                  @click="$router.push({ name: 'frameDesign', query: { frameId: item._id}})"
-                >编辑</el-button>
-                <el-button
-                  type="danger"
-                  round
-                  icon="el-icon-delete"
-                  @click="deleteFrame(item._id)"
-                >删除</el-button>
-              </el-button-group>
-            </div>
-            <h3>{{item.name}}</h3>
-            <div class="show" v-for="(block,i) in item.value" :key="i">
-              <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :style="{width:`${row.style.width*100/1920}%`}">
-                <!-- 行区域 -->
-                <el-col
-                  v-for="(col,j) in row.cols"
-                  :span="col.width"
-                  :key="i+'-'+r+'-'+j"
-                  class="cols"
-                >
-                  <!-- 格子区域 -->
-                  <div>
-                    <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+      <el-tabs type="border-card" v-model="frameType">
+        <el-tab-pane label="整站框架" name="layout">
+          <div class="frameList cfx">
+            <div class="frames" v-for="(item,i) in frameList" :key="i">
+              <div class="frames-content">
+                <div>
+                  <!-- 操作按钮区域 -->
+                  <el-button-group>
+                    <el-button
+                      type="primary"
+                      round
+                      icon="el-icon-edit"
+                      @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'layout'}})"
+                    >编辑</el-button>
+                    <el-button
+                      type="danger"
+                      round
+                      icon="el-icon-delete"
+                      @click="deleteFrame(item._id)"
+                    >删除</el-button>
+                  </el-button-group>
+                </div>
+                <h3>{{item.name}}</h3>
+                <div class="show" v-for="(block,i) in item.value" :key="i">
+                  <div v-if="block.isPageView">
+                    <div class="page-view">
+                      <img src="./img/ico-page-view.png">
+                      <div>页面内容展示区域</div>
+                    </div>
                   </div>
-                </el-col>
-              </el-row>
+                  <el-row v-else v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
+                    <!-- 行区域 -->
+                    <el-col
+                      v-for="(col,j) in row.cols"
+                      :span="col.width"
+                      :key="i+'-'+r+'-'+j"
+                      class="cols"
+                    >
+                      <!-- 格子区域 -->
+                      <div>
+                        <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="bottom cfx">
-        <router-link :to="{ name: 'frameDesign'}">
-          <el-button icon="el-icon-plus" type="primary">添加框架</el-button>
-        </router-link>
-      </div>
+          <div class="bottom cfx">
+            <router-link :to="{ name: 'frameDesign',query:{frameType:'layout'}}">
+              <el-button icon="el-icon-plus" type="primary">添加框架</el-button>
+            </router-link>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="页面框架" name="page">
+          <div class="frameList cfx">
+            <div class="frames" v-for="(item,i) in frameList" :key="i">
+              <div class="frames-content">
+                <div>
+                  <!-- 操作按钮区域 -->
+                  <el-button-group>
+                    <el-button
+                      type="primary"
+                      round
+                      icon="el-icon-edit"
+                      @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'page'}})"
+                    >编辑</el-button>
+                    <el-button
+                      type="danger"
+                      round
+                      icon="el-icon-delete"
+                      @click="deleteFrame(item._id)"
+                    >删除</el-button>
+                  </el-button-group>
+                </div>
+                <h3>{{item.name}}</h3>
+                <div class="show" v-for="(block,i) in item.value" :key="i">
+                  <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
+                    <!-- 行区域 -->
+                    <el-col
+                      v-for="(col,j) in row.cols"
+                      :span="col.width"
+                      :key="i+'-'+r+'-'+j"
+                      class="cols"
+                    >
+                      <!-- 格子区域 -->
+                      <div>
+                        <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom cfx">
+            <router-link :to="{ name: 'frameDesign',query:{frameType:'page'}}">
+              <el-button icon="el-icon-plus" type="primary">添加框架</el-button>
+            </router-link>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </el-card>
   </div>
 </template>
@@ -59,7 +113,8 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      frameList: null
+      frameList: null,
+      frameType: "layout"
     };
   },
   created() {
@@ -67,8 +122,9 @@ export default {
   },
   methods: {
     getFrames() {
-      getFrames()
+      getFrames({ type: this.frameType })
         .then(res => {
+          console.log(res.data);
           this.frameList = res.data;
         })
         .catch(err => {});
@@ -94,6 +150,13 @@ export default {
           console.log(err);
         });
     }
+  },
+  watch: {
+    frameType(val) {
+      if (val) {
+        this.getFrames();
+      }
+    }
   }
 };
 </script>
@@ -109,9 +172,9 @@ export default {
       width: 25%;
       text-align: center;
       padding: 6px;
-      .rows{
-        background:#eee;
-        margin-bottom:2px;
+      .rows {
+        background: #eee;
+        margin-bottom: 2px;
       }
       .frames-content {
         padding: 6px;
@@ -133,6 +196,16 @@ export default {
     border-top: solid 1px #ebeef5;
     margin-top: 20px;
     padding-top: 20px;
+  }
+  .page-view {
+    background: #e4e7ed;
+    font-size: 14px;
+    flex-direction: column;
+    // height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
   }
 }
 </style>

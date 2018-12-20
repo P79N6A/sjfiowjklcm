@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getLayouts() {
+export function getLayouts(data) {
   return request({
     url: '/api/layouts',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 export function getLayoutsOne(data) {

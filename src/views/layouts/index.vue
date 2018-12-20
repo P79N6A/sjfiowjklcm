@@ -1,129 +1,203 @@
 <template>
   <div class="layouts-container">
     <el-card class="box-card">
-      <div slot="header" class="cfx">
-        <span>布局列表</span>
-      </div>
-      <el-table v-loading="listLoading" :data="layoutList" border fit highlight-current-row style="width: 100%;">
-        <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
-        <el-table-column label="名称" prop="name"></el-table-column>
-        <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
-          <template slot-scope="scope">
-            <el-button-group>
-              <el-button type="primary" size="mini" @click="$router.push({ name: 'layoutDesign', query: { layoutId: scope.row._id}})">{{ $t('table.edit') }}</el-button>
-              <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleDelete(scope.row)">
-                {{
-                $t('table.delete') }}
-              </el-button>
-            </el-button-group>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="bottom cfx">
-        <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
-      </div>
-    </el-card>
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="800px">
-      <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
-        <el-form-item label="*布局名称" prop="name">
-          <el-input v-model="layoutTemp.name" />
-        </el-form-item>
-        <el-form-item label="*布局终端" prop="device">
-          <el-select v-model="layoutTemp.device" placeholder="请选择框架适用终端">
-            <el-option label="PC端" value="pc"></el-option>
-            <el-option label="MOBILE端" value="MOBILE"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="*选择框架" prop="value">
-          <div class="frameList cfx" v-if="!layoutTemp.value">
-            <div class="frames" v-for="(item,i) in frameList" :key="i" :class="{active:selectedFrameId==item._id}"
-              @click="selectFrame(item)">
+      <el-tabs type="border-card" v-model="layoutType">
+        <el-tab-pane label="整站布局" name="layout">
+          <div class="layoutList cfx">
+            <div class="frames" v-for="(item,i) in layoutList" :key="i">
               <div class="frames-content">
+                <div>
+                  <!-- 操作按钮区域 -->
+                  <el-button-group>
+                    <el-button
+                      type="primary"
+                      round
+                      icon="el-icon-edit"
+                      @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                    >编辑</el-button>
+                    <el-button
+                      type="danger"
+                      round
+                      icon="el-icon-delete"
+                      @click="handleDelete(item)"
+                    >删除</el-button>
+                  </el-button-group>
+                </div>
                 <h3>{{item.name}}</h3>
-                <div class="show" v-for="(block,i) in item.value" :key="i">
-                  <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :style="{width:`${row.style.width*100/1920}%`}">
-                    <!-- 行区域 -->
-                    <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
-                      <!-- 格子区域 -->
-                      <div>
-                        <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
-                      </div>
-                    </el-col>
-                  </el-row>
+                <div>
+                  <img src="/favicon.ico">
                 </div>
               </div>
             </div>
           </div>
-          <div v-else>
-            <el-button @click="handleReset">重置</el-button>
+          <div class="bottom cfx">
+            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加框架</el-button>
           </div>
-        </el-form-item>
-
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createLayout():updateLayout()">{{ $t('table.confirm')
-          }}</el-button>
-      </div>
-    </el-dialog>
+        </el-tab-pane>
+        <el-tab-pane label="页面布局" name="page">
+          <div class="layoutList cfx">
+            <div class="frames" v-for="(item,i) in layoutList" :key="i">
+              <div class="frames-content">
+                <div>
+                  <!-- 操作按钮区域 -->
+                  <el-button-group>
+                    <el-button
+                      type="primary"
+                      round
+                      icon="el-icon-edit"
+                      @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                    >编辑</el-button>
+                    <el-button
+                      type="danger"
+                      round
+                      icon="el-icon-delete"
+                      @click="handleDelete(item)"
+                    >删除</el-button>
+                  </el-button-group>
+                </div>
+                <h3>{{item.name}}</h3>
+                <div>
+                  <img src="/favicon.ico">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom cfx">
+            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加框架</el-button>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+      <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="800px">
+        <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
+          <el-form-item label="*布局名称" prop="name">
+            <el-input v-model="layoutTemp.name"/>
+          </el-form-item>
+          <el-form-item label="*布局终端" prop="device">
+            <el-select v-model="layoutTemp.device" placeholder="请选择框架适用终端">
+              <el-option label="PC端" value="pc"></el-option>
+              <el-option label="MOBILE端" value="MOBILE"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="*选择框架" prop="value">
+            <div class="layoutList cfx">
+              <div
+                class="frames"
+                style="width:50%;"
+                v-for="(item,i) in framesList"
+                :key="i"
+                :class="{active:selectedFrameId==item._id}"
+                @click="selectFrame(item)"
+              >
+                <div class="frames-content">
+                  <h3>{{item.name}}</h3>
+                  <div class="show" v-for="(block,i) in item.value" :key="i">
+                    <div v-if="block.isPageView">
+                      <div class="page-view">
+                        <img src="./img/ico-page-view.png">
+                        <div>页面内容展示区域</div>
+                      </div>
+                    </div>
+                    <el-row v-else v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
+                      <el-col
+                        v-for="(col,j) in row.cols"
+                        :span="col.width"
+                        :key="i+'-'+r+'-'+j"
+                        class="cols"
+                      >
+                        <div>
+                          <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
+          <el-button type="primary" @click="createLayout">{{ $t('table.confirm')}}</el-button>
+        </div>
+      </el-dialog>
+    </el-card>
   </div>
 </template>
 
 <script>
-  import errGif from "@/assets/401_images/401.gif";
-  import {
-    getFrames
-  } from "@/api/frames";
-  import {
-    getLayouts,
-    addLayouts,
-    updateLayouts,
-    deleteLayouts
-  } from "@/api/layouts";
-  export default {
-    name: "Page401",
-    data() {
-      return {
-        errGif: errGif + "?" + +new Date(),
-        ewizardClap: "-6883632d9646",
-        dialogVisible: false,
-        frameList: null,
-        layoutList: null,
-        layoutTemp: {
-          name: '',
-          value: {},
-          device: 'pc'
-        },
-        dialogFormVisible: false,
-        selectedFrameId: null,
-        dialogStatus: "",
-        textMap: {
-          update: "Edit",
-          create: "Create"
-        },
-      };
-    },
-    created() {
-      this.getLayouts();
-    },
-    methods: {
-      getFrames() {
-        getFrames()
-          .then(res => {
-            this.frameList = res.data;
-          })
-          .catch(err => {});
+import errGif from "@/assets/401_images/401.gif";
+import { getFrames } from "@/api/frames";
+import {
+  getLayouts,
+  addLayouts,
+  updateLayouts,
+  deleteLayouts
+} from "@/api/layouts";
+export default {
+  name: "Page401",
+  data() {
+    return {
+      layoutType: "layout",
+      dialogVisible: false,
+      layoutList: null,
+      framesList: null,
+      layoutTemp: {
+        name: "",
+        value: {},
+        device: "pc",
+        type: "layout",
+        style: ""
       },
-      getLayouts() {
-        getLayouts().then(res => {
-          this.layoutList = res.data
-        }).catch(err => {
 
+      dialogFormVisible: false,
+      selectedFrameId: null
+    };
+  },
+  created() {
+    this.getLayouts();
+  },
+  methods: {
+    // 读取框架列表
+    getFrames() {
+      getFrames({ type: this.layoutType })
+        .then(res => {
+          this.framesList = res.data;
         })
-      },
-      createLayout() {
-        console.log(this.layoutTemp);
-        addLayouts(this.layoutTemp).then(res => {
+        .catch(err => {});
+    },
+    // 获取布局列表
+    getLayouts() {
+      getLayouts({ type: this.layoutType })
+        .then(res => {
+          this.layoutList = res.data;
+        })
+        .catch(err => {});
+    },
+    // 创建布局
+    createLayout() {
+      if (!this.layoutTemp.name || !this.layoutTemp.value) {
+        this.$notify({
+          title: "提示",
+          message: "请完善布局数据",
+          type: "warning",
+          duration: 2000
+        });
+        return;
+      }
+      this.layoutTemp.type = this.layoutType;
+      console.log(this.layoutTemp);
+      this.layoutTemp.value = this.layoutTemp.value.filter(item => {
+        item.class = "";
+        item.rows = item.rows.filter(row => {
+          row.class = "";
+          return row;
+        });
+        return item;
+      });
+      console.log(this.layoutTemp);
+      // return;
+      addLayouts(this.layoutTemp)
+        .then(res => {
           this.getLayouts();
           this.dialogFormVisible = false;
           this.$notify({
@@ -132,135 +206,117 @@
             type: "success",
             duration: 2000
           });
-        }).catch(err => {
-
         })
-      },
-      updateLayout(row) {
-        updateLayouts(this.layoutTemp).then(res => {
-                          this.$notify({
-                title: "成功",
-                message: "操作成功",
-                type: "success",
-                duration: 2000
-              });
-        }).catch(err => {
-        })
-      },
-      handleCreate() {
-        this.dialogStatus = 'create'
-        this.dialogFormVisible = true;
-        if (!this.frameList) {
-          this.getFrames();
-        }
-      },
-
-      handleUpdate(row) {
-        // Object.assign(this.layoutTemp ,row)
-        // this.dialogStatus = 'edit'
-        // this.dialogFormVisible = true;
-        console.log(row)
-        this.$router.push({name:'layoutdesign',layoutId:row._id})
-      },
-      handleDelete(row) {
-        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            deleteLayouts({
-              _id: row._id
-            }).then(res => {
-              this.getLayouts();
-              this.$notify({
-                title: "成功",
-                message: "操作成功",
-                type: "success",
-                duration: 2000
-              });
+        .catch(err => {});
+    },
+    // 创建按钮点击事件
+    handleCreate(type) {
+      this.dialogFormVisible = true;
+      this.getFrames({ type: this.layoutType });
+    },
+    // 删除布局
+    handleDelete(row) {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          deleteLayouts({
+            _id: row._id
+          }).then(res => {
+            this.getLayouts();
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000
             });
-          })
-          .catch(err => {
-            console.log(err);
           });
-      },
-      handleReset() {
-        this.$confirm("此操作将清空原有布局, 是否继续?", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-
-            this.layoutTemp.value = null;
-            this.selectedFrameId=null;
-            this.getFrames()
-          })
-      },
-      selectFrame(data) {
-        console.log("lksfjlkasjf")
-        this.layoutTemp.value = data.value;
-        this.selectedFrameId = data._id;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 选中布局
+    selectFrame(data) {
+      console.log("lksfjlkasjf");
+      this.layoutTemp.value = data.value;
+      this.selectedFrameId = data._id;
+    }
+  },
+  watch: {
+    layoutType(val) {
+      if (val) {
+        this.getLayouts();
       }
     }
-  };
-
+  }
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .layouts-container {
-    padding: 20px;
+.layouts-container {
+  padding: 20px;
 
-    .frameList {
-      display: flex;
-      justify-content: start;
-      flex-wrap: wrap;
+  .layoutList {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
 
-      .frames {
-        width: 33.33%;
-        text-align: center;
-        padding: 6px;
-        cursor: pointer;
+    .frames {
+      width: 25%;
+      text-align: center;
+      padding: 6px;
+      cursor: pointer;
 
-        &.active {
-          .frames-content {
-            border-color: red;
-            box-shadow: 0 0 4px 2px #ccc;
-          }
-        }
-
-        .rows {
-          background: #eee;
-          margin-bottom: 2px;
-        }
-
+      &.active {
         .frames-content {
-          padding: 6px;
-          display: block;
-          border: solid 1px #ccc;
-          border-radius: 6px;
-          font-size: 12px;
-          transition: all .6s;
+          border-color: #409eff;
+          box-shadow: 0 0 4px 2px #ccc;
         }
+      }
 
-        .cols {
-          padding: 2px;
-          box-sizing: border-box;
+      .rows {
+        background: #eee;
+        margin-bottom: 2px;
+      }
 
-          div {
-            border: dashed 1px #ccc;
-            padding: 2px 0;
-          }
+      .frames-content {
+        padding: 6px;
+        display: block;
+        border: solid 1px #ccc;
+        border-radius: 6px;
+        font-size: 12px;
+        transition: all 0.6s;
+      }
+
+      .cols {
+        padding: 2px;
+        box-sizing: border-box;
+
+        div {
+          border: dashed 1px #ccc;
+          padding: 2px 0;
         }
       }
     }
-
-    .bottom {
-      border-top: solid 1px #ebeef5;
-      margin-top: 20px;
-      padding-top: 20px;
-    }
   }
 
+  .bottom {
+    border-top: solid 1px #ebeef5;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+  .page-view {
+    background: #e4e7ed;
+    font-size: 14px;
+    flex-direction: column;
+    // height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+  }
+}
 </style>

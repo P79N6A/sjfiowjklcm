@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getFrames() {
+export function getFrames(data) {
   return request({
     url: '/api/frames',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 export function getFramesOne(data) {
