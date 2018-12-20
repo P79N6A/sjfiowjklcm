@@ -22,47 +22,17 @@
       <div class="show" v-for="(block,i) in layoutData" :key="i">
         <!-- 块区域 -->
         <el-button-group class="block-controls">
-          <el-button circle><input v-model="block.text"></el-button>
+          <el-button >{{block.text}}</el-button>
           <el-tooltip class="item" effect="dark" content="点击查看编辑容器的样式" placement="top-start">
-            <el-button circle type="danger" icon="el-icon-edit-outline" @click="EditStyleShow=true;EditStyle=block.style;EditType=1"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="i!=0">
-            <el-button circle type="danger" icon="el-icon-upload2" @click="moveBlock(i,-1)"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start" v-if="i!=layoutData.length-1">
-            <el-button circle type="danger" icon="el-icon-download" @click="moveBlock(i,1)"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="在后面追加一个容器" placement="top-start">
-            <el-button circle type="danger" icon="el-icon-plus" @click="addBlock(i)"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
-            <el-button circle type="danger" icon="el-icon-close" @click="removeBlock(i)"></el-button>
+            <el-button  type="danger" icon="el-icon-edit-outline" @click="EditStyleShow=true;EditStyle=block.style;EditType=1"></el-button>
           </el-tooltip>
         </el-button-group>
         <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :style="row.style">
           <!-- 区块操作按钮 -->
           <el-button-group class="row-controls">
-            <el-button circle><input v-model="row.text"></el-button>
+            <el-button >{{row.text}}</el-button>
             <el-tooltip class="item" effect="dark" content="编辑当前内容区块样式" placement="top-start">
-              <el-button circle type="warning" icon="el-icon-edit-outline" @click="EditStyleShow=true;EditStyle=row.style;EditType=-1"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start">
-              <el-button circle type="warning" icon="el-icon-upload2" @click="moveRow(block,r,-1)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
-              <el-button circle type="warning" icon="el-icon-download" @click="moveRow(block,r,1)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
-              <el-button circle type="warning" icon="iconfont icon-smaller" @click="row.style.width='1200px'"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
-              <el-button circle type="warning" icon="iconfont icon-bigger" @click="row.style.width='100%'"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
-              <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
-              <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
+              <el-button  type="warning" icon="el-icon-edit-outline" @click="EditStyleShow=true;EditStyle=row.style;EditType=-1"></el-button>
             </el-tooltip>
           </el-button-group>
           <!-- 行区域 -->
@@ -71,23 +41,10 @@
             <div>
               <el-tag type="success" class="ico-width">{{ (col.width/24*100).toFixed(2) }}%</el-tag>
               <!-- 内容-{{col.text}} -->
-              <input v-model="col.text" placeholder="内容区域">
+              {{col.text}}
               <div>
                 <!-- 内容区域操作按钮 -->
-                <el-button-group class="col-controls">
-                  <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
-                    <el-button circle type="primary" icon="el-icon-zoom-out" @click="smaller(col)"></el-button>
-                  </el-tooltip>
-                  <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
-                    <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
-                  </el-tooltip>
-                  <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
-                    <el-button circle type="primary" icon="el-icon-circle-plus" @click="addCol(row,j)"></el-button>
-                  </el-tooltip>
-                  <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
-                    <el-button circle type="primary" icon="el-icon-circle-close" @click="removeCol(row,j)"></el-button>
-                  </el-tooltip>
-                </el-button-group>
+
               </div>
             </div>
           </el-col>
@@ -114,13 +71,9 @@
     deleteFrames,
     updateFrames
   } from "@/api/frames";
-
-  import Sortable from "sortablejs";
+  import {getLayoutsOne} from '@/api/layouts'
   import StyleEdit from "./components/StyleEdit";
 
-  var byId = function (id) {
-    return document.getElementById(id);
-  };
   export default {
     name: "Page401",
     data() {
@@ -304,12 +257,12 @@
     },
     mounted() {
       console.log(this.$route);
-      if (this.$route.query.frameId) {
-        this.getFrame({
-          _id: this.$route.query.frameId
+      if (this.$route.query.layoutId) {
+        this.getLayoutsOne({
+          _id: this.$route.query.layoutId
         });
-      } else {
-        this.colMoveSet();
+      }else{
+        this.$route.go(-1);
       }
     },
     methods: {
@@ -342,8 +295,8 @@
           })
           .catch(err => {});
       },
-      getFrame(data) {
-        getFramesOne(data)
+      getLayoutsOne(data) {
+        getLayoutsOne(data)
           .then(res => {
             this.frameTemp = res.data;
             this.layoutData = res.data.value;
@@ -353,316 +306,6 @@
       },
       changeStyle(val) {
         console.log(val);
-      },
-      /**
-       * 内容区块移动
-       * index，当前区块位置
-       * type，移动类型
-       * 1,向后移动一位
-       * -1，向前移动一位
-       */
-      colMoveSet() {
-        // 拖拽cols
-        const $this = this;
-        [].forEach.call(byId("drag-box").getElementsByClassName("show"), function (
-          block,
-          i
-        ) {
-          [].forEach.call(block.getElementsByClassName("rows"), function (el, j) {
-            console.log("col-set");
-            Sortable.create(el, {
-              group: "cols" + i,
-              draggable: ".cols",
-              handle: ".cols",
-              animation: 150,
-              setData: function (dataTransfer) {
-                dataTransfer.setData("Text", "");
-                // to avoid Firefox bug
-                // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-              },
-              onEnd: evt => {
-                // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
-                // 把数组根据dom的拖拽，做出新的排序
-                const targetCol = $this.layoutData[i].rows[j].cols.splice(
-                  evt.oldIndex,
-                  1
-                )[0];
-                $this.layoutData[i].rows[j].cols.splice(
-                  evt.newIndex,
-                  0,
-                  targetCol
-                );
-                // 更高数据，强制渲染当前列表
-                const newArray = $this.layoutData[i].rows[j].cols.slice(0);
-                $this.layoutData[i].rows[j].cols = [];
-                // 数据变化后再次刷新
-                $this.$nextTick(() => {
-                  $this.layoutData[i].rows[j].cols = newArray;
-                });
-              },
-              // Element is chosen
-              onChoose: function ( /**Event*/ evt) {
-                console.log("onChoose");
-                // evt.oldIndex;  // element index within parent
-              },
-
-              // Element dragging started
-              onStart: function ( /**Event*/ evt) {
-                console.log("onStart");
-                evt.oldIndex; // element index within parent
-              },
-
-              // Element dragging ended
-              // onEnd: function (/**Event*/evt) {
-              //   console.log('onEnd')
-              //   // var itemEl = evt.item;  // dragged HTMLElement
-              //   // evt.to;    // target list
-              //   // evt.from;  // previous list
-              //   // evt.oldIndex;  // element's old index within old parent
-              //   // evt.newIndex;  // element's new index within new parent
-              // },
-
-              // Element is dropped into the list from another list
-              onAdd: function ( /**Event*/ evt) {
-                console.log("onAdd");
-                // same properties as onEnd
-              },
-
-              // Changed sorting within list
-              // onUpdate: function (/**Event*/evt) {
-              //   console.log("onUpdate")
-              //   // same properties as onEnd
-              // },
-
-              // Called by any change to the list (add / update / remove)
-              onSort: function ( /**Event*/ evt) {
-                console.log("onSort");
-                // same properties as onEnd
-              },
-
-              // Element is removed from the list into another list
-              onRemove: function ( /**Event*/ evt) {
-                console.log("onRemove");
-                // same properties as onEnd
-              },
-
-              // Attempt to drag a filtered element
-              onFilter: function ( /**Event*/ evt) {
-                console.log("onFilter");
-                // var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
-              },
-
-              // Event when you move an item in the list or between lists
-              onMove: function ( /**Event*/ evt, /**Event*/ originalEvent) {
-                console.log("onMove");
-                // Example: http://jsbin.com/tuyafe/1/edit?js,output
-                // evt.dragged; // dragged HTMLElement
-                // evt.draggedRect; // TextRectangle {left, top, right и bottom}
-                // evt.related; // HTMLElement on which have guided
-                // evt.relatedRect; // TextRectangle
-                // originalEvent.clientY; // mouse position
-                // return false; — for cancel
-              },
-
-              // Called when creating a clone of element
-              onClone: function ( /**Event*/ evt) {
-                console.log("onClone");
-                // var origEl = evt.item;
-                // var cloneEl = evt.clone;
-              }
-            });
-          });
-        });
-      },
-      rowMoveSet() {
-        // 拖拽row
-        [].forEach.call(byId("drag-box").getElementsByClassName("show"), function (
-          el,
-          i
-        ) {
-          console.log("row-set");
-          Sortable.create(el, {
-            group: "rows" + i,
-            animation: 150,
-            draggable: ".rows",
-            handle: ".rows",
-            onEnd: evt => {
-              console.log(evt);
-            }
-          });
-        });
-      },
-      addBlock(index) {
-        const newBlock = {
-          style: {
-            width: "1200px",
-            margin: "0 auto"
-          },
-          text: "内容区块",
-          rows: [{
-            style: {
-              width: "1200px",
-              margin: "0 auto"
-            },
-            cols: [{
-              text: "格子",
-              width: 24
-            }]
-          }]
-        };
-        this.layoutData.splice(index + 1, 0, newBlock);
-        this.$nextTick(() => {
-          // this.rowMoveSet();
-          this.colMoveSet();
-        });
-      },
-      moveBlock(index, type) {
-        if (Math.abs(type)) {
-          const targetBlock = this.layoutData.splice(index, 1)[0];
-          this.layoutData.splice(index + type, 0, targetBlock);
-        } else {
-          return;
-        }
-      },
-      /**
-       * index，当前区块位置
-       * 删除当前区块
-       *  */
-      removeBlock(index) {
-        this.layoutData.splice(index, 1)[0];
-      },
-      /**
-       * col，当前栅栏object
-       * 栅栏缩小
-       * */
-      smaller(col) {
-        if (col.width > 1) {
-          col.width--;
-        }
-      },
-      /**
-       * col，当前栅栏object
-       * 栅栏加宽
-       */
-      bigger(col) {
-        if (col.width < 24) {
-          col.width++;
-        }
-      },
-      /** move row
-       *
-       */
-      moveRow(block, index, type) {
-        console.log(block);
-        if (Math.abs(type)) {
-          const targetBlock = block.rows.splice(index, 1)[0];
-          block.rows.splice(index + type, 0, targetBlock);
-        } else {
-          return;
-        }
-      },
-      /**
-       * 删除行
-       * block，block数组
-       * i，当前行在block里的序号
-       *  */
-      removeRow(block, index) {
-        console.log(block);
-        console.log(index);
-        block.rows.splice(index, 1);
-      },
-      /** 添加 */
-      addRow(block, index) {
-        const newRow = {
-          style: {
-            width: "1200px",
-            margin: "0 auto"
-          },
-          cols: [{
-            text: "新内容",
-            width: 24
-          }]
-        };
-        block.rows.splice(index + 1, 0, newRow);
-        this.$nextTick(() => {
-          // this.rowMoveSet();
-          this.colMoveSet();
-        });
-      },
-      /**
-       * 删除栅栏
-       * row，row数组
-       * i，当前栅栏的序号
-       *  */
-      removeCol(row, index) {
-        row.cols.splice(index, 1);
-        // this.layout.splice(evt.newIndex, 0, targetRow)
-      },
-      /** 添加 */
-      addCol(row, index) {
-        const newCol = {
-          text: "新内容区域" + index,
-          width: 24
-        };
-        row.cols.splice(index + 1, 0, newCol);
-        this.$nextTick(() => {
-          // this.rowMoveSet();
-          this.colMoveSet();
-        });
-      },
-      setSortBlock() {
-        const el = document.querySelectorAll(".drag-box")[0];
-        Sortable.create(el, {
-          ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-          setData: function (dataTransfer) {
-            dataTransfer.setData("Text", "");
-            // to avoid Firefox bug
-            // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-          },
-          onEnd: evt => {
-            is.layoutData.splice(evt.oldIndex, 1)[0];
-            // this.layoutData.splice(evt.newIndex, 0, targetRow)
-            // this.$nextTick(() => {
-            // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
-            // this.layoutData.splice(evt.newIndex, 0, targetRow)
-            // this.setSort()
-            // })
-            setTimeout(() => {
-              const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0];
-              this.layoutData.splice(evt.newIndex, 0, targetRow);
-            }, 300);
-            console.log(evt);
-            // for show the changes, you can delete in you code
-            // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
-            // this.newList.splice(evt.newIndex, 0, tempIndex)
-          }
-        });
-      },
-      setSort(el, group) {
-        // const el = document.querySelectorAll('.show')
-        Sortable.create(el, {
-          ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-          setData: function (dataTransfer) {
-            dataTransfer.setData("Text", "");
-            // to avoid Firefox bug
-            // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-          },
-          group: group,
-          onEnd: evt => {
-            // const targetRow = this.layout.splice(evt.oldIndex, 1)[0]
-            // this.layout.splice(evt.newIndex, 0, targetRow)
-            // for show the changes, you can delete in you code
-            // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
-            // this.newList.splice(evt.newIndex, 0, tempIndex)
-          }
-        });
-      },
-      getEl() {
-        const els = document.querySelectorAll(".show");
-        for (var i = 0; i < els.length; i++) {
-          this.setSort(els[i], "rows");
-        }
-        // const
       }
     },
     components: {
@@ -733,10 +376,6 @@
             padding: 10px;
             text-align: center;
             height: 70px;
-            cursor: move;
-
-
-
             .col-controls {
               position: absolute;
               left: 10px;

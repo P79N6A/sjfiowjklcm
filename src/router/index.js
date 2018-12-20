@@ -247,11 +247,11 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/frames',
+    path: '/pages',
     component: Layout,
     // alwaysShow: true, // will always show the root menu
     meta: {
-      title: '布局管理',
+      title: '页面管理',
       icon: 'table'
       // roles: ['admin'] // or you can only set roles in sub nav
     },
@@ -274,24 +274,34 @@ export const asyncRouterMap = [
           noCache: true
         }
       },
-      // {
-      //   path: 'designdnd',
-      //   component: () => import('@/views/frames/LayoutDesign.vue'),
-      //   name: 'drag-dnd',
-      //   meta: {
-      //     title: '框架设计dnd',
-      //     noCache: true
-      //   }
-      // },
       {
         path: 'layout',
         component: () => import('@/views/layouts/index.vue'),
         name: 'layout',
         meta: {
-          title: '页面布局',
+          title: '布局列表',
           noCache: true
         }
-      }
+      },
+      {
+        path: 'layoutdesign',
+        component: () => import('@/views/layouts/design.vue'),
+        name: 'layoutDesign',
+        hidden: true,
+        meta: {
+          title: '布局设置',
+          noCache: true
+        }
+      },
+      {
+        path: 'page',
+        component: () => import('@/views/pages/index.vue'),
+        name: 'page',
+        meta: {
+          title: '页面列表',
+          noCache: true
+        }
+      },
     ]
   },
   {

@@ -10,7 +10,7 @@
         <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
+              <el-button type="primary" size="mini" @click="$router.push({ name: 'layoutDesign', query: { layoutId: scope.row._id}})">{{ $t('table.edit') }}</el-button>
               <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleDelete(scope.row)">
                 {{
                 $t('table.delete') }}
@@ -94,7 +94,6 @@
           value: {},
           device: 'pc'
         },
-
         dialogFormVisible: false,
         selectedFrameId: null,
         dialogStatus: "",
@@ -138,7 +137,6 @@
         })
       },
       updateLayout(row) {
-        console.log('ghfj')
         updateLayouts(this.layoutTemp).then(res => {
                           this.$notify({
                 title: "成功",
@@ -158,9 +156,11 @@
       },
 
       handleUpdate(row) {
-        this.layoutTemp = row
-        this.dialogStatus = 'edit'
-        this.dialogFormVisible = true;
+        // Object.assign(this.layoutTemp ,row)
+        // this.dialogStatus = 'edit'
+        // this.dialogFormVisible = true;
+        console.log(row)
+        this.$router.push({name:'layoutdesign',layoutId:row._id})
       },
       handleDelete(row) {
         this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
