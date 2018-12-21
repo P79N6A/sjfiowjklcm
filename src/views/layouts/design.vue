@@ -324,12 +324,12 @@ export default {
   #drag-box {
     // padding: 10px;
     // transform:scale(0.8);
-    background: #f7f8fb;
+    // background: #f7f8fb;
   }
   .layoutEdit {
     .show {
       border: dotted 1px #ccc;
-      background: #fff;
+      // background: #fff;
       padding: 20px 0;
       margin-top: 30px !important;
       position: relative;
