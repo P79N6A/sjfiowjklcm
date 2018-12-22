@@ -2,7 +2,7 @@
   <div class="components-container">
     <el-card class="box-card">
       <div slot="header" class="cfx">
-        <span>框架列表</span>
+        <span>组件列表</span>
       </div>
       <el-container>
         <el-aside width="200px">

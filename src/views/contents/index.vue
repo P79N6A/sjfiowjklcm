@@ -193,6 +193,7 @@
       class="content-edit"
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
+      :close-on-click-modal="false"
       width="900px"
       v-if="dialogFormVisible"
     >

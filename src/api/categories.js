@@ -37,3 +37,10 @@ export function deleteCategories(data) {
     data
   })
 }
+// 数据静态化
+export function staticCategories(data) {
+  return request({
+    url: '/api/categories/static',
+    method: 'post'
+  })
+}

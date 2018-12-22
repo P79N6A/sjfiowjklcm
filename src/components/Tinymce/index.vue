@@ -182,7 +182,7 @@ export default {
         window.tinymce
           .get(_this.tinymceId)
           .insertContent(
-            `<img class="wscnph" src="${v.url}" style="max-width:100%;"> `
+            `<img class="wscnph" src="${v.url}" style="max-width:100%;height:auto;"> `
           );
       });
     }
