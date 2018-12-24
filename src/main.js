@@ -21,6 +21,9 @@ import './permission' // permission control
 import lodash from 'lodash'
 
 import * as filters from './filters' // global filters
+import { install } from '@/components/ishows.js'
+import '@/assets/sass/style.scss';
+Vue.use(install);
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'mini', // set element-ui default size

@@ -52,6 +52,7 @@
     "simplemde": "1.11.2",
     "sortablejs": "1.7.0",
     "vue": "2.5.17",
+    "vue-async-component": "^1.0.14",
     "vue-count-to": "1.0.13",
     "vue-i18n": "7.3.2",
     "vue-router": "3.0.1",
