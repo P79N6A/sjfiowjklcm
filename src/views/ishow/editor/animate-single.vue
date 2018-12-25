@@ -51,6 +51,7 @@
                 <div class="form-center mr10">
                     <el-input-number size="small" v-model="animateCount"></el-input-number>
                 </div>
+                {{jsonAnimateCount}}
                 <div><el-checkbox v-model="isInfinite" @change="changeInfinite">循环播放</el-checkbox></div>
             </div>
         </div>
@@ -309,8 +310,8 @@ export default {
 
   },
   methods: {
-    changeInfinite(event) {
-      this.jsonAnimateCount = event.target.checked ? 'infinite' : this.animateCount;
+    changeInfinite(val) {
+      this.jsonAnimateCount = val ? 'infinite' : this.animateCount;
     },
     onlyNum(val) {
       if (!/^[0-9]+([.][0-9]+){0,1}$/.test(val)) {

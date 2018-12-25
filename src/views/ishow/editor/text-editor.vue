@@ -1,5 +1,5 @@
 <template>
-    <div class="text-wrapper">
+    <div class="text-wrapper" style="padding:10px;">
         <el-collapse v-model="activeName" accordion @change="handleTitle">
             <el-collapse-item title="普通样式" name="normal">
                 <normal-editor :render-json="renderJson" :show-id="showId"></normal-editor>

@@ -11,7 +11,7 @@
 
             <el-dialog title="预览图片" :visible.sync="dialogVisible2" size="small-700" top="3%" width="900px">
                 <div class="layer-content clearfix" style="text-align:center;padding:10px;">
-                    <img :src="previewPicSrc" alt="">
+                    <img :src="previewPicSrc" alt="" style="max-width:100%;">
                 </div>
                 <div class="layer-main_footer">
                     <el-button @click="dialogVisible2=false">关闭</el-button>

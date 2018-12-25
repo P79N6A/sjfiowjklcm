@@ -5,10 +5,10 @@
     </transition>
 
     <transition name="slide-fade">
-      <div v-if="disable" class="ishow-mainSetting--info">
+      <div v-if="disable" class="ishow-mainSetting--info"  v-el-drag-dialog >
         <el-tabs type="card" v-model="activeName">
           <!-- 背景设置 -->
-          <div class="ishow-bgStyle">
+          <!-- <div class="ishow-bgStyle">
             <div class="form-group">
               <div>背景图片</div>
               <div class="el-upload el-upload--picture-card ishow-bgStyle--main mt10" @click="changeImage">
@@ -20,20 +20,24 @@
                 <el-button type="default" size="mini" @click="changeImage">修改图片</el-button>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- 其他设置 -->
           <el-tab-pane label="常用设置" name="first">
+            <!-- {{settingForm.bg.backgroundImage}} -->
             <div class="p10">
-              <el-form :label-position="'left'" label-width="46px" :model="settingForm" ref="settingForm" :rules="ruleState">
+              <el-form :label-position="'left'" label-width="70px" :model="settingForm" ref="settingForm" :rules="ruleState">
                 <!-- <el-form-item label="封面" prop="settingPic">
                   <div class="c-cover" @click="changePic">
                     <img :src="coverUrl" width="100%" height="100%">
                     <div class="c-cover--btn">更换封面</div>
                   </div>
                 </el-form-item> -->
+                
                 <el-form-item label="背景图" prop="bg">
-                <img :src="settingForm.bg.backgroundImage" alt="" v-if="settingForm.bg.backgroundImage" style="width:80px;">
+                <div class="img-view" :style="{backgroundImage:settingForm.bg.backgroundImage}" @click="changeImage">
+                  <i class="el-icon-plus"></i>
+                </div>
                 <div class="mt10 tl" v-if="settingForm.bg.backgroundImage">
                   <el-button type="default" size="mini" @click="deleteImage">删除图片</el-button>
                   <el-button type="default" size="mini" @click="changeImage">修改图片</el-button>
@@ -60,6 +64,7 @@
                 </el-form-item>
                 <el-form-item label="覆盖方式" prop="bg">
                   <el-radio-group v-model="settingForm.bg.backgroundSize" size="small">
+                    <el-radio-button label="">原始</el-radio-button>
                     <el-radio-button label="cover">平铺</el-radio-button>
                     <el-radio-button label="contain">适配</el-radio-button>
                     <el-radio-button label="100% 100%">拉伸</el-radio-button>
@@ -74,8 +79,8 @@
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item label="背景颜色" prop="bg">
-                  <el-input v-model="settingForm.bg.backgroundColor" placeholder="请输入组件长度" size="medium">
-                    <el-color-picker slot="prepend" v-model="settingForm.bg.backgroundColor" show-alpha @change="setColor"></el-color-picker>
+                  <el-input v-model="settingForm.bg.backgroundColor" placeholder="请输入组件背景颜色" size="medium">
+                    <el-color-picker slot="prepend" v-model="settingForm.bg.backgroundColor" show-alpha></el-color-picker>
                   </el-input>
                 </el-form-item>
 
@@ -89,8 +94,8 @@
                     <template slot="append">PX</template>
                   </el-input>
                 </el-form-item>
-                <el-form-item label="组件标题" prop="title">
-                  <el-input v-model="settingForm.title" placeholder="请输入标题"></el-input>
+                <el-form-item label="组件标题" prop="name">
+                  <el-input v-model="settingForm.name" placeholder="请输入标题"></el-input>
                 </el-form-item>
                 <el-form-item label="组件简介" prop="description">
                   <el-input v-model="settingForm.description" placeholder="请输入简介"></el-input>
@@ -120,12 +125,14 @@
 </template>
 <script>
   import picTool from '@/views/ishow/global/picTool/index.vue';
+import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
   import {
     getImgList,
     savePageConfig
   } from '@/api/ishow';
   import bus from '@/views/ishow/js/bus';
   export default {
+  directives: { elDragDialog },
     data() {
       return {
         disable: false,
@@ -133,22 +140,17 @@
         coverUrl: '',
         picJson: [],
         settingForm: {
-          bgImage: {
+          bg: {
+            backgroundImage: '',
             backgroundColor: '',
-            coord: '',
-            //
-            color:'',
-            url: '',
-            repeatX:false, //repeat,no-repeat
-            repeatY:false, // repeat,no-repeat
-            size:'',//
-            positionX:'',//left,center,right
-            positionY:'',//top,center,bottom
+            backgroundSize: '',
+            backgroundRepeat: '',
+            backgroundPosition: '',
           },
-          width:0,
-          height:0,
-          title:'',
-          description:'',
+          width: 0,
+          height: 0,
+          name: '',
+          description: '',
         },
         ruleState: {
           settingTitle: [{
@@ -161,20 +163,7 @@
             message: '简介不能为空',
             trigger: 'blur'
           }]
-        },
-        json: {
-          "page": 1,
-          "json": [],
-          "bgImage": {
-            "url": "http://localhost:3000//media/5c15d5b28eff6ccd11a022ba/201812/5c20dac4fcc71f0609503c7e/logo-nav.png",
-            "coord": "",
-            "backgroundColor": ""
-          }
-        },
-        id: 1,
-        url: '',
-        pageJson:{ "page": 1, "json": [], "bgImage": { "url": "http://localhost:3000//media/5c15d5b28eff6ccd11a022ba/201812/5c20dac4fcc71f0609503c7f/wechat.jpg", "coord": "", "backgroundColor": "" } }
-
+        }
       };
     },
     props: ['showJson', 'renderJson', 'showId', 'pageJson'],
@@ -182,6 +171,7 @@
       this.fetchImgList().then(() => {
         this.$refs.picTool.setLoading(false);
       });
+      this.resetSetting()
     },
     watch: {
       pageJson: {
@@ -189,6 +179,11 @@
           this.resetSetting();
         },
         deep: true
+      },
+      toggle(val){
+        if(val){
+          this.resetSetting()
+        }
       }
     },
     components: {
@@ -209,6 +204,9 @@
       // 提交配置
       fetchPageConfig() {
         console.info('this.$store', this.$store, this.$store.getters.activityId)
+        bus.$emit('pageSetting',this.settingForm)
+        return
+
         if (!this.$store.getters.activityId) {
           this.$message('保存当前场景后保存的配置才能生效');
           return false;
@@ -254,29 +252,46 @@
         this.$refs.picTool.openTool(this.coverUrl);
       },
       resetSetting(){
-        this.settingForm=Object.assign({},this.pageJson) 
+        console.log('resetFrom')
+        this.settingForm=JSON.parse(JSON.stringify(this.pageJson))
+        // this.settingForm=Object.assign({},this.pageJson) 
+        // this.settingForm.bg=Object.assign({},this.pageJson.bg) 
       },
     changeImage() {
       document.getElementById('J-open-bg').click();
     },
     deleteImage() {
+      this.settingForm.bg.backgroundImage=''
       bus.$emit('update-pageJson', {
-        bgImage: {
-          url: '',
-          coord: ''
-        }
+        // bgImage: {
+        //   url: '',
+        //   coord: ''
+        // }
       });
     },
-    setColor(val) {
-      bus.$emit('update-pageJson', {
-        bgImage: {
-          url: '',
-          coord: '',
-          backgroundColor: val
-        }
-      });
-    }
+    // setColor(val) {
+    //   bus.$emit('update-pageJson', {
+    //     bgImage: {
+    //       url: '',
+    //       coord: '',
+    //       backgroundColor: val
+    //     }
+    //   });
+    // }
     }
   };
 
 </script>
+<style>
+.img-view {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #eee;
+  text-align:center;
+  line-height:60px;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+}
+</style>

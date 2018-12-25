@@ -1,4 +1,3 @@
-
 // import { request } from 'utils/fetch';
 import request from '@/utils/request'
 
@@ -122,4 +121,39 @@ export function getPageJson(id) {
     method: 'post',
     data: qs.stringify(data)
   });
+}
+
+export function getIshows() {
+  return request({
+    url: '/api/ishows',
+    method: 'get'
+  })
+}
+export function getIshowOne(data) {
+  return request({
+    url: '/api/ishows/' + data._id,
+    method: 'get'
+  })
+}
+export function addIshows(data) {
+  return request({
+    url: '/api/ishows',
+    method: 'post',
+    data
+  })
+}
+export function updateIshows(data) {
+  return request({
+    url: '/api/ishows/' + data._id,
+    method: 'put',
+    data
+  })
+}
+
+export function deleteIshows(data) {
+  return request({
+    url: '/api/ishows/' + data._id,
+    method: 'delete',
+    data
+  })
 }

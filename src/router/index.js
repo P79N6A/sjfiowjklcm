@@ -328,16 +328,15 @@ export const asyncRouterMap = [
       name: 'ishows',
       meta: {
         title: '自定义组件库',
-        icon: 'documentation',
+        icon: 'tree',
         authorities: [100400, 100400]
-
       }
     },
     {
       path: 'design',
       component: () => import('@/views/ishow/design'),
-      name: 'ishowsEdit',
-      // hidden: true,
+      name: 'ishowsDesign',
+      hidden: true,
       meta: {
         title: '自定义组件库编辑',
         icon: 'documentation',

@@ -2,7 +2,7 @@
     <div class="ishow-centerContainer">
         <div class="ishow-showWrapper">
             <div class="ishow-phoneMain tc">
-                <div class="ishow-screen" style="width:1000px;">
+                <div class="ishow-screen" :style="`width:${pageJson.width}px;height:${pageJson.height}px`">
                     <div class="ishow-toolBar" @click.stop>
                         <el-tooltip class="item" effect="dark" content="背景" placement="right">
                             <a href="javascript:;" @click="toggleBgEditor">

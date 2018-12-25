@@ -53,7 +53,7 @@
             <div class="element-contents text-item">
                 <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_checkbox tl">
                     <div class="ishow-elementItem_title" v-html="json.form.cname" :style="{'background-color':json.text.themeColor}"></div>
-                    <el-checkbox-group  :class="{vertical:json.form.dire==='v'}">
+                    <el-checkbox-group  :class="{vertical:json.form.dire==='v'}" v-model="json.form.options[json.form.selectedVal]">
                         <el-checkbox v-for="radioItem in json.form.options" :label="radioItem.id" :key="radioItem.id">{{radioItem}}</el-checkbox>
                     </el-checkbox-group>
                 </div>
@@ -63,7 +63,7 @@
          <div v-if="type===6" v-bind:style="[textJson,modifyData]" class="ishow-elementWrapper_main">
             <div class="element-contents text-item">
                 <div class="ishow-elementItem ishow-elementItem_drap ishow-elementItem_select tl">
-                    <el-select :value="json.form.options[json.form.selectedVal]" :style="{'font-size':json.text.fontSize+'px'}">
+                    <el-select v-model="json.form.options[json.form.selectedVal]" :style="{'font-size':json.text.fontSize+'px'}">
                         <el-option
                               v-for="(selectItem,selectIndex) in json.form.options"
                               :key="selectIndex"

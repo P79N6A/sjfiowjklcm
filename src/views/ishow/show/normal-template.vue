@@ -188,7 +188,12 @@ export default {
     setTimeout(() => {
       this.selectElement();
     }, 0);
-
+    // 被选择
+    bus.$on('layer-selected',id=>{
+      if(this.id==id){
+        this.selectElement()
+      }
+    })
     this.getImgSize(this.json.content);
   },
   watch: {

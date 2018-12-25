@@ -2,19 +2,18 @@
 <template>
   <div>
     <!-- 导航栏 -->
-    <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="pageJson[page-1]" :page="page"
+    <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="renderJson" :page="page"
       :h5-json="h5Json"></main-header>
     <div class="main v-global" @click="toggerActive">
       <!-- 模版列表 -->
       <!-- <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules> -->
       <!-- 操作区域 -->
-      <main-show :show-json="showJson" :render-json="pageJson[page-1]" :page-json="pageJson[page-1]" :show-id="showId"
-        ref="show"></main-show>
+      <main-show :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]" :show-id="showId" ref="show"></main-show>
       <!-- 样式编辑工具 -->
-      <main-editor :render-json="pageJson[page-1]" :show-id="showId" ref="editor" :page-json="pageJson[page-1]"></main-editor>
+      <main-editor :render-json="renderJson" :show-id="showId" ref="editor" :page-json="pageJson[page-1]"></main-editor>
     </div>
     <!-- 当前页面参数设置 -->
-    <main-setting ref="setting" :page-json="pageJson[page-1]"></main-setting>
+    <main-setting ref="setting" :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]"></main-setting>
   </div>
 </template>
 <script>
@@ -26,8 +25,11 @@
   import bus from '@/views/ishow/js/bus';
   import appJson from '@/views/ishow/js/app/app.json';
   import {
-    getPageJson
+    getPageJson,
+    addIshows,
+    getIshowOne
   } from '@/api/ishow';
+
   // 排错技巧：定位到文件－行，数据没同步
   // 针对当前页：showJson=[{},{}];renderJson={id:{},id{}}
   const showJsons = [{
@@ -36,15 +38,9 @@
     bgImage: {
       backgroundColor: '',
       coord: '',
-      //
-      color: '',
-      url: '',
-      repeatX: false, //repeat,no-repeat
-      repeatY: false, // repeat,no-repeat
-      size: '', //
-      positionX: '', //left,center,right
-      positionY: '', //top,center,bottom
+      url: ''
     },
+    device:'pc',
     bg: {
       backgroundImage: '',
       backgroundColor: '',
@@ -52,9 +48,9 @@
       backgroundRepeat: '',
       backgroundPosition: '',
     },
-    width: 0,
-    height: 0,
-    title: '',
+    width: 400,
+    height: 300,
+    name: '',
     description: '',
   }];
 
@@ -69,21 +65,6 @@
         // 当前页数
         page: 1,
         showJson: [],
-        // 页面模版
-        pageTemp: {
-          value: [],
-          bg: {
-            backgroundImage: '',
-            backgroundColor: '',
-            backgroundSize: '',
-            backgroundRepeat: '',
-            backgroundPosition: '',
-          },
-          width: 0,
-          height: 0,
-          title: '',
-          description: '',
-        },
         initJson: this.parseJson(appJson.initJsons),
         initPage: this.parseJson(appJson.initPage),
         histroyJson: [],
@@ -102,7 +83,7 @@
       // 设置总json
       this.pageJson = this.parseJson(showJsons);
       // 设置活动id,编辑状态
-      const id = this.$route.query.activityId || '';
+      const id = this.$route.query.ishowsId || '';
       if (id) {
         this.$store.commit('SET_ACTIVITYID', id);
         this.fetchPageJson();
@@ -128,10 +109,12 @@
       // 获取h5编辑的json
       fetchPageJson() {
         const _this = this;
-        const id = this.$route.query.activityId;
-        return getPageJson(id).then(response => {
-          const temp = typeof response.data === 'object' ? response.data : JSON.parse(response.data);
-          // this.pageJson = this.parseJson(temp);
+        const _id = this.$route.query.ishowsId;
+        return getIshowOne({_id:_id}).then(res => {
+          // const temp = typeof response.data === 'object' ? response.data : JSON.parse(response.data);
+          this.pageJson = this.parseJson([res.data]);
+          this.pageJson[0].page=1
+          console.log(this.pageJson)
           _this.init();
           // this.updatePageJson(response.data);
         }).catch(err => {
@@ -143,10 +126,7 @@
         bus.$on('show-text-resize', isResize => {
           this.$refs.show.$refs.template[0].resize(isResize);
         });
-        bus.$on('setBgImg', data => {
-          // console.log(this.pageJson)
-          this.pageJson[this.page - 1].bg.backgroundImage = data
-        })
+
         // 更新图片
         // bus.$on('update-image-layer', (type, data) => {
         //   // 重置尺寸，兼容编辑图片引起的图片比例错误
@@ -155,8 +135,20 @@
         //   console.info(data)
         //   // this.addElement(type, data);
         // });
-
-        // 更新整个h5属性
+        // 更新背景
+        bus.$on('setBgImg', data => {
+          // console.log(this.pageJson)
+          this.pageJson[this.page - 1].bg.backgroundImage = data
+        })
+        // 更新当前页面设置
+        bus.$on('pageSetting',data=>{
+          Object.assign(this.pageJson[this.page-1].bg,data.bg)
+          this.pageJson[this.page-1].width=data.width
+          this.pageJson[this.page-1].height=data.height
+          this.pageJson[this.page-1].name=data.name
+          this.pageJson[this.page-1].description=data.description
+        })
+        // 更新整个h5属性,可以忽略
         bus.$on('update-h5Json', data => {
           this.h5Json = Object.assign({}, this.h5Json, data);
         });
@@ -409,6 +401,7 @@
       },
       getPageJson() {
         for (let i = 0; i < this.pageJson.length; i++) {
+          console.log('getPageJson')
           if (this.pageJson[i].page === this.page) {
             this.showJson = this.pageJson[i].json;
             return this.pageJson[i].json;
@@ -515,7 +508,6 @@
       }
     },
     mounted() {
-      // 绑定键盘操作
       // 键盘上下左右移动
       document.addEventListener('keydown', event => {
         // 撤销 ctrl+z
@@ -533,7 +525,6 @@
           ['top', -1],
           ['top', 1]
         ];
-
         const result = event.keyCode === 37 ? 0 : event.keyCode === 39 ? 1 : event.keyCode === 38 ? 2 : event.keyCode ===
           40 ? 3 : false;
         if (result !== false) {

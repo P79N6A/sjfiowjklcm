@@ -125,6 +125,7 @@ const initJson = {
   cname: '',
   required: false,
   dire: 'v',
+  selectedVal: '',
   options: ['', '', ''],
   validate: []
 };
@@ -142,6 +143,7 @@ const initInputJson = {
   cname: '自定义',
   required: false,
   default: false,
+  selectedVal: '',
   validate: []
 };
 const initButtonJson = {

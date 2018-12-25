@@ -5,11 +5,28 @@
             <header class="header">
                 iShow
                 <div class="ishow-headerBtn">
-                    <el-button size="small" @click.stop="linkNewSence">新建场景</el-button>
+                    <el-button size="small" @click.stop="linkNewSence">新建组件</el-button>
                 </div>
             </header>
         </div>
-        <div class="ishow-list--main clearfix">
+          <div class="ishowList cfx">
+            <div class="frames" v-for="(item,i) in activityList" :key="i">
+              <div>
+                <!-- 操作按钮区域 -->
+                <el-button-group>
+                  <el-button type="primary" round icon="el-icon-edit" @click="$router.push({ name: 'ishowsDesign', query: { ishowsId: item._id}})">编辑</el-button>
+                  <el-button type="danger" round icon="el-icon-delete" @click="handleDelete(item)">删除</el-button>
+                </el-button-group>
+              </div>
+              <div>{{item.name}}</div>
+              <br/>
+              <div class="frames-content">
+                  封面预览，未做
+                <img :src="item.screenShot" style="display:block;width:100%;">
+              </div>
+            </div>
+          </div>
+        <!-- <div class="ishow-list--main clearfix">
             <div class="ishow-list--item" v-for="item in activityList" :key="item.id">
                 <div class="ishow-list--item-main" @click="showLayer(item)">
                     <div class="ishow-list--cover">
@@ -36,8 +53,8 @@
                 <a href="javascript:;" class="mt10 ishow-list--item-title">{{item.settingTitle}}</a>
                 <a href="javascript:;" class="ishow-list--item-summary">{{item.settingSummary}}</a>
             </div>
-        </div>
-        <el-dialog title="" v-model="dialogVisible" size="auto" top="3%" class="ishow-list--dialog" :before-close="beforeClose">
+        </div> -->
+        <!-- <el-dialog title="" v-model="dialogVisible" size="auto" top="3%" class="ishow-list--dialog" :before-close="beforeClose">
             <div class="ishow-list--layer">
                 <div class="ishow-list--layer-left">
                     <iframe src="/" width="100%" height="100%" border="none"></iframe>
@@ -73,7 +90,7 @@
                     </div>
                 </div>
             </div>
-        </el-dialog>
+        </el-dialog> -->
         <picTool :type="'picCrop'" :picJson="picJson" ref="picTool" :addElementCrop="addElementCrop">
                                     
         </picTool>
@@ -84,7 +101,9 @@
 import {
     getActivityList,
      getImgList,
-    savePageConfig
+    savePageConfig,
+    getIshows,
+    deleteIshows
 } from '@/api/ishow';
 import picTool from '@/views/ishow/global/picTool/index.vue';
 export default {
@@ -113,7 +132,7 @@ export default {
         picTool
     },
     created() {
-        this.fetchActivityList();
+        this.getIshows();
         this.fetchImgList().then(function(data){
             this.$refs.picTool.setLoading(false);
         }.bind(this));
@@ -145,8 +164,8 @@ export default {
             });
         },
         //获取列表
-        fetchActivityList() {
-            getActivityList(this.pageSize, this.pageNum).then(response => {
+        getIshows() {
+            getIshows(this.pageSize, this.pageNum).then(response => {
                 if (response.data && response.data.length) {
                     console.info(response.data)
                     this.activityList = response.data;
@@ -156,8 +175,28 @@ export default {
             });
         },
         //删除
-        deletePage() {
-
+        handleDelete(row) {
+        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            deleteIshows({
+              _id: row._id
+            }).then(res => {
+              this.getIshows();
+              this.$notify({
+                title: "成功",
+                message: "操作成功",
+                type: "success",
+                duration: 2000
+              });
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
         },
         //复制
         copy() {
@@ -177,7 +216,7 @@ export default {
         },
         //新建场景
         linkNewSence() {
-            this.$router.push({ name: '/ishowsEdit' });
+            this.$router.push({ name: 'ishowsDesign' });
         },
         //编辑h5
         updateH5() {
@@ -210,3 +249,53 @@ export default {
     }
 }
 </script>
+<style lang="scss" scope>
+    .ishowList {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+
+      .frames {
+        width: 25%;
+        text-align: center;
+        padding: 6px;
+        cursor: pointer;
+
+        &.active {
+          .frames-content {
+            border-color: #409eff;
+            box-shadow: 0 0 4px 2px #ccc;
+          }
+        }
+
+        .rows {
+          background: #eee;
+          margin-bottom: 2px;
+        }
+
+        .frames-content {
+          padding: 6px;
+          display: block;
+          border: solid 1px #ccc;
+          border-radius: 6px;
+          font-size: 12px;
+          transition: all 0.6s;
+          height:200px;
+          overflow:hidden;
+          &:hover{
+            overflow-y:scroll;
+          }
+        }
+
+        .cols {
+          padding: 2px;
+          box-sizing: border-box;
+
+          div {
+            border: dashed 1px #ccc;
+            padding: 2px 0;
+          }
+        }
+      }
+    }
+</style>
