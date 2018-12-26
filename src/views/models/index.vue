@@ -417,6 +417,10 @@ export default {
         {
           name: "颜色选择器",
           value: "color"
+        },
+        {
+          name: "开关",
+          value: "switch"
         }
       ],
       // 正在编辑的键，更新键用到

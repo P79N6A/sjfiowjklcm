@@ -16,7 +16,7 @@ export function updateAccount(data) {
 export function logout(data) {
   return request({
     url: '/api/account/sign-out',
-    method: 'get',
+    method: 'put',
     data
   })
 }

@@ -305,6 +305,61 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/components',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/components/index'),
+      name: 'components',
+      meta: {
+        title: '组件库',
+        icon: 'documentation',
+        authorities: [100400, 100400]
+
+      }
+    }]
+  },
+  {
+    path: '/ishows',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/ishow/index'),
+      name: 'ishows',
+      meta: {
+        title: '自定义组件库',
+        icon: 'tree',
+        authorities: [100400, 100400]
+      }
+    },
+    {
+      path: 'design',
+      component: () => import('@/views/ishow/design'),
+      name: 'ishowsDesign',
+      hidden: true,
+      meta: {
+        title: '自定义组件库编辑',
+        icon: 'documentation',
+        authorities: [100400, 100400]
+      }
+    }]
+  },
+  {
+    path: '/messages',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/messages/index'),
+      name: 'messages',
+      meta: {
+        title: '站内信',
+        icon: 'email',
+        authorities: [100400, 100400]
+
+      }
+    }]
+  },
+  {
     path: '/medias',
     component: Layout,
     children: [{

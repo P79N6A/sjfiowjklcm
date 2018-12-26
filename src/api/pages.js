@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getPages() {
+export function getPages(data) {
   return request({
     url: '/api/pages',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 

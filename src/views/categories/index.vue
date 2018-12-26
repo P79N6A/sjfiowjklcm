@@ -11,6 +11,16 @@
         {{
         $t('table.add') }}
       </el-button>
+      <el-button
+        class="filter-item"
+        style="margin-left: 10px;"
+        type="primary"
+        icon="el-icon-edit"
+        @click="staticCategories"
+      >
+      生效
+      </el-button>
+      
     </div>
 
     <el-table
@@ -133,7 +143,8 @@ import {
   getCategories,
   addCategories,
   deleteCategories,
-  updateCategories
+  updateCategories,
+  staticCategories
 } from "@/api/categories";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -294,6 +305,19 @@ export default {
     // 查看数据集合的数据内容
     handleOpen(row) {
       this.$router.push({ name: "contents", query: { categoryId: row._id}});
+    },
+    staticCategories(){
+      staticCategories().then(res=>{
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000
+            });
+      }).catch(err=>{
+        
+      })
+      // 数据生效
     }
   }
 };

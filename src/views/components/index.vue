@@ -2,7 +2,15 @@
   <div class="components-container">
     <el-card class="box-card">
       <div slot="header" class="cfx">
-        <span>框架列表</span>
+        <span>组件列表</span>
+          <!-- <el-input placeholder="请输入内容" v-model="input5" style="width:500px;" size="midium">
+            <el-select v-model="select" slot="prepend" placeholder="请选择">
+              <el-option label="餐厅名" value="1"></el-option>
+              <el-option label="订单号" value="2"></el-option>
+              <el-option label="用户电话" value="3"></el-option>
+            </el-select>
+            <el-button slot="append" icon="el-icon-search"></el-button>
+          </el-input> -->
       </div>
       <el-container>
         <el-aside width="200px">
@@ -42,6 +50,7 @@
         <el-main>Main</el-main>
       </el-container>
     </el-card>
+    
   </div>
 </template>
 
@@ -51,6 +60,12 @@ import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
 export default {
+  data(){
+    return {
+      input5:'',
+      select:''
+    }
+  },
   components: {
     Pagination
   },
