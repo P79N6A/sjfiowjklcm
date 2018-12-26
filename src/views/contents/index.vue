@@ -328,6 +328,13 @@
               color-format="rgb"
               :show-alpha="true"
             ></el-color-picker>
+            <el-switch v-if="extend.type=='switch'"
+              v-model="contentTemp.extensions[extend.key]"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="是"
+              inactive-text="否">
+            </el-switch>
             <!-- 文件上传框 -->
             <div v-if="extend.type=='media'">
               <el-upload
@@ -366,6 +373,7 @@
                 </p>
               </div>
             </div>
+            <!-- 图片上传框 -->
             <div v-if="extend.type=='image'">
               <el-upload
                 class="avatar-uploader"
