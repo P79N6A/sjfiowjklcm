@@ -180,7 +180,7 @@ export const asyncRouterMap = [
     meta: {
       title: '数据管理',
       icon: 'nested',
-      authorities: [110300, 110301]
+      authorities: [110301, 110201, 100201]
     },
     children: [{
         path: 'moedls',
@@ -189,8 +189,7 @@ export const asyncRouterMap = [
         meta: {
           title: '数据模型',
           icon: 'nested',
-          authorities: [110300, 110301]
-
+          authorities: [110301]
         }
       }, {
         path: 'categories',
@@ -199,7 +198,7 @@ export const asyncRouterMap = [
         meta: {
           title: '数据集合',
           icon: 'nested',
-          authorities: [110300, 110301]
+          authorities: [110201]
 
         }
       },
@@ -211,7 +210,7 @@ export const asyncRouterMap = [
         meta: {
           title: '数据内容',
           icon: 'nested',
-          authorities: [110300, 110301],
+          authorities: [100201]
         }
       }
     ]
@@ -222,7 +221,8 @@ export const asyncRouterMap = [
     meta: {
       title: '账号管理',
       icon: 'peoples',
-      authorities: [110300, 110301]
+      authorities: [110501, 109001]
+
     },
     children: [{
       path: 'roles',
@@ -231,8 +231,7 @@ export const asyncRouterMap = [
       meta: {
         title: '权限角色',
         icon: 'password',
-        authorities: [110500, 110501]
-
+        authorities: [110501]
       }
     }, {
       path: 'users',
@@ -241,7 +240,7 @@ export const asyncRouterMap = [
       meta: {
         title: '后台用户',
         icon: 'peoples',
-        authorities: [110600, 110601]
+        authorities: [109001]
 
       }
     }]
@@ -249,11 +248,10 @@ export const asyncRouterMap = [
   {
     path: '/pages',
     component: Layout,
-    // alwaysShow: true, // will always show the root menu
     meta: {
       title: '页面管理',
-      icon: 'table'
-      // roles: ['admin'] // or you can only set roles in sub nav
+      icon: 'table',
+      authorities: [110801, 110901, 120101]
     },
     children: [{
         path: 'index',
@@ -261,7 +259,8 @@ export const asyncRouterMap = [
         name: 'frames',
         meta: {
           title: '框架列表',
-          noCache: true
+          noCache: true,
+          authorities: [110801]
         }
       },
       {
@@ -271,7 +270,8 @@ export const asyncRouterMap = [
         hidden: true,
         meta: {
           title: '框架设计',
-          noCache: true
+          noCache: true,
+          authorities: [110801]
         }
       },
       {
@@ -280,7 +280,8 @@ export const asyncRouterMap = [
         name: 'layout',
         meta: {
           title: '布局列表',
-          noCache: true
+          noCache: true,
+          authorities: [110901]
         }
       },
       {
@@ -290,7 +291,8 @@ export const asyncRouterMap = [
         hidden: true,
         meta: {
           title: '布局设置',
-          noCache: true
+          noCache: true,
+          authorities: [110901]
         }
       },
       {
@@ -299,14 +301,18 @@ export const asyncRouterMap = [
         name: 'page',
         meta: {
           title: '页面列表',
-          noCache: true
+          noCache: true,
+          authorities: [120101]
         }
-      },
+      }
     ]
   },
   {
     path: '/components',
     component: Layout,
+    meta: {
+      authorities: [100401]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/components/index'),
@@ -314,39 +320,45 @@ export const asyncRouterMap = [
       meta: {
         title: '组件库',
         icon: 'documentation',
-        authorities: [100400, 100400]
-
+        authorities: [100401]
       }
     }]
   },
   {
     path: '/ishows',
     component: Layout,
-    children: [{
-      path: 'index',
-      component: () => import('@/views/ishow/index'),
-      name: 'ishows',
-      meta: {
-        title: '自定义组件库',
-        icon: 'tree',
-        authorities: [100400, 100400]
-      }
+    meta: {
+      authorities: [120301]
     },
-    {
-      path: 'design',
-      component: () => import('@/views/ishow/design'),
-      name: 'ishowsDesign',
-      hidden: true,
-      meta: {
-        title: '自定义组件库编辑',
-        icon: 'documentation',
-        authorities: [100400, 100400]
+    children: [{
+        path: 'index',
+        component: () => import('@/views/ishow/index'),
+        name: 'ishows',
+        meta: {
+          title: '自定义组件库',
+          icon: 'tree',
+          authorities: [120301]
+        }
+      },
+      {
+        path: 'design',
+        component: () => import('@/views/ishow/design'),
+        name: 'ishowsDesign',
+        hidden: true,
+        meta: {
+          title: '自定义组件库编辑',
+          icon: 'documentation',
+          authorities: [120301]
+        }
       }
-    }]
+    ]
   },
   {
     path: '/messages',
     component: Layout,
+    meta: {
+      authorities: [120201]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/messages/index'),
@@ -354,14 +366,16 @@ export const asyncRouterMap = [
       meta: {
         title: '站内信',
         icon: 'email',
-        authorities: [100400, 100400]
-
+        authorities: [120201]
       }
     }]
   },
   {
     path: '/medias',
     component: Layout,
+    meta: {
+      authorities: [100401]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/medias/index'),
@@ -369,7 +383,7 @@ export const asyncRouterMap = [
       meta: {
         title: '媒体库',
         icon: 'documentation',
-        authorities: [100400, 100400]
+        authorities: [100401]
 
       }
     }]
@@ -377,6 +391,9 @@ export const asyncRouterMap = [
   {
     path: '/site-set',
     component: Layout,
+    meta: {
+      authorities: [110101]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/site-set/index'),
@@ -384,8 +401,7 @@ export const asyncRouterMap = [
       meta: {
         title: '网站配置',
         icon: 'component',
-        authorities: [110100, 110101]
-
+        authorities: [110101]
       }
     }]
   },
@@ -422,11 +438,11 @@ export const asyncRouterMap = [
   {
     path: '/codepage',
     component: Layout,
-    // alwaysShow: true, // will always show the root menu
     redirect: '/codepage/edit',
     meta: {
       icon: 'table',
-      title: 'codepage'
+      title: 'codepage',
+      authorities: [999]
       // roles: ['admin'] // or you can only set roles in sub nav
     },
     children: [{
@@ -447,7 +463,7 @@ export const asyncRouterMap = [
     meta: {
       icon: 'table',
       title: 'links',
-      roles: ['admin'] // or you can only set roles in sub nav
+      authorities: [999]
     },
     children: [{
       path: 'index',
@@ -502,6 +518,9 @@ export const asyncRouterMap = [
   {
     path: '/icon',
     component: Layout,
+    meta: {
+      authorities: [999]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/svg-icons/index'),
@@ -519,7 +538,6 @@ export const asyncRouterMap = [
   chartsRouter,
   nestedRouter,
   tableRouter,
-
   {
     path: '/example',
     component: Layout,
@@ -527,7 +545,8 @@ export const asyncRouterMap = [
     name: 'Example',
     meta: {
       title: 'example',
-      icon: 'example'
+      icon: 'example',
+      authorities: [999]
     },
     children: [{
         path: 'create',
@@ -563,6 +582,9 @@ export const asyncRouterMap = [
   {
     path: '/tab',
     component: Layout,
+    meta: {
+      authorities: [999]
+    },
     children: [{
       path: 'index',
       component: () => import('@/views/tab/index'),
@@ -626,7 +648,8 @@ export const asyncRouterMap = [
     name: 'Excel',
     meta: {
       title: 'excel',
-      icon: 'excel'
+      icon: 'excel',
+      authorities: [999]
     },
     children: [{
         path: 'export-excel',
@@ -662,7 +685,9 @@ export const asyncRouterMap = [
     alwaysShow: true,
     meta: {
       title: 'zip',
-      icon: 'zip'
+      icon: 'zip',
+      authorities: [999]
+
     },
     children: [{
       path: 'download',
@@ -736,6 +761,9 @@ export const asyncRouterMap = [
   {
     path: 'external-link',
     component: Layout,
+    meta: {
+      authorities: [999]
+    },
     children: [{
       path: 'https://nodercms.com',
       meta: {
