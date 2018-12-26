@@ -21,8 +21,13 @@
         <!-- <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
           <theme-picker class="theme-switch right-menu-item"/>
         </el-tooltip> -->
-      </template>
       <div class="international right-menu-item">{{name}}</div>
+      
+      </template>
+      {{authorities}}
+      
+      <!-- <div class="international right-menu-item">{{name}}</div> -->
+
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img :src="'/favicon.ico?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -73,7 +78,8 @@ export default {
       'sidebar',
       'name',
       'avatar',
-      'device'
+      'device',
+      'authorities'
     ])
   },
   methods: {
