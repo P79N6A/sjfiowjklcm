@@ -10,7 +10,6 @@ import {
  */
 function hasPermission(roles, route) {
   if (route.meta && route.meta.authorities) {
-
     return roles.some(role => route.meta.authorities.includes(role))
   } else {
     return true
@@ -65,6 +64,7 @@ const permission = {
         } else {
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
+        console.log(accessedRouters)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
