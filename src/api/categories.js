@@ -1,9 +1,11 @@
 import request from '@/utils/request'
 // 列表
-export function getCategories() {
+export function getCategories(params) {
+  console.log(params)
   return request({
     url: '/api/categories',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 // 具体某个

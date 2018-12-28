@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getModels() {
+export function getModels(params) {
   return request({
-    url: '/api/models?type=content',
-    method: 'get'
+    url: '/api/models',
+    method: 'get',
+    params
   })
 }
 

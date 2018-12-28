@@ -1,3 +1,6 @@
+
+
+
 <template>
   <div class="content-container">
     <div class="filter-container">
@@ -24,13 +27,7 @@
     >
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <!-- 渲染系统内置数据 -->
-      <el-table-column
-        align="center"
-        label="封面"
-        prop="thumbnail"
-        v-if="modelTemp.system.thumbnail"
-        width="80"
-      >
+      <el-table-column align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
           <a
             target="_blank"
@@ -41,32 +38,16 @@
           ></a>
         </template>
       </el-table-column>
-
-      <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
+      <el-table-column label="平台" align="center" prop="platform"></el-table-column>
+      <el-table-column label="ID" align="center" prop="id"></el-table-column>
+      <el-table-column label="CODE" align="center" prop="code"></el-table-column>
+      <el-table-column label="CODE" align="center" prop="code"></el-table-column>
       <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
         <template slot-scope="scope">
           <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
         </template>
       </el-table-column>
-      <!-- 内容太多了，以缩略图展示 -->
-      <el-table-column
-        label="内容"
-        prop="content"
-        v-if="modelTemp.system.content"
-        width="50"
-        align="center;"
-      >
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="点击查看内容" placement="top-start">
-            <span
-              @click="hadleView(scope.row.content)"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
-            >
-              <svg-icon icon-class="documentation"/>
-            </span>
-          </el-tooltip>
-        </template>
-      </el-table-column>
+
       <!-- 渲染扩展字段 -->
       <el-table-column
         :label="extend.name"
@@ -202,7 +183,7 @@
           <span>系统参数</span>
         </div>
         <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
-          <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
+          <el-form-item label="封面" prop="thumbnail">
             <el-upload
               class="avatar-uploader"
               action="/api/media"
@@ -210,6 +191,8 @@
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
             >
+              <!-- {{contentTemp}} -->
+              <!-- {{contentTemp.thumbnail}} -->
               <a
                 v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src"
                 @click="beforeClick('thumbnail',true,true)"
@@ -240,15 +223,50 @@
               </p>
             </div>
           </el-form-item>
-          <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
-            <el-input v-model="contentTemp.abstract"/>
+          <el-form-item label="在线状态" prop="online">
+            <el-switch
+              v-model="contentTemp.online"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="是"
+              inactive-text="否"
+            ></el-switch>
           </el-form-item>
-          <el-form-item label="标签" prop="tags" v-if="modelTemp.system.tags">
+          <el-form-item label="游戏平台" prop="platform">
+            <el-input v-model="contentTemp.platform"/>
+          </el-form-item>
+          <el-form-item label="游戏ID" prop="id">
+            <el-input v-model="contentTemp.id"/>
+          </el-form-item>
+          <el-form-item label="游戏CODE" prop="code">
+            <el-input v-model="contentTemp.code"/>
+          </el-form-item>
+          <el-form-item label="中文名" prop="name">
+            <el-input v-model="contentTemp.name"/>
+          </el-form-item>
+          <el-form-item label="英文名" prop="eName">
+            <el-input v-model="contentTemp.eName"/>
+          </el-form-item>
+          <el-form-item label="线注" prop="line">
+            <el-input-number
+              controls-position="right"
+              v-model="contentTemp.line"
+              :placeholder="`请输入线注`"
+              :min="0"
+            ></el-input-number>
+          </el-form-item>
+          <el-form-item label="试玩" prop="try">
+            <el-switch
+              v-model="contentTemp.try"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="是"
+              inactive-text="否"
+            ></el-switch>
+          </el-form-item>
+          <el-form-item label="标签" prop="tags">
             <el-input v-model="contentTemp.tags"/>
             <div>标签以空格分开</div>
-          </el-form-item>
-          <el-form-item label="内容" prop="content" v-if="modelTemp.system.content">
-            <tinymce :height="400" v-model="contentTemp.content"/>
           </el-form-item>
         </el-form>
       </el-card>
@@ -328,6 +346,7 @@
               color-format="rgb"
               :show-alpha="true"
             ></el-color-picker>
+            <!-- 开关 -->
             <el-switch
               v-if="extend.type=='switch'"
               v-model="contentTemp.extensions[extend.key]"
@@ -425,40 +444,6 @@
           }}
         </el-button>
       </div>
-    </el-dialog>
-    <!-- 文本预览 -->
-    <el-dialog title="内容域预览" :visible.sync="dialogViewVisible" width="1300px">
-      <el-tabs type="border-card" v-model="tabActive">
-        <el-tab-pane name="device_pc">
-          <span slot="label">
-            <i class="el-icon-date"></i> 电脑模式预览
-          </span>
-          <div class="mac">
-            <div class="color-picker">
-              <div>背景颜色</div>
-              <el-color-picker v-model="backColor" size="medium"></el-color-picker>
-            </div>
-            <div class="content" :style="{backgroundColor:backColor}">
-              <iframe :ref="`device_pc`" width="100%" height="100%" src frameborder="0"></iframe>
-            </div>
-          </div>
-        </el-tab-pane>
-
-        <el-tab-pane name="device_mobile" label="消息中心">
-          <span slot="label">
-            <i class="el-icon-date"></i> 手机模式预览
-          </span>
-          <div class="iphone">
-            <div class="color-picker">
-              <span class="color-text">背景颜色</span>
-              <el-color-picker v-model="backColor" size="mini"></el-color-picker>
-            </div>
-            <div class="content" :style="{backgroundColor:backColor}">
-              <iframe :ref="`device_mobile`" width="460" height="100%" src frameborder="0"></iframe>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
     </el-dialog>
   </div>
 </template>
@@ -559,6 +544,7 @@ export default {
     },
     // 重置表单模型
     resetContentTemp() {
+      1;
       let _obj = {};
       _obj.category = this.categoryTemp._id;
       // 检查系统默认的字段
@@ -569,15 +555,34 @@ export default {
           src: ""
         };
       }
-      if (this.modelTemp.system.abstract) {
-        _obj.abstract = "";
+      if (this.modelTemp.system.id) {
+        _obj.id = "";
+      }
+      if (this.modelTemp.system.code) {
+        _obj.code = "";
+      }
+      if (this.modelTemp.system.platform) {
+        _obj.platform = "";
+      }
+      if (this.modelTemp.system.name) {
+        _obj.name = "";
+      }
+      if (this.modelTemp.system.eName) {
+        _obj.eName = "";
+      }
+      if (this.modelTemp.system.line) {
+        _obj.line = "";
+      }
+      if (this.modelTemp.system.try) {
+        _obj.try = fals;
       }
       if (this.modelTemp.system.tags) {
-        _obj.tags = "";
+        _obj.tags = [];
       }
-      if (this.modelTemp.system.content) {
-        _obj.content = "";
+      if (this.modelTemp.system.online) {
+        _obj.online = false;
       }
+
       _obj.extensions = {};
       // 遍历扩展的数据类型
       for (let i = 0; i < this.modelTemp.extensions.length; i++) {
@@ -930,10 +935,10 @@ export default {
       align-items: center;
       .el-icon-plus {
         font-size: 50px;
-        font-weight: bold;
-        width: 120px;
-        height: 120px;
+        width: 100%;
+        height: 100%;
         line-height: 120px;
+        font-weight: bold;
       }
     }
   }

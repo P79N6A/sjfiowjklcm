@@ -389,6 +389,45 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/games',
+    component: Layout,
+    meta: {
+      authorities: [110101],
+      icon: 'component',
+      title: '游戏管理'
+    },
+    children: [{
+      path: 'models',
+      component: () => import('@/views/gameModels/index'),
+      name: 'game_models',
+      meta: {
+        title: '游戏模型',
+        icon: 'component',
+        authorities: [110101]
+      }
+    }, {
+      path: 'categories',
+      component: () => import('@/views/gameCategories/index'),
+      name: 'game_categories',
+      meta: {
+        title: '游戏集合',
+        icon: 'nested',
+        authorities: [110201]
+
+      }
+    }, {
+      path: 'index',
+      component: () => import('@/views/gameContents/index'),
+      name: 'game_contents',
+      hidden: true,
+      meta: {
+        title: '游戏列表',
+        icon: 'nested',
+        authorities: [100201]
+      }
+    }]
+  },
+  {
     path: '/site-set',
     component: Layout,
     meta: {

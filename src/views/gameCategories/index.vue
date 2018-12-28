@@ -163,7 +163,7 @@ export default {
       modelList: null,
       // 栏目模版
       categoryTemp: {
-        type: "content",
+        type: "game",
         model: "",
         name: "",
         path: "",
@@ -196,7 +196,7 @@ export default {
     // 查询数据分类列表
     getCategories() {
       this.listLoading = true;
-      getCategories({ type: "content" })
+      getCategories({ type: "game" })
         .then(res => {
           this.categoryList = res.data;
           this.listLoading = false;
@@ -207,7 +207,7 @@ export default {
     },
     // 获取模型
     getModels() {
-      getModels({ type: "content" })
+      getModels({ type: "game" })
         .then(res => {
           this.modelList = res.data;
         })
@@ -231,7 +231,7 @@ export default {
     // 重置数据
     resetTemp() {
       this.categoryTemp = {
-        type:"content",
+        type: "game",
         model: "",
         name: "",
         path: "",
@@ -303,7 +303,10 @@ export default {
     },
     // 查看数据集合的数据内容
     handleOpen(row) {
-      this.$router.push({ name: "contents", query: { categoryId: row._id } });
+      this.$router.push({
+        name: "contents",
+        query: { categoryId: row._id }
+      });
     },
     staticCategories() {
       staticCategories()

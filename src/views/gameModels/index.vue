@@ -456,7 +456,7 @@ export default {
     // 查询用户列表
     getModels() {
       this.listLoading = true;
-      getModels({ type: "content" })
+      getModels({ type: "game" })
         .then(res => {
           this.modelList = res.data;
           this.listLoading = false;
