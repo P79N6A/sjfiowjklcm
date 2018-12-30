@@ -308,6 +308,23 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/games',
+    component: Layout,
+    meta: {
+      authorities: [100401]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/games/index'),
+      name: 'games',
+      meta: {
+        title: '游戏库',
+        icon: 'documentation',
+        authorities: [100401]
+      }
+    }]
+  },
+  {
     path: '/components',
     component: Layout,
     meta: {

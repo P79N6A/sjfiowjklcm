@@ -328,6 +328,7 @@
               color-format="rgb"
               :show-alpha="true"
             ></el-color-picker>
+
             <el-switch
               v-if="extend.type=='switch'"
               v-model="contentTemp.extensions[extend.key]"
