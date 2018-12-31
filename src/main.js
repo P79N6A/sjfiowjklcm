@@ -17,11 +17,13 @@ import i18n from './lang' // Internationalization
 import './icons' // icon
 import './errorLog' // error log
 import './permission' // permission control
-// import './mock' // simulation data
+import './mock' // simulation data
 import lodash from 'lodash'
 
 import * as filters from './filters' // global filters
-import { install } from '@/components/ishows.js'
+import {
+  install
+} from '@/components/ishows.js'
 import '@/assets/sass/style.scss';
 Vue.use(install);
 

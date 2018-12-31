@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="games-container">
     <div>
       <span>
         <el-select v-model="filterData.device" placeholder="请选择终端类型">
@@ -18,13 +18,20 @@
         </el-select>
       </span>
       <span>
-        <el-button type="warning" icon="el-icon-search">搜索</el-button>
+        <el-button type="warning" icon="el-icon-search" @click="getGames">搜索</el-button>
       </span>
       <span>
         <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加</el-button>
       </span>
+      <span>
+        <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导入</el-button>
+      </span>
+      <!-- <span> -->
+      <!-- <el-button type="danger" @click="handleCreate" icon="el-icon-edit">导出</el-button> -->
+      <!-- </span> -->
     </div>
-
+    <br>
+    <br>
     <el-table
       v-loading="listLoading"
       :data="modelList"
@@ -33,16 +40,62 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
-      <el-table-column label="名称" prop="name"></el-table-column>
-      <el-table-column label="启用的键" min-width="150px" prop="role.authorities">
+      <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
+      <el-table-column fixed align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
-          <el-tag v-for="(item,key,i) in scope.row.system" :key="i" v-if="item">{{systemTag[key]}}</el-tag>
-          <el-tag v-for="(item,i) in scope.row.extensions" :key="i" type="warning">{{ item.name }}</el-tag>
+          <a
+            target="_blank"
+            v-if="scope.row.thumbnail&&scope.row.thumbnail.src"
+            :href="`${cdnurl}${scope.row.thumbnail.src}`"
+            class="img-view"
+            :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
+          ></a>
+        </template>
+      </el-table-column>
+      <el-table-column fixed label="名称">
+        <template slot-scope="scope">
+          <div>{{scope.row.name}}</div>
+          <div>{{scope.row.eName}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="ID/CODE">
+        <template slot-scope="scope">
+          <div>{{scope.row.id}}</div>
+          <div>{{scope.row.code}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="线注" prop="line"></el-table-column>
+      <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.mgself" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="支持试玩">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.try" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="gameName" prop="gameName" v-if="filterData.platform=='TTG'"></el-table-column>
+      <el-table-column label="gameType" prop="gameType" v-if="filterData.platform=='TTG'"></el-table-column>
+      <el-table-column label="分类" min-width="150px" prop="role.authorities">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.types">{{getTypesName(scope.row.types)}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="风格" min-width="150px" prop="role.authorities">
+        <template slot-scope="scope">
+          <el-tag v-for="(item,key,i) in scope.row.tags" :key="i">{{getTagName(item)}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="备注" prop="description"></el-table-column>
-
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.online" type="warning">上架</el-tag>
+          <el-tag v-else>下架</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         :label="$t('table.actions')"
         align="center"
@@ -51,6 +104,13 @@
       >
         <template slot-scope="scope">
           <el-button-group>
+            <el-button
+              type="danger"
+              size="mini"
+              v-if="scope.row.online"
+              @click="toStop(scope.row)"
+            >下架</el-button>
+            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上架</el-button>
             <el-button
               type="primary"
               size="mini"
@@ -186,7 +246,12 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td>
+                  <el-form-item label="赔付线注" prop="online">
+                    <el-input-number v-model="gameTemp.line" :min="0"></el-input-number>
+                  </el-form-item>
+                </td>
+                <td>
                   <el-form-item label="封面" prop="thumbnail">
                     <el-upload
                       class="avatar-uploader"
@@ -196,23 +261,18 @@
                       :before-upload="beforeAvatarUpload"
                     >
                       <a
-                        v-if="gameTemp.thumbnail&&gameTemp.src"
-                        @click="beforeClick('thumbnail',true,true)"
+                        v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src"
                         class="img-view"
                         style="width:120px;height:120px;display:block;"
-                        :style="`background-image:url(${cdnurl}${gameTemp.src});`"
+                        :style="`background-image:url(${cdnurl}${gameTemp.thumbnail.src});`"
                       >
                         <div class="upload-icon">
                           <i class="el-icon-plus"></i>
                         </div>
                       </a>
-                      <i
-                        v-else
-                        class="el-icon-plus avatar-uploader-icon"
-                        @click="beforeClick('thumbnail',true,true)"
-                      ></i>
+                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                    <div class="file-info" v-if="gameTemp.thumbnail&&gameTemp.src">
+                    <div class="file-info" v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src">
                       <p v-if="gameTemp.thumbnail.src">
                         <a target="_blank" :href="`${cdnurl}${gameTemp.thumbnail.src}`">
                           <i class="el-icon-picture"></i>
@@ -231,63 +291,84 @@
 
         <el-card shadow="hover">
           <div slot="header" class="clearfix">
-            <span>扩展键</span>
+            <span>其他</span>
           </div>
-          <div class="items">
-            <el-table
-              :data="gameTemp.extensions"
-              border
-              fit
-              highlight-current-row
-              style="width: 100%;"
-            >
-              <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
-              <el-table-column label="名称" prop="name" align="center"></el-table-column>
-              <el-table-column label="键名" prop="key" align="center"></el-table-column>
-              <el-table-column label="类型" prop="type" align="center">
-                <template slot-scope="scope">{{getKeyName(scope.row.type)}}</template>
-              </el-table-column>
-              <el-table-column label="备注" prop="description" align="center"></el-table-column>
-              <el-table-column label="操作" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-button-group>
-                    <el-button
-                      type="primary"
-                      @click="editKey(scope.row,scope.$index)"
-                      size="mini"
-                    >编辑</el-button>
-                    <el-button type="danger" @click="deleteKey(scope.$index)" size="mini">移除</el-button>
-                  </el-button-group>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-          <div class="bottom clearfix">
-            <el-button
-              type="primary"
-              block
-              style="width:100%;"
-              icon="el-icon-plus"
-              @click="handleCreateKey"
-            >新增键</el-button>
-          </div>
+          <table style="width:100%;">
+            <tbody>
+              <tr>
+                <td>
+                  <el-form-item label="游戏类型" prop="platform">
+                    <el-radio-group v-model="gameTemp.types">
+                      <el-radio
+                        :label="type.value"
+                        v-for="type in typeList"
+                        :key="type.value"
+                      >{{type.name}}</el-radio>
+                    </el-radio-group>
+                  </el-form-item>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <el-form-item label="终端类型" prop="device">
+                    <el-checkbox-group v-model="gameTemp.tags">
+                      <el-checkbox
+                        :label="tag.value"
+                        v-for="tag in tagList"
+                        :key="tag.value"
+                      >{{tag.name}}</el-checkbox>
+                    </el-checkbox-group>
+                  </el-form-item>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <el-input
+                    type="textarea"
+                    :autosize="{ minRows: 4, maxRows: 8}"
+                    v-model="gameTemp.description"
+                  ></el-input>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </el-card>
       </el-form>
-
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button
           type="primary"
-          @click="dialogStatus==='create'?createModel():updateModel()"
+          @click="dialogStatus==='create'?createGame():updateGame()"
         >{{ $t('table.confirm') }}</el-button>
       </div>
+    </el-dialog>
+    <el-dialog
+      title="批量导入"
+      :visible.sync="dialogInsertVisible"
+      width="400px"
+      :close-on-click-modal="false"
+    >
+      <el-upload
+        ref="upload"
+        action="/"
+        list-type="picture-card"
+        :show-file-list="false"
+        :on-change="importExcel"
+        :auto-upload="false"
+      >
+        <i class="el-icon-plus"></i>
+      </el-upload>
+      <p>
+        <a href="/static/导入模板.xlsx" target="_blank">下载模板文件</a>
+      </p>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { getModels, addModels, deleteModels, updateModels } from "@/api/model";
-import { getGames } from "@/api/games";
+import { mapGetters } from "vuex";
+import XLSX from "xlsx";
+import { getGames, addGames, updateGames, deleteGames } from "@/api/games";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
@@ -301,10 +382,12 @@ export default {
   },
   data() {
     return {
+      //搜索条件
       filterData: {
-        device: "",
-        platform: ""
+        device: "PC",
+        platform: "DT"
       },
+      // 游戏平台类型
       platformList: [
         {
           platform: "PT",
@@ -387,103 +470,49 @@ export default {
           name: "JDB捕鱼"
         }
       ],
-      modelList: null,
-      systemTag: {
-        // 系统自带键
-        abstract: "摘要",
-        content: "内容",
-        tags: "标签",
-        thumbnail: "缩略图"
-      },
-      gameTemp: {
-        type: "content", // 模型类型
-        name: "", // 模型名称
-        description: "", // 模型备注
-        extensions: [], // 扩展键
-        mixed: {
-          // 封面配置
-          thumbnailSize: {
-            width: 400,
-            height: 300
-          }
-        },
-        // 系统键
-        system: {
-          thumbnail: true, // 封面
-          abstract: true, // 摘要
-          content: true, // 内容
-          tags: true // 标签
-        }
-      },
-      selectTemp: {
-        // 多选，下拉模型
-        name: "",
-        value: ""
-      },
-      // 新键模型
-      keyTemp: {
-        key: "",
-        name: "",
-        type: "",
-        description: "",
-        mixed: {
-          thumbnailSize: {
-            width: 300,
-            height: 300
-          },
-          select: []
-        }
-      },
-      // 键值的类型
-      keyType: [
-        {
-          name: "文本框",
-          value: "text"
-        },
-        {
-          name: "数字框",
-          value: "number"
-        },
-        {
-          name: "日期输入框",
-          value: "date"
-        },
-        {
-          name: "文本域",
-          value: "textarea"
-        },
-        {
-          name: "多选列表",
-          value: "checkbox"
-        },
-        {
-          name: "下拉选择列表",
-          value: "select"
-        },
-        {
-          name: "图片上传框",
-          value: "image"
-        },
-        {
-          name: "文件上传框",
-          value: "media"
-        },
-        {
-          name: "颜色选择器",
-          value: "color"
-        },
-        {
-          name: "开关",
-          value: "switch"
-        }
+      // 分类
+      typeList: [
+        { name: "奖池", value: "AMA" },
+        { name: "经典", value: "CLA" },
+        { name: "迷你", value: "MIN" },
+        { name: "其他", value: "OTH" },
+        { name: "电子", value: "ELE" },
+        { name: "街机", value: "STR" }
       ],
-      // 正在编辑的键，更新键用到
-      edittingKey: "",
+      // 标签
+      tagList: [
+        { name: "消消乐", value: "ETL" },
+        { name: "多旋转", value: "CIR" },
+        { name: "电影", value: "MOV" },
+        { name: "卡通", value: "CAR" },
+        { name: "少女", value: "GIR" }
+      ],
+      gameTemp: {
+        platform: "",
+        device: "",
+        id: "",
+        code: "",
+        //mg
+        moduleid: "",
+        mgself: "",
+        // ttg
+        gameName: "",
+        gameType: "",
+        name: "",
+        eName: "",
+        online: false,
+        try: true,
+        line: 0,
+        thumbnail: {},
+        types: "", // 类型
+        tags: [],
+        description: "" // 备注
+      },
+
       listLoading: true,
       dialogFormVisible: false,
-      dialogExtendVisible: false,
+      dialogInsertVisible: false,
       dialogStatus: "",
-      dialogKeyStatus: "",
       textMap: {
         update: "Edit",
         create: "Create"
@@ -509,7 +538,7 @@ export default {
     // 查询用户列表
     getGames() {
       this.listLoading = true;
-      getGames({ type: "content" })
+      getGames(this.filterData)
         .then(res => {
           this.modelList = res.data;
           this.listLoading = false;
@@ -544,7 +573,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          deleteModels(data).then(res => {
+          deleteGames(data).then(res => {
             this.getGames();
             this.$notify({
               title: "成功",
@@ -558,9 +587,11 @@ export default {
           console.log(err);
         });
     },
+
     // 创建模型
-    createModel() {
-      addModels(this.gameTemp)
+    createGame() {
+      // return;
+      addGames({ gameList: [this.gameTemp] })
         .then(res => {
           this.dialogFormVisible = false;
           this.getGames();
@@ -573,8 +604,21 @@ export default {
         })
         .catch(err => {});
     },
-    updateModel() {
-      updateModels(this.gameTemp)
+    // 设置为上线
+    toOnline(row) {
+      this.gameTemp = Object.assign({}, row); // copy obj
+      this.gameTemp.online = true;
+      this.updateGame();
+    },
+    // 设置为下架
+    toStop(row) {
+      this.gameTemp = Object.assign({}, row); // copy obj
+      this.gameTemp.online = false;
+      this.updateGame();
+    },
+    // 更新模型
+    updateGame() {
+      updateGames(this.gameTemp)
         .then(res => {
           this.dialogFormVisible = false;
           this.getGames();
@@ -590,170 +634,155 @@ export default {
     // 重制模型
     resetTemp() {
       this.gameTemp = {
-        type: "content", // 模型类型
-        name: "", // 模型名称
-        description: "", // 模型备注
-        extensions: [], // 扩展键
-        mixed: {
-          // 封面配置
-          thumbnailSize: {
-            width: 400,
-            height: 300
-          }
-        },
-        // 系统键
-        system: {
-          thumbnail: true, // 封面
-          abstract: true, // 摘要
-          content: true, // 内容
-          tags: true // 标签
-        }
+        platform: "",
+        device: "",
+        id: "",
+        code: "",
+        //mg
+        moduleid: "",
+        mgself: "",
+        // ttg
+        gameName: "",
+        gameType: "",
+        name: "",
+        eName: "",
+        online: false,
+        try: true,
+        line: 0,
+        thumbnail: {},
+        types: "", // 类型
+        tags: [],
+        description: "" // 备注
       };
     },
-    /*=====键值相关=====*/
-    getKeyName(key) {
-      const keyName = this.keyType.find(item => {
-        if (item.value == key) return item.value == key;
-      });
-      return keyName.name;
+    // 文件上传成功后
+    handleAvatarSuccess(res, file) {
+      this.gameTemp.thumbnail = {
+        _id: res._id,
+        fileName: file.name,
+        src: res.src
+      };
     },
-    // 点击新增键按钮
-    handleCreateKey() {
-      this.resetKeyTemp();
-      this.dialogExtendVisible = true;
-      this.dialogKeyStatus = "create";
-      this.$nextTick(() => {
-        this.$refs["dataFormKey"].clearValidate();
-      });
-    },
-    // 点击编辑键按钮
-    editKey($row, $index) {
-      this.dialogKeyStatus = "update";
-      this.edittingKey = $index;
-      this.dialogExtendVisible = true;
-      this.resetKeyTemp();
-      this.keyTemp = Object.assign(this.keyTemp, $row);
-      //模型bug-fixed
-      if (!this.keyTemp.mixed.select) {
-        this.keyTemp.mixed.select = [];
+    // 文件上传前
+    beforeAvatarUpload(file) {
+      const isImg = file.type.includes("image");
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
       }
-      if (!this.keyTemp.mixed.thumbnailSize) {
-        this.keyTemp.mixed.thumbnailSize = {
-          width: 300,
-          height: 300
-        };
-      }
+      return isImg;
     },
-    // 点击删除键按钮
-    deleteKey($index) {
-      this.gameTemp.extensions.splice($index, 1);
-    },
-    // 添加键操作
-    createKey() {
-      let newKeyTemp = Object.assign({}, this.keyTemp);
-      // 查重
-      const _index = this.gameTemp.extensions.findIndex(item => {
-        return item.key == newKeyTemp.key;
+    // 获取标签
+    getTagName(key) {
+      let name = key;
+      this.tagList.some(item => {
+        if (item.value == key) {
+          name = item.name;
+        }
+        return item.value == key;
       });
-      if (_index >= 0 || this.systemTag[newKeyTemp.key]) {
-        this.$notify({
-          title: "delete",
-          message: "该键名已存在",
-          type: "error",
-          duration: 2000
-        });
+      return name;
+    },
+    // 获取分类名
+    getTypesName(key) {
+      let name = key;
+      this.typeList.some(item => {
+        if (item.value == key) {
+          name = item.name;
+        }
+        return item.value == key;
+      });
+      return name;
+    },
+    //导入EXCEL
+    importExcel(file) {
+      // let file = file.files[0] // 使用传统的input方法需要加上这一步
+      const types = file.name.split(".")[1];
+      const fileType = ["xlsx", "xlc", "xlm", "xls", "xlt", "xlw", "csv"].some(
+        item => item === types
+      );
+      if (!fileType) {
+        alert("格式错误！请重新选择");
         return;
       }
-      // 删除多余数据
-      if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        delete newKeyTemp.mixed.thumbnailSize;
-      } else if (newKeyTemp.type == "image") {
-        delete newKeyTemp.mixed.select;
-      } else {
-        delete newKeyTemp.mixed.thumbnailSize;
-        delete newKeyTemp.mixed.select;
-      }
-      this.gameTemp.extensions.push(newKeyTemp);
-      this.resetKeyTemp();
-      this.dialogExtendVisible = false;
-    },
-    // 更新键操作
-    updateKey() {
-      let newKeyTemp = Object.assign({}, this.keyTemp);
-      // 数据调整
-      if (newKeyTemp.type == "checkbox" || newKeyTemp.type == "select") {
-        delete newKeyTemp.mixed.thumbnailSize;
-      } else if (newKeyTemp.type == "image") {
-        delete newKeyTemp.mixed.select;
-      } else {
-        delete newKeyTemp.mixed.thumbnailSize;
-        delete newKeyTemp.mixed.select;
-      }
-      // 更新键值
-      this.gameTemp.extensions.splice(this.edittingKey, 1, newKeyTemp);
-      // this.$notify({
-      //   title: 'success',
-      //   message: '修改成功',
-      //   type: 'success',
-      //   duration: 2000
-      // })
-      this.dialogExtendVisible = false;
-      return;
-    },
-    // 重置键模型
-    resetKeyTemp() {
-      this.keyTemp = {
-        key: "",
-        name: "",
-        type: "",
-        description: "",
-        mixed: {
-          thumbnailSize: {
-            width: 300,
-            height: 300
-          },
-          select: []
+      this.file2Xce(file).then(tabJson => {
+        if (tabJson && tabJson.length > 0) {
+          this.xlsxJson = tabJson;
+          console.log("lkslk;ajsdflkdsj");
+          console.log(tabJson);
+          tabJson[0].sheet.forEach(item => {
+            item.tags = [];
+            item.thumbnail = {
+              src: "",
+              fileName: "",
+              _id: ""
+            };
+          });
+          addGames({ gameList: tabJson[0].sheet })
+            .then(res => {
+              this.dialogFormVisible = false;
+              this.getGames();
+              this.$notify({
+                title: "成功",
+                message: "操作成功",
+                type: "success",
+                duration: 2000
+              });
+            })
+            .catch(err => {});
+          // xlsxJson就是解析出来的json数据,数据格式如下
+          // [
+          //   {
+          //     sheetName: sheet1
+          //     sheet: sheetData
+          //   }
+          // ]
         }
-      };
+      });
     },
-    /*=====选项列表相关======*/
-    // 添加选项列表
-    addKeySelect() {
-      let newSelectTemp = Object.assign({}, this.selectTemp);
-      if (!this.keyTemp.mixed.select) {
-        this.keyTemp.mixed.select = [];
-      }
-      this.keyTemp.mixed.select.push(newSelectTemp);
-      this.resetSelectTemp();
-    },
-    // 删除选项列表
-    deleteKeySelect($index) {
-      this.keyTemp.mixed.select.splice($index, 1);
-    },
-    // 重置选项列表模型
-    resetSelectTemp() {
-      this.selectTemp = {
-        name: "",
-        value: ""
-      };
+    // 分析文件
+    file2Xce(file) {
+      return new Promise(function(resolve, reject) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const data = e.target.result;
+          this.wb = XLSX.read(data, {
+            type: "binary"
+          });
+          const result = [];
+          this.wb.SheetNames.forEach(sheetName => {
+            result.push({
+              sheetName: sheetName,
+              sheet: XLSX.utils.sheet_to_json(this.wb.Sheets[sheetName])
+            });
+          });
+          resolve(result);
+        };
+        reader.readAsBinaryString(file.raw);
+        // reader.readAsBinaryString(file) // 传统input方法
+      });
     }
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
   }
 };
 </script>
-<style lang="scss" scoped>
-.model-table {
-  width: 100%;
-  table-layout: fixed;
+<style lang="scss">
+.games-container {
+  padding: 30px;
+  .model-table {
+    width: 100%;
+    table-layout: fixed;
 
-  td {
-    padding: 6px;
+    td {
+      padding: 6px;
+    }
   }
-}
 
-.selectTempForm {
-  background: #eee;
-  padding: 20px 10px 10px;
-}
+  .selectTempForm {
+    background: #eee;
+    padding: 20px 10px 10px;
+  }
   .img-view {
     background-position: center center;
     background-repeat: no-repeat;
