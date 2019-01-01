@@ -12,14 +12,14 @@
             <!-- <el-menu-item index="4">
                 <div @click="showTool('videoTool')">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></div>
             </el-menu-item> -->
-            <el-submenu index="3">
+            <!-- <el-submenu index="3">
                 <template slot="title">表单&nbsp;<i class="fa fa-bars" aria-hidden="true"></i></template>
                 <el-menu-item index="3-1">输入框</el-menu-item>
                 <el-menu-item index="3-2">单选</el-menu-item>
                 <el-menu-item index="3-3">多选</el-menu-item>
                 <el-menu-item index="3-4">下拉框</el-menu-item>
                 <el-menu-item index="3-5">按钮</el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
             <el-menu-item index="6">
                  <div @click="showTool('picTool2')" id="J-open-bg">背景&nbsp;<i class="fa fa-file-image-o" aria-hidden="true"></i></div>
             </el-menu-item>

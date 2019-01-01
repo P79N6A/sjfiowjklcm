@@ -6,7 +6,7 @@
       :h5-json="h5Json"></main-header>
     <div class="main v-global" @click="toggerActive">
       <!-- 模版列表 -->
-      <!-- <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules> -->
+      <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules>
       <!-- 操作区域 -->
       <main-show :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]" :show-id="showId" ref="show"></main-show>
       <!-- 样式编辑工具 -->
