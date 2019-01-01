@@ -792,16 +792,6 @@ export default {
     height: 60px;
     display: inline-block;
     line-height: 2;
-  }
-  .img-view {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: #eee;
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    line-height: 2;
     &:hover {
       .upload-icon {
         background: none;

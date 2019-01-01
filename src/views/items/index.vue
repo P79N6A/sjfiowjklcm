@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="item-container">
     <div>
       <span>
         <el-select v-model="filterData.device" placeholder="请选择终端类型">
@@ -9,16 +9,11 @@
       </span>
       <span>
         <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
-          <el-option
-            :label="item.name"
-            :value="item.platform"
-            v-for="item in platformList"
-            :key="item.platform"
-          ></el-option>
+          <el-option :label="item.name" :value="item.platform" v-for="item in platformList" :key="item.platform"></el-option>
         </el-select>
       </span>
       <span>
-        <el-button type="warning" icon="el-icon-search" @click="getGames">搜索</el-button>
+        <el-button type="warning" icon="el-icon-search" @click="getList">搜索</el-button>
       </span>
       <span>
         <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加</el-button>
@@ -32,254 +27,368 @@
     </div>
     <br>
     <br>
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      row-key="id"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%"
-    >
-      <el-table-column align="center" label="ID" width="65">
+    <el-table v-loading="listLoading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
+      <!-- <el-table-column align="center" label="ID" width="65" prop="_id"> -->
+      <!-- </el-table-column> -->
+      <el-table-column align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
+          <a target="_blank" v-if="scope.row.thumbnail&&scope.row.thumbnail.src" :href="`${cdnurl}${scope.row.thumbnail.src}`"
+            class="img-view" :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"></a>
+          <a target="_blank" v-else-if="scope.row.game.thumbnail&&scope.row.game.thumbnail.src" :href="`${cdnurl}${scope.row.game.thumbnail.src}`"
+            class="img-view" :style="`background-image:url(${cdnurl}${scope.row.game.thumbnail.src});`"></a>
         </template>
       </el-table-column>
-
-      <el-table-column width="180px" align="center" label="Date">
+      <el-table-column align="center" label="名称" prop="thumbnail">
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <div><span v-if="scope.row.name">{{scope.row.name}}</span><span v-else>{{scope.row.game.name}}</span></div>
+          <div><span v-if="scope.row.eName">{{scope.row.eName}}</span><span v-else>{{scope.row.game.eName}}</span></div>
         </template>
       </el-table-column>
-
-      <el-table-column min-width="300px" label="Title">
+      <el-table-column align="center" label="线注" prop="line">
+      </el-table-column>
+      <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
         <template slot-scope="scope">
-          <span>{{ scope.row.title }}</span>
+          <el-tag v-if="scope.row.game.mgself" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
         </template>
       </el-table-column>
-
-      <el-table-column width="110px" align="center" label="Author">
+      <el-table-column label="支持试玩">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <el-tag v-if="scope.row.game.try" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
         </template>
       </el-table-column>
-
-      <el-table-column width="100px" label="Importance">
+      <el-table-column label="备注" prop="description">
         <template slot-scope="scope">
-          <svg-icon
-            v-for="n in +scope.row.importance"
-            :key="n"
-            icon-class="star"
-            class="icon-star"
-          />
+          {{scope.row.game.description}}
         </template>
       </el-table-column>
-
-      <el-table-column align="center" label="Readings" width="95">
+      <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <span>{{ scope.row.pageviews }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column class-name="status-col" label="Status" width="110">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="Drag" width="80">
-        <template slot-scope="scope">
-          <svg-icon class="drag-handler" icon-class="drag"/>
+          <el-button-group>
+            <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
+            <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleDelete(scope.row)">
+              {{
+              $t('table.delete') }}
+            </el-button>
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog title="从系统导入游戏" :visible.sync="dialogFormVisible" width="900px" :close-on-click-modal="false" v-if="gameList.length>0">
+      <div>
+        <el-button type="danger" @click="addItems" icon="el-icon-edit">添加</el-button>
+      </div>
+      <div class="game-list">
+        <div v-for="game in gameList" :key="game._id" class="games" @click="handleClick(game._id)" v-if="!oldList.includes(game._id)">
+          <div :class="{active:selectGames.includes(game._id)}">
+            <div class="img-view" :style="`background-image:url(${cdnurl}${game.thumbnail.src});`" v-if="game.thumbnail&&game.thumbnail.src"></div>
+            <div>{{game.name}}</div>
+            <div>{{game.eName}}</div>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
     <div class="show-d">{{ $t('table.dragTips1') }} : &nbsp; {{ oldList }}</div>
     <div class="show-d">{{ $t('table.dragTips2') }} : {{ newList }}</div>
   </div>
 </template>
 
 <script>
-import { fetchList } from "@/api/article";
-import Sortable from "sortablejs";
+  import {
+    mapGetters
+  } from "vuex";
+  import {
+    fetchList
+  } from "@/api/article";
+  import {
+    getGames
+  } from "@/api/games";
+  import {
+    getItems,
+    addItems
+  } from "@/api/items";
+  import Sortable from "sortablejs";
 
-export default {
-  name: "DragTable",
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: "success",
-        draft: "info",
-        deleted: "danger"
-      };
-      return statusMap[status];
-    }
-  },
-  data() {
-    return {
-      list: null,
-      total: null,
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        limit: 10
-      },
-      sortable: null,
-      oldList: [],
-      newList: [],
-      //搜索条件
-      filterData: {
-        device: "PC",
-        platform: "DT"
-      },
-      // 游戏平台类型
-      platformList: [
-        {
-          platform: "PT",
-          name: "PT老虎机"
-        },
-        {
-          platform: "PT2TIGER",
-          name: "PT老虎机(新)"
-        },
-        {
-          platform: "DT",
-          name: "DT老虎机"
-        },
-        {
-          platform: "MG",
-          name: "MG老虎机"
-        },
-        {
-          platform: "QT",
-          name: "QT老虎机"
-        },
-        {
-          platform: "TTG",
-          name: "TTG老虎机"
-        },
-        {
-          platform: "NT",
-          name: "NT老虎机"
-        },
-        {
-          platform: "PNG",
-          name: "PNG老虎机"
-        },
-        {
-          platform: "SW",
-          name: "SW老虎机"
-        },
-        {
-          platform: "TGP",
-          name: "申博老虎机"
-        },
-        {
-          platform: "CQ9",
-          name: "CQ9老虎机"
-        },
-        {
-          platform: "RTG",
-          name: "RTG老虎机"
-        },
-        {
-          platform: "AMEBA",
-          name: "AMEBA老虎机"
-        },
-        {
-          platform: "PG",
-          name: "PG老虎机"
-        },
-        {
-          platform: "MWSLOT",
-          name: "MWSLOT老虎机"
-        },
-        {
-          platform: "MWQP",
-          name: "MW棋牌"
-        },
-        {
-          platform: "BBSLOT",
-          name: "BBSLOT老虎机"
-        },
-        {
-          platform: "YGG",
-          name: "YGG老虎机"
-        },
-        {
-          platform: "JDBSLOT",
-          name: "JDB老虎机"
-        },
-        {
-          platform: "JDBFISH",
-          name: "JDB捕鱼"
-        }
-      ],
-      dialogInsertVisible: false
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    handleCreate() {},
-    getGames() {},
-    getList() {
-      this.listLoading = true;
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items;
-        this.total = response.data.total;
-        this.listLoading = false;
-        this.oldList = this.list.map(v => v.id);
-        this.newList = this.oldList.slice();
-        this.$nextTick(() => {
-          this.setSort();
-        });
-      });
+  export default {
+    name: "DragTable",
+    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          published: "success",
+          draft: "info",
+          deleted: "danger"
+        };
+        return statusMap[status];
+      }
     },
-    setSort() {
-      const el = document.querySelectorAll(
-        ".el-table__body-wrapper > table > tbody"
-      )[0];
-      Sortable.create(el, {
-        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
-          dataTransfer.setData("Text", "");
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+    data() {
+      return {
+        list: null,
+        total: null,
+        listLoading: true,
+        listQuery: {
+          page: 1,
+          limit: 10
         },
-        onEnd: evt => {
-          const targetRow = this.list.splice(evt.oldIndex, 1)[0];
-          this.list.splice(evt.newIndex, 0, targetRow);
-
-          // for show the changes, you can delete in you code
-          const tempIndex = this.newList.splice(evt.oldIndex, 1)[0];
-          this.newList.splice(evt.newIndex, 0, tempIndex);
+        sortable: null,
+        oldList: [],
+        newList: [],
+        //搜索条件
+        filterData: {
+          device: "PC",
+          platform: "DT"
+        },
+        // 游戏平台类型
+        platformList: [{
+            platform: "PT",
+            name: "PT老虎机"
+          },
+          {
+            platform: "PT2TIGER",
+            name: "PT老虎机(新)"
+          },
+          {
+            platform: "DT",
+            name: "DT老虎机"
+          },
+          {
+            platform: "MG",
+            name: "MG老虎机"
+          },
+          {
+            platform: "QT",
+            name: "QT老虎机"
+          },
+          {
+            platform: "TTG",
+            name: "TTG老虎机"
+          },
+          {
+            platform: "NT",
+            name: "NT老虎机"
+          },
+          {
+            platform: "PNG",
+            name: "PNG老虎机"
+          },
+          {
+            platform: "SW",
+            name: "SW老虎机"
+          },
+          {
+            platform: "TGP",
+            name: "申博老虎机"
+          },
+          {
+            platform: "CQ9",
+            name: "CQ9老虎机"
+          },
+          {
+            platform: "RTG",
+            name: "RTG老虎机"
+          },
+          {
+            platform: "AMEBA",
+            name: "AMEBA老虎机"
+          },
+          {
+            platform: "PG",
+            name: "PG老虎机"
+          },
+          {
+            platform: "MWSLOT",
+            name: "MWSLOT老虎机"
+          },
+          {
+            platform: "MWQP",
+            name: "MW棋牌"
+          },
+          {
+            platform: "BBSLOT",
+            name: "BBSLOT老虎机"
+          },
+          {
+            platform: "YGG",
+            name: "YGG老虎机"
+          },
+          {
+            platform: "JDBSLOT",
+            name: "JDB老虎机"
+          },
+          {
+            platform: "JDBFISH",
+            name: "JDB捕鱼"
+          }
+        ],
+        dialogFormVisible: false,
+        dialogInsertVisible: false,
+        gameList: [],
+        // 选中的游戏
+        selectGames: []
+      };
+    },
+    created() {
+      this.getList();
+    },
+    computed: {
+      ...mapGetters(["cdnurl"])
+    },
+    methods: {
+      // 点击从系统导入
+      handleCreate() {
+        this.dialogFormVisible = true;
+        this.getGames()
+      },
+      // 查询用户列表
+      getGames() {
+        let search = Object.assign({}, this.filterData)
+        search.online = true
+        getGames(search)
+          .then(res => {
+            this.gameList = res.data;
+          })
+          .catch(err => {});
+      },
+      // 点击游戏按钮
+      handleClick(_id) {
+        let _index = this.selectGames.findIndex(item => {
+          return item == _id
+        })
+        if (_index >= 0) {
+          this.selectGames.splice(_index, 1)
+        } else {
+          this.selectGames.push(_id)
         }
-      });
+      },
+      addItems(ids) {
+        addItems({
+          gameList: this.selectGames,
+          device: this.filterData.device,
+          platform: this.filterData.platform
+        }).then(res => {
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getList()
+          this.selectGames = []
+        }).catch(err => {
+
+        })
+      },
+      // 
+      getList() {
+        this.listLoading = true;
+        getItems(this.filterData).then(response => {
+          this.list = response.data;
+          this.listLoading = false;
+          this.oldList = this.list.map(v => v.game._id)
+          this.newList = this.oldList.slice()
+          this.$nextTick(() => {
+            this.setSort();
+          });
+        });
+      },
+      setSort() {
+        const el = document.querySelectorAll(
+          ".el-table__body-wrapper > table > tbody"
+        )[0];
+        Sortable.create(el, {
+          ghostClass: "sortable-ghost", // Class name for the drop placeholder,
+          setData: function (dataTransfer) {
+            dataTransfer.setData("Text", "");
+            // to avoid Firefox bug
+            // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+          },
+          onEnd: evt => {
+            const targetRow = this.list.splice(evt.oldIndex, 1)[0];
+            this.list.splice(evt.newIndex, 0, targetRow);
+            const newArray = this.list.slice(0)
+            this.list = newArray
+            // for show the changes, you can delete in you code
+            const tempIndex = this.newList.splice(evt.oldIndex, 1)[0];
+            this.newList.splice(evt.newIndex, 0, tempIndex);
+          }
+        });
+      }
     }
-  }
-};
+  };
+
 </script>
 
-<style>
-.sortable-ghost {
-  opacity: 0.8;
-  color: #fff !important;
-  background: #42b983 !important;
-}
-</style>
+<style lang="scss">
+  .item-container {
+    .img-view {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: #eee;
+      width: 60px;
+      height: 60px;
+      display: inline-block;
+      line-height: 2;
+    }
 
-<style scoped>
-.icon-star {
-  margin-right: 2px;
-}
-.drag-handler {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
-.show-d {
-  margin-top: 15px;
-}
+    .sortable-ghost {
+      opacity: 0.8;
+      // color: #fff !important;
+      // background: #42b983 !important;
+    }
+
+    .icon-star {
+      margin-right: 2px;
+    }
+
+    .drag-handler {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .show-d {
+      margin-top: 15px;
+    }
+
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      .games {
+        width: 20%;
+        padding: 10px;
+
+        >div {
+          border: solid 1px #eee;
+          border-radius: 6px;
+          text-align: center;
+          cursor: pointer;
+          overflow: hidden;
+          transition: all 0.7;
+          box-shadow: 0 0 3px 3px #eee;
+
+          &:hover,
+          &.active {
+            box-shadow: 0 0 6px 2px #409EFF;
+            border: solid 1px #409EFF;
+          }
+        }
+
+        .img-view {
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-color: #eee;
+          width: 100%;
+          height: 130px;
+          display: inline-block;
+          line-height: 2;
+        }
+      }
+    }
+
+  }
+
 </style>

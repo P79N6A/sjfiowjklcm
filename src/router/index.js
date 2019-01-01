@@ -360,7 +360,9 @@ export const asyncRouterMap = [
   },
   {
     path: '/ishows',
-    component: Layout,
+    component: {
+      template:'<router-view></router-view>'
+    },
     meta: {
       authorities: [120301]
     },

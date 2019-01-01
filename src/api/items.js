@@ -1,33 +1,32 @@
 import request from '@/utils/request'
 
-export function getGames(params) {
+export function getItems(params) {
   return request({
-    url: '/api/games',
+    url: '/api/items',
     method: 'get',
     params
   })
 }
 
-export function addGames(data) {
+export function addItems(data) {
   return request({
-    url: '/api/games',
+    url: '/api/items',
     method: 'post',
     data
   })
 }
-export function updateGames(data) {
+export function updateItems(data) {
   return request({
-    url: '/api/games/' + data._id,
+    url: '/api/items/' + data._id,
     method: 'put',
     data
   })
 }
 
-export function deleteGames(data) {
+export function deleteItems(data) {
   return request({
-    url: '/api/games/' + data._id,
+    url: '/api/items/' + data._id,
     method: 'delete',
     data
   })
 }
-

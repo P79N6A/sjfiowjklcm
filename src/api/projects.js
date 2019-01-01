@@ -29,11 +29,3 @@ export function deleteProjects(data) {
     data
   })
 }
-
-export function rememberProjects(data) {
-  return request({
-    url: '/api/projects/' + data._id,
-    method: 'post',
-    data
-  })
-}
