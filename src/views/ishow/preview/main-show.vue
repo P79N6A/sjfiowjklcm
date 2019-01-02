@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <el-popover ref="popover1" placement="bottom" width="200" v-model="visible2">
             <p>确定删除这个页面吗？</p>
             <div style="text-align: right; margin: 0">
@@ -7,29 +8,15 @@
                 <el-button type="primary" size="mini" @click="confirmDelete">确定</el-button>
             </div>
         </el-popover>
-        <div class="ishow-previewMain" :class="{ active: isActive }" @click="toggerActive" @mouseover="visible = true" @mouseout="mouseoutDelete">
+        <div :class="['page-item',{ active: isActive }]" @click="toggerActive" @mouseover="visible = true" @mouseout="mouseoutDelete">
+          <slot></slot>
+        </div>
+        <!-- <div class="ishow-previewMain" :class="{ active: isActive }" @click="toggerActive" @mouseover="visible = true" @mouseout="mouseoutDelete">
             <div class="ishow-previewPage" :style="getBackground">
-                <!-- <textElement 
-              v-for="item in showJson" 
-              :key="item.id" 
-              v-if="item.type===1" 
-              :child-json="item">
-              </textElement> -->
                 <normalElement v-for="item in showJson" :key="item.id" :child-json="item" :show-json="showJson" :type="item.type">
                 </normalElement>
-                <!--  <imgElement 
-                  v-for="item in showJson" 
-                  :key="item.id" 
-                  v-if="item.type===2" 
-                  :child-json="item" 
-                  :show-json="showJson"
-                  :type="item.type">
-              </imgElement> -->
             </div>
-            <div class="ishow-pageDelete" v-popover:popover1 v-show="visible" @click.stop="">
-                <i class="el-icon-delete"></i>
-            </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -73,18 +60,21 @@ export default {
   methods: {
             // 拼接背景css
     setBgImage() {
-      const bgImage = this.pageJson[this.page - 1].bgImage;
+      const bgImage = this.pageJson[this.page - 1].bg;
       if (!bgImage) {
         return;
       }
-      if (bgImage.url) {
-        return 'background: url(' + bgImage.url + ') center center / cover no-repeat;';
-      }
-      return 'background-color: ' + bgImage.backgroundColor + ' ;';
+      return bgImage
+      // if (bgImage.url) {
+        // return 'background: url(' + bgImage.url + ') center center / cover no-repeat;';
+      // }
+      // return 'background-color: ' + bgImage.backgroundColor + ' ;';
     },
+    //点击
     handleDocumentClick() {
       this.visible = false;
     },
+    // 激活当前场景
     toggerActive() {
       this.$parent.activePage = this.page;
       bus.$emit('set-page', this.page);
@@ -132,3 +122,15 @@ export default {
 
 };
 </script>
+<style lang="scss">
+.page-item{
+  line-height:40px;
+  border-bottom:solid 1px #eee;
+  cursor:pointer;
+  transition:all 1s;
+  padding-left:10px;
+  &.active{
+    background:#eee;
+  }
+}
+</style>

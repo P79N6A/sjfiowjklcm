@@ -1,7 +1,12 @@
 <template>
-  <div class="ishow-rightContainer mt5">
+  <div class="right-control">
+    <span @click="showRight=!showRight" class="toggle">隐藏/展开</span>
+  <div class="ishow-rightContainer mt5" v-show="showRight">
     <div class="ishow-editorWrapper" @click.stop>
-      <el-tabs v-model="activeName2" type="border-card" v-if="!showBg&&showId" v-el-drag-dialog>
+      <el-tabs v-model="activeName2" type="border-card">
+        <el-tab-pane label="场景设置" name="base">
+          <base-edit :render-json="renderJson" :page-json="pageJson"></base-edit>
+        </el-tab-pane>
         <el-tab-pane label="图层" name="third">
           <div
             v-for="(item,i) in pageJson.json"
@@ -52,7 +57,8 @@
         <el-tab-pane label="事件" name="fourth">
           <br>
           <br>
-          <el-radio-group v-model="onClick" size="small">
+          <el-radio-group v-model="renderJson[showId].onClick" size="small">
+            <el-radio-button label="">无操作</el-radio-button>
             <el-radio-button label="next">下一页</el-radio-button>
             <el-radio-button label="pre">上一页</el-radio-button>
             <el-radio-button label="close">关闭组件</el-radio-button>
@@ -61,7 +67,7 @@
           <br>
           <br>
           <br>
-          <el-input v-model="link" placeholder="请输入内容" size="medium" v-if="onClick=='link'"></el-input>
+          <el-input v-model="renderJson[showId].link" placeholder="请输入内容" size="medium" v-if="renderJson[showId].onClick=='link'"></el-input>
         </el-tab-pane>
       </el-tabs>
       <el-tabs v-model="activeName" type="border-card" v-if="showBg">
@@ -71,19 +77,17 @@
       </el-tabs>
     </div>
   </div>
+  </div>
 </template>
 <script>
 import textEditor from "./text-editor.vue";
 import imageEditor from "./image-editor.vue";
 import animateEditor from "./animate-editor.vue";
 import bgEditor from "./bg-editor.vue";
+import baseEdit from "./base.vue";
 import bus from "@/views/ishow/js/bus";
-import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
 // const arr = ['textEditor', 'imageEditor', 'animateEditor'];
 export default {
-  directives: {
-    elDragDialog
-  },
   data() {
     return {
       activeName2: "first",
@@ -91,7 +95,8 @@ export default {
       activeName: "first",
       showBg: false,
       onClick: "",
-      link: ""
+      link: "",
+      showRight:true
     };
   },
   props: ["renderJson", "showId", "pageJson"],
@@ -99,7 +104,8 @@ export default {
     textEditor,
     animateEditor,
     imageEditor,
-    bgEditor
+    bgEditor,
+    baseEdit
   },
   created() {
     this.handleView();
@@ -143,5 +149,16 @@ export default {
   i {
     margin-right: 5px;
   }
+}
+.right-control{
+  position:relative;
+      .toggle {
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      border: dashed 1px #ccc;
+      padding: 3px;
+      cursor: pointer;
+    }
 }
 </style>

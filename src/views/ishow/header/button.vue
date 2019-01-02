@@ -1,25 +1,18 @@
 <template>
   <div class="ishow-headerBtn">
     <el-button size="mini" @click.stop="setting">设置</el-button>
-    <!-- <el-button size="mini" @click.stop="publish(2)">保存为模版</el-button> -->
     <el-button size="mini" @click.stop="publish(1)">保存</el-button>
     <el-button size="mini" @click.stop="quitOut">退出</el-button>
-    <!-- <img src="https://ad.doubleclick.net/ddm/ad/N366601.452584BUYSELLADS.COM/B9719141.131867274;sz=180x150;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=?" id="img-eeee" style="display:none"> -->
-    <!-- <el-button size="small" @click.stop="publish">发布</el-button> -->
   </div>
 </template>
 <script>
   import html2canvas from '@/assets/js/html2canvas/html2canvas';
   import bus from '@/views/ishow/js/bus';
-  // import pinyin from "@/vendor/pinyin/web-pinyin";
   import {
     postH5Page,
     addIshows,
     updateIshows
   } from '@/api/ishow';
-  // const pinyinOptions={
-  //   style: pinyin.STYLE_NORMAL
-  // };
   const animateOut = ['fadeOut', 'bounceOut', 'flipOutY', 'zoomOut', 'rollOut', 'flipOutX', 'lightSpeedOut', 'puffOut',
     'hingeRight'
   ].join('***');
@@ -40,28 +33,7 @@
       quitOut() {
         this.$router.push('/');
       },
-      //发布提交
-      fetchPublish(data, type) {
-        data = JSON.stringify(data);
-        console.info('json', JSON.stringify(this.resultJson));
-        let json = {
-          data,
-          type
-        };
-        postH5Page(json).then(response => {
-          this.$message('发布成功');
-          if (type === 1) {
-            console.info(response.data.id)
-            this.$store.commit('SET_ACTIVITYID', response.data.id);
-          }
-          console.info(response.data)
-        }).catch(err => {
-          console.info(err)
-        });
-      },
       publish(type) {
-        //this.getBase64Image(document.querySelector('#img-eeee'));
-        // type=type?type:1;
         let json = {};
         this.resultJson = this.parseJson(this.pageJson);
         const len = this.resultJson.length;
@@ -86,7 +58,6 @@
               if (form.default === false) {
                 // form.name=pinyin(form.cname).join('');
                 // form.name=form.cname.join('');
-                console.info('form-name', form)
               }
             }
 
@@ -104,14 +75,11 @@
           //获取第一页
           this.resultJson = [this.resultJson[this.page - 1]];
         }
-        // let data={
-        //     data:this.resultJson,
-        //     type:type
-        // };
         json.page = this.parseJson(this.resultJson);
         json.setting = this.h5Json;
         // 保存当前组件
-        console.log(json)
+        bus.$emit('save-json')
+        return
         if (json.page[0]._id) {
           updateIshows(json.page[0]).then(res => {
             this.$notify({
@@ -139,7 +107,7 @@
 
         // this.fetchPublish(json,type);
 
-        //this.html2canvasTool();
+        this.html2canvasTool();
         //console.info(JSON.stringify(this.resultJson,type))
         // bus.$emit('save-json', 1);
       },

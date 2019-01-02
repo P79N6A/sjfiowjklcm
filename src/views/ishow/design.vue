@@ -1,57 +1,95 @@
-<!-- <meta name="viewport" id="viewport" content="width=320, initial-scale=1.2875, maximum-scale=1.2875, user-scalable=no"> -->
 <template>
   <div>
     <!-- 导航栏 -->
     <main-header :show-id="showId" :show-json="showJson" :page-json="pageJson" :render-json="renderJson" :page="page"
       :h5-json="h5Json"></main-header>
+    <el-Input v-model="name"></el-Input>
+    <el-Input v-model="description"></el-Input>
     <div class="main v-global" @click="toggerActive">
-      <!-- 模版列表 -->
-      <!-- <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules> -->
+      <!-- 页面列表 -->
+      <main-modules :page-json="pageJson" :show-json="showJson" :page="page"></main-modules>
       <!-- 操作区域 -->
       <main-show :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]" :show-id="showId" ref="show"></main-show>
       <!-- 样式编辑工具 -->
       <main-editor :render-json="renderJson" :show-id="showId" ref="editor" :page-json="pageJson[page-1]"></main-editor>
     </div>
     <!-- 当前页面参数设置 -->
-    <main-setting ref="setting" :show-json="showJson" :render-json="renderJson" :page-json="pageJson[page-1]"></main-setting>
+    <div v-if="showDemo" class="demo">
+      <div>
+        <views :active-page="page" :page-json="pageJson"></views>
+      </div>
+    </div>
+    <!-- <el-dialog> -->
+
+    <!-- </el-dialog> -->
   </div>
 </template>
 <script>
-  import mainSetting from '@/views/ishow/setting/index.vue';
   import mainModules from '@/views/ishow/modules/modules.vue';
   import mainEditor from '@/views/ishow/editor/main-editor.vue';
   import mainHeader from '@/views/ishow/header/header.vue';
   import mainShow from '@/views/ishow/show/main-show.vue';
+  // 全局事件
   import bus from '@/views/ishow/js/bus';
   import appJson from '@/views/ishow/js/app/app.json';
+  import views from '@/views/ishow/views/main-show.vue';
   import {
     getPageJson,
     addIshows,
-    getIshowOne
+    getIshowOne,
+    updateIshows
   } from '@/api/ishow';
 
   // 排错技巧：定位到文件－行，数据没同步
-  // 针对当前页：showJson=[{},{}];renderJson={id:{},id{}}
+  const pageTemp = {
+    "page": "page",
+    "json": [],
+    "bg": {
+      "backgroundImage": "",
+      "backgroundColor": "",
+      "backgroundSize": "",
+      "backgroundRepeat": "",
+      "backgroundPosition": "",
+      "borderWidth": 0,
+      "borderRadius": 0,
+      "borderColor": "rgba(204, 204, 204,1)",
+      "borderStyle": "solid",
+      "shadowColor": "rgba(204, 204, 204,1)",
+      "shadowWidth": 0,
+      "shadowRadius": 10,
+      "opacity": 100,
+      "width": 400,
+      "height": 300
+    },
+    "width": 400,
+    "height": 300
+  }
   const showJsons = [{
     page: 1,
     json: [],
-    bgImage: {
-      backgroundColor: '',
-      coord: '',
-      url: ''
-    },
-    device:'pc',
+    device: 'pc',
     bg: {
       backgroundImage: '',
       backgroundColor: '',
       backgroundSize: '',
       backgroundRepeat: '',
       backgroundPosition: '',
+            "borderWidth": 0,
+      "borderRadius": 0,
+      "borderColor": "rgba(204, 204, 204,1)",
+      "borderStyle": "solid",
+      "shadowColor": "rgba(204, 204, 204,1)",
+      "shadowWidth": 0,
+      "shadowRadius": 10,
+      "opacity": 100,
+      "width": 400,
+      "height": 300
     },
     width: 400,
     height: 300,
     name: '',
     description: '',
+    timer:null
   }];
 
   export default {
@@ -61,15 +99,20 @@
         renderJson: {},
         // 当前编辑的id
         showId: false,
+        _id: '',
         pageJson: [],
         // 当前页数
         page: 1,
         showJson: [],
+        name: '',
+        description: '',
         initJson: this.parseJson(appJson.initJsons),
         initPage: this.parseJson(appJson.initPage),
+        // 历史记录
         histroyJson: [],
         ref: {},
-        h5Json: {}
+        h5Json: {},
+        showDemo: false
       }
     },
     components: {
@@ -77,20 +120,22 @@
       mainEditor,
       mainHeader,
       mainShow,
-      mainSetting
+      views
     },
     created() {
       // 设置总json
       this.pageJson = this.parseJson(showJsons);
       // 设置活动id,编辑状态
-      const id = this.$route.query.ishowsId || '';
-      if (id) {
-        this.$store.commit('SET_ACTIVITYID', id);
-        this.fetchPageJson();
+      this._id = this.$route.query.ishowsId || '';
+      console.log(this._id)
+      if (this._id) {
+        this.$store.commit('SET_ACTIVITYID', this._id);
+        this.fetchPageJson({
+          _id: this._id
+        });
       } else {
         this.init();
       }
-      // this.$store.state.user.activityId=this.$route.query.activityId||'';
     },
 
     methods: {
@@ -109,18 +154,19 @@
       // 获取h5编辑的json
       fetchPageJson() {
         const _this = this;
-        const _id = this.$route.query.ishowsId;
-        return getIshowOne({_id:_id}).then(res => {
+        return getIshowOne({
+          _id: this._id
+        }).then(res => {
           // const temp = typeof response.data === 'object' ? response.data : JSON.parse(response.data);
-          this.pageJson = this.parseJson([res.data]);
-          this.pageJson[0].page=1
-          console.log(this.pageJson)
+          this.pageJson = this.parseJson(res.data.pageJson);
+          this.name = res.data.name;
+          this.description = res.data.description
+          this.pageJson[0].page = 1
           _this.init();
           // this.updatePageJson(response.data);
-        }).catch(err => {
-          console.info(err)
-        });
+        }).catch(err => {});
       },
+      // 绑定事件
       addEvent() {
         // 文字 更改元素大小
         bus.$on('show-text-resize', isResize => {
@@ -141,12 +187,12 @@
           this.pageJson[this.page - 1].bg.backgroundImage = data
         })
         // 更新当前页面设置
-        bus.$on('pageSetting',data=>{
-          Object.assign(this.pageJson[this.page-1].bg,data.bg)
-          this.pageJson[this.page-1].width=data.width
-          this.pageJson[this.page-1].height=data.height
-          this.pageJson[this.page-1].name=data.name
-          this.pageJson[this.page-1].description=data.description
+        bus.$on('pageSetting', data => {
+          Object.assign(this.pageJson[this.page - 1].bg, data.bg)
+          this.pageJson[this.page - 1].width = data.width
+          this.pageJson[this.page - 1].height = data.height
+          // this.pageJson[this.page-1].name=data.name
+          // this.pageJson[this.page-1].description=data.description
         })
         // 更新整个h5属性,可以忽略
         bus.$on('update-h5Json', data => {
@@ -157,6 +203,7 @@
         bus.$on('update-json', data => {
           this.updateMethod(data);
           this.setPageJson();
+
         });
 
         // 添加元素
@@ -192,7 +239,6 @@
             temp.page = 1;
             result.push(temp);
           }
-          console.info('result', result)
           this.pageJson = result;
           this.page = 1;
           this.showId = false;
@@ -242,6 +288,11 @@
         // 保存json
         bus.$on('save-json', () => {
           this.setPageJson();
+          if (this._id) {
+            this.updateIshow()
+          } else {
+            this.createIshow()
+          }
         });
 
         // 保存json
@@ -375,6 +426,44 @@
         const json = this.parseJson(this.pageJson[this.page - 1].bgImage);
         this.$refs.editor.toggleBgEditor(isActive, json);
       },
+      updateIshow() {
+        const _data = {
+          _id: this._id,
+          name: this.name,
+          description: this.description,
+          pageJson: this.pageJson
+        }
+        updateIshows(_data).then(res => {
+          console.log(res)
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+        }).catch(err => {
+
+        })
+      },
+      createIshow() {
+        const _data = {
+          name: this.name,
+          description: this.description,
+          pageJson: this.pageJson
+        }
+        addIshows(_data).then(res => {
+          console.log(res)
+          this._id = res.data._id
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+        }).catch(err => {
+
+        })
+      },
       // 添加page
       updatePageJson(json) {
         this.pageJson = this.parseJson(json);
@@ -401,7 +490,6 @@
       },
       getPageJson() {
         for (let i = 0; i < this.pageJson.length; i++) {
-          console.log('getPageJson')
           if (this.pageJson[i].page === this.page) {
             this.showJson = this.pageJson[i].json;
             return this.pageJson[i].json;
@@ -422,8 +510,6 @@
             newPage++;
           }
         }
-
-        console.info(result)
         return result;
       },
 
@@ -548,3 +634,22 @@
   }
 
 </script>
+<style>
+  .v-global {
+    display: flex;
+  }
+
+  .demo {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(256, 256, 256, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+</style>

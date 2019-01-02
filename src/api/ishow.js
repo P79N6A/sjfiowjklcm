@@ -143,6 +143,7 @@ export function addIshows(data) {
   })
 }
 export function updateIshows(data) {
+  console.log(data)
   return request({
     url: '/api/ishows/' + data._id,
     method: 'put',

@@ -384,8 +384,7 @@ export default {
       } else {
         this.elHeight = this.json.height;
       }
-
-        // 设置宽高
+      // 设置宽高
       this.changeWH();
     },
     changeWH() {
@@ -558,7 +557,6 @@ export default {
     //         this.animateJson = {};
     //       }
     //     }
-
     // // this.animateJson={};
     //   });
     }

@@ -30,8 +30,8 @@ export default {
     },
     created() {
         //获取图片列表
-         this.fetchImgList();
-         this.fetchActivityList();
+        //  this.fetchImgList();
+        //  this.fetchActivityList();
     },
     components: {
         picTool

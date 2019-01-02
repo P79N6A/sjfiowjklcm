@@ -1,6 +1,8 @@
 <template>
     <div class="ishow-pageMain">
-        <main-show v-for="item in pageJson" :key="item.id" :show-json="item.json" :page="item.page" :active-page="page" :page-json="pageJson"></main-show>
+        <main-show v-for="(item,i) in pageJson" :key="item.id" :show-json="item.json" :page="item.page" :active-page="page" :page-json="pageJson">
+            场景{{i+1}}
+        </main-show>
         <!-- 添加页面 -->
         <div class="ishow-pageCreate" @click="addPage">
             <i class="el-icon-plus"></i>

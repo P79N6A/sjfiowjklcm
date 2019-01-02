@@ -6,113 +6,20 @@
             <el-menu-item index="2">
                 <div @click="showTool('picTool')">图片&nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></div>
             </el-menu-item>
-            <!-- <el-menu-item index="5">
-                <div @click="showTool('audioTool')">音频&nbsp;<i class="fa fa-music" aria-hidden="true"></i></div>
-            </el-menu-item> -->
-            <!-- <el-menu-item index="4">
-                <div @click="showTool('videoTool')">视频&nbsp;<i class="fa fa-video-camera" aria-hidden="true"></i></div>
-            </el-menu-item> -->
-            <!-- <el-submenu index="3">
-                <template slot="title">表单&nbsp;<i class="fa fa-bars" aria-hidden="true"></i></template>
-                <el-menu-item index="3-1">输入框</el-menu-item>
-                <el-menu-item index="3-2">单选</el-menu-item>
-                <el-menu-item index="3-3">多选</el-menu-item>
-                <el-menu-item index="3-4">下拉框</el-menu-item>
-                <el-menu-item index="3-5">按钮</el-menu-item>
-            </el-submenu> -->
-            <el-menu-item index="6">
+            <el-menu-item index="6" v-show="false"> 
                  <div @click="showTool('picTool2')" id="J-open-bg">背景&nbsp;<i class="fa fa-file-image-o" aria-hidden="true"></i></div>
             </el-menu-item>
         </el-menu>
         <!-- 打开图片裁切页面的钩子 -->
-        <!-- <div id="J-open-corp" @click="openPicHandle" class="hide"></div> -->
-       
-        <!-- 输入框 -->
-        <el-dialog title="输入框" :visible.sync="formDialogVisible1" size="auto" @close="closeDialog" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main">
-                    <input-layer :radio-json="inputJson" ref="inputLayer" :input-default="validateDefault[inputType]"></input-layer>
-                    <div class="layer-main_footer">
-                        <el-button @click="formDialogVisible1 = false">取 消</el-button>
-                        <el-button type="primary" @click="addInputComfirm">确 定</el-button>
-                    </div>
-                </div>
-            </div>
-        </el-dialog>
-        <el-dialog title="单选" :visible.sync="formDialogVisible2" size="auto" @close="closeDialog" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main">
-                    <radio-layer ref="radioLayer" :radio-json="radioJson"></radio-layer>
-                    <div class="layer-main_footer">
-                        <el-button @click="closeDialog">取 消</el-button>
-                        <el-button type="primary" @click="addRadioComfirm(4)">确 定</el-button>
-                    </div>
-                </div>
-            </div>
-        </el-dialog>
-        <el-dialog title="多选" :visible.sync="formDialogVisible3" size="auto" @close="closeDialog" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main">
-                    <radio-layer ref="radioLayer" :radio-json="radioJson"></radio-layer>
-                    <div class="layer-main_footer">
-                        <el-button @click="closeDialog">取 消</el-button>
-                        <el-button type="primary" @click="addRadioComfirm(5)">确 定</el-button>
-                    </div>
-                </div>
-            </div>
-        </el-dialog>
-        <el-dialog title="下拉框" :visible.sync="formDialogVisible4" size="auto" @close="closeDialog" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main">
-                    <select-layer :radio-json="selectJson" ref="selectLayer" :select-defaults="validateDefault[selectType]"></select-layer>
-                    <div class="layer-main_footer">
-                        <el-button @click="closeDialog">取 消</el-button>
-                        <el-button type="primary" @click="addRadioComfirm(6)">确 定</el-button>
-                    </div>
-                </div>
-            </div>
-        </el-dialog>
-        <el-dialog title="按钮" :visible.sync="formDialogVisible5" size="auto" @close="closeDialog" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main">
-                    <button-layer :radio-json="buttonJson" ref="buttonLayer"></button-layer>
-                    <div class="layer-main_footer">
-                        <el-button @click="closeDialog">取 消</el-button>
-                        <el-button type="primary" @click="addRadioComfirm(7)">确 定</el-button>
-                    </div>
-                </div>
-            </div>
-        </el-dialog>
         <picTool :type="'pic'" :picJson="picJson" ref="picTool" :addElement="addPicElement"></picTool>
         <picTool :type="'bg'" :picJson="picJson" ref="picTool2" :addBg="addBg" :ratio="0.695"></picTool>
-        <videoTool :type="'audio'" :jsonData="audioJson" ref="audioTool"></videoTool>
-        <videoTool :type="'video'" :jsonData="videoJson" ref="videoTool"></videoTool>
-        <!-- 裁切图片弹层 -->
-        <el-dialog title="裁切图片" :visible.sync="dialogVisible4" top="3%" width="800px">
-            <div class="layer-content clearfix">
-                <div class="layer-main_normal">
-                    <vue-crop @afterCrop="afterCrop2" :crop-url="croodUrl2" :height="460" :width="920"></vue-crop>
-                </div>
-            </div>
-            <div class="layer-main_footer">
-                <el-button @click="dialogVisible4=false">取消</el-button>
-                <el-button type="primary" @click="setPicCorp">保存裁切</el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 <script>
 
 import bus from '@/views/ishow/js/bus';
 import navarJson from '@/views/ishow/js/navbar/navbar.json';
-import radioLayer from './radio-layer.vue';
-import selectLayer from './select-layer.vue';
-import buttonLayer from './button-layer.vue';
-import inputLayer from './input-layer.vue';
-// import picLayer from './pic-layer.vue';
-// import crop from '@/views/ishow/global/crop/crop.vue';
 import picTool from '@/views/ishow/global/picTool/index.vue';
-import videoTool from '@/views/ishow/global/videoTool/index.vue';
 import {
     getImgList,
     getValidateList,
@@ -196,14 +103,7 @@ export default {
   },
   props: ['showId', 'renderJson', 'showJson'],
   components: {
-    radioLayer,
-    selectLayer,
-    buttonLayer,
-    inputLayer,
-    picTool,
-    videoTool
-    // picLayer,
-    // crop
+    picTool
   },
   created() {
     // 更新renderJson
@@ -227,7 +127,6 @@ export default {
 
     // 图片裁切
     bus.$on('navbar-image-crop', (isShow, url) => {
-      console.info(isShow, url)
       this.dialogVisible4 = isShow;
       this.croodUrl2 = url;
     });
@@ -237,40 +136,7 @@ export default {
       this.dialogVisible3 = isShow;
       this.croodUrl = url;
     });
-
-    // 获取图片列表
-    this.fetchImgList().then(() => {
-      // this.setLoading('picTool');
-      // this.setLoading('picTool2');
-    });
-    // 获取音频列表
-    // console.info(1111,this.fetchAudioList());
-    this.fetchAudioList().then(() => {
-      this.setLoading('audioTool');
-    });
-    // 获取视频列表
-    this.fetchVideoList().then(() => {
-      this.setLoading('videoTool');
-    });
-    // 获取验证字段
-    this.fetchValidateJson();
-
-    // 裁切图片保存更新
-    // bus.$on('update-crop-pic', url => {
-    //   this.isUpdate = true;
-    //   this.addPicElement(url)
-    // });
-    // 图片关闭弹层
-    // bus.$on('handle-navbar-layer', function(name,isShow) {
-    //     this[name]=isShow;
-    // }.bind(this));\
-    // 预览图片
-    // bus.$on('navbar-preview', function(src) {
-    //     this.dialogVisible2=true;
-    //     this.previewPicSrc=src;
-    // }.bind(this));
   },
-  watch: {},
   methods: {
     // 获取裁切数据
     afterCrop2(json, url) {
@@ -301,86 +167,12 @@ export default {
     },
     // 打开图片选择工具
     showTool(name, cropUrl) {
-      console.log('sldkfjks')
       this.$refs[name].openTool(cropUrl);
-    },
-
-    // 判断是否重命名
-    judgeCnameExist(type, data) {
-      const update = this.isUpdate === true;
-      for (let i = 0; i < this.showJson.length; i++) {
-        const temp = this.showJson[i];
-            // 编辑状态&&不是同一个id或非编辑
-        if ((update && temp.id !== this.updateId) || !update) {
-                // 要验证的表单&&cname一样
-          const isRepeat = temp.type >= 3 && temp.type <= 6 && temp.form.cname === data.cname;
-          if (isRepeat) {
-            return true;
-          }
-        }
-      }
-      return false;
-    },
-    fetchValidateJson() {
-      getValidateList().then(response => {
-        this.validateDefault = this.handleValidateDefault(response.data);
-      }).catch(err => {
-        console.info(err)
-      });
-    },
-    // 转换获取的验证默认值为json
-    handleValidateDefault(data) {
-      const result = {};
-      let type;
-      const len = data.length;
-      if (!len) {
-        return result;
-      }
-      for (let i = 0; i < len; i++) {
-        result[data[i].type] = [];
-      }
-      result[this.inputType].push({
-        cname: '自定义',
-        name: 'customize',
-        type: this.inputType
-      });
-        // console.info(result)
-      for (let i = 0; i < len; i++) {
-        type = data[i].type;
-        result[type].push(data[i]);
-      }
-
-      return result;
     },
     // 鼠标移入验证
     validateOut() {
       this.validateIndex = false;
     },
-    // 获取本地图片
-    fetchImgList() {
-      return getImgList().then(response => {
-        this.picJson = this.changeToArray(response.data);
-      }).catch(err => {
-        console.info(err)
-      });
-    },
-    // 获取本地图片
-    fetchAudioList() {
-      return getAudioList().then(response => {
-        this.audioJson = response.data;
-      }).catch(err => {
-        console.info(err)
-      });
-    },
-    // 获取本地图片
-    fetchVideoList() {
-      return getVideoList().then(response => {
-        this.videoJson = response.data;
-      }).catch(err => {
-        console.info(err)
-      });
-    },
-
     // json key 值返回
     changeToArray(json) {
       let url;
@@ -390,7 +182,7 @@ export default {
       }
       return result;
     },
-    // 编辑回填数据
+        // 编辑回填数据
     setInput(data, isUpdate) {
       const type = data.type;
       this.isUpdate = isUpdate;
@@ -459,15 +251,8 @@ export default {
       this.isUpdate = false;
       this.isBg = false;
     },
-    // 限制输入框为自定义时才可修改名称，验证
-    inputValChange() {
-      if (this.inputJson.name !== 'customize') {
-        return false;
-      }
-    },
     // 点击下啦打开相应的弹层
     handleSelect(key, keyPath, isUpdate) {
-      console.log("lkajsfjs")
         // 文本
       if (key === '1') {
         this.addElement(1);
@@ -483,17 +268,6 @@ export default {
       if (isUpdate === true) {
         this.isUpdate = true;
       }
-    },
-    // 处理表单
-    handleForm(key, isUpdate) {
-      const index = key.split('3-')[1];
-      this.key = index;
-        // 新建重置
-      if (isUpdate !== true) {
-        this.resetRadioJson(index);
-      }
-        // 打开弹层
-      this.addForm(index);
     },
     // 重置json
     resetRadioJson(index) {
@@ -512,27 +286,6 @@ export default {
         this.radioJson = this.parseJson(initJson);
       }
     },
-    // 添加表单
-    addForm(index) {
-      this['formDialogVisible' + index] = true;
-    },
-    // 点击输入框确定
-    addInputComfirm() {
-      this.$refs.inputLayer.triggerApp(3);
-    },
-    // 点击单选确定
-    addRadioComfirm(type) {
-      if (type === 4 || type === 5) {
-        this.$refs.radioLayer.submitForm('json', type);
-      }
-      if (type === 6) {
-        this.$refs.selectLayer.triggerApp(type);
-      }
-      if (type === 7) {
-        this.$refs.buttonLayer.triggerApp(type);
-      }
-    },
-
     // 深拷贝
     parseJson(json) {
       return JSON.parse(JSON.stringify(json));
@@ -552,9 +305,6 @@ export default {
       const tag = data.tag || '';
       const name = 'update-pageJson' + tag;
       bus.$emit(name, json);
-      // setTimeout(function(){
-      //     bus.$emit('mainShow-update-img');
-      // },200);
       bus.$emit('change-tab', 'second');
       bus.$emit('add-histroy');
     }
