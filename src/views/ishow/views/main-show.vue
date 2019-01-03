@@ -1,10 +1,10 @@
 <template>
   <div>
-    {{activePage}}
     <div
       v-for="(page,i) in pageJson"
       :key="i"
       :style="`width:${page.width}px;height:${page.height}px`"
+      v-if="i==activePage"
     >
       <div class="ishow-view-page" :style="page.bg">
         <normalElement
@@ -54,6 +54,7 @@ export default {
     window.setInterval(item => {
       this.page;
     }, 2000);
+    window.setInterval();
   },
   computed: {
     // getBackground() {
@@ -85,5 +86,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 </style>
