@@ -3,17 +3,21 @@
     <div
       v-for="(page,i) in pageJson"
       :key="i"
-      :style="`width:${page.width}px;height:${page.height}px`"
+      :style="`min-width:${page.width}px;height:${page.height}px;border:dashed 1px #eee;`"
       v-if="i==activePage"
     >
       <div class="ishow-view-page" :style="page.bg">
-        <normalElement
+        <span
           v-for="item in page.json"
           :key="item.id"
+          @click="elClick(item)"
+        >
+        <normalElement
           :child-json="item"
           :show-json="page.json"
           :type="item.type"
         ></normalElement>
+        </span>
       </div>
     </div>
   </div>
@@ -26,54 +30,69 @@ import normalElement from "./normal-template.vue";
 export default {
   data() {
     return {
-      currentView: "normalElement",
-      activePage: 0,
-      isActive: false,
-      visible2: false,
-      visible: false,
-      bgImage: "",
+      activePage: 0, // 当前活跃的
+      autoAnimation: true, //是否自动播放动画
+      infinite:true, // 是否循环播放
+      interval:3000,//动画时间间隔,单位ms
       timer: ""
     };
   },
   name: "main-show",
-  props: ["showJson", "page", "pageJson"],
+  props: ["showJson", "page", "pageJson","pageSetting"],
   components: {
     normalElement
   },
   created() {
     on(document, "click", this.handleDocumentClick);
-    // this.setActive();
-    // this.setBgImage();
-    // 更新背景图片
-    // bus.$on('mainShow-update-img', () => {
-    // this.setBgImage();
-    // });
-    // this.json=this.showJson.json;
-    // console.info(this.json)
-    // window.clearInterval(timer)
-    window.setInterval(item => {
-      this.page;
-    }, 2000);
-    window.setInterval();
+    this.setVal()
+    window.clearInterval(this.timer)
+    if(this.autoAnimation){
+      this.timer=window.setInterval(()=>{
+        this.activePage=(this.activePage+1)%this.pageJson.length
+        if(this.activePage==this.pageJson.length-1)
+        {
+          if(!this.infinite){
+            window.clearInterval(this.timer)
+          }
+        } 
+      },this.interval);
+    }
   },
   computed: {
     // getBackground() {
     //   return this.setBgImage();
     // }
   },
-
+  beforeDestroy() {
+    window.clearInterval(this.timer)
+  },
   methods: {
-    // 拼接背景css
-    // setBgImage() {
-    //   const bgImage = this.pageJson[this.page - 1].bgImage;
-    //   if (!bgImage) {
-    //     return;
-    //   }
-    //   if (bgImage.url) {
-    //     return 'background: url(' + bgImage.url + ') center center / cover no-repeat;';
-    //   }
-    //   return 'background-color: ' + bgImage.backgroundColor + ' ;';
-    // },
+    // 
+    setVal(){
+      this.autoAnimation=this.pageSetting.autoAnimation?true:false
+      this.infinite=this.pageSetting.infinite?true:false
+      this.interval=this.pageSetting.interval?this.pageSetting.interval*1000:3000
+    },
+    elClick(eventJson){
+      if(eventJson.onClick=='next'){
+        // 下一场景
+        this.activePage=(this.activePage+1)%this.pageJson.length
+
+      }else if(eventJson.onClick=='pre'){
+        // 上一场景
+        this.activePage=(this.activePage-1+this.pageJson.length)%this.pageJson.length
+      }else if(eventJson.onClick=='index'){
+        this.activePage=eventJson.toIndex
+        // 到任意场景
+      }else if(eventJson.onClick=='link'&&eventJson.link){
+        if(eventJson.target=='_blank'){
+          window.open(eventJson.link)
+        }else{
+          window.location.href=eventJson.link
+        }
+      }else if(eventJson.onClick=='close'){
+      }
+    },
     handleDocumentClick() {
       this.visible = false;
     }

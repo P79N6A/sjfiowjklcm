@@ -63,7 +63,7 @@
         <div class="form-center mr10">
           <el-input-number size="small" v-model="animateCount"></el-input-number>
         </div>
-        <div>
+        <div v-if="aniIndex==renderJson[showId].animate.length-1">
           <el-checkbox v-model="isInfinite" @change="changeInfinite">循环播放</el-checkbox>
         </div>
       </div>

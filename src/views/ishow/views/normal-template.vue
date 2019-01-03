@@ -12,7 +12,9 @@
           zIndex:zIndex,
           transform:'rotate('+rotate+'deg)'
         }"
+    :class="{cursor:childJson.onClick}"
   >
+  {{childJson.onClick}}
     <!-- 各种样式 -->
     <div
       v-if="type===1"
@@ -269,7 +271,9 @@ export default {
                 e.animationName === animate[len - 1].animationName) ||
               this.animateAll === false
             ) {
-              this.animateJson = {};
+              if(animate[len-1].animationIterationCount!='infinite'){
+                this.animateJson = {};
+              }
             }
           }
         });
@@ -293,6 +297,7 @@ export default {
     },
     // 添加单位s
     addS(json) {
+      console.log("adds")
       const data = this.parseJson(json);
       data.animationDuration = data.animationDuration + "s";
       data.animationDelay = data.animationDelay + "s";
@@ -307,14 +312,17 @@ export default {
       const delay = [],
         duration = [],
         name = [],
-        mode = [];
+        mode = [],
+        infinity=[]
       let delayTime;
       if (animate && animate.length) {
         for (let i = 0; i < animate.length; i++) {
           // 不是特殊动画
+          console.log(animate[i])
           if (this.isSpecialAnimate(animate[i]) === false) {
             name.push(animate[i].animationName);
             duration.push(animate[i].animationDuration + "s");
+            infinity.push(animate[i].animationIterationCount);
             // iterationCount.push(animate[i].animationIterationCount || 1);
             // 0%是否是opacity:0
             if (animate[i].isOut === true || i === 1) {
@@ -333,6 +341,7 @@ export default {
                 animate[i - 1].animationDuration +
                 "s";
             }
+
             delay.push(delayTime);
           }
         }
@@ -340,6 +349,8 @@ export default {
         result.animationDuration = duration.join(",");
         result.animationFillMode = mode.join(",");
         result.animationDelay = delay.join(",");
+        result.animationIterationCount=infinity.join(",")
+        console.log(result)
         // result.animationIterationCount = iterationCount.join(',');
         return result;
       }
@@ -449,3 +460,8 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.cursor{
+  cursor:pointer;
+}
+</style>

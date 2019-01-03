@@ -11,7 +11,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="跳转到指定场景">
+      <el-form-item label="跳转到指定场景" v-if="onClick=='index'">
         <el-select v-model="toIndex" placeholder="请选择" @change="addHistroy">
           <el-option
             v-for="(item, index) in showJson"
@@ -21,10 +21,10 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="超链接地址">
+      <el-form-item label="超链接地址" v-if="onClick=='link'">
         <el-input v-model="link" @change="addHistroy"></el-input>
       </el-form-item>
-      <el-form-item label="超链接打开方式">
+      <el-form-item label="超链接打开方式" v-if="onClick=='link'">
         <el-select v-model="target" placeholder="请选择" @change="addHistroy">
           <el-option
             v-for="(item, index) in linkTarget"
@@ -71,9 +71,8 @@ export default {
           value: "index",
           label: "指定场景"
         },
-
         {
-          value: "_top",
+          value: "link",
           label: "超链接"
         }
       ],
@@ -99,6 +98,10 @@ export default {
     // });
   },
   watch: {
+    renderJson(){
+      console.log('json-change')
+      this.setInput()
+    },
     onClick() {
       this.json[this.id].onClick = this.onClick;
       this.triggerApp();

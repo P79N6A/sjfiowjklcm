@@ -35,25 +35,40 @@
         <div>
           <el-button @click="showDemo=false">关闭</el-button>
         </div>
-        <views :page-json="pageJson"></views>
+        <views :page-json="pageJson" :page-setting="pageSetting"></views>
       </div>
     </div>
     <el-dialog :visible.sync="dialogFormVisible" title="组件设置">
-      <el-form ref="dataForm" label-position="right" label-width="120px">
-        <el-form-item label="*组件名称" prop="name">
+      <el-form ref="dataForm"  label-position="right" label-width="120px">
+        <el-form-item label="*组件名称">
           <el-input v-model="name" placeholder="组件名"/>
         </el-form-item>
-        <el-form-item label="*组件描述" prop="description">
+        <el-form-item label="*组件描述">
           <el-input v-model="description" type="textarea" placeholder="组件描述"/>
         </el-form-item>
-        <el-form-item label="场景自动切换" prop="description">
+        <el-form-item label="场景自动切换">
           <el-switch
-            v-model="autoAnimation"
+            v-model="pageSetting.autoAnimation"
             active-color="#13ce66"
             inactive-color="#ff4949"
             active-text="是"
             inactive-text="否"
           ></el-switch>
+        </el-form-item>
+        <el-form-item label="场景循环播放">
+          <el-switch
+            v-model="pageSetting.infinite"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="是"
+            inactive-text="否"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item label="场景循环播放">
+           <el-input-number v-model="pageSetting.interval" :precision="1" :step="0.1" :min="0" :max="100"></el-input-number>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="bus.$emit('save-json')">提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -96,6 +111,7 @@ const showJsons = [
 export default {
   data() {
     return {
+      bus,
       // 当前编辑json
       renderJson: {},
       // 当前编辑的id
@@ -107,7 +123,14 @@ export default {
       showJson: [],
       name: "新组件",
       description: "组件描述",
-      autoAnimation: true,
+      autoAnimation: true, //是否自动播放动画
+      infinite:true, // 是否循环播放
+      interval:1,//动画时间间隔
+      pageSetting:{
+        autoAnimation: true, //是否自动播放动画
+        infinite:true, // 是否循环播放
+        interval:1.3,//动画时间间隔
+      },
       initJson: this.parseJson(appJson.initJsons),
       initPage: this.parseJson(appJson.initPage),
       // 历史记录
@@ -165,7 +188,7 @@ export default {
           this.pageJson = this.parseJson(res.data.pageJson);
           this.name = res.data.name;
           this.description = res.data.description;
-          this.autoAnimation = res.data.autoAnimation;
+          Object.assign(this.pageSetting,res.data.pageSetting)
           this.pageJson[0].page = 1;
           _this.init();
           // this.updatePageJson(response.data);
@@ -309,7 +332,6 @@ export default {
       // 保存json
       bus.$on("save-json", () => {
         this.setPageJson();
-        console.log(this.pageJson);
         if (this.name && this.description) {
           if (this._id) {
             this.updateIshow();
@@ -462,7 +484,7 @@ export default {
         _id: this._id,
         name: this.name,
         description: this.description,
-        autoAnimation: this.autoAnimation,
+        pageSetting:this.pageSetting,
         pageJson: this.pageJson
       };
       updateIshows(_data)
@@ -481,12 +503,11 @@ export default {
       const _data = {
         name: this.name,
         description: this.description,
-        autoAnimation: this.autoAnimation,
+        pageSetting:this.pageSetting,
         pageJson: this.pageJson
       };
       addIshows(_data)
         .then(res => {
-          console.log(res);
           this._id = res.data._id;
           this.$notify({
             title: "成功",
@@ -685,7 +706,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(256, 256, 256, 0.8);
+  background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
