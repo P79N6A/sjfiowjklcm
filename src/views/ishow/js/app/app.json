@@ -13,28 +13,23 @@
     "7": "button"
   },
   "initPage": {
-    "page": "page",
+    "page": 1,
     "json": [],
-    "style": {
+    "device": "pc",
+    "bg": {
       "backgroundImage": "",
       "backgroundColor": "",
       "backgroundSize": "",
       "backgroundRepeat": "",
-      "backgroundPosition": "",
-      "borderWidth": 0,
-      "borderRadius": 0,
-      "borderColor": "rgba(204, 204, 204,1)",
-      "borderStyle": "solid",
-      "shadowColor": "rgba(204, 204, 204,1)",
-      "shadowWidth": 0,
-      "shadowRadius": 10,
-      "opacity": 100,
-      "width": 400,
-      "height": 300
-
+      "backgroundPosition": ""
     },
+    "enterAnimation": {},
+    "enterAnimationDire": "",
+    "leaveAnimation": {},
+    "leaveAnimationDire": "",
     "width": 400,
-    "height": 300
+    "height": 300,
+    "timer": null
   },
   "initJsons": {
     "text": {
@@ -71,7 +66,10 @@
       },
       "animate": [],
       "onClick": "",
-      "href": ""
+      "toIndex": 0,
+      "href": "",
+      "target": "_blank"
+
     },
     "img": {
       "type": 2,
@@ -96,9 +94,11 @@
         "shadowRadius": 10,
         "shadowDire": 0
       },
+      "animate": [],
       "onClick": "",
+      "toIndex": 0,
       "href": "",
-      "animate": []
+      "target": "_blank"
     },
     "textarea": {
       "type": 3,

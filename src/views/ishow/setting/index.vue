@@ -204,7 +204,6 @@ import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
         this.$refs.picTool.openTool(this.coverUrl);
       },
       resetSetting(){
-        console.log('resetFrom')
         this.settingForm=JSON.parse(JSON.stringify(this.pageJson))
         // this.settingForm=Object.assign({},this.pageJson) 
         // this.settingForm.bg=Object.assign({},this.pageJson.bg) 
