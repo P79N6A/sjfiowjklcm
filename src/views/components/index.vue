@@ -27,7 +27,7 @@
     </div>
     <!-- 创建组件 -->
     <el-dialog
-      title="创建组件"
+      :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
       width="800px"
       :close-on-click-modal="false"
@@ -49,7 +49,7 @@
               :value="item._id"
               v-for="item in categoryList"
               :key="item._id"
-            ></el-option>
+            >{{item.name}}</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="组件描述" prop="description">
@@ -90,7 +90,10 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="createComponent">{{ $t('table.confirm')}}</el-button>
+        <el-button
+          type="primary"
+          @click="dialogStatus==='create'?createComponent():updateComponent()"
+        >{{ $t('table.confirm')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -106,17 +109,16 @@ import {
 import {
   getComponents,
   addComponents,
+  updateComponents,
   deleteComponents
 } from "@/api/components";
 import { getCategories } from "@/api/categories";
-// import picTool from '@/views/ishow/global/picTool/index.vue';
 export default {
   data() {
     return {
       pageSize: 30,
       pageNum: 1,
       dialogFormVisible: false,
-      // settingForm.settingPic:'',
       loading: false,
       componentTemp: {
         device: "pc",
@@ -134,7 +136,12 @@ export default {
         dist: ""
       },
       componentList: [],
-      categoryList: []
+      categoryList: [],
+      dialogStatus: "",
+      textMap: {
+        update: "Edit",
+        create: "Create"
+      }
     };
   },
   components: {
@@ -175,7 +182,7 @@ export default {
     },
     // 获取组件列表
     getComponents() {
-      getComponents(this.pageSize, this.pageNum).then(response => {
+      getComponents().then(response => {
         if (response.data && response.data.length) {
           this.componentList = response.data;
         }
@@ -203,6 +210,14 @@ export default {
         .then(res => {
           console.log(res);
           this.getComponents();
+        })
+        .catch(err => {});
+    },
+    updateComponent() {
+      updateComponents(this.componentTemp)
+        .then(res => {
+          this.getComponents();
+          this.dialogFormVisible = false;
         })
         .catch(err => {});
     },
