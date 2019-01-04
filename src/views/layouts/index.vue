@@ -13,7 +13,7 @@
                 </el-button-group>
               </div>
               <div>{{item.name}}</div>
-              <br/>
+              <br />
               <div class="frames-content">
                 <img :src="item.screenShot" style="display:block;width:100%;">
               </div>
@@ -34,7 +34,7 @@
                 </el-button-group>
               </div>
               <div>{{item.name}}</div>
-              <br/>
+              <br />
               <div class="frames-content">
                 <img :src="item.screenShot" style="display:block;width:100%;">
               </div>
@@ -160,8 +160,82 @@
         this.layoutTemp.type = this.layoutType;
         this.layoutTemp.value = this.layoutTemp.value.filter(item => {
           item.class = "";
+          item.styleSetting = {
+            class: "",
+            id: "",
+          }
+          item.styleBg = {
+            backgroundImage: '',
+            backgroundPosition: '',
+            backgroundSize: '',
+            backgroundRepeat: '',
+            backgroundColor: '',
+            backgroundAttachment: ''
+          }
+          item.styleStyle = {
+            position: '',
+            left: '',
+            right: '',
+            top: '',
+            bottom: '',
+            opacity: '',
+            margin: 0,
+            padding: 0,
+            rotate: 0,
+            width: '',
+            height: '',
+          }
+          item.styleBorder = {
+            borderWidth: '',
+            borderColor: '',
+            borderStyle: '',
+            borderRadius: '',
+          }
+          item.styleShadow = {
+            shadowWidth: '',
+            shadowRadius: '',
+            shadowDire: '',
+            shadowColor: '',
+          }
           item.rows = item.rows.filter(row => {
             row.class = "";
+            row.styleSetting = {
+              class: "",
+              id: "",
+            }
+            row.styleBg = {
+              backgroundImage: '',
+              backgroundPosition: '',
+              backgroundSize: '',
+              backgroundRepeat: '',
+              backgroundColor: '',
+              backgroundAttachment: ''
+            }
+            row.styleStyle = {
+              position: '',
+              left: '',
+              right: '',
+              top: '',
+              bottom: '',
+              opacity: '',
+              margin: 0,
+              padding: 0,
+              rotate: 0,
+              width: '',
+              height: '',
+            }
+            row.styleBorder = {
+              borderWidth: '',
+              borderColor: '',
+              borderStyle: '',
+              borderRadius: '',
+            }
+            row.styleShadow = {
+              shadowWidth: '',
+              shadowRadius: '',
+              shadowDire: '',
+              shadowColor: '',
+            }
             row.cols = row.cols.filter(col => {
               col.components = [];
               return col
@@ -170,6 +244,7 @@
           });
           return item;
         });
+        console.log(this.layoutTemp)
         // return;
         addLayouts(this.layoutTemp)
           .then(res => {
@@ -204,7 +279,7 @@
             }).then(res => {
               this.getLayouts();
               this.$notify({
-                
+
                 title: "成功",
                 message: "操作成功",
                 type: "success",
@@ -267,10 +342,11 @@
           border-radius: 6px;
           font-size: 12px;
           transition: all 0.6s;
-          height:200px;
-          overflow:hidden;
-          &:hover{
-            overflow-y:scroll;
+          height: 200px;
+          overflow: hidden;
+
+          &:hover {
+            overflow-y: scroll;
           }
         }
 

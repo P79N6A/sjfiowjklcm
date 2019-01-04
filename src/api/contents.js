@@ -8,6 +8,13 @@ export function getContents(params) {
   })
 }
 
+export function getContentOne(data) {
+  return request({
+    url: '/api/contents/' + data._id,
+    method: 'get'
+  })
+}
+
 export function addContents(data) {
   return request({
     url: '/api/contents',

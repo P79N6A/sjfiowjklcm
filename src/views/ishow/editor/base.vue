@@ -445,7 +445,7 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .img-view {
   background-position: center center;
   background-repeat: no-repeat;
