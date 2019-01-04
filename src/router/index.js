@@ -360,34 +360,40 @@ export const asyncRouterMap = [
   },
   {
     path: '/ishows',
-    component: {
-      template:'<router-view></router-view>'
-    },
+    component: Layout,
     meta: {
       authorities: [120301]
     },
     children: [{
-        path: 'index',
-        component: () => import('@/views/ishow/index'),
-        name: 'ishows',
-        meta: {
-          title: '自定义组件库',
-          icon: 'tree',
-          authorities: [120301]
-        }
-      },
-      {
-        path: 'design',
-        component: () => import('@/views/ishow/design'),
-        name: 'ishowsDesign',
-        hidden: true,
-        meta: {
-          title: '自定义组件库编辑',
-          icon: 'documentation',
-          authorities: [120301]
-        }
+      path: 'index',
+      component: () => import('@/views/ishow/index'),
+      name: 'ishows',
+      meta: {
+        title: '自定义组件库',
+        icon: 'tree',
+        authorities: [120301]
       }
-    ]
+    }]
+  },
+  {
+    path: '/ishowsDesign',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    hidden: true,
+    meta: {
+      authorities: [120301]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/ishow/design'),
+      name: 'ishowsDesign',
+      meta: {
+        title: '自定义组件库编辑',
+        icon: 'documentation',
+        authorities: [120301]
+      }
+    }]
   },
   {
     path: '/messages',

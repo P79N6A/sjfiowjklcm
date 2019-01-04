@@ -1,33 +1,30 @@
 <template>
   <div class="navbar">
-    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
+    <hamburger
+      :toggle-click="toggleSideBar"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+    />
 
     <breadcrumb class="breadcrumb-container"/>
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <!-- <error-log class="errLog-container right-menu-item"/> -->
-
         <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item"/>
         </el-tooltip>
 
         <!-- <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
           <size-select class="international right-menu-item"/>
-        </el-tooltip> -->
-
+        </el-tooltip>-->
         <!-- <lang-select class="international right-menu-item"/> -->
-
         <!-- <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
           <theme-picker class="theme-switch right-menu-item"/>
-        </el-tooltip> -->
-      <div class="international right-menu-item">{{name}}</div>
-      
+        </el-tooltip>-->
+        <div class="international right-menu-item">{{name}}</div>
       </template>
-      {{authorities}}
-      
       <!-- <div class="international right-menu-item">{{name}}</div> -->
-
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <img :src="'/favicon.ico?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -35,14 +32,10 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/">
-            <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
-            </el-dropdown-item>
+            <el-dropdown-item>{{ $t('navbar.dashboard') }}</el-dropdown-item>
           </router-link>
           <router-link :to="{name:'UserSetting'}">
-            <el-dropdown-item>
-              账户设置
-            </el-dropdown-item>
+            <el-dropdown-item>账户设置</el-dropdown-item>
           </router-link>
           <el-dropdown-item divided>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
@@ -54,14 +47,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
-import ErrorLog from '@/components/ErrorLog'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
-import LangSelect from '@/components/LangSelect'
-import ThemePicker from '@/components/ThemePicker'
+import { mapGetters } from "vuex";
+import Breadcrumb from "@/components/Breadcrumb";
+import Hamburger from "@/components/Hamburger";
+import ErrorLog from "@/components/ErrorLog";
+import Screenfull from "@/components/Screenfull";
+import SizeSelect from "@/components/SizeSelect";
+import LangSelect from "@/components/LangSelect";
+import ThemePicker from "@/components/ThemePicker";
 
 export default {
   components: {
@@ -74,26 +67,20 @@ export default {
     ThemePicker
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'name',
-      'avatar',
-      'device',
-      'authorities'
-    ])
+    ...mapGetters(["sidebar", "name", "avatar", "device", "authorities"])
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch('toggleSideBar')
+      this.$store.dispatch("toggleSideBar");
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        this.$router.push({name:'login'})
+      this.$store.dispatch("LogOut").then(() => {
+        this.$router.push({ name: "login" });
         // location.reload()// In order to re-instantiate the vue-router object to avoid bugs
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -107,7 +94,7 @@ export default {
     float: left;
     padding: 0 10px;
   }
-  .breadcrumb-container{
+  .breadcrumb-container {
     float: left;
   }
   .errLog-container {
@@ -117,17 +104,17 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    &:focus{
-     outline: none;
+    &:focus {
+      outline: none;
     }
     .right-menu-item {
       display: inline-block;
       margin: 0 8px;
     }
     .screenfull {
-      height: 20px;
+      // height: 20px;
     }
-    .international{
+    .international {
       vertical-align: top;
     }
     .theme-switch {
