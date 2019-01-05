@@ -277,6 +277,8 @@
       styleShadow:Object,
     },
     methods: {
+      deleteImage(){},
+      changeImage(){},
       updateStyle(){
         this.$emit('updataStyle',{styleSetting:this.setting,styleBg:this.bg,styleStyle:this.style,styleBorder:this.border,styleShadow:this.shadow})
       }
