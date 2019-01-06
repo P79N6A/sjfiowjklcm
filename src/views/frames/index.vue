@@ -31,7 +31,14 @@
                       <div>页面内容展示区域</div>
                     </div>
                   </div>
-                  <el-row v-else v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
+
+                  <el-row
+                    v-else
+                    v-for="(row,r) in block.rows"
+                    :key="i+'-'+r"
+                    class="rows"
+                    :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
+                  >
                     <!-- 行区域 -->
                     <el-col
                       v-for="(col,j) in row.cols"
@@ -39,9 +46,10 @@
                       :key="i+'-'+r+'-'+j"
                       class="cols"
                     >
+                      <!-- {{row}} -->
                       <!-- 格子区域 -->
                       <div>
-                        <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+                        <span type="success" class="ico-width">{{col.text}}</span>
                       </div>
                     </el-col>
                   </el-row>
@@ -78,7 +86,12 @@
                 </div>
                 <h3>{{item.name}}</h3>
                 <div class="show" v-for="(block,i) in item.value" :key="i">
-                  <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
+                  <el-row
+                    v-for="(row,r) in block.rows"
+                    :key="i+'-'+r"
+                    class="rows"
+                    :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
+                  >
                     <!-- 行区域 -->
                     <el-col
                       v-for="(col,j) in row.cols"
@@ -88,7 +101,7 @@
                     >
                       <!-- 格子区域 -->
                       <div>
-                        <el-tag type="success" class="ico-width">{{col.text}}</el-tag>
+                        <div type="success" class="ico-width">{{col.text}}</div>
                       </div>
                     </el-col>
                   </el-row>
@@ -173,7 +186,7 @@ export default {
       text-align: center;
       padding: 6px;
       .rows {
-        background: #eee;
+        // background: #eee;
         margin-bottom: 2px;
       }
       .frames-content {
@@ -185,9 +198,12 @@ export default {
       .cols {
         padding: 2px;
         box-sizing: border-box;
-        div {
+        > div {
           border: dashed 1px #ccc;
           padding: 10px 0;
+          .ico-width {
+            font-size: 12px;
+          }
         }
       }
     }
