@@ -20,7 +20,7 @@
       </el-row>
     </el-header>
     <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id">
+      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
         <!-- 块区域 -->
         <!-- {{block}} -->
         <div v-if="block.isPageView">
@@ -32,7 +32,7 @@
             <div>页面内容展示区域</div>
           </div>
         </div>
-        <div v-else >
+        <div v-else>
           <!-- 块区域 -->
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button v-if="block.text">{{block.text}}</el-button>
@@ -40,7 +40,7 @@
               <el-button type="danger" icon="el-icon-edit-outline" @click="handleEditStyle(block)" ></el-button>
             </el-tooltip>
           </el-button-group>
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :style="row.style" :class="row.class">
+          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="row.styleSetting.class" :id="row.styleSetting.id" :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls" v-show="viewLayoutsClass">
               <el-button v-if="row.text">{{row.text}}</el-button>
@@ -181,22 +181,22 @@
     },
     methods: {
       handleEditStyle(data){
+        console.log(data)
         this.edittingData=data
         this.EditStyleShow=true;
-        // this.EditStyle=data.style;
-        // this.EditType=1;
-        this.styleSetting=data.styleSetting;
-        this.styleBg=data.styleBg;
-        this.styleStyle=data.styleStyle;
-        this.styleBorder=data.styleBorder;
-        this.styleShadow=data.styleShadow;
+        this.styleSetting=JSON.parse(JSON.stringify(data.styleSetting));
+        this.styleBg=JSON.parse(JSON.stringify(data.styleBg));
+        this.styleStyle=JSON.parse(JSON.stringify(data.styleStyle));
+        this.styleBorder=JSON.parse(JSON.stringify(data.styleBorder));
+        this.styleShadow=JSON.parse(JSON.stringify(data.styleShadow));
       },
       updataStyle(styleData){
-        this.edittingData.styleSetting=styleData.styleSetting
-        this.edittingData.styleBg=styleData.styleBg
-        this.edittingData.styleStyle=styleData.styleStyle
-        this.edittingData.styleBorder=styleData.styleBorder
-        this.edittingData.styleShadow=styleData.styleShadow
+        console.log(this.edittingData)
+        this.edittingData.styleSetting=JSON.parse(JSON.stringify(styleData.styleSetting))
+        this.edittingData.styleBg=JSON.parse(JSON.stringify(styleData.styleBg))
+        this.edittingData.styleStyle=JSON.parse(JSON.stringify(styleData.styleStyle))
+        this.edittingData.styleBorder=JSON.parse(JSON.stringify(styleData.styleBorder))
+        this.edittingData.styleShadow=JSON.parse(JSON.stringify(styleData.styleShadow))
       },
       moveComponent(components,index, type) {
       if (Math.abs(type)) {
@@ -238,7 +238,6 @@
       // 添加组件逻辑
       addCom() {
         this.editCol.components.push(Object.assign({}, this.componentTemp))
-        console.log(this.editCol)
         this.dialogComVisible = false
 
       },
@@ -275,7 +274,6 @@
         getLayoutsOne(data)
           .then(res => {
             // Object.assing(this.layoutTemp, res.data);
-            console.log();
             this.layoutTemp = res.data;
             if (!document.querySelector('style[id="layouts"]')) {
               let styleEl = window.document.createElement("style");

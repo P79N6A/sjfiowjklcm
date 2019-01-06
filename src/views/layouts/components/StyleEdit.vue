@@ -6,7 +6,6 @@
     </el-button-group>
     <el-tabs type="border-card">
       <el-tab-pane label="基础属性" label-position="top" :model="setting">
-        {{setting}}
         <el-form ref="form">
           <el-form-item label="添加class">
             <el-input v-model="setting.class"></el-input>
@@ -175,14 +174,21 @@
         </textarea>
       </el-tab-pane> -->
     </el-tabs>
-
+    <el-dialog title="媒体列表" :visible.sync="showPicList" width="800px">
+      <file-list @select="selectFile"></file-list>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+  import fileList from '@/components/FileList'
+  import {
+    mapGetters
+  } from "vuex";
   export default {
     data() {
       return {
+        showPicList: false,
         setting: {
           class: "",
           id: "",
@@ -268,30 +274,48 @@
         }]
       };
     },
+    components: {
+      fileList
+    },
     props: {
       value: Boolean,
-      styleSetting:Object,
-      styleBg:Object,
-      styleStyle:Object,
-      styleBorder:Object,
-      styleShadow:Object,
+      styleSetting: Object,
+      styleBg: Object,
+      styleStyle: Object,
+      styleBorder: Object,
+      styleShadow: Object,
     },
     methods: {
-      deleteImage(){},
-      changeImage(){},
-      updateStyle(){
-        this.$emit('updataStyle',{styleSetting:this.setting,styleBg:this.bg,styleStyle:this.style,styleBorder:this.border,styleShadow:this.shadow})
+      deleteImage() {},
+      changeImage() {
+        this.showPicList = true;
+      },
+      selectFile(file) {
+        console.log('select file')
+        this.bg.backgroundImage = `url(${this.cdnurl}${file.src})`
+      },
+      updateStyle() {
+        this.$emit('updataStyle', {
+          styleSetting: this.setting,
+          styleBg: this.bg,
+          styleStyle: this.style,
+          styleBorder: this.border,
+          styleShadow: this.shadow
+        })
       }
+    },
+    computed: {
+      ...mapGetters(["cdnurl"])
     },
     watch: {
       value(val) {
         if (val) {
           console.log("init");
-          // Object.assign(this.setting,this.styleSetting)
-          // Object.assign(this.bg,this.styleBg)
-          // Object.assign(this.style,this.styleStyle)
-          // Object.assign(this.border,this.styleBorder)
-          // Object.assign(this.shadow,this.styleShadow)
+          Object.assign(this.setting,this.styleSetting)
+          Object.assign(this.bg,this.styleBg)
+          Object.assign(this.style,this.styleStyle)
+          Object.assign(this.border,this.styleBorder)
+          Object.assign(this.shadow,this.styleShadow)
         } else {
           console.log("emit");
         }
