@@ -2,7 +2,7 @@
   <div class="event-editor">
     <el-form ref="form" label-position="top">
       <el-form-item label="点击事件">
-        <el-select v-model="onClick" placeholder="请选择" @change="addHistroy">
+        <el-select v-model="onClick" placeholder="请选择">
           <el-option
             v-for="(item, index) in clickEvent"
             :label="item.label"
@@ -12,7 +12,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="跳转到指定场景" v-if="onClick=='index'">
-        <el-select v-model="toIndex" placeholder="请选择" @change="addHistroy">
+        <el-select v-model="toIndex" placeholder="请选择">
           <el-option
             v-for="(item, index) in showJson"
             :label="`场景${index+1}`"
@@ -22,10 +22,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="超链接地址" v-if="onClick=='link'">
-        <el-input v-model="link" @change="addHistroy"></el-input>
+        <el-input v-model="link"></el-input>
       </el-form-item>
       <el-form-item label="超链接打开方式" v-if="onClick=='link'">
-        <el-select v-model="target" placeholder="请选择" @change="addHistroy">
+        <el-select v-model="target" placeholder="请选择">
           <el-option
             v-for="(item, index) in linkTarget"
             :label="item.label"
@@ -98,9 +98,9 @@ export default {
     // });
   },
   watch: {
-    renderJson(){
-      console.log('json-change')
-      this.setInput()
+    renderJson() {
+      console.log("json-change");
+      this.setInput();
     },
     onClick() {
       this.json[this.id].onClick = this.onClick;

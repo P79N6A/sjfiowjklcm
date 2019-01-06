@@ -38,13 +38,15 @@ export default {
   created() {
     on(document, "click", this.handleDocumentClick);
     this.setVal();
+    const $this = this;
     window.clearInterval(this.timer);
     if (this.autoAnimation) {
-      this.timer = window.setInterval(() => {
-        this.activePage = (this.activePage + 1) % this.pageJson.length;
-        if (this.activePage == this.pageJson.length - 1) {
-          if (!this.infinite) {
-            window.clearInterval(this.timer);
+      $this.timer = window.setInterval(() => {
+        $this.activePage = ($this.activePage + 1) % $this.pageJson.length;
+        if ($this.activePage == $this.pageJson.length - 1) {
+          if (!$this.infinite) {
+            console.log("clear-timer");
+            window.clearInterval($this.timer);
           }
         }
       }, this.interval);
@@ -66,6 +68,7 @@ export default {
       this.interval = this.pageSetting.interval
         ? this.pageSetting.interval * 1000
         : 3000;
+      console.log(this.autoAnimation, this.infinite, this.interval);
     },
     elClick(eventJson) {
       if (eventJson.onClick == "next") {
