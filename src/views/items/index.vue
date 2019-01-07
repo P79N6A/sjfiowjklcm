@@ -11,9 +11,9 @@
         <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
           <el-option
             :label="item.name"
-            :value="item.platform"
+            :value="item.value"
             v-for="item in platformList"
-            :key="item.platform"
+            :key="item.value"
           ></el-option>
         </el-select>
       </span>

@@ -11,9 +11,9 @@
         <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
           <el-option
             :label="item.name"
-            :value="item.platform"
+            :value="item.value"
             v-for="item in platformList"
-            :key="item.platform"
+            :key="item.value"
           ></el-option>
         </el-select>
       </span>
@@ -92,8 +92,8 @@
       <el-table-column label="备注" prop="description"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.online" type="warning">上架</el-tag>
-          <el-tag v-else>下架</el-tag>
+          <el-tag v-if="scope.row.online">上架</el-tag>
+          <el-tag v-else type="danger">下架</el-tag>
         </template>
       </el-table-column>
       <el-table-column
