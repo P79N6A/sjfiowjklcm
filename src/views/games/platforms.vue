@@ -23,21 +23,8 @@
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
-      <!-- <el-table-column label="目录" prop="path">
-        <template slot-scope="scope">{{ scope.row.path}}/{{ scope.row.name}}.json</template>
-      </el-table-column> -->
-      <el-table-column label="内容模版">
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.model">{{ scope.row.model.name}}</el-tag>
-        </template>
-      </el-table-column>
+      <el-table-column label="字段" prop="value"></el-table-column>
       <el-table-column label="描述" prop="description"></el-table-column>
-
-      <!-- <el-table-column label="authorities" min-width="150px" prop="role.authorities">
-        <template slot-scope="scope">
-          <el-tag v-for="(item,i) in scope.row.authorities" :key="i">{{ item }}</el-tag>
-        </template>
-      </el-table-column>-->
       <el-table-column
         :label="$t('table.actions')"
         align="center"
@@ -75,16 +62,20 @@
           <el-input v-model="PlatformTemp.name"/>
         </el-form-item>
 
-        <el-form-item label="平台value" prop="value">
+        <el-form-item label="平台字段" prop="value">
           <el-input v-model="PlatformTemp.value"/>
+        </el-form-item>
+        <el-form-item label="平台描述" prop="value">
+          <el-input
+            v-model="PlatformTemp.description"
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button
-          type="primary"
-          @click="dialogStatus==='create'?addPlatforms():updatePlatforms()"
-        >
+        <el-button type="primary" @click="dialogStatus==='create'?addPlatforms():updatePlatforms()">
           {{ $t('table.confirm')
           }}
         </el-button>
@@ -98,7 +89,7 @@ import {
   getPlatforms,
   addPlatforms,
   deletePlatforms,
-  updatePlatforms,
+  updatePlatforms
 } from "@/api/platforms";
 
 export default {
@@ -110,6 +101,7 @@ export default {
       PlatformTemp: {
         name: "",
         value: "",
+        description: ""
       },
       listLoading: true,
       dialogFormVisible: false,
@@ -155,10 +147,8 @@ export default {
     // 重置数据
     resetTemp() {
       this.PlatformTemp = {
-        type:"content",
-        model: "",
         name: "",
-        path: "",
+        value: "",
         description: ""
       };
     },

@@ -26,9 +26,9 @@
       <span>
         <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导入</el-button>
       </span>
-      <!-- <span> -->
-      <!-- <el-button type="danger" @click="handleCreate" icon="el-icon-edit">导出</el-button> -->
-      <!-- </span> -->
+      <router-link :to="{name: 'platform'}" style="float:right;">
+        <el-button type="danger" @click="handlePlatform" icon="el-icon-edit">平台管理</el-button>
+      </router-link>
     </div>
     <br>
     <br>
@@ -363,7 +363,6 @@
         <a href="/static/导入模板.xlsx" target="_blank">下载模板文件</a>
       </p>
     </el-dialog>
-    
   </div>
 </template>
 
@@ -373,7 +372,7 @@ import XLSX from "xlsx";
 import { getGames, addGames, updateGames, deleteGames } from "@/api/games";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
-
+import { getPlatforms } from "@/api/platforms";
 export default {
   name: "ComplexTable",
   components: {
@@ -390,88 +389,7 @@ export default {
         platform: "DT"
       },
       // 游戏平台类型
-      platformList: [
-        {
-          platform: "PT",
-          name: "PT老虎机"
-        },
-        {
-          platform: "PT2TIGER",
-          name: "PT老虎机(新)"
-        },
-        {
-          platform: "DT",
-          name: "DT老虎机"
-        },
-        {
-          platform: "MG",
-          name: "MG老虎机"
-        },
-        {
-          platform: "QT",
-          name: "QT老虎机"
-        },
-        {
-          platform: "TTG",
-          name: "TTG老虎机"
-        },
-        {
-          platform: "NT",
-          name: "NT老虎机"
-        },
-        {
-          platform: "PNG",
-          name: "PNG老虎机"
-        },
-        {
-          platform: "SW",
-          name: "SW老虎机"
-        },
-        {
-          platform: "TGP",
-          name: "申博老虎机"
-        },
-        {
-          platform: "CQ9",
-          name: "CQ9老虎机"
-        },
-        {
-          platform: "RTG",
-          name: "RTG老虎机"
-        },
-        {
-          platform: "AMEBA",
-          name: "AMEBA老虎机"
-        },
-        {
-          platform: "PG",
-          name: "PG老虎机"
-        },
-        {
-          platform: "MWSLOT",
-          name: "MWSLOT老虎机"
-        },
-        {
-          platform: "MWQP",
-          name: "MW棋牌"
-        },
-        {
-          platform: "BBSLOT",
-          name: "BBSLOT老虎机"
-        },
-        {
-          platform: "YGG",
-          name: "YGG老虎机"
-        },
-        {
-          platform: "JDBSLOT",
-          name: "JDB老虎机"
-        },
-        {
-          platform: "JDBFISH",
-          name: "JDB捕鱼"
-        }
-      ],
+      platformList: [],
       // 分类
       typeList: [
         { name: "奖池", value: "AMA" },
@@ -533,10 +451,18 @@ export default {
     };
   },
   created() {
+    this.getPlatforms();
     this.getGames({});
   },
   methods: {
-    /*=========模型相关=========*/
+    // 查询平台列表
+    getPlatforms() {
+      getPlatforms()
+        .then(res => {
+          this.platformList = res.data;
+        })
+        .catch(err => {});
+    },
     // 查询用户列表
     getGames() {
       this.listLoading = true;
@@ -761,6 +687,11 @@ export default {
         };
         reader.readAsBinaryString(file.raw);
         // reader.readAsBinaryString(file) // 传统input方法
+      });
+    },
+    handlePlatform() {
+      let routeData = this.$router.resolve({
+        name: "platform"
       });
     }
   },
