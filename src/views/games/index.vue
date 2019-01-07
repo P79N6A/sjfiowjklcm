@@ -21,7 +21,7 @@
         <el-button type="warning" icon="el-icon-search" @click="getGames">搜索</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加</el-button>
+        <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加游戏</el-button>
       </span>
       <span>
         <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导入</el-button>
@@ -342,6 +342,7 @@
         >{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
+    <!-- 批量导入数据 -->
     <el-dialog
       title="批量导入"
       :visible.sync="dialogInsertVisible"
@@ -362,6 +363,7 @@
         <a href="/static/导入模板.xlsx" target="_blank">下载模板文件</a>
       </p>
     </el-dialog>
+    
   </div>
 </template>
 

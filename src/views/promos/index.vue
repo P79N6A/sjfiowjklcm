@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
+    <!-- <div class="filter-container">
       <el-button
         class="filter-item"
         style="margin-left: 10px;"
@@ -18,7 +18,7 @@
         icon="el-icon-edit"
         @click="staticCategories"
       >生效</el-button>
-    </div>
+    </div> -->
 
     <el-table
       v-loading="listLoading"
@@ -69,7 +69,7 @@
                 @click="handleOpen(scope.row)"
               ></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="复制外链地址" placement="top-start">
+            <!-- <el-tooltip class="item" effect="dark" content="复制外链地址" placement="top-start">
               <el-button
                 size="mini"
                 type="danger"
@@ -85,7 +85,7 @@
                 @click="handleDelete(scope.row)"
                 icon="el-icon-delete"
               ></el-button>
-            </el-tooltip>
+            </el-tooltip> -->
           </el-button-group>
         </template>
       </el-table-column>
@@ -196,7 +196,7 @@ export default {
     // 查询数据分类列表
     getCategories() {
       this.listLoading = true;
-      getCategories({ type: "content" })
+      getCategories({ type: "promo" })
         .then(res => {
           this.categoryList = res.data;
           this.listLoading = false;
@@ -249,7 +249,7 @@ export default {
     handleUpdate(row) {
       this.getModels();
       this.categoryTemp = Object.assign({}, row); // copy obj
-      this.categoryTemp.model = row.model._id;
+      this.categoryTemp.model = row.model&&row.model._id;
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -273,7 +273,7 @@ export default {
     },
     // 删除事件
     handleDelete(data) {
-      this.$confirm("此操作将永久删除该角色, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

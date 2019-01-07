@@ -14,6 +14,11 @@
       >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50">
       </el-table-column>
+      <el-table-column label="终端类型" prop="url">
+        <template slot-scope="scope">
+          <el-tag>{{getTypeName(scope.row.device)}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="网站名称" prop="name">
       </el-table-column>
       <el-table-column label="网站主域名" prop="url">
@@ -47,9 +52,18 @@
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="500px">
-      <el-form ref="dataForm" :rules="rules" :model="projectsTemp" label-position="right" label-width="75px" style="width: 400px; margin-left:50px;">
+      <el-form ref="dataForm" :rules="rules" :model="projectsTemp" label-position="right" label-width="80px" style="width: 400px; margin-left:50px;">
         <el-form-item label="*项目名称" prop="name">
           <el-input v-model="projectsTemp.name"/>
+        </el-form-item>
+        <el-form-item label="*适用终端" prop="name">
+          <el-radio-group v-model="projectsTemp.device" @change="checkList">
+            <el-radio
+              :label="item.value"
+              v-for="item in deviceTypeList"
+              :key="item.value"
+            >{{item.name}}</el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="官网域名" prop="url">
           <el-input v-model="projectsTemp.url"/>
@@ -82,35 +96,36 @@ export default {
   directives: { waves },
   data() {
     return {
+      // 项目列表
       projectsList:null,
-      total: 0,
-      listQuery: {
-        page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
-      },
+      // 项目数据模型
       projectsTemp:{
         name:'',
+        devide:'',
         url:'',
         description:''
       },
+      // 终端列表
+      deviceTypeList: [
+        { name: "电脑桌面端", value: "pc" },
+        { name: "手机端", value: "mobile" }
+      ],
+      // loading状态
       listLoading: true,
+      // 弹窗
       dialogFormVisible: false,
+      // 弹窗状态
       dialogStatus: '',
+      // 标题列表
       textMap: {
         update: '更新项目',
         create: '创建项目'
-      },
-
+      }
     }
   },
   created() {
-    // this.getList()
+    // 读取项目列表
     this.getProjects()
-
   },
   methods: {
     // 查询用户列表
@@ -123,6 +138,7 @@ export default {
         this.listLoading = false
       })
     },
+    // 创建项目
     createProjects(){
       addProjects(this.projectsTemp).then(res=>{
         this.getProjects()
@@ -137,12 +153,13 @@ export default {
 
       })
     },
+    // 重置数据
     resetTemp() {
       this.projectsTemp = {
-        email: '',
-        nickname: '',
-        password: '',
-        role: '',
+        name:'',
+        devide:'',
+        url:'',
+        description:''
       }
     },
     // 点击创建按钮
@@ -163,6 +180,7 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
+    // 更新项目
     updateProjects(){
       updateProjects(this.projectsTemp).then(res=>{
         this.dialogFormVisible=false
@@ -198,15 +216,23 @@ export default {
         });
 
     },
-    //
+    // 点击编辑
     handleEdit(row){
       setToken('SiteId',row._id)
-      // rememberProjects(row).then(res=>{
-        this.$router.push({name:'Dashboard'})
-      // }).catch(err=>{
-
-      // })
-      console.log('handleEdit')
+      setToken('SiteDevice',row.device)
+      this.$router.push({name:'Dashboard'})
+    },
+    // 获取终端名称
+    getTypeName(val){
+      const device = this.deviceTypeList.find(item=>{
+        return item.value==val
+      })
+      // 如果存在
+      if(device){
+        return device.name
+      }else{
+        return val
+      }
     }
   }
 }

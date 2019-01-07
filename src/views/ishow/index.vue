@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="ishow-headerWrapper">
-      <header class="header">iShow
+      <header class="header">自定义组件库
         <div class="ishow-headerBtn">
           <el-button size="small" @click.stop="linkNewSence">新建组件</el-button>
         </div>

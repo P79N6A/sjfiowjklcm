@@ -11,18 +11,11 @@
         {{
         $t('table.add') }}
       </el-button>
-      <el-button
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-edit"
-        @click="staticCategories"
-      >生效</el-button>
     </div>
 
     <el-table
       v-loading="listLoading"
-      :data="categoryList"
+      :data="platformList"
       border
       fit
       highlight-current-row
@@ -61,23 +54,6 @@
                 @click="handleUpdate(scope.row)"
               ></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="查看集合数据内容" placement="top-start">
-              <el-button
-                size="mini"
-                type="danger"
-                icon="el-icon-view"
-                @click="handleOpen(scope.row)"
-              ></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="复制外链地址" placement="top-start">
-              <el-button
-                size="mini"
-                type="danger"
-                icon="el-icon-printer"
-                v-clipboard:copy="`${scope.row.path}/${scope.row.name}.json`"
-                v-clipboard:success="clipboardSuccess"
-              ></el-button>
-            </el-tooltip>
             <el-tooltip class="item" effect="dark" content="删除该数据集合" placement="top-start">
               <el-button
                 size="mini"
@@ -94,35 +70,20 @@
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     <!-- 编辑弹窗 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="700px">
-      <el-form ref="dataFormTemp" :model="categoryTemp" label-position="right" label-width="70px">
-        <el-form-item label="集合名称" prop="name">
-          <el-input v-model="categoryTemp.name"/>
+      <el-form :model="PlatformTemp" label-position="right" label-width="70px">
+        <el-form-item label="平台名称" prop="name">
+          <el-input v-model="PlatformTemp.name"/>
         </el-form-item>
 
-        <el-form-item label="内容模型" prop="description">
-          <el-select v-model="categoryTemp.model" placeholder="请选择">
-            <el-option
-              v-for="item in modelList"
-              :key="item._id"
-              :label="item.name"
-              :value="item._id"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-
-        <el-form-item label="外链地址" prop="path">
-          <el-input v-model="categoryTemp.path"/>
-        </el-form-item>
-
-        <el-form-item label="集合描述" prop="description">
-          <el-input v-model="categoryTemp.description"/>
+        <el-form-item label="平台value" prop="value">
+          <el-input v-model="PlatformTemp.value"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button
           type="primary"
-          @click="dialogStatus==='create'?addCategories():updateCategories()"
+          @click="dialogStatus==='create'?addPlatforms():updatePlatforms()"
         >
           {{ $t('table.confirm')
           }}
@@ -133,51 +94,22 @@
 </template>
 
 <script>
-import { getModels } from "@/api/model";
-import clip from "@/utils/clipboard"; // use clipboard directly
-import clipboard from "@/directive/clipboard/index.js"; // use clipboard by v-directive
 import {
-  getCategories,
-  addCategories,
-  deleteCategories,
-  updateCategories,
-  staticCategories
-} from "@/api/categories";
-import waves from "@/directive/waves"; // Waves directive
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+  getPlatforms,
+  addPlatforms,
+  deletePlatforms,
+  updatePlatforms,
+} from "@/api/platforms";
 
 export default {
   name: "ComplexTable",
-  components: {
-    Pagination
-  },
-  directives: {
-    waves,
-    clipboard
-  },
   data() {
     return {
-      authorList: null,
-      roleList: null,
-      categoryList: null,
-      modelList: null,
+      platformList: null,
       // 栏目模版
-      categoryTemp: {
-        type: "content",
-        model: "",
+      PlatformTemp: {
         name: "",
-        path: "",
-        description: ""
-      },
-
-      total: 0,
-      listQuery: {
-        page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: "+id"
+        value: "",
       },
       listLoading: true,
       dialogFormVisible: false,
@@ -190,34 +122,26 @@ export default {
   },
   created() {
     // this.getList()
-    this.getCategories();
+    this.getPlatforms();
   },
   methods: {
     // 查询数据分类列表
-    getCategories() {
+    getPlatforms() {
       this.listLoading = true;
-      getCategories({ type: "content" })
+      getPlatforms({ type: "content" })
         .then(res => {
-          this.categoryList = res.data;
+          this.platformList = res.data;
           this.listLoading = false;
         })
         .catch(err => {
           this.listLoading = false;
         });
     },
-    // 获取模型
-    getModels() {
-      getModels({ type: "content" })
-        .then(res => {
-          this.modelList = res.data;
-        })
-        .catch(err => {});
-    },
     // 新建数据分类
-    addCategories() {
-      addCategories(this.categoryTemp)
+    addPlatforms() {
+      addPlatforms(this.PlatformTemp)
         .then(res => {
-          this.getCategories();
+          this.getPlatforms();
           this.dialogFormVisible = false;
           this.$notify({
             title: "成功",
@@ -230,7 +154,7 @@ export default {
     },
     // 重置数据
     resetTemp() {
-      this.categoryTemp = {
+      this.PlatformTemp = {
         type:"content",
         model: "",
         name: "",
@@ -240,16 +164,13 @@ export default {
     },
     // 点击创建按钮
     handleCreate() {
-      this.getModels();
       this.resetTemp();
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
     },
     // 点击更新按钮
     handleUpdate(row) {
-      this.getModels();
-      this.categoryTemp = Object.assign({}, row); // copy obj
-      this.categoryTemp.model = row.model._id;
+      this.PlatformTemp = Object.assign({}, row); // copy obj
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -257,8 +178,8 @@ export default {
       });
     },
     // g更新操作
-    updateCategories() {
-      updateCategories(this.categoryTemp)
+    updatePlatforms() {
+      updatePlatforms(this.PlatformTemp)
         .then(res => {
           this.dialogFormVisible = false;
           this.$notify({
@@ -267,7 +188,7 @@ export default {
             type: "success",
             duration: 2000
           });
-          this.getCategories();
+          this.getPlatforms();
         })
         .catch(err => {});
     },
@@ -279,8 +200,8 @@ export default {
         type: "warning"
       })
         .then(() => {
-          deleteCategories(data).then(res => {
-            this.getCategories();
+          deletePlatforms(data).then(res => {
+            this.getPlatforms();
             this.$notify({
               title: "成功",
               message: "删除成功",
@@ -292,31 +213,6 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    },
-    // 复制文件
-    clipboardSuccess() {
-      this.$message({
-        message: "已复制到剪贴板",
-        type: "success",
-        duration: 1500
-      });
-    },
-    // 查看数据集合的数据内容
-    handleOpen(row) {
-      this.$router.push({ name: "contents", query: { categoryId: row._id } });
-    },
-    staticCategories() {
-      staticCategories()
-        .then(res => {
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
-          });
-        })
-        .catch(err => {});
-      // 数据生效
     }
   }
 };

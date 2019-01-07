@@ -1,12 +1,12 @@
 <template>
   <div class="item-container">
     <div>
-      <span>
+      <!-- <span>
         <el-select v-model="filterData.device" placeholder="请选择终端类型">
           <el-option label="PC" value="PC"></el-option>
           <el-option label="MOBILE" value="MOBILE"></el-option>
         </el-select>
-      </span>
+      </span> -->
       <span>
         <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
           <el-option :label="item.name" :value="item.platform" v-for="item in platformList" :key="item.platform"></el-option>
@@ -109,7 +109,11 @@
     addItems
   } from "@/api/items";
   import Sortable from "sortablejs";
-
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/utils/auth'
   export default {
     name: "DragTable",
     filters: {
@@ -136,7 +140,7 @@
         newList: [],
         //搜索条件
         filterData: {
-          device: "PC",
+          device: getToken('SiteDevice'),
           platform: "DT"
         },
         // 游戏平台类型
@@ -321,6 +325,7 @@
 
 <style lang="scss">
   .item-container {
+    padding:30px;
     .img-view {
       background-position: center center;
       background-repeat: no-repeat;

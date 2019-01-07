@@ -742,21 +742,12 @@ export default {
           src: res.src
         };
       } else {
-        console.log(res);
-        console.log(file);
-        console.log(this.contentTemp.extensions);
-        console.log(this.contentKey);
-        // this.$set(this.contentTemp.extensions[this.contentKey], {
-        //   _id: res._id,
-        //   fileName: file.name,
-        //   src: res.src
-        // });
+
         this.contentTemp.extensions[this.contentKey] = {
           _id: res._id,
           fileName: file.name,
           src: res.src
         };
-        console.log(this.contentTemp.extensions[this.contentKey]);
       }
       // this.siteInfo.value.favicon = res.src;
     },

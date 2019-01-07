@@ -42,7 +42,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="*数据来源" prop="dataType">
-          <el-radio-group v-model="componentTemp.dataType" @change="checkList">
+          <el-radio-group v-model="componentTemp.dataType">
             <el-radio
               :label="item.value"
               v-for="item in dataTypeList"
@@ -136,8 +136,6 @@ import {
   deleteComponents
 } from "@/api/components";
 import { getModels } from "@/api/model";
-
-import { getCategories } from "@/api/categories";
 export default {
   data() {
     return {
@@ -197,15 +195,6 @@ export default {
     // }.bind(this));
   },
   methods: {
-    // 数据类型切换
-    checkList() {
-      console.log(this.componentTemp.dataType);
-      if (this.componentTemp.dataType == "categories") {
-        this.getCategories();
-      } else if (this.componentTemp.dataType == "contents") {
-        this.getModels();
-      }
-    },
     // 查询数据模型列表
     getModels() {
       this.listLoading = true;
@@ -218,16 +207,7 @@ export default {
           this.listLoading = false;
         });
     },
-    // 获取数据集列表
-    getCategories() {
-      getCategories({
-        type: "content"
-      })
-        .then(res => {
-          this.categoryList = res.data;
-        })
-        .catch(err => {});
-    },
+
     // 获取组件列表
     getComponents() {
       getComponents().then(response => {
@@ -236,6 +216,7 @@ export default {
         }
       });
     },
+    // 重置表单
     resetTemp() {
       this.componentTemp = {
         device: "pc",
@@ -258,6 +239,7 @@ export default {
         // content: ""
       };
     },
+    // 创建组件
     createComponent() {
       addComponents(this.componentTemp)
         .then(res => {
@@ -272,6 +254,7 @@ export default {
         })
         .catch(err => {});
     },
+    // 更新组件
     updateComponent() {
       updateComponents(this.componentTemp)
         .then(res => {
@@ -286,21 +269,22 @@ export default {
         })
         .catch(err => {});
     },
-    // 添加
+    // 添加点击事件
     handleAdd() {
+      this.getModels();
       this.dialogStatus = "create";
-      this.getCategories();
       this.resetTemp();
       this.dialogFormVisible = true;
     },
+    // 编辑点击事件
     handleEdit(row) {
+      this.getModels();
       this.dialogStatus = "update";
-      this.getCategories();
       this.resetTemp();
       Object.assign(this.componentTemp, row);
       this.dialogFormVisible = true;
     },
-    // 删除
+    // 删除点击事件
     handleDelete(row) {
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
