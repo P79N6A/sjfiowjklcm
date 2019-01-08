@@ -361,7 +361,7 @@
     }
     .iframe-view{
       border:none;
-      width:100%;
+      width:1500PX;
       min-height:100vh;
     }
   }

@@ -110,7 +110,7 @@
     position: relative;
     overflow: hidden;
     min-height: calc(100vh - 84px);
-    padding: 20px;
+    // padding: 20px;
 
     .page-view {
       font-size: 36px;
