@@ -5,15 +5,26 @@
         <span>站点基本配置</span>
       </div>
       <el-container class="views">
-        <el-aside width="200px" style="background:#eee;">
+        <el-aside :width="hideMenu?'56px':'200px'" style="background:#eee;">
           <div class="bottom cfx">
-            <el-button icon="el-icon-plus" type="primary" @click="handleCreate" style="width:100%;">添加页面</el-button>
+            <el-button-group>
+              <el-button v-show="!hideMenu" icon="el-icon-plus" type="primary" @click="handleCreate" style="width:145px;">添加页面</el-button>
+              <el-button @click="hideMenu=!hideMenu"><span v-if="hideMenu">展开</span><span v-else>隐藏</span></el-button>
+            </el-button-group>
           </div>
-          <el-tree :data="treeData" node-key="id" :expand-on-click-node="true" :icon-class="'=='" default-expanded-keys="pc"
+          <el-tree v-show="!hideMenu" :data="treeData" node-key="id" :expand-on-click-node="true" :icon-class="'=='" default-expanded-keys="pc"
             :highlight-current="true" @node-click="nodeClick">
           </el-tree>
         </el-aside>
         <el-main>
+          <el-row>
+            <el-col :span="24">
+              <el-button-group>
+                <el-button type="success" @click="handleUpdate">编辑</el-button>
+                <el-button type="danger">删除</el-button>
+              </el-button-group>
+            </el-col>
+          </el-row>
           <el-row>
             <el-col :span="24">
               <iframe ref="iframeView" src="/#/preview" class="iframe-view"></iframe>
@@ -102,7 +113,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createPages():updatePages()">{{ $t('table.confirm')
+        <el-button type="primary" @click="dialogStatus==='create'?createPage():updatePage()">{{ $t('table.confirm')
           }}</el-button>
       </div>
     </el-dialog>
@@ -125,6 +136,7 @@
     },
     data() {
       return {
+        hideMenu:false,
         pageList: null,
         columns: [{
             text: "页面地址",
@@ -196,15 +208,19 @@
       },
       // 点击创建操作
       handleCreate() {
-        this.dialogStatus = "create";
         this.resetPageTemp();
+        this.dialogStatus = "create";
         this.dialogFormVisible = true;
       },
       //点击更新操作，没有用到
-      handleUpdate(data) {
+      handleUpdate() {
         this.dialogStatus = "update";
         this.dialogFormVisible = true;
-        Object.assign(this.pagesTemp, data);
+        this.pagesTemp=JSON.parse(JSON.stringify(this.selectNode.value))
+        this.pagesTemp.layout=this.pagesTemp.layout?this.pagesTemp.layout._id:''
+        this.pagesTemp.content=this.pagesTemp.content?this.pagesTemp.content._id:''
+        // Object.assign(this.pagesTemp, this.selectNode);
+        console.log(this.pagesTemp)
       },
       // 删除数据
       handleDelete() {
@@ -266,7 +282,7 @@
           .catch(err => {});
       },
       // 创建页面
-      createPages() {
+      createPage() {
         addPages(this.pagesTemp)
           .then(res => {
             this.$notify({
@@ -283,10 +299,12 @@
           });
       },
       // 更新页面
-      uplatePages() {
+      updatePage() {
+        this.selectNode.value._id=this.selectNode.id
         updatePages(this.selectNode.value)
           .then(res => {
             console.log(res);
+            this.getPages();
             this.$notify({
               title: "成功",
               message: "操作成功",
@@ -358,6 +376,9 @@
 
     .el-tree {
       background: transparent;
+    }
+    .el-main{
+      padding:0;
     }
     .iframe-view{
       border:none;

@@ -14,8 +14,7 @@
       return {
         selectNode: {
           value:"test"
-        },
-
+        }
       };
     },
     mounted() {

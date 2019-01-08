@@ -1,16 +1,11 @@
 <template>
-  <div class="Layout-container" v-if="layoutTemp">
+  <div class="Layouts-container" v-if="layoutTemp">
     <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
       <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id"
         :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
         <!-- 块区域 -->
         <!-- {{block}} -->
-        <div v-if="block.isPageView">
-          <slot>
-            <div>页面内容展示区域</div>
-          </slot>
-        </div>
-        <div v-else>
+        <div>
           <!-- 块区域 -->
           <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="row.styleSetting.class" :id="row.styleSetting.id"
             :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
@@ -18,7 +13,12 @@
             <!-- 行区域 -->
             <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
               <!-- 格子区域 -->
-              <div>
+              <div v-if="col.isPageView">
+                <slot>
+                  <div>页面内容展示区域</div>
+                </slot>
+              </div>
+              <div v-else>
                 <!-- 内容-{{col.text}} -->
                 <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
                   <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
@@ -106,22 +106,15 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  .Layout-container {
+  .Layouts-container {
     position: relative;
     overflow: hidden;
     min-height: calc(100vh - 84px);
-    // padding: 20px;
-
-    .page-view {
-      font-size: 36px;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #999;
-      background: #eee;
-      border: dashed 2px #ccc;
-      margin: 6px 0;
+    .rows{
+      min-height:1px;
+    }
+    .cols{
+      min-height:1px;
     }
   }
 

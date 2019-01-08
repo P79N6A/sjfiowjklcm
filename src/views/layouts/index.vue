@@ -1,7 +1,8 @@
 <template>
-  <div class="layouts-container">
+  <div class="layoutsList-container">
     <el-card class="box-card">
       <el-tabs type="border-card" v-model="layoutType">
+      <!-- 外框部分 -->
         <el-tab-pane label="整站布局" name="layout">
           <div class="layoutList cfx">
             <div class="frames" v-for="(item,i) in layoutList" :key="i">
@@ -30,9 +31,10 @@
             </div>
           </div>
           <div class="bottom cfx">
-            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加框架</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
           </div>
         </el-tab-pane>
+        <!-- 页面部分 -->
         <el-tab-pane label="页面布局" name="page">
           <div class="layoutList cfx">
             <div class="frames" v-for="(item,i) in layoutList" :key="i">
@@ -61,11 +63,12 @@
             </div>
           </div>
           <div class="bottom cfx">
-            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加框架</el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
           </div>
         </el-tab-pane>
       </el-tabs>
-      <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="800px">
+      <!-- 创建布局 -->
+      <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="1000px">
         <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
           <el-form-item label="*布局名称" prop="name">
             <el-input v-model="layoutTemp.name"/>
@@ -80,7 +83,6 @@
             <div class="layoutList cfx">
               <div
                 class="frames"
-                style="width:50%;"
                 v-for="(item,i) in framesList"
                 :key="i"
                 :class="{active:selectedFrameId==item._id}"
@@ -89,14 +91,7 @@
                 <div class="frames-content">
                   <h3>{{item.name}}</h3>
                   <div class="show" v-for="(block,i) in item.value" :key="i">
-                    <div v-if="block.isPageView">
-                      <div class="page-view">
-                        <img src="./img/ico-page-view.png">
-                        <div>页面内容展示区域</div>
-                      </div>
-                    </div>
                     <el-row
-                      v-else
                       v-for="(row,r) in block.rows"
                       :key="i+'-'+r"
                       class="rows"
@@ -109,7 +104,8 @@
                         class="cols"
                       >
                         <div>
-                          <span class="ico-width">{{col.text}}</span>
+                          <span v-if="col.isPageView" style="border:solid 1px red;">页面布局</span>
+                          <span v-else type="success" class="ico-width">{{col.text}}</span>
                         </div>
                       </el-col>
                     </el-row>
@@ -383,16 +379,18 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.layouts-container {
+.layoutsList-container {
   padding: 20px;
 
   .layoutList {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-
+    .show{
+      background:#eee;
+    }
     .frames {
-      width: 25%;
+      width: 33.33%;
       text-align: center;
       padding: 6px;
       cursor: pointer;
@@ -416,7 +414,7 @@ export default {
         border-radius: 6px;
         font-size: 12px;
         transition: all 0.6s;
-        height: 200px;
+        height: 350px;
         overflow: hidden;
 
         &:hover {

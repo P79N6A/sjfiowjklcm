@@ -1,5 +1,5 @@
 <template>
-  <div class="frames-container">
+  <div class="framesList-container">
     <el-card class="box-card">
       <el-tabs type="border-card" v-model="frameType">
         <el-tab-pane label="整站框架" name="layout">
@@ -25,15 +25,7 @@
                 </div>
                 <h3>{{item.name}}</h3>
                 <div class="show" v-for="(block,i) in item.value" :key="i">
-                  <div v-if="block.isPageView">
-                    <div class="page-view">
-                      <img src="./img/ico-page-view.png">
-                      <div>页面内容展示区域</div>
-                    </div>
-                  </div>
-
                   <el-row
-                    v-else
                     v-for="(row,r) in block.rows"
                     :key="i+'-'+r"
                     class="rows"
@@ -49,7 +41,8 @@
                       <!-- {{row}} -->
                       <!-- 格子区域 -->
                       <div>
-                        <span type="success" class="ico-width">{{col.text}}</span>
+                        <span v-if="col.isPageView" style="border:solid 1px red;">页面布局</span>
+                        <span v-else type="success" class="ico-width">{{col.text}}</span>
                       </div>
                     </el-col>
                   </el-row>
@@ -175,12 +168,15 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.frames-container {
+.framesList-container {
   padding: 20px;
   .frameList {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+    .show{
+      background:#eee;
+    }
     .frames {
       width: 25%;
       text-align: center;
@@ -194,6 +190,7 @@ export default {
         display: block;
         border: solid 1px #ccc;
         border-radius: 6px;
+
       }
       .cols {
         padding: 2px;

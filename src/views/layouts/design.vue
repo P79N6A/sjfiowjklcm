@@ -25,7 +25,7 @@
       <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
         <!-- 块区域 -->
         <!-- {{block}} -->
-        <div v-if="block.isPageView">
+        <!-- <div v-if="block.isPageView">
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button>{{block.text}}</el-button>
           </el-button-group>
@@ -33,8 +33,8 @@
             <img src="./img/ico-page-view.png">
             <div>页面内容展示区域</div>
           </div>
-        </div>
-        <div v-else>
+        </div> -->
+        <div>
           <!-- 块区域 -->
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button v-if="block.text">{{block.text}}</el-button>
@@ -53,7 +53,11 @@
             <!-- 行区域 -->
             <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
               <!-- 格子区域 -->
-              <div>
+              <div v-if="col.isPageView" style="background:#eee;">
+                <img src="./img/ico-page-view.png" style="height:60px;">
+                <el-tag type="danger">页面内容展示区域</el-tag>
+              </div>
+              <div v-else>
                 <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
                   {{ (col.width/24*1200).toFixed(0)
                   }}PX
@@ -99,12 +103,14 @@
                       ></el-button>
                     </el-tooltip>
                   </el-button-group>
-                  <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
-                  <ishow-component
-                    :page-json="item.pageJson"
-                    :page-setting="item.pageSetting"
-                    v-if="item.type=='ishow'"
-                  ></ishow-component>
+                  <div>
+                    <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
+                    <ishow-component
+                      :page-json="item.pageJson"
+                      :page-setting="item.pageSetting"
+                      v-if="item.type=='ishow'"
+                    ></ishow-component>
+                  </div>
                 </div>
                 <div v-show="viewLayoutsClass" style="padding:4px;">
                   {{col.text}}
@@ -348,7 +354,6 @@ export default {
       item.type = type;
       this.editCol.components.push(Object.assign({}, item));
       this.dialogComVisible = false;
-      console.log(this.editCol);
     },
     // 更新当前布局
     updateLayouts() {

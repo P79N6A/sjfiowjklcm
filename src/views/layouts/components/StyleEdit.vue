@@ -20,12 +20,10 @@
       <el-tab-pane label="普通样式">
         <el-form label-position="top" :model="style">
           <el-form-item label="定位方式">
-            <el-radio-group v-model="style.position" size="small">
-              <el-radio-button label="absolute">absolute</el-radio-button>
-              <el-radio-button label="fixed">fixed</el-radio-button>
-              <el-radio-button label="relative">relative</el-radio-button>
-              <el-radio-button label="static">static</el-radio-button>
-            </el-radio-group>
+            <el-select v-model="style.position" placeholder="请选择">
+              <el-option v-for="(item, index) in PositionOption" :label="item.label" :value="item.value" :key="index">
+              </el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="左">
             <el-input v-model="style.left"></el-input>
@@ -45,20 +43,18 @@
           <el-form-item label="高度">
             <el-input v-model="style.heigh"></el-input>
           </el-form-item>
-          <el-form-item label="透明度">
-            <el-slider v-model="style.opacity" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
-          </el-form-item>
           <el-form-item label="外边距">
-            <el-slider v-model="style.margin" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-input v-model="style.margin"></el-input>
           </el-form-item>
           <el-form-item label="内边距">
-            <el-slider v-model="style.padding" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-input v-model="style.padding"></el-input>
           </el-form-item>
           <el-form-item label="旋转角度">
-            <el-slider v-model="style.rotate" :min="0" :max="100" :step="1" show-input>
+            <el-slider v-model="style.rotate" :min="0" :max="360" :step="1" show-input>
+            </el-slider>
+          </el-form-item>
+          <el-form-item label="透明度">
+            <el-slider v-model="style.opacity" :min="0" :max="100" :step="1" show-input>
             </el-slider>
           </el-form-item>
         </el-form>
@@ -127,8 +123,9 @@
       <el-tab-pane label="边框">
         <el-form label-position="top" :model="border">
           <el-form-item label="边框颜色">
-            <el-color-picker v-model="border.borderColor" show-alpha></el-color-picker>
-            <el-input v-model="border.borderColor" placeholder="边框颜色"></el-input>
+            <el-input v-model="border.borderColor" placeholder="边框颜色" size="medium">
+              <el-color-picker v-model="border.borderColor" show-alpha slot="prepend"></el-color-picker>
+            </el-input>
           </el-form-item>
           <el-form-item label="边框类型">
             <el-select v-model="border.borderStyle" placeholder="请选择">
@@ -137,12 +134,14 @@
             </el-select>
           </el-form-item>
           <el-form-item label="边框宽度">
-            <el-slider v-model="border.borderWidth" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-input v-model="border.borderWidth" placeholder="边框宽度"></el-input>
+            <!-- <el-slider v-model="border.borderWidth" :min="0" :max="100" :step="1" show-input> -->
+            <!-- </el-slider> -->
           </el-form-item>
           <el-form-item label="边框圆角">
-            <el-slider v-model="border.borderRadius" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-input v-model="border.borderRadius" placeholder="边框圆角"></el-input>
+            <!-- <el-slider v-model="border.borderRadius" :min="0" :max="100" :step="1" show-input> -->
+            <!-- </el-slider> -->
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -150,12 +149,12 @@
       <el-tab-pane label="阴影">
         <el-form label-position="top" :model="shadow">
           <el-form-item label="阴影颜色">
-            <el-color-picker v-model="shadow.shadowColor" show-alpha></el-color-picker>
-            <el-input v-model="shadow.borderColor" shadowColor="阴影颜色"></el-input>
+            <el-input v-model="shadow.borderColor" shadowColor="阴影颜色" size="medium">
+              <el-color-picker v-model="shadow.shadowColor" show-alpha slot="prepend"></el-color-picker>
+            </el-input>
           </el-form-item>
           <el-form-item label="阴影大小">
-            <el-slider v-model="shadow.shadowWidth" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-input v-model="shadow.shadowWidth" shadowColor="阴影颜色" size="medium"/>
           </el-form-item>
           <el-form-item label="模糊半径">
             <el-slider v-model="shadow.shadowRadius" :min="0" :max="100" :step="1" show-input>
