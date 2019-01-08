@@ -1,26 +1,35 @@
 <template>
-  <div class="LayoutDesigh-container">
-
+  <div class="Layoutshow-container" v-if="selectNode&&selectNode.value">
+    <Layout :layoutTemp="selectNode.value.layout" v-if="selectNode.value.layout">
+      <Layout :layoutTemp="selectNode.value.content" v-if="selectNode.value.content"></Layout>
+    </Layout>
   </div>
 </template>
 
 <script>
-
+  import Layout from "@/components/Layout";
   export default {
     name: "Page401",
     data() {
       return {
+        selectNode: {
+          value:"test"
+        },
 
       };
     },
     mounted() {
-
+      //监听消息反馈
+      console.log("klsjflkasfjl")
+      window.addEventListener('message',(event) => {
+        this.selectNode=event.data;
+      },false);
     },
     methods: {
-      
+
     },
     components: {
-      StyleEdit
+      Layout
     }
   };
 
@@ -38,6 +47,7 @@
     overflow: hidden;
     min-height: calc(100vh - 84px);
     padding: 20px;
+
     #drag-box {
       // padding: 10px;
       // transform:scale(0.8);

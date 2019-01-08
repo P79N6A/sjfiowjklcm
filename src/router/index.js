@@ -246,6 +246,14 @@ export const asyncRouterMap = [
     }]
   },
   {
+    path: '/preview',
+    // component: {
+    //   template: '<router-view></router-view>'
+    // },
+    hidden: true,
+    component: () => import('@/views/pages/views.vue')
+  },
+  {
     path: '/pages',
     component: Layout,
     meta: {
@@ -322,11 +330,11 @@ export const asyncRouterMap = [
         icon: 'documentation',
         authorities: [100401]
       }
-    },{
+    }, {
       path: 'platform',
       component: () => import('@/views/games/platforms.vue'),
       name: 'platform',
-      hidden:true,
+      hidden: true,
       meta: {
         title: '游戏平台',
         icon: 'documentation',

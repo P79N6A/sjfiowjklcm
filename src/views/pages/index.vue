@@ -13,15 +13,14 @@
             :highlight-current="true" @node-click="nodeClick">
           </el-tree>
         </el-aside>
-        <el-main v-if="selectNode.value">
+        <el-main>
           <el-row>
             <el-col :span="24">
-              <iframe ref="iframeView"></iframe>
+              <iframe ref="iframeView" src="/#/preview" class="iframe-view"></iframe>
               <!-- 外框 -->
-              <Layout :layoutTemp="selectNode.value.layout">
-                <!-- 页面内容区域 -->
-                <Layout :layoutTemp="selectNode.value.content"></Layout>
-              </Layout>
+              <!-- <Layout :layoutTemp="selectNode.value.layout"> -->
+                <!-- <Layout :layoutTemp="selectNode.value.content"></Layout> -->
+              <!-- </Layout> -->
             </el-col>
           </el-row>
         </el-main>
@@ -305,7 +304,7 @@
         this.resetPageTemp()
         Object.assign(this.pagesTemp, $obj.value)
         if(this.$iframe){
-          this.$iframe.postMessage(eventData,'*')
+          this.$iframe.postMessage(this.selectNode,'*')
         }
       },
       // 添加外链样式
@@ -359,6 +358,11 @@
 
     .el-tree {
       background: transparent;
+    }
+    .iframe-view{
+      border:none;
+      width:100%;
+      min-height:100vh;
     }
   }
 
