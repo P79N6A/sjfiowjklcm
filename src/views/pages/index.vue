@@ -6,81 +6,50 @@
       </div>
       <el-container class="views">
         <el-aside width="200px" style="background:#eee;">
-          <div class="bottom cfx" style="margin:10px 0;">
+          <div class="bottom cfx">
             <el-button icon="el-icon-plus" type="primary" @click="handleCreate" style="width:100%;">添加页面</el-button>
           </div>
           <el-tree :data="treeData" node-key="id" :expand-on-click-node="true" :icon-class="'=='" default-expanded-keys="pc"
             :highlight-current="true" @node-click="nodeClick">
           </el-tree>
         </el-aside>
-        <el-main>
+        <el-main v-if="selectNode.value">
           <el-row>
-            <el-col :span="12">
-              <div class="page-img">
-                <img src="https://itgo88.com/static/index/images/pc/t38/1.jpg">
-              </div>
-            </el-col>
-            <el-col :span="12" v-if="selectNode&&selectNode.value">
-              <div class="page-edit">
-                <el-form ref="dataForm" :model="selectNode.value" label-position="right" label-width="90px">
-                  <el-form-item label="*页面名称" prop="name">
-                    <el-input v-model="selectNode.value.name" />
-                  </el-form-item>
-                  <el-form-item label="页面路径" prop="url">
-                    <el-input v-model="selectNode.value.path" />
-                  </el-form-item>
-                  <el-form-item label="说明" prop="remarks">
-                    <el-input v-model="selectNode.value.remarks" />
-                  </el-form-item>
-                  <el-form-item label="状态" prop="status">
-                    <el-switch style="display: block" v-model="selectNode.value.status" active-color="#13ce66" inactive-color="#ff4949"
-                      active-text="发布" inactive-text="草稿" active-value="pushed" inactive-value="draft"></el-switch>
-                  </el-form-item>
-                  <el-form-item label="适配终端" prop="device">
-                    <el-select v-model="selectNode.value.device" placeholder="请选择页面适用终端">
-                      <el-option label="PC端" value="pc"></el-option>
-                      <el-option label="MOBILE端" value="MOBILE"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <hr>
-                  <el-form-item label="页面标题" prop="title">
-                    <el-input v-model="selectNode.value.title" />
-                  </el-form-item>
-                  <el-form-item label="页面关键字" prop="keywords">
-                    <el-input v-model="selectNode.value.keywords" />
-                  </el-form-item>
-                  <el-form-item label="页面描述" prop="description">
-                    <el-input v-model="selectNode.value.description" />
-                  </el-form-item>
-                  <hr>
-                  <el-form-item label="页面脚本" prop="script">
-                    <el-input :autosize="{ minRows: 10, maxRows: 100}" type="textarea" v-model="pagesTemp.script" />
-                  </el-form-item>
-                  <el-form-item label="页面样式" prop="style">
-                    <el-input :autosize="{ minRows: 10, maxRows: 100}" type="textarea" v-model="pagesTemp.style" />
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="primary" @click="uplatePages">更新</el-button>
-                    <el-button type="danger" @click="handleDelete">删除</el-button>
-                  </el-form-item>
-                </el-form>
-              </div>
+            <el-col :span="24">
+              <iframe ref="iframeView"></iframe>
+              <!-- 外框 -->
+              <Layout :layoutTemp="selectNode.value.layout">
+                <!-- 页面内容区域 -->
+                <Layout :layoutTemp="selectNode.value.content"></Layout>
+              </Layout>
             </el-col>
           </el-row>
         </el-main>
       </el-container>
-
     </el-card>
 
-    <div>{{selectNode}}</div>
+    <!-- <div>{{selectNode}}</div> -->
 
+    <!-- 页面内容编辑 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="700px">
       <el-form ref="dataForm" :model="pagesTemp" label-position="right" label-width="90px">
         <el-form-item label="*页面名称" prop="name">
           <el-input v-model="pagesTemp.name" />
         </el-form-item>
         <el-form-item label="页面路径" prop="url">
-          <el-input v-model="pagesTemp.path" />
+          <el-input v-model="pagesTemp.path">
+            <template slot="prepend">～域名</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="页面外框" prop="layout">
+          <el-select v-model="pagesTemp.layout" placeholder="请选择页面外框">
+            <el-option :label="item.name" :value="item._id" v-for="(item,i) in layoutList" :key="i"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="页面内容" prop="layout">
+          <el-select v-model="pagesTemp.content" placeholder="请选择页面内容">
+            <el-option :label="item.name" :value="item._id" v-for="(item,i) in contentList" :key="i"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="说明" prop="Remarks">
           <el-input v-model="pagesTemp.Remarks" />
@@ -90,6 +59,7 @@
             active-text="发布" inactive-text="草稿" active-value="pushed" inactive-value="draft"></el-switch>
         </el-form-item>
         <el-form-item label="适配终端" prop="device">
+          <!-- 这个其实可以废弃，从cookie获取 -->
           <el-select v-model="pagesTemp.device" placeholder="请选择页面适用终端">
             <el-option label="PC端" value="pc"></el-option>
             <el-option label="MOBILE端" value="MOBILE"></el-option>
@@ -109,9 +79,27 @@
         <el-form-item label="页面脚本" prop="script">
           <el-input :autosize="{ minRows: 10, maxRows: 100}" type="textarea" v-model="pagesTemp.script" />
         </el-form-item>
+        <el-form-item :label="`外链脚本${i+1}`" prop="styleList" v-for="(item,i) in pagesTemp.scriptList" :key="i"> 
+          <el-input v-model="pagesTemp.scriptList[i]" >
+            <el-button slot="append" icon="el-icon-delete" type="danger" @click="deleteScriptList(i)"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="addScriptList" type="warning">添加</el-button>
+        </el-form-item>
+        <hr>
         <el-form-item label="页面样式" prop="style">
           <el-input :autosize="{ minRows: 10, maxRows: 100}" type="textarea" v-model="pagesTemp.style" />
         </el-form-item>
+        <el-form-item :label="`外链样式${i+1}`" prop="styleList" v-for="(item,i) in pagesTemp.styleList" :key="i"> 
+          <el-input v-model="pagesTemp.styleList[i]" >
+            <el-button slot="append" icon="el-icon-delete" type="danger" @click="deleteStyleList(i)"></el-button>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="addStyleList" type="warning">添加</el-button>
+        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
@@ -119,12 +107,11 @@
           }}</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
-  import treeTable from "./components/TreeTable";
+  import Layout from "@/components/Layout";
   import {
     getPages,
     addPages,
@@ -132,9 +119,10 @@
     deletePages,
     rememberPages
   } from "@/api/pages";
+  import { getLayouts } from "@/api/layouts";
   export default {
     components: {
-      treeTable
+      Layout
     },
     data() {
       return {
@@ -157,139 +145,7 @@
             value: "description"
           }
         ],
-        treeData: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
-        data: [{
-            name: "首页",
-            url: "/index",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "老虎机大厅",
-            url: "/slot",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "真人大厅",
-            url: "/real",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "体育大厅",
-            url: "/sport",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "棋牌大厅",
-            url: "/chess",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "彩票",
-            url: "/lottery",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "优惠大厅",
-            url: "/promos",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "下载中心",
-            url: "/download",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "vip专属福利",
-            url: "/vip",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "代理加盟",
-            url: "/Cooperation",
-            createTime: "2018-12-12",
-            description: "无"
-          },
-          {
-            name: "关于我们",
-            url: "/about",
-            createTime: "2018-12-12",
-            description: "无",
-            children: [{
-                name: "平台介绍",
-                url: "/aboutus",
-                createTime: "2018-12-12",
-                description: "无"
-              },
-              {
-                name: "服务优势",
-                url: "/service",
-                createTime: "2018-12-12",
-                description: "无"
-              },
-              {
-                name: "隐私保护",
-                url: "/protect",
-                createTime: "2018-12-12",
-                description: "无"
-              },
-              {
-                name: "理性博彩",
-                url: "/play",
-                createTime: "2018-12-12",
-                description: "无"
-              },
-              {
-                name: "女郎福利",
-                url: "/girls",
-                createTime: "2018-12-12",
-                description: "无"
-              }
-            ]
-          }
-        ],
+        treeData: [],
         selectNode: {},
         dialogFormVisible: false,
         dialogStatus: "create",
@@ -298,20 +154,47 @@
           create: "创建新页面"
         },
         pagesTemp: {
+          // 布局数据
+          layout:"",
+          content:"",
+          // 页面其余参数
           name: "",
           path: "",
           Remarks: "",
           status: "draft",
           device: "",
+          // 页头基本配置
           title: "",
           keywords: "",
           description: "",
+          // 其他配置
+          scriptList:[""],
+          styleList:[""],
           script: "",
           style: ""
-        }
+        },
+        layoutList:[],
+        contentList:[],
+        $iframe:null
       };
     },
     methods: {
+    // 获取布局列表
+      getLayouts() {
+        getLayouts({type:'layout'})
+          .then(res => {
+            this.layoutList = res.data;
+          })
+          .catch(err => {});
+      },
+      // 获取页面列表
+      getContents(){
+        getLayouts({type:'page'})
+          .then(res => {
+            this.contentList = res.data;
+          })
+          .catch(err => {});
+      },
       // 点击创建操作
       handleCreate() {
         this.dialogStatus = "create";
@@ -352,17 +235,25 @@
       // 重置页面模型
       resetPageTemp() {
         this.pagesTemp = {
+          // 布局数据
+          layout:"",
+          content:"",
+          // 页面其余参数
           name: "",
           path: "",
           Remarks: "",
-          status: 'draft',
+          status: "draft",
           device: "",
+          // 页头基本配置
           title: "",
           keywords: "",
           description: "",
+          // 其他配置
+          scriptList:[""],
+          styleList:[""],
           script: "",
           style: ""
-        };
+        }
       },
       // 获取页面
       getPages() {
@@ -413,10 +304,35 @@
         this.selectNode = $obj;
         this.resetPageTemp()
         Object.assign(this.pagesTemp, $obj.value)
+        if(this.$iframe){
+          this.$iframe.postMessage(eventData,'*')
+        }
+      },
+      // 添加外链样式
+      addStyleList(){
+        console.log(this.pagesTemp.styleList)
+        this.pagesTemp.styleList.push('');
+        console.log(this.pagesTemp.styleList)
+      },
+      // 删除外链样式
+      deleteStyleList(i){
+        this.pagesTemp.styleList.splice(i,1)
+      },
+      // 添加外链脚本
+      addScriptList(){
+        this.pagesTemp.scriptList.push('');
+      },
+      // 删除外链脚本
+      deleteScriptList(i){
+        this.pagesTemp.scriptList.splice(i,1)
       }
     },
     mounted() {
       this.getPages();
+      this.getLayouts();
+      this.getContents();
+      this.$iframe = this.$refs['iframeView'].contentWindow
+
     }
   };
 
