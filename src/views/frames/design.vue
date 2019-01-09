@@ -13,8 +13,17 @@
             <el-option label="MOBILE端" value="MOBILE"></el-option>
           </el-select>
         </el-col>
+        <el-col :span="4" v-if="$route.query.frameType=='page'">
+          <el-input-number v-model="pageWidth" :min="1" :max="1200" label="描述文字" v-if="frameTemp.device=='PC'"></el-input-number>
+          <el-input-number v-model="pageWidth" :min="1" :max="540" label="描述文字" v-if="frameTemp.device=='MOBILE'"></el-input-number>
+          <el-input place="输入页面宽度" v-model="pageWidth">
+          </el-input>
+          <el-input place="输入页面宽度" v-model="pageWidth">
+            <span slot="append">PX</span>
+          </el-input>
+        </el-col>
         <el-col :span="4">
-          <el-button @click="frameTemp._id?updateFrame():addFrames()">保存</el-button>
+          <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
           <el-button @click="$router.push({name:'frames'})">取消</el-button>
         </el-col>
       </el-row>
@@ -102,7 +111,7 @@
                 <div v-else>
                   <input v-model="col.text" placeholder="内容区域">
                 </div>
-                <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag>
+                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
                 <!-- 内容-{{col.text}} -->
                 <div>
                   <!-- 内容区域操作按钮 -->
@@ -149,6 +158,7 @@
           </el-row>
       </div>
     </div>
+
     <!-- 工具栏 -->
   </div>
 </template>
@@ -170,11 +180,8 @@ var byId = function(id) {
 export default {
   data() {
     return {
-      EditStyle: {
-        color: ""
-      },
-      EditStyleShow: false,
-      EditType: 1,
+      pageWidth:'1200', // 100%,540px,userpx
+      content:1200, // 1200,100%;
       textMap: {
         layout: "整站框架",
         page: "页面框架"
@@ -352,7 +359,6 @@ export default {
       this.$router.go(-1);
     }
     // 渲染
-    console.log(this.frameTemp);
     this.$nextTick(() => {
       this.colMoveSet();
     });
