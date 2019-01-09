@@ -47,7 +47,6 @@
           </el-button-group>
           <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="frameTemp.device">
             <!-- 区块操作按钮 -->
-            {{r}}--{{block.rows.length-1}}
             <el-button-group class="row-controls">
               <el-button>
                 <input v-model="row.text">
@@ -133,6 +132,14 @@
                         type="primary"
                         icon="el-icon-circle-close"
                         @click="removeCol(row,j)"
+                      ></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="设置为页面区域" placement="top-start" v-if="$route.query.frameType=='layout'">
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-tickets"
+                        @click="setPage(col)"
                       ></el-button>
                     </el-tooltip>
                   </el-button-group>
@@ -351,6 +358,7 @@ export default {
     });
   },
   methods: {
+
     addFrames() {
       // this.frameTemp.value = this.layoutData;
       addFrames(this.frameTemp)
@@ -653,6 +661,21 @@ export default {
         // this.rowMoveSet();
         this.colMoveSet();
       });
+    },
+    setPage(selectCol){
+      // 清空旧状态
+      this.frameTemp.value.forEach(block=>{
+        block.rows.forEach(row=>{
+          row.cols.forEach(col=>{
+            if(col.isPageView){
+              delete col.isPageView
+            }
+          })
+        })
+      })
+      // 设置当前状态
+      this.$set(selectCol,'isPageView',true)
+      selectCol=true
     },
     setSortBlock() {
       const el = document.querySelectorAll(".drag-box")[0];
