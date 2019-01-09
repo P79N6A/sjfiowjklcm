@@ -91,24 +91,28 @@
                 <div class="frames-content">
                   <h3>{{item.name}}</h3>
                   <div class="show" v-for="(block,i) in item.value" :key="i">
-                    <el-row
-                      v-for="(row,r) in block.rows"
-                      :key="i+'-'+r"
-                      class="rows"
-                      :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
-                    >
-                      <el-col
-                        v-for="(col,j) in row.cols"
-                        :span="col.width"
-                        :key="i+'-'+r+'-'+j"
-                        class="cols"
+                    <div v-if="block.isPageView" style="background:#aaa;">
+                      <img src="./img/ico-page-view.png">页面
+                    </div>
+                    <div>
+                      <el-row
+                        v-for="(row,r) in block.rows"
+                        :key="i+'-'+r"
+                        class="rows"
+                        :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
                       >
-                        <div>
-                          <span v-if="col.isPageView" style="border:solid 1px red;">页面布局</span>
-                          <span v-else type="success" class="ico-width">{{col.text}}</span>
-                        </div>
-                      </el-col>
-                    </el-row>
+                        <el-col
+                          v-for="(col,j) in row.cols"
+                          :span="col.width"
+                          :key="i+'-'+r+'-'+j"
+                          class="cols"
+                        >
+                          <div>
+                            <span type="success" class="ico-width">{{col.text}}</span>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -190,90 +194,51 @@ export default {
       }
       this.layoutTemp.type = this.layoutType;
       this.layoutTemp.value = this.layoutTemp.value.filter(item => {
-        item.class = "";
-        item.styleSetting = {
-          class: "",
-          id: ""
-        };
-        item.styleBg = {
-          backgroundImage: "",
-          backgroundPosition: "",
-          backgroundSize: "",
-          backgroundRepeat: "",
-          backgroundColor: "",
-          backgroundAttachment: ""
-        };
-        item.styleStyle = {
-          position: "",
-          left: "",
-          right: "",
-          top: "",
-          bottom: "",
-          opacity: "",
-          margin: 0,
-          padding: 0,
-          rotate: 0,
-          width: "",
-          height: ""
-        };
-        item.styleBorder = {
-          borderWidth: "",
-          borderColor: "",
-          borderStyle: "",
-          borderRadius: ""
-        };
-        item.styleShadow = {
-          shadowWidth: "",
-          shadowRadius: "",
-          shadowDire: "",
-          shadowColor: ""
-        };
-        item.rows = item.rows.filter(row => {
-          row.class = "";
-          row.styleSetting = {
+        if(!item.isPageView){
+          item.styleSetting = {
             class: "",
-            id: "",
-          }
+            id: ""
+          };
           item.styleBg = {
-            backgroundImage: '',
-            backgroundPosition: '',
-            backgroundSize: '',
-            backgroundRepeat: '',
-            backgroundColor: '',
-            backgroundAttachment: ''
-          }
+            backgroundImage: "",
+            backgroundPosition: "",
+            backgroundSize: "",
+            backgroundRepeat: "",
+            backgroundColor: "",
+            backgroundAttachment: ""
+          };
           item.styleStyle = {
-            position: '',
-            left: '',
-            right: '',
-            top: '',
-            bottom: '',
-            opacity: 100,
+            position: "",
+            left: "",
+            right: "",
+            top: "",
+            bottom: "",
+            opacity: "",
             margin: 0,
             padding: 0,
             rotate: 0,
-            width: '',
-            height: '',
-          }
+            width: "",
+            height: ""
+          };
           item.styleBorder = {
-            borderWidth: '',
-            borderColor: '',
-            borderStyle: '',
-            borderRadius: '',
-          }
+            borderWidth: "",
+            borderColor: "",
+            borderStyle: "",
+            borderRadius: ""
+          };
           item.styleShadow = {
-            shadowWidth: '',
-            shadowRadius: '',
-            shadowDire: '',
-            shadowColor: '',
-          }
+            shadowWidth: "",
+            shadowRadius: "",
+            shadowDire: "",
+            shadowColor: ""
+          };
           item.rows = item.rows.filter(row => {
             row.class = "";
             row.styleSetting = {
               class: "",
               id: "",
             }
-            row.styleBg = {
+            item.styleBg = {
               backgroundImage: '',
               backgroundPosition: '',
               backgroundSize: '',
@@ -281,7 +246,7 @@ export default {
               backgroundColor: '',
               backgroundAttachment: ''
             }
-            row.styleStyle = {
+            item.styleStyle = {
               position: '',
               left: '',
               right: '',
@@ -294,26 +259,66 @@ export default {
               width: '',
               height: '',
             }
-            row.styleBorder = {
+            item.styleBorder = {
               borderWidth: '',
               borderColor: '',
               borderStyle: '',
               borderRadius: '',
             }
-            row.styleShadow = {
+            item.styleShadow = {
               shadowWidth: '',
               shadowRadius: '',
               shadowDire: '',
               shadowColor: '',
             }
-            row.cols = row.cols.filter(col => {
-              col.components = [];
-              return col
-            })
+            item.rows = item.rows.filter(row => {
+              row.class = "";
+              row.styleSetting = {
+                class: "",
+                id: "",
+              }
+              row.styleBg = {
+                backgroundImage: '',
+                backgroundPosition: '',
+                backgroundSize: '',
+                backgroundRepeat: '',
+                backgroundColor: '',
+                backgroundAttachment: ''
+              }
+              row.styleStyle = {
+                position: '',
+                left: '',
+                right: '',
+                top: '',
+                bottom: '',
+                opacity: 100,
+                margin: 0,
+                padding: 0,
+                rotate: 0,
+                width: '',
+                height: '',
+              }
+              row.styleBorder = {
+                borderWidth: '',
+                borderColor: '',
+                borderStyle: '',
+                borderRadius: '',
+              }
+              row.styleShadow = {
+                shadowWidth: '',
+                shadowRadius: '',
+                shadowDire: '',
+                shadowColor: '',
+              }
+              row.cols = row.cols.filter(col => {
+                col.components = [];
+                return col
+              })
+              return row;
+            });
             return row;
           });
-          return row;
-        });
+        }
         return item;
       });
       console.log(this.layoutTemp);

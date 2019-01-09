@@ -22,10 +22,10 @@
       </el-row>
     </el-header>
     <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
+      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" >
         <!-- 块区域 -->
         <!-- {{block}} -->
-        <!-- <div v-if="block.isPageView">
+        <div v-if="block.isPageView">
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button>{{block.text}}</el-button>
           </el-button-group>
@@ -33,8 +33,8 @@
             <img src="./img/ico-page-view.png">
             <div>页面内容展示区域</div>
           </div>
-        </div> -->
-        <div>
+        </div>
+        <div v-else :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
           <!-- 块区域 -->
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button v-if="block.text">{{block.text}}</el-button>

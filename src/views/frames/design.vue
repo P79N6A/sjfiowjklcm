@@ -54,108 +54,103 @@
               <el-button circle type="danger" icon="el-icon-close" @click="removeBlock(i)"></el-button>
             </el-tooltip>
           </el-button-group>
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="frameTemp.device">
-            <!-- 区块操作按钮 -->
-            <el-button-group class="row-controls">
-              <el-button>
-                <input v-model="row.text">
-              </el-button>
-              <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="r!=0">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="el-icon-upload2"
-                  @click="moveRow(block,r,-1)"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="el-icon-download"
-                  @click="moveRow(block,r,1)"
-                  v-if="r!=block.rows.length-1"
-                ></el-button>
-              </el-tooltip>
-              <!-- <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-smaller"
-                  @click="row.style.width='1200px'"
-                ></el-button>
-              </el-tooltip> -->
-              <!-- <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-bigger"
-                  @click="row.style.width='100%'"
-                ></el-button>
-              </el-tooltip> -->
-              <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
-                <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
-                <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
-              </el-tooltip>
-            </el-button-group>
-            <!-- 行区域 -->
-            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols" :class="frameTemp.device">
-              <!-- 格子区域 -->
-              <div>
-                <div v-if="col.isPageView" style="color:red;border:solid 1px red;background:#eee;height:100%;">
-                  <img src="./img/ico-page-view.png" style="height:100%;">
-                  页面布局展示区域
-                </div>
-                <div v-else>
-                  <input v-model="col.text" placeholder="内容区域">
-                </div>
-                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
-                <!-- 内容-{{col.text}} -->
+          <div v-if="block.isPageView" style="text-align:center;height:300px;">
+                    <img src="./img/ico-page-view.png" style="height:100%;">
+                    页面展示区域
+          </div>
+          <div v-else>
+            <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="frameTemp.device">
+              <!-- 区块操作按钮 -->
+              <el-button-group class="row-controls">
+                <el-button>
+                  <input v-model="row.text">
+                </el-button>
+                <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="r!=0">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="el-icon-upload2"
+                    @click="moveRow(block,r,-1)"
+                  ></el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="el-icon-download"
+                    @click="moveRow(block,r,1)"
+                    v-if="r!=block.rows.length-1"
+                  ></el-button>
+                </el-tooltip>
+                <!-- <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="iconfont icon-smaller"
+                    @click="row.style.width='1200px'"
+                  ></el-button>
+                </el-tooltip> -->
+                <!-- <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="iconfont icon-bigger"
+                    @click="row.style.width='100%'"
+                  ></el-button>
+                </el-tooltip> -->
+                <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
+                  <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
+                  <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
+                </el-tooltip>
+              </el-button-group>
+              <!-- 行区域 -->
+              <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols" :class="frameTemp.device">
+                <!-- 格子区域 -->
                 <div>
-                  <!-- 内容区域操作按钮 -->
-                  <el-button-group class="col-controls">
-                    <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-zoom-out"
-                        @click="smaller(col)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
-                      <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-circle-plus"
-                        @click="addCol(row,j)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-circle-close"
-                        @click="removeCol(row,j)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="设置为页面区域" placement="top-start" v-if="$route.query.frameType=='layout'">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-tickets"
-                        @click="setPage(col)"
-                      ></el-button>
-                    </el-tooltip>
-                  </el-button-group>
+
+                  <div>
+                    <input v-model="col.text" placeholder="内容区域">
+                  </div>
+                  <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
+                  <!-- 内容-{{col.text}} -->
+                  <div>
+                    <!-- 内容区域操作按钮 -->
+                    <el-button-group class="col-controls">
+                      <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-zoom-out"
+                          @click="smaller(col)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
+                        <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-circle-plus"
+                          @click="addCol(row,j)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-circle-close"
+                          @click="removeCol(row,j)"
+                        ></el-button>
+                      </el-tooltip>
+                    </el-button-group>
+                  </div>
                 </div>
-              </div>
-            </el-col>
-          </el-row>
+              </el-col>
+            </el-row>
+          </div>
       </div>
     </div>
 
@@ -215,6 +210,10 @@ export default {
           ]
         },
         {
+          text:'页面展示区域',
+          isPageView:true,
+        },
+        {
           text: "B",
           rows: [{
               text: "内容区块2",
@@ -225,8 +224,7 @@ export default {
                 },
                 {
                   text: "格子",
-                  width: 12,
-                  isPageView:true
+                  width: 12
                 }
               ]
             }
@@ -667,21 +665,6 @@ export default {
         // this.rowMoveSet();
         this.colMoveSet();
       });
-    },
-    setPage(selectCol){
-      // 清空旧状态
-      this.frameTemp.value.forEach(block=>{
-        block.rows.forEach(row=>{
-          row.cols.forEach(col=>{
-            if(col.isPageView){
-              delete col.isPageView
-            }
-          })
-        })
-      })
-      // 设置当前状态
-      this.$set(selectCol,'isPageView',true)
-      selectCol=true
     },
     setSortBlock() {
       const el = document.querySelectorAll(".drag-box")[0];

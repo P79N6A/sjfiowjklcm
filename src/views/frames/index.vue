@@ -25,6 +25,10 @@
                 </div>
                 <h3>{{item.name}}</h3>
                 <div class="show" v-for="(block,i) in item.value" :key="i">
+                  <div v-if="block.isPageView" style="background:#aaa;">
+                    <img src="./img/ico-page-view.png">页面展示区域
+                  </div>
+                  <div v-else>
                   <el-row
                     v-for="(row,r) in block.rows"
                     :key="i+'-'+r"
@@ -41,11 +45,12 @@
                       <!-- {{row}} -->
                       <!-- 格子区域 -->
                       <div>
-                        <span v-if="col.isPageView" style="border:solid 1px red;">页面布局</span>
-                        <span v-else type="success" class="ico-width">{{col.text}}</span>
+                        <span type="success" class="ico-width">{{col.text}}</span>
                       </div>
                     </el-col>
                   </el-row>
+                  </div>
+
                 </div>
               </div>
             </div>

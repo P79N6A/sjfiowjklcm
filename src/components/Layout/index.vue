@@ -1,11 +1,15 @@
 <template>
   <div class="Layouts-container" v-if="layoutTemp">
     <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" :class="block.styleSetting.class" :id="block.styleSetting.id"
-        :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
+      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" >
         <!-- 块区域 -->
+        <div v-if="block.isPageView">
+          <slot>
+            <div>页面内容展示区域</div>
+          </slot>
+        </div>
         <!-- {{block}} -->
-        <div>
+        <div v-else :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
           <!-- 块区域 -->
           <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="row.styleSetting.class" :id="row.styleSetting.id"
             :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
@@ -13,20 +17,10 @@
             <!-- 行区域 -->
             <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
               <!-- 格子区域 -->
-              <div v-if="col.isPageView">
-                <slot>
-                  <div>页面内容展示区域</div>
-                </slot>
-              </div>
-              <div v-else>
-                <!-- 内容-{{col.text}} -->
-                <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
-                  <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
-                  <ishow-component :page-json="item.pageJson" :page-setting="item.pageSetting" v-if="item.type=='ishow'"></ishow-component>
-                </div>
-                <div>
-                  <!-- 内容区域操作按钮 -->
-                </div>
+              <!-- 内容-{{col.text}} -->
+              <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
+                <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
+                <ishow-component :page-json="item.pageJson" :page-setting="item.pageSetting" v-if="item.type=='ishow'"></ishow-component>
               </div>
             </el-col>
           </el-row>
@@ -109,12 +103,14 @@
   .Layouts-container {
     position: relative;
     overflow: hidden;
-    min-height: calc(100vh - 84px);
-    .rows{
-      min-height:1px;
+    // min-height: calc(100vh - 84px);
+
+    .rows {
+      min-height: 1px;
     }
-    .cols{
-      min-height:1px;
+
+    .cols {
+      min-height: 1px;
     }
   }
 
