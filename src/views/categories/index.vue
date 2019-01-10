@@ -90,7 +90,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     <!-- 编辑弹窗 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="700px">

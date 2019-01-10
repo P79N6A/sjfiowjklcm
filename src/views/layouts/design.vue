@@ -53,11 +53,7 @@
             <!-- 行区域 -->
             <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
               <!-- 格子区域 -->
-              <div v-if="col.isPageView" style="background:#eee;">
-                <img src="./img/ico-page-view.png" style="height:60px;">
-                <el-tag type="danger">页面内容展示区域</el-tag>
-              </div>
-              <div v-else>
+              <div>
                 <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
                   {{ (col.width/24*1200).toFixed(0)
                   }}PX
@@ -92,6 +88,19 @@
                         type="primary"
                         icon="el-icon-download"
                         @click="moveComponent(col.components,i,1)"
+                      ></el-button>
+                    </el-tooltip>
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="编辑组件内容"
+                      placement="top-start"
+                    >
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-edit"
+                        @click="editComponent(item)"
                       ></el-button>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
@@ -315,6 +324,14 @@ export default {
         components.splice(index + type, 0, targetBlock);
       } else {
         return;
+      }
+    },
+    editComponent(component){
+      console.log(component)
+      if(component.dataType=='categories'){
+        console.log('category')
+      }else if(component.dataType=='content'){
+        console.log('content')
       }
     },
     // 删除组件

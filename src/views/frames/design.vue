@@ -13,15 +13,6 @@
             <el-option label="MOBILE端" value="MOBILE"></el-option>
           </el-select>
         </el-col>
-        <el-col :span="4" v-if="$route.query.frameType=='page'">
-          <el-input-number v-model="pageWidth" :min="1" :max="1200" label="描述文字" v-if="frameTemp.device=='PC'"></el-input-number>
-          <el-input-number v-model="pageWidth" :min="1" :max="540" label="描述文字" v-if="frameTemp.device=='MOBILE'"></el-input-number>
-          <el-input place="输入页面宽度" v-model="pageWidth">
-          </el-input>
-          <el-input place="输入页面宽度" v-model="pageWidth">
-            <span slot="append">PX</span>
-          </el-input>
-        </el-col>
         <el-col :span="4">
           <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
           <el-button @click="$router.push({name:'frames'})">取消</el-button>
@@ -175,8 +166,6 @@ var byId = function(id) {
 export default {
   data() {
     return {
-      pageWidth:'1200', // 100%,540px,userpx
-      content:1200, // 1200,100%;
       textMap: {
         layout: "整站框架",
         page: "页面框架"
@@ -594,9 +583,16 @@ export default {
      * 栅栏缩小
      * */
     smaller(col) {
-      if (col.width > 1) {
+      if(this.frameTemp.device=='PC'){
+      if (col.width > 3) {
         col.width--;
       }
+      }else{
+      if (col.width > 3) {
+        col.width--;
+      }
+      }
+
     },
     /**
      * col，当前栅栏object
