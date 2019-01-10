@@ -34,7 +34,7 @@
             <div>页面内容展示区域</div>
           </div>
         </div>
-        <div v-else :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
+        <div v-else :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
           <!-- 块区域 -->
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button v-if="block.text">{{block.text}}</el-button>
@@ -42,7 +42,7 @@
               <el-button type="danger" icon="el-icon-edit-outline" @click="handleEditStyle(block)"></el-button>
             </el-tooltip>
           </el-button-group>
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="row.styleSetting.class" :id="row.styleSetting.id" :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
+          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']" :id="row.styleSetting.id" :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls" v-show="viewLayoutsClass">
               <el-button v-if="row.text">{{row.text}}</el-button>
@@ -103,7 +103,7 @@
                         @click="editComponent(item)"
                       ></el-button>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
+                    <el-tooltip class="item" effect="dark" content="删除当前组件" placement="top-start">
                       <el-button
                         circle
                         type="primary"
@@ -218,6 +218,15 @@ import {
   deleteFrames,
   updateFrames
 } from "@/api/frames";
+import {
+  addCategories,
+  deleteCategories
+} from "@/api/categories";
+
+import {
+  addContents,
+  deleteContents,
+} from "@/api/contents";
 import { getIshows } from "@/api/ishow";
 import { getComponents, addComponents } from "@/api/components";
 // import { getComponents } from "@/api/components";
@@ -281,6 +290,21 @@ export default {
     }
   },
   methods: {
+        // 新建数据分类
+    addCategories() {
+      addCategories(this.categoryTemp)
+        .then(res => {
+          this.getCategories();
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000
+          });
+        })
+        .catch(err => {});
+    },
     //获取ishow列表
     getIshows() {
       getIshows().then(response => {
@@ -330,6 +354,7 @@ export default {
       console.log(component)
       if(component.dataType=='categories'){
         console.log('category')
+        this.$router.push({ name: "contents", query: { categoryId: component.dataId } });
       }else if(component.dataType=='content'){
         console.log('content')
       }
@@ -368,9 +393,53 @@ export default {
     },
     // 添加组件逻辑
     addCom(item, type) {
-      item.type = type;
-      this.editCol.components.push(Object.assign({}, item));
-      this.dialogComVisible = false;
+          item.type=type
+      if(type=='component'){
+        if(item.dataType=='categories'){
+          // 创建数据集合
+          // 数据集合模型
+        const _categoryTemp= {
+            type: "content",
+            model: item.model,
+            name: item.name+'的数据集合',
+            path: (new Date()).getTime().toString(), // 这个应该废弃
+            description: item.name+'的数据集合',
+          }
+          // 创建数据集合
+          addCategories(_categoryTemp)
+            .then(res => {
+              // 设置数据id
+              console.log(res);
+              item.dataId=res.data._id
+              this.editCol.components.push(Object.assign({}, item));
+              this.dialogComVisible = false;
+            })
+            .catch(err => {});
+        }else if(item.dataType=='contents'){
+          // 创建单个数据
+    // 新建数据
+    addContents() {
+      this.setPostData();
+      addContents(this.contentTemp)
+        .then(res => {
+          this.getContents();
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000
+          });
+        })
+        .catch(err => {});
+    },
+        }
+      }else if(type=='ishow'){
+        // ishow，直接添加
+        this.editCol.components.push(Object.assign({}, item));
+        this.dialogComVisible = false;
+      }
+
     },
     // 更新当前布局
     updateLayouts() {

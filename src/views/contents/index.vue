@@ -436,7 +436,7 @@
           </span>
           <div class="mac">
             <div class="color-picker">
-              <div>背景颜色</div>
+              <div>预览背景</div>
               <el-color-picker v-model="backColor" size="medium"></el-color-picker>
             </div>
             <div class="content" :style="{backgroundColor:backColor}">
@@ -451,7 +451,7 @@
           </span>
           <div class="iphone">
             <div class="color-picker">
-              <span class="color-text">背景颜色</span>
+              <span class="color-text">预览背景</span>
               <el-color-picker v-model="backColor" size="mini"></el-color-picker>
             </div>
             <div class="content" :style="{backgroundColor:backColor}">
@@ -471,19 +471,12 @@ import {
   addContents,
   deleteContents,
   updateContents,
-  addRoles,
-  updateRoleOne,
-  deleteRoleOne
 } from "@/api/contents";
 import Tinymce from "@/components/Tinymce";
 import { getAuthorities } from "@/api/authorities";
 import { getModels } from "@/api/model";
 import {
-  getCategories,
-  getCategoryOne,
-  addCategories,
-  deleteCategories,
-  updateCategories
+  getCategoryOne
 } from "@/api/categories";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination

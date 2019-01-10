@@ -5,8 +5,8 @@
       <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
     </el-button-group>
     <el-tabs type="border-card">
-      <el-tab-pane label="基础属性" label-position="top" :model="setting">
-        <el-form ref="form">
+      <el-tab-pane label="基础属性"  :model="setting">
+        <el-form ref="form" label-position="top">
           <el-form-item label="添加class">
             <el-input v-model="setting.class"></el-input>
             <div style="color:red;font-size:12px;">(以空格分隔每个class)</div>
@@ -14,6 +14,28 @@
           <el-form-item label="添加id">
             <el-input v-model="setting.id"></el-input>
           </el-form-item>
+        <el-form-item label="入场动画">
+          <el-select
+            v-model="setting.enterAnimation"
+            placeholder="请选择"
+          >
+            <el-option-group>
+              <el-option label="无" value=""></el-option>
+            </el-option-group>
+            <el-option-group
+              v-for="(group, i) in animateOptions"
+              :label="group.label"
+              :key="i"
+            >
+              <el-option
+                v-for="(item, j) in group.options"
+                :label="item.label"
+                :value="item.value"
+                :key="j"
+              ></el-option>
+            </el-option-group>
+          </el-select>
+        </el-form-item>
         </el-form>
       </el-tab-pane>
       <!-- 基础样式 -->
@@ -149,7 +171,7 @@
       <el-tab-pane label="阴影">
         <el-form label-position="top" :model="shadow">
           <el-form-item label="阴影颜色">
-            <el-input v-model="shadow.borderColor" shadowColor="阴影颜色" size="medium">
+            <el-input v-model="shadow.shadowColor" shadowColor="阴影颜色" size="medium">
               <el-color-picker v-model="shadow.shadowColor" show-alpha slot="prepend"></el-color-picker>
             </el-input>
           </el-form-item>
@@ -191,6 +213,7 @@
         setting: {
           class: "",
           id: "",
+          enterAnimation:"", // 入场动画
         },
         bg: {
           backgroundImage: '',
@@ -270,8 +293,109 @@
         }, {
           value: 'outset',
           label: '3D外嵌'
-        }]
-      };
+        }],
+      animateOptions: [
+
+        {
+          label: "强调",
+          options: [
+            {
+              value: "bounce",
+              label: "弹跳",
+            },
+            {
+              value: "flash",
+              label: "flash",
+            },
+            {
+              value: "pulse",
+              label: "pulse",
+            },
+            {
+              value: "rubberBand",
+              label: "rubberBand",
+            },
+            {
+              value: "shake",
+              label: "shake",
+            },
+            {
+              value: "headShake",
+              label: "headShake",
+            },
+            {
+              value: "swing",
+              label: "swing",
+            },
+            {
+              value: "tada",
+              label: "tada",
+            },
+            {
+              value: "wobble",
+              label: "wobble",
+            },
+            {
+              value: "jello",
+              label: "jello",
+            }
+          ]
+        },
+                {
+          label: "进入",
+          options: [
+            {
+              value: "bounceIn",
+              label: "bounceIn",
+            },
+            {
+              value: "bounceInDown",
+              label: "bounceInDown",
+            },
+            {
+              value: "bounceInLeft",
+              label: "bounceInLeft",
+            },
+            {
+              value: "bounceInRight",
+              label: "bounceInRight",
+            },
+            {
+              value: "bounceInUp",
+              label: "bounceInUp",
+            },
+            {
+              value: "bounceOut",
+              label: "bounceOut"
+            },
+            {
+              value: "bounceOutDown",
+              label: "bounceOutDown",
+            },
+            {
+              value: "bounceOutLeft",
+              label: "bounceOutLeft",
+            },
+            {
+              value: "bounceOutRight",
+              label: "bounceOutRight",
+            },
+            {
+              value: "bounceOutUp",
+              label: "bounceOutUp",
+            },
+            {
+              value: "fadeIn",
+              label: "fadeIn",
+            },
+            {
+              value: "fadeInDown",
+              label: "fadeInDown",
+            }
+          ]
+        }
+      ],
+    };
     },
     components: {
       fileList
@@ -290,16 +414,15 @@
         this.showPicList = true;
       },
       selectFile(file) {
-        console.log('select file')
         this.bg.backgroundImage = `url(${this.cdnurl}${file.src})`
       },
       updateStyle() {
         this.$emit('updataStyle', {
-          styleSetting: this.setting,
-          styleBg: this.bg,
-          styleStyle: this.style,
-          styleBorder: this.border,
-          styleShadow: this.shadow
+          styleSetting: JSON.parse(JSON.stringify(this.setting)),
+          styleBg: JSON.parse(JSON.stringify(this.bg)),
+          styleStyle: JSON.parse(JSON.stringify(this.style)),
+          styleBorder: JSON.parse(JSON.stringify(this.border)),
+          styleShadow: JSON.parse(JSON.stringify(this.shadow))
         })
       }
     },
@@ -309,14 +432,13 @@
     watch: {
       value(val) {
         if (val) {
-          console.log("init");
-          Object.assign(this.setting,this.styleSetting)
-          Object.assign(this.bg,this.styleBg)
-          Object.assign(this.style,this.styleStyle)
-          Object.assign(this.border,this.styleBorder)
-          Object.assign(this.shadow,this.styleShadow)
+          Object.assign(this.setting,JSON.parse(JSON.stringify(this.styleSetting)))
+          Object.assign(this.bg,JSON.parse(JSON.stringify(this.styleBg)))
+          Object.assign(this.style,JSON.parse(JSON.stringify(this.styleStyle)))
+          Object.assign(this.border,JSON.parse(JSON.stringify(this.styleBorder)))
+          Object.assign(this.shadow,JSON.parse(JSON.stringify(this.styleShadow)))
         } else {
-          console.log("emit");
+          // console.log("emit");
         }
       }
     }

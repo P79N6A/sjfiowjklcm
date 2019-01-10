@@ -9,9 +9,9 @@
           </slot>
         </div>
         <!-- {{block}} -->
-        <div v-else :class="block.styleSetting.class" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
+        <div v-else :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
           <!-- 块区域 -->
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="row.styleSetting.class" :id="row.styleSetting.id"
+          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']" :id="row.styleSetting.id"
             :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
             <!-- 区块操作按钮 -->
             <!-- 行区域 -->
