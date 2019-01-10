@@ -417,22 +417,23 @@ export default {
             .catch(err => {});
         }else if(item.dataType=='contents'){
           // 创建单个数据
-    // 新建数据
-    addContents() {
-      this.setPostData();
-      addContents(this.contentTemp)
+      const _contentTemp={
+        abstract:'',
+        category:'',
+        content:'',
+        thumbnail:'',
+        media:[],
+        extensions:{}
+      }
+      addContents(_contentTemp)
         .then(res => {
-          this.getContents();
-          this.dialogFormVisible = false;
-          this.$notify({
-            title: "成功",
-            message: "创建成功",
-            type: "success",
-            duration: 2000
-          });
+              // 设置数据id
+              console.log(res);
+              item.dataId=res.data._id
+              this.editCol.components.push(Object.assign({}, item));
+              this.dialogComVisible = false;
         })
         .catch(err => {});
-    },
         }
       }else if(type=='ishow'){
         // ishow，直接添加
