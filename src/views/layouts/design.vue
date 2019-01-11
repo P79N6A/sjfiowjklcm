@@ -207,35 +207,36 @@
         <el-button type="primary" @click="addCom">{{ $t('table.confirm') }}</el-button>
       </div>-->
     </el-dialog>
+    <el-dialog title="数据编辑" width="600px" :visible.sync="dialogContentVisible">
+      <content-edit v-if="dialogContentVisible" :content-id="EditContentId" :model-id="EditModelId"></content-edit>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import {
-  getFramesOne,
-  getFrames,
-  addFrames,
-  deleteFrames,
-  updateFrames
-} from "@/api/frames";
+import { mapGetters } from "vuex";
+import html2canvas from "html2canvas";
+// 数据集合操作
 import {
   addCategories,
   deleteCategories
 } from "@/api/categories";
-
+// 单个数据操作
 import {
   addContents,
   deleteContents,
 } from "@/api/contents";
+// 获取自定义组件
 import { getIshows } from "@/api/ishow";
-import { getComponents, addComponents } from "@/api/components";
-// import { getComponents } from "@/api/components";
+// 获取系统组件
+import { getComponents } from "@/api/components";
+// 布局操作
 import { getLayoutsOne, updateLayouts } from "@/api/layouts";
+// 组件
 import StyleEdit from "./components/StyleEdit";
-import html2canvas from "html2canvas";
-import { mapGetters } from "vuex";
 import IshowComponent from "@/components/IshowComponent/main-show.vue";
 import SyncComponent from "vue-async-component";
+import ContentEdit from "./components/Content"
 export default {
   name: "Page401",
   data() {
@@ -276,8 +277,11 @@ export default {
       rightActive: false,
       dialogVisible: false, // 样式编辑弹窗
       dialogComVisible: false, // 样式编辑弹窗
+      dialogContentVisible:false, // 数据编辑
       newList: [],
-      dataURL: ""
+      dataURL: "",
+      EditModelId:'',
+      EditContentId:''
     };
   },
   mounted() {
@@ -352,11 +356,17 @@ export default {
     },
     editComponent(component){
       console.log(component)
+      console.log(component.dataType)
       if(component.dataType=='categories'){
+        // 组件数据是数据集
         console.log('category')
         this.$router.push({ name: "contents", query: { categoryId: component.dataId } });
-      }else if(component.dataType=='content'){
-        console.log('content')
+      }else if(component.dataType=='contents'){
+        // 组件数据是单个数据
+        console.log('contents')
+        this.dialogContentVisible=true;
+        this.EditContentId=component.dataId
+        this.EditModelId=component.model
       }
     },
     // 删除组件
@@ -516,7 +526,8 @@ export default {
   components: {
     StyleEdit,
     SyncComponent,
-    IshowComponent
+    IshowComponent,
+    ContentEdit
   }
 };
 </script>

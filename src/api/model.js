@@ -7,7 +7,12 @@ export function getModels(params) {
     params
   })
 }
-
+export function getModelOne(data) {
+  return request({
+    url: '/api/models/' + data._id,
+    method: 'get'
+  })
+}
 export function addModels(data) {
   return request({
     url: '/api/models',

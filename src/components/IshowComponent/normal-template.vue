@@ -297,7 +297,7 @@ export default {
     },
     // 添加单位s
     addS(json) {
-      console.log("adds");
+      // console.log("adds");
       const data = this.parseJson(json);
       data.animationDuration = data.animationDuration + "s";
       data.animationDelay = data.animationDelay + "s";
@@ -318,7 +318,7 @@ export default {
       if (animate && animate.length) {
         for (let i = 0; i < animate.length; i++) {
           // 不是特殊动画
-          console.log(animate[i]);
+          // console.log(animate[i]);
           if (this.isSpecialAnimate(animate[i]) === false) {
             name.push(animate[i].animationName);
             duration.push(animate[i].animationDuration + "s");
@@ -350,7 +350,7 @@ export default {
         result.animationFillMode = mode.join(",");
         result.animationDelay = delay.join(",");
         result.animationIterationCount = infinity.join(",");
-        console.log(result);
+        // console.log(result);
         // result.animationIterationCount = iterationCount.join(',');
         return result;
       }
