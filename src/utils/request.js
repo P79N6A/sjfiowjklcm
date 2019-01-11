@@ -74,5 +74,5 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
+window.service = service
 export default service

@@ -22,7 +22,13 @@ module.exports = {
         target: 'http://localhost:3000',
         // target: 'http://tb-show.itgo88.com/index',
         changeOrigin: true
-      }
+      },
+      '/json/*': {
+        // 这里配置反向代理域名，将地址更换为接口服务器所在到域名地址即可
+        target: 'http://localhost:3000',
+        // target: 'http://tb-show.itgo88.com/index',
+        changeOrigin: true
+      },
     },
 
     // Various Dev Server settings

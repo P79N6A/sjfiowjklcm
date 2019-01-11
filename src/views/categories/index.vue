@@ -74,7 +74,7 @@
                 size="mini"
                 type="danger"
                 icon="el-icon-printer"
-                v-clipboard:copy="`${scope.row.path}/${scope.row.name}.json`"
+                v-clipboard:copy="`${cdnurl}/json/categories/${scope.row._id}.json`"
                 v-clipboard:success="clipboardSuccess"
               ></el-button>
             </el-tooltip>
@@ -132,6 +132,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { getModels } from "@/api/model";
 import clip from "@/utils/clipboard"; // use clipboard directly
 import clipboard from "@/directive/clipboard/index.js"; // use clipboard by v-directive
@@ -272,7 +273,7 @@ export default {
     },
     // 删除事件
     handleDelete(data) {
-      this.$confirm("此操作将永久删除该角色, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -317,6 +318,9 @@ export default {
         .catch(err => {});
       // 数据生效
     }
-  }
+  },
+    computed: {
+    ...mapGetters(["cdnurl"])
+  },
 };
 </script>

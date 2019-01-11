@@ -113,7 +113,7 @@
                     </el-tooltip>
                   </el-button-group>
                   <div>
-                    <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
+                    <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId" :data-type="item.dataType"></sync-component>
                     <ishow-component
                       :page-json="item.pageJson"
                       :page-setting="item.pageSetting"
