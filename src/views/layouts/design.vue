@@ -115,8 +115,7 @@
                   <div>
                     <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId" :data-type="item.dataType"></sync-component>
                     <ishow-component
-                      :page-json="item.pageJson"
-                      :page-setting="item.pageSetting"
+                      :ishow-id="item._id"
                       v-if="item.type=='ishow'"
                     ></ishow-component>
                   </div>
@@ -234,7 +233,7 @@ import { getComponents } from "@/api/components";
 import { getLayoutsOne, updateLayouts } from "@/api/layouts";
 // 组件
 import StyleEdit from "./components/StyleEdit";
-import IshowComponent from "@/components/IshowComponent/main-show.vue";
+import IshowComponent from "./components/Ishow";
 import SyncComponent from "vue-async-component";
 import ContentEdit from "./components/Content"
 export default {
@@ -404,6 +403,7 @@ export default {
     // 添加组件逻辑
     addCom(item, type) {
           item.type=type
+      // 选中的是系统组件库
       if(type=='component'){
         if(item.dataType=='categories'){
           // 创建数据集合
@@ -419,8 +419,8 @@ export default {
           addCategories(_categoryTemp)
             .then(res => {
               // 设置数据id
-              console.log(res);
               item.dataId=res.data._id
+              // 这里要做调整
               this.editCol.components.push(Object.assign({}, item));
               this.dialogComVisible = false;
             })
@@ -440,6 +440,7 @@ export default {
               // 设置数据id
               console.log(res);
               item.dataId=res.data._id
+              // 这里要调整
               this.editCol.components.push(Object.assign({}, item));
               this.dialogComVisible = false;
         })
@@ -447,10 +448,16 @@ export default {
         }
       }else if(type=='ishow'){
         // ishow，直接添加
-        this.editCol.components.push(Object.assign({}, item));
+        const _ishow={
+          type: "ishow",
+          _id:item._id,
+          sce:item.src,
+          name:item.name,
+          description:item.description
+        }
+        this.editCol.components.push(Object.assign({}, _ishow));
         this.dialogComVisible = false;
       }
-
     },
     // 更新当前布局
     updateLayouts() {

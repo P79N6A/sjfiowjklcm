@@ -35,7 +35,8 @@ export default {
   components: {
     normalElement
   },
-  created() {
+  mounted() {
+    console.log('ishow-click======')
     on(document, "click", this.handleDocumentClick);
     this.setVal();
     const $this = this;

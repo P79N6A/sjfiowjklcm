@@ -20,7 +20,7 @@
               <!-- 内容-{{col.text}} -->
               <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
                 <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'"></sync-component>
-                <ishow-component :page-json="item.pageJson" :page-setting="item.pageSetting" v-if="item.type=='ishow'"></ishow-component>
+                <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
               </div>
             </el-col>
           </el-row>
@@ -37,7 +37,7 @@
   import {
     mapGetters
   } from "vuex";
-  import IshowComponent from "@/components/IshowComponent/main-show.vue";
+  import IshowComponent from "./Ishow";
   import SyncComponent from "vue-async-component";
   export default {
     data() {

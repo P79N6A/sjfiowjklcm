@@ -25,6 +25,12 @@
         </template>
       </el-table-column>
       <el-table-column label="网站名称" prop="name"></el-table-column>
+      <el-table-column label="网站拥有者">
+        <template slot-scope="scope">
+          <el-tag>{{scope.row.author.nickname}}</el-tag>
+          <p><a :href="scope.row.author.eamil">{{scope.row.author.email}}</a></p>
+        </template>
+      </el-table-column>
       <el-table-column label="网站主域名" prop="url">
         <template slot-scope="scope">
           <a :href="scope.row.url" target="_blank">{{scope.row.url}}</a>
@@ -47,8 +53,7 @@
       <el-table-column
         :label="$t('table.actions')"
         align="center"
-        max-width="250"
-        min-width="100"
+        width="200"
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
