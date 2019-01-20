@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Layout from "@/components/Layout";
+  import Layout from "./components/Layout";
   export default {
     name: "Page401",
     data() {
@@ -19,7 +19,6 @@
     },
     mounted() {
       //监听消息反馈
-      console.log("klsjflkasfjl")
       window.addEventListener('message',(event) => {
         this.selectNode=event.data;
       },false);

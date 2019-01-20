@@ -10,7 +10,7 @@
         </el-col>
         <el-col :span="10">
           <el-button-group>
-            <el-button @click="handleEditStyleCode">编辑样式文件</el-button>
+            <el-button @click="handleEditStyle(layoutTemp.style)">页面样式</el-button>
             <el-button @click="updateLayouts">保存</el-button>
             <!-- <el-button @click="toImage">toIMg</el-button> -->
             <el-button @click="viewLayoutsClass?viewLayoutsClass='':viewLayoutsClass='layoutEdit'">预览</el-button>
@@ -19,7 +19,7 @@
         </el-col>
       </el-row>
     </el-header>
-    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
+    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page" :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]">
       <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
         <!-- 块区域 -->
         <!-- {{block}} -->
@@ -76,8 +76,10 @@
                     </el-tooltip>
                   </el-button-group>
                   <div>
+                    <!-- 异步vue组件 -->
                     <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId"
                       :data-type="item.dataType"></sync-component>
+                    <!-- 自定义ishow组件 -->
                     <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
                   </div>
                 </div>
@@ -98,14 +100,6 @@
     <!-- 模块样式 -->
     <StyleEdit v-model="EditStyleShow" class="active" :styleSetting="styleSetting" :styleBg="styleBg" :styleStyle="styleStyle"
       :styleBorder="styleBorder" :styleShadow="styleShadow" @updataStyle="updataStyle"></StyleEdit>
-    <!-- 布局样式 -->
-    <el-dialog title="编辑当前布局样式文件" :visible.sync="dialogVisible" width="800px">
-      <el-input type="textarea" :autosize="{ minRows: 10, maxRows: 30}" placeholder="请输入当前布局样式" v-model="layoutTemp.style"></el-input>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="setStyleCode">{{ $t('table.confirm') }}</el-button>
-      </div>
-    </el-dialog>
     <!-- 组件添加器 -->
     <el-dialog title="添加组件" :visible.sync="dialogComVisible" width="1000px">
       <el-tabs type="border-card">
@@ -144,6 +138,7 @@
         <el-button type="primary" @click="addCom">{{ $t('table.confirm') }}</el-button>
       </div>-->
     </el-dialog>
+    <!-- 组件数据编辑窗口 -->
     <el-dialog title="数据编辑" width="600px" :visible.sync="dialogContentVisible">
       <content-edit v-if="dialogContentVisible" :content-id="EditContentId" :model-id="EditModelId"></content-edit>
     </el-dialog>
@@ -206,17 +201,19 @@
           layout: "整站布局",
           page: "页面布局"
         },
-        componentTemp: {
-          style: "",
-          src: ""
-        },
         layoutTemp: {
           _id: "",
           name: "",
           device: "",
           screenShot: "",
           type: "",
-          value: []
+          value: [],
+          style:{
+            styleBg: {},
+            styleStyle: {},
+            styleBorder: {},
+            styleShadow: {}
+          }
         },
         editCol: null,
         leftActive: false,
@@ -259,7 +256,6 @@
       getIshows() {
         getIshows().then(response => {
           if (response.data && response.data.length) {
-            console.info(response.data);
             this.ishowList = response.data;
           }
           //console.info(response)
@@ -278,11 +274,12 @@
       handleEditStyle(data) {
         this.edittingData = data
         this.EditStyleShow = true;
-        this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting));
-        this.styleBg = JSON.parse(JSON.stringify(data.styleBg));
-        this.styleStyle = JSON.parse(JSON.stringify(data.styleStyle));
-        this.styleBorder = JSON.parse(JSON.stringify(data.styleBorder));
-        this.styleShadow = JSON.parse(JSON.stringify(data.styleShadow));
+        console.log(data)
+        this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting||{}));
+        this.styleBg = JSON.parse(JSON.stringify(data.styleBg||{}));
+        this.styleStyle = JSON.parse(JSON.stringify(data.styleStyle||{}));
+        this.styleBorder = JSON.parse(JSON.stringify(data.styleBorder||{}));
+        this.styleShadow = JSON.parse(JSON.stringify(data.styleShadow||{}));
       },
       updataStyle(styleData) {
         this.edittingData.styleSetting = JSON.parse(JSON.stringify(styleData.styleSetting))
@@ -301,11 +298,8 @@
         }
       },
       editComponent(component) {
-        console.log(component)
-        console.log(component.dataType)
         if (component.dataType == 'categories') {
           // 组件数据是数据集
-          console.log('category')
           this.$router.push({
             name: "contents",
             query: {
@@ -314,7 +308,6 @@
           });
         } else if (component.dataType == 'contents') {
           // 组件数据是单个数据
-          console.log('contents')
           this.dialogContentVisible = true;
           this.EditContentId = component.dataId
           this.EditModelId = component.model
@@ -346,10 +339,6 @@
         this.editCol = col;
         this.getComponents();
         this.getIshows();
-        this.componentTemp = {
-          style: "",
-          src: ""
-        };
         this.dialogComVisible = true;
       },
       // 添加组件逻辑
@@ -362,7 +351,6 @@
             // 数据集合模型
             const _categoryTemp = {
               type: "content",
-              src: item.src,
               model: item.model,
               name: item.name + '的数据集合',
               path: (new Date()).getTime().toString(), // 这个应该废弃
@@ -375,6 +363,7 @@
                 const _component = {
                   type: 'component',
                   dataType: item.dataType,
+                  src: item.src,
                   dataId: res.data._id,
                   _id: item._id,
                   name: item.name,
@@ -445,6 +434,7 @@
                       type: "success",
                       duration: 2000
                     });
+                    this.viewLayoutsClass='layoutEdit'
                     // this.$router.push({name:'layout'})
                   })
                   .catch(err => {});
@@ -459,39 +449,14 @@
       getLayoutsOne(data) {
         getLayoutsOne(data)
           .then(res => {
-            // Object.assing(this.layoutTemp, res.data);
-            console.log();
             this.layoutTemp = res.data;
-            if (!document.querySelector('style[id="layouts"]')) {
-              let styleEl = window.document.createElement("style");
-              styleEl.setAttribute("id", "layouts");
-              styleEl.setAttribute("type", "text/css");
-              styleEl.innerText = res.data.style;
-              window.document.querySelector("head").appendChild(styleEl);
-            } else {
-              var layoutStyle = document.querySelector('style[id="layouts"]');
-              layoutStyle.innerText = this.layoutTemp.style + ".bug{}";
-            }
           })
           .catch(err => {});
-      },
-      // 编辑css样式
-      handleEditStyleCode() {
-        this.dialogVisible = true;
       },
       // 预览
       viewLayouts() {
         this.viewLayoutsClass = "";
       },
-      // 设置style代码
-      setStyleCode() {
-        var layoutStyle = document.querySelector('style[id="layouts"]');
-        layoutStyle.innerHTML = this.layoutTemp.style + ".bug{}";
-      },
-      // 修改当前样式
-      changeStyle(val) {
-        console.log(val);
-      }
     },
     computed: {
       ...mapGetters(["cdnurl"])

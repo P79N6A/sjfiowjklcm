@@ -115,6 +115,16 @@ export const constantRouterMap = [{
           title: 'UserProjects',
           noCache: true
         }
+      },
+      {
+        path: 'message',
+        component: () => import('@/views/messages/index'),
+        name: 'userMessage',
+        meta: {
+          title: 'userMessage',
+          icon: 'email',
+          noCache: true
+        }
       }
     ]
   }

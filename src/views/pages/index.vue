@@ -37,7 +37,7 @@
             <el-col :span="24">
               <el-button-group>
                 <el-button type="success" @click="handleUpdate">编辑</el-button>
-                <el-button type="danger">删除</el-button>
+                <el-button type="danger" @click="handleDelete">删除</el-button>
               </el-button-group>
             </el-col>
           </el-row>
@@ -53,11 +53,8 @@
         </el-main>
       </el-container>
     </el-card>
-
-    <!-- <div>{{selectNode}}</div> -->
     <!-- 页面内容编辑 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="700px">
-      {{pagesTemp}}
       <el-form ref="dataForm" :model="pagesTemp" label-position="right" label-width="90px">
         <el-form-item label="*页面名称" prop="name">
           <el-input v-model="pagesTemp.name"/>
@@ -179,7 +176,7 @@
 </template>
 
 <script>
-import Layout from "@/components/Layout";
+import Layout from "./components/Layout";
 import {
   getPages,
   addPages,
@@ -282,12 +279,11 @@ export default {
       this.pagesTemp.content = this.pagesTemp.content
         ? this.pagesTemp.content._id
         : "";
-      // Object.assign(this.pagesTemp, this.selectNode);
       console.log(this.pagesTemp);
     },
     // 删除数据
     handleDelete() {
-      // console.log(selectNode)
+      console.log(this.selectNode)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -295,7 +291,7 @@ export default {
       })
         .then(() => {
           deletePages({
-            _id: this.selectNode._id
+            _id: this.selectNode.id
           }).then(res => {
             this.getPages();
             this.$notify({

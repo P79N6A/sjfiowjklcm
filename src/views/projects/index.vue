@@ -70,7 +70,7 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <!-- 项目设置 -->
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="500px">
       <el-form

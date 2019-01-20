@@ -1,10 +1,8 @@
 <template>
   <div class="ishow-one" v-if="ishowId">
-    <ishow-component :page-json="pageJson" :page-setting="pageSetting" v-if="pageJson.length>0" :data-id="pageJson.dataId"
-                      :data-type="pageJson.dataType"></ishow-component>
+    <ishow-component :page-json="pageJson" :page-setting="pageSetting" v-if="pageJson.length>0"></ishow-component>
   </div>
 </template>
-
 <script>
   import IshowComponent from "@/components/IshowComponent/main-show.vue";
   import {

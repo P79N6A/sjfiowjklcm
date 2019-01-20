@@ -10,12 +10,17 @@
           <!-- <el-menu-item index="1">我的工单</el-menu-item> -->
           <el-menu-item index="1">
             <router-link :to="{name:'UserProjects'}">
-              我的网站
+              网站列表
             </router-link>
           </el-menu-item>
           <el-menu-item index="2">
             <router-link :to="{name:'UserSetting'}">
               个人中心
+            </router-link>
+          </el-menu-item>
+          <el-menu-item index="3">
+            <router-link :to="{name:'userMessage'}">
+              站内信
             </router-link>
           </el-menu-item>
           <el-button icon="el-icon-error" class="btn-logout" type="danger" @click="logout">退出</el-button>

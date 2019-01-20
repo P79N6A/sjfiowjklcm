@@ -24,10 +24,10 @@ export function updatePages(data) {
 }
 
 export function deletePages(data) {
+  console.log(data)
   return request({
     url: '/api/pages/' + data._id,
-    method: 'delete',
-    data
+    method: 'delete'
   })
 }
 
