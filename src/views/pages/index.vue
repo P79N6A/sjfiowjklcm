@@ -60,7 +60,7 @@
           <el-input v-model="pagesTemp.name"/>
         </el-form-item>
         <el-form-item label="页面路径" prop="url">
-          <el-input v-model="pagesTemp.path">
+          <el-input v-model="pagesTemp.path" placeholder="/url (格式)">
             <template slot="prepend">～域名</template>
           </el-input>
         </el-form-item>
@@ -79,10 +79,17 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="说明" prop="Remarks">
-          <el-input v-model="pagesTemp.Remarks" :autosize="{ minRows: 10, maxRows: 100}"/>
+        <el-form-item label="用户状态" prop="needLogin">
+          <el-switch
+            style="display: block"
+            v-model="pagesTemp.needLogin"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="需要登陆状态"
+            inactive-text="非登陆状态"
+          ></el-switch>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
+        <el-form-item label="页面状态" prop="status">
           <el-switch
             style="display: block"
             v-model="pagesTemp.status"
@@ -96,10 +103,17 @@
         </el-form-item>
         <el-form-item label="适配终端" prop="device">
           <!-- 这个其实可以废弃，从cookie获取 -->
-          <el-select v-model="pagesTemp.device" placeholder="请选择页面适用终端">
+          <el-select v-model="pagesTemp.device" placeholder="请选择页面适用终端" disabled>
             <el-option label="PC端" value="pc"></el-option>
             <el-option label="MOBILE端" value="MOBILE"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="说明" prop="remarks">
+          <el-input
+            v-model="pagesTemp.remarks"
+            type="textarea"
+            :autosize="{ minRows: 3, maxRows: 10}"
+          />
         </el-form-item>
         <hr>
         <el-form-item label="页面标题" prop="title">
@@ -109,59 +123,28 @@
           <el-input v-model="pagesTemp.keywords"/>
         </el-form-item>
         <el-form-item label="页面描述" prop="description">
-          <el-input v-model="pagesTemp.description"/>
-        </el-form-item>
-        <hr>
-        <el-form-item label="页面脚本" prop="script">
           <el-input
-            :autosize="{ minRows: 10, maxRows: 100}"
+            v-model="pagesTemp.description"
+            :autosize="{ minRows: 3, maxRows: 10}"
             type="textarea"
-            v-model="pagesTemp.script"
           />
         </el-form-item>
-        <el-form-item
-          :label="`外链脚本${i+1}`"
-          prop="styleList"
-          v-for="(item,i) in pagesTemp.scriptList"
-          :key="i"
-        >
-          <el-input v-model="pagesTemp.scriptList[i]">
-            <el-button
-              slot="append"
-              icon="el-icon-delete"
-              type="danger"
-              @click="deleteScriptList(i)"
-            ></el-button>
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="addScriptList" type="warning">添加</el-button>
-        </el-form-item>
         <hr>
-        <el-form-item label="页面样式" prop="style">
+
+        <el-form-item label="头部代码" prop="script">
           <el-input
-            :autosize="{ minRows: 10, maxRows: 100}"
+            :autosize="{ minRows: 3, maxRows: 100}"
             type="textarea"
-            v-model="pagesTemp.style"
+            v-model="pagesTemp.head"
           />
         </el-form-item>
-        <el-form-item
-          :label="`外链样式${i+1}`"
-          prop="styleList"
-          v-for="(item,i) in pagesTemp.styleList"
-          :key="i"
-        >
-          <el-input v-model="pagesTemp.styleList[i]">
-            <el-button
-              slot="append"
-              icon="el-icon-delete"
-              type="danger"
-              @click="deleteStyleList(i)"
-            ></el-button>
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="addStyleList" type="warning">添加</el-button>
+
+        <el-form-item label="底部代码" prop="style">
+          <el-input
+            :autosize="{ minRows: 3, maxRows: 100}"
+            type="textarea"
+            v-model="pagesTemp.foot"
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -177,14 +160,9 @@
 
 <script>
 import Layout from "./components/Layout";
-import {
-  getPages,
-  addPages,
-  updatePages,
-  deletePages,
-  rememberPages
-} from "@/api/pages";
+import { getPages, addPages, updatePages, deletePages } from "@/api/pages";
 import { getLayouts } from "@/api/layouts";
+import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {
   components: {
     Layout
@@ -221,24 +199,24 @@ export default {
         create: "创建新页面"
       },
       pagesTemp: {
+        _id: "",
         // 布局数据
         layout: "",
         content: "",
         // 页面其余参数
         name: "",
         path: "",
-        Remarks: "",
+        remarks: "",
+        needLogin: "",
         status: "draft",
-        device: "",
+        device: getToken("SiteDevice"),
         // 页头基本配置
         title: "",
         keywords: "",
         description: "",
         // 其他配置
-        scriptList: [""],
-        styleList: [""],
-        script: "",
-        style: ""
+        head: "",
+        foot: ""
       },
       layoutList: [],
       contentList: [],
@@ -272,6 +250,7 @@ export default {
     handleUpdate() {
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
+      // 复制值
       this.pagesTemp = JSON.parse(JSON.stringify(this.selectNode.value));
       this.pagesTemp.layout = this.pagesTemp.layout
         ? this.pagesTemp.layout._id
@@ -279,11 +258,10 @@ export default {
       this.pagesTemp.content = this.pagesTemp.content
         ? this.pagesTemp.content._id
         : "";
-      console.log(this.pagesTemp);
+      this.pagesTemp._id = this.selectNode.id;
     },
     // 删除数据
     handleDelete() {
-      console.log(this.selectNode)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -309,31 +287,29 @@ export default {
     // 重置页面模型
     resetPageTemp() {
       this.pagesTemp = {
+        _id: "",
         // 布局数据
         layout: "",
         content: "",
         // 页面其余参数
         name: "",
         path: "",
-        Remarks: "",
+        remarks: "",
+        needLogin: "",
         status: "draft",
-        device: "",
+        device: getToken("SiteDevice"),
         // 页头基本配置
         title: "",
         keywords: "",
         description: "",
         // 其他配置
-        scriptList: [""],
-        styleList: [""],
-        script: "",
-        style: ""
+        head: "",
+        foot: ""
       };
     },
     // 获取页面
     getPages() {
-      getPages({
-        device: "pc"
-      })
+      getPages()
         .then(res => {
           this.treeData = res.data;
         })
@@ -358,10 +334,8 @@ export default {
     },
     // 更新页面
     updatePage() {
-      this.selectNode.value._id = this.selectNode.id;
-      updatePages(this.selectNode.value)
+      updatePages(this.pagesTemp)
         .then(res => {
-          console.log(res);
           this.getPages();
           this.$notify({
             title: "成功",
@@ -378,28 +352,9 @@ export default {
     nodeClick($obj, $node, $el) {
       this.selectNode = $obj;
       this.resetPageTemp();
-      Object.assign(this.pagesTemp, $obj.value);
       if (this.$iframe) {
         this.$iframe.postMessage(this.selectNode, "*");
       }
-    },
-    // 添加外链样式
-    addStyleList() {
-      console.log(this.pagesTemp.styleList);
-      this.pagesTemp.styleList.push("");
-      console.log(this.pagesTemp.styleList);
-    },
-    // 删除外链样式
-    deleteStyleList(i) {
-      this.pagesTemp.styleList.splice(i, 1);
-    },
-    // 添加外链脚本
-    addScriptList() {
-      this.pagesTemp.scriptList.push("");
-    },
-    // 删除外链脚本
-    deleteScriptList(i) {
-      this.pagesTemp.scriptList.splice(i, 1);
     }
   },
   mounted() {
