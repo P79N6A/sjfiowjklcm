@@ -1,6 +1,6 @@
 <template>
   <div class="Layouts-container" v-if="layoutTemp">
-    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
+    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page" :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]">
       <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" >
         <!-- 块区域 -->
         <div v-if="block.isPageView">
