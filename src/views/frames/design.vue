@@ -687,7 +687,7 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         onEnd: evt => {
-          is.layoutData.splice(evt.oldIndex, 1)[0];
+          this.layoutData.splice(evt.oldIndex, 1)[0];
           // this.layoutData.splice(evt.newIndex, 0, targetRow)
           // this.$nextTick(() => {
           // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
@@ -698,7 +698,6 @@ export default {
             const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0];
             this.layoutData.splice(evt.newIndex, 0, targetRow);
           }, 300);
-          console.log(evt);
           // for show the changes, you can delete in you code
           // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
           // this.newList.splice(evt.newIndex, 0, tempIndex)

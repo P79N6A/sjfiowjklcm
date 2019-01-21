@@ -21,10 +21,11 @@
         </el-col>
       </el-row>
     </el-header>
+    <div class="layout-view" :class="layoutTemp.device">
     <div
       id="drag-box"
       ref="imageWrapper"
-      :class="viewLayoutsClass"
+      :class="[viewLayoutsClass]"
       class="page"
       :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]"
     >
@@ -150,6 +151,8 @@
         </div>
       </div>
     </div>
+    </div>
+
     <!-- 工具栏 -->
     <!-- 模块样式 -->
     <StyleEdit
@@ -548,11 +551,14 @@ export default {
   overflow: hidden;
   min-height: calc(100vh - 84px);
   padding: 20px;
-
+.layout-view{
+    &.MOBILE {
+      width: 540px;
+      margin: 0 auto;
+    }
+}
   #drag-box {
-    // padding: 10px;
-    // transform:scale(0.8);
-    // background: #f7f8fb;
+
   }
 
   .layoutEdit {

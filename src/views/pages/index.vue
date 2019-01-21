@@ -43,7 +43,12 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <iframe ref="iframeView" src="/#/preview" class="iframe-view"></iframe>
+              <iframe
+                ref="iframeView"
+                src="/#/preview"
+                class="iframe-view"
+                :class="pagesTemp.device"
+              ></iframe>
               <!-- 外框 -->
               <!-- <Layout :layoutTemp="selectNode.value.layout"> -->
               <!-- <Layout :layoutTemp="selectNode.value.content"></Layout> -->
@@ -395,6 +400,12 @@ export default {
     border: none;
     width: 1500px;
     min-height: 100vh;
+    &.MOBILE {
+      width: 540px;
+      border: dashed 1px #ccc;
+      margin: 10px auto;
+      display: block;
+    }
   }
 }
 </style>
