@@ -26,9 +26,6 @@
       <span>
         <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导出</el-button>
       </span>
-      <!-- <span> -->
-      <!-- <el-button type="danger" @click="handleCreate" icon="el-icon-edit">导出</el-button> -->
-      <!-- </span> -->
     </div>
     <br>
     <br>
@@ -41,8 +38,7 @@
       highlight-current-row
       style="width: 100%"
     >
-      <!-- <el-table-column align="center" label="ID" width="65" prop="_id"> -->
-      <!-- </el-table-column> -->
+      <el-table-column align="center" label="序号" width="65" type="index"></el-table-column>
       <el-table-column align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
           <a
@@ -139,14 +135,13 @@
               :style="`background-image:url(${cdnurl}${game.thumbnail.src});`"
               v-if="game.thumbnail&&game.thumbnail.src"
             ></div>
+            <div v-else class="img-view"></div>
             <div>{{game.name}}</div>
             <div>{{game.eName}}</div>
           </div>
         </div>
       </div>
     </el-dialog>
-    <div class="show-d">{{ $t('table.dragTips1') }} : &nbsp; {{ oldList }}</div>
-    <div class="show-d">{{ $t('table.dragTips2') }} : {{ newList }}</div>
   </div>
 </template>
 
@@ -154,7 +149,7 @@
 import { mapGetters } from "vuex";
 import { fetchList } from "@/api/article";
 import { getGames } from "@/api/games";
-import { getItems, addItems } from "@/api/items";
+import { getItems, addItems, deleteItems } from "@/api/items";
 import Sortable from "sortablejs";
 import { getPlatforms } from "@/api/platforms";
 import { getToken, setToken, removeToken } from "@/utils/auth";
@@ -239,6 +234,16 @@ export default {
       }
     },
     addItems(ids) {
+      if (this.selectGames.length == 0) {
+        this.$notify({
+          title: "提示",
+          message: "没有要添加的数据",
+          type: "warning",
+          duration: 2000
+        });
+        this.dialogFormVisible = false;
+        return;
+      }
       addItems({
         gameList: this.selectGames,
         device: this.filterData.device,
@@ -256,7 +261,28 @@ export default {
         })
         .catch(err => {});
     },
-    //
+    // 点击删除按钮
+    handleDelete(data) {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          deleteItems(data).then(res => {
+            this.getList();
+            this.$notify({
+              title: "成功",
+              message: "删除成功",
+              type: "success",
+              duration: 2000
+            });
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     getList() {
       this.listLoading = true;
       getItems(this.filterData).then(response => {
@@ -281,13 +307,16 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         onEnd: evt => {
+          // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
+          // 把数组根据dom的拖拽，做出新的排序
           const targetRow = this.list.splice(evt.oldIndex, 1)[0];
           this.list.splice(evt.newIndex, 0, targetRow);
           const newArray = this.list.slice(0);
-          this.list = newArray;
-          // for show the changes, you can delete in you code
-          const tempIndex = this.newList.splice(evt.oldIndex, 1)[0];
-          this.newList.splice(evt.newIndex, 0, tempIndex);
+          this.list = [];
+          // 数据变化后再次刷新
+          this.$nextTick(() => {
+            this.list = newArray;
+          });
         }
       });
     }
@@ -318,7 +347,9 @@ export default {
   .icon-star {
     margin-right: 2px;
   }
-
+  .el-table__row {
+    cursor: move;
+  }
   .drag-handler {
     width: 20px;
     height: 20px;

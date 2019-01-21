@@ -13,13 +13,22 @@
             <el-button @click="handleEditStyle(layoutTemp.style)">页面样式</el-button>
             <el-button @click="updateLayouts">保存</el-button>
             <!-- <el-button @click="toImage">toIMg</el-button> -->
-            <el-button @click="viewLayoutsClass?viewLayoutsClass='':viewLayoutsClass='layoutEdit'">预览</el-button>
+            <el-button
+              @click="viewLayoutsClass?viewLayoutsClass='':viewLayoutsClass='layoutEdit'"
+            >预览</el-button>
             <el-button @click="$router.push({name:'layout'})">取消</el-button>
           </el-button-group>
         </el-col>
       </el-row>
     </el-header>
-    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page" :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]">
+    <div class="layout-view" :class="layoutTemp.device">
+    <div
+      id="drag-box"
+      ref="imageWrapper"
+      :class="[viewLayoutsClass]"
+      class="page"
+      :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]"
+    >
       <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
         <!-- 块区域 -->
         <!-- {{block}} -->
@@ -32,8 +41,12 @@
             <div>页面内容展示区域</div>
           </div>
         </div>
-        <div v-else :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']" :id="block.styleSetting.id"
-          :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
+        <div
+          v-else
+          :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']"
+          :id="block.styleSetting.id"
+          :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]"
+        >
           <!-- 块区域 -->
           <el-button-group class="block-controls" v-show="viewLayoutsClass">
             <el-button v-if="block.text">{{block.text}}</el-button>
@@ -41,8 +54,14 @@
               <el-button type="danger" icon="el-icon-edit-outline" @click="handleEditStyle(block)"></el-button>
             </el-tooltip>
           </el-button-group>
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
-            :id="row.styleSetting.id" :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
+          <el-row
+            v-for="(row,r) in block.rows"
+            :key="i+'-'+r"
+            class="rows"
+            :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
+            :id="row.styleSetting.id"
+            :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]"
+          >
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls" v-show="viewLayoutsClass">
               <el-button v-if="row.text">{{row.text}}</el-button>
@@ -62,23 +81,59 @@
                 <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
                   <el-button-group class="components-controls" v-show="viewLayoutsClass">
                     <el-button v-if="item.text">{{item.text}}</el-button>
-                    <el-tooltip class="item" effect="dark" content="向前移动" placement="top-start" v-if="i!=0">
-                      <el-button circle type="primary" icon="el-icon-upload2" @click="moveComponent(col.components,i,-1)"></el-button>
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="向前移动"
+                      placement="top-start"
+                      v-if="i!=0"
+                    >
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-upload2"
+                        @click="moveComponent(col.components,i,-1)"
+                      ></el-button>
                     </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="向后移动" placement="top-start" v-if="i!=col.components.length-1">
-                      <el-button circle type="primary" icon="el-icon-download" @click="moveComponent(col.components,i,1)"></el-button>
+                    <el-tooltip
+                      class="item"
+                      effect="dark"
+                      content="向后移动"
+                      placement="top-start"
+                      v-if="i!=col.components.length-1"
+                    >
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-download"
+                        @click="moveComponent(col.components,i,1)"
+                      ></el-button>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="编辑组件内容" placement="top-start">
-                      <el-button circle type="primary" icon="el-icon-edit" @click="editComponent(item)"></el-button>
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-edit"
+                        @click="editComponent(item)"
+                      ></el-button>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="删除当前组件" placement="top-start">
-                      <el-button circle type="primary" icon="el-icon-close" @click="removeComponent(col.components,i)"></el-button>
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-close"
+                        @click="removeComponent(col.components,i)"
+                      ></el-button>
                     </el-tooltip>
                   </el-button-group>
                   <div>
                     <!-- 异步vue组件 -->
-                    <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId"
-                      :data-type="item.dataType"></sync-component>
+                    <sync-component
+                      :url="`${cdnurl}${item.src}`"
+                      v-if="item.type=='component'"
+                      :data-id="item.dataId"
+                      :data-type="item.dataType"
+                    ></sync-component>
                     <!-- 自定义ishow组件 -->
                     <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
                   </div>
@@ -96,16 +151,31 @@
         </div>
       </div>
     </div>
+    </div>
+
     <!-- 工具栏 -->
     <!-- 模块样式 -->
-    <StyleEdit v-model="EditStyleShow" class="active" :styleSetting="styleSetting" :styleBg="styleBg" :styleStyle="styleStyle"
-      :styleBorder="styleBorder" :styleShadow="styleShadow" @updataStyle="updataStyle"></StyleEdit>
+    <StyleEdit
+      v-model="EditStyleShow"
+      class="active"
+      :styleSetting="styleSetting"
+      :styleBg="styleBg"
+      :styleStyle="styleStyle"
+      :styleBorder="styleBorder"
+      :styleShadow="styleShadow"
+      @updataStyle="updataStyle"
+    ></StyleEdit>
     <!-- 组件添加器 -->
     <el-dialog title="添加组件" :visible.sync="dialogComVisible" width="1000px">
       <el-tabs type="border-card">
         <el-tab-pane label="系统组件">
           <div class="component-list cfx">
-            <el-card :body-style="{ padding: '0px' }" v-for="item in componentList" :key="item._id" class="card">
+            <el-card
+              :body-style="{ padding: '0px' }"
+              v-for="item in componentList"
+              :key="item._id"
+              class="card"
+            >
               <img src="/favicon.ico" class="image">
               <div style="padding: 14px;">
                 <span>{{item.name}}</span>
@@ -119,7 +189,12 @@
         </el-tab-pane>
         <el-tab-pane label="我的组件">
           <div class="component-list cfx">
-            <el-card :body-style="{ padding: '0px' }" v-for="item in ishowList" :key="item._id" class="card">
+            <el-card
+              :body-style="{ padding: '0px' }"
+              v-for="item in ishowList"
+              :key="item._id"
+              class="card"
+            >
               <img src="/favicon.ico" class="image">
               <div style="padding: 14px;">
                 <span>{{item.name}}</span>
@@ -146,484 +221,479 @@
 </template>
 
 <script>
-  import {
-    mapGetters
-  } from "vuex";
-  import html2canvas from "html2canvas";
-  // 数据集合操作
-  import {
-    addCategories,
-    deleteCategories
-  } from "@/api/categories";
-  // 单个数据操作
-  import {
-    addContents,
-    deleteContents,
-  } from "@/api/contents";
-  // 获取自定义组件
-  import {
-    getIshows
-  } from "@/api/ishow";
-  // 获取系统组件
-  import {
-    getComponents
-  } from "@/api/components";
-  // 布局操作
-  import {
-    getLayoutsOne,
-    updateLayouts
-  } from "@/api/layouts";
-  // 组件
-  import StyleEdit from "./components/StyleEdit";
-  import IshowComponent from "./components/Ishow";
-  import SyncComponent from "vue-async-component";
-  import ContentEdit from "./components/Content"
-  export default {
-    name: "Page401",
-    data() {
-      return {
-        edittingData: null,
-        styleSetting: {},
-        styleBg: {},
-        styleStyle: {},
-        styleBorder: {},
-        styleShadow: {},
-        componentList: [],
-        ishowList: [],
-        // 当前el编辑的样式对象
-        EditStyle: {
-          color: ""
-        },
-        viewLayoutsClass: "layoutEdit",
-        EditStyleShow: false,
-        EditType: 1, //根据这个样式编辑弹窗的菜单
-        textMap: {
-          layout: "整站布局",
-          page: "页面布局"
-        },
-        layoutTemp: {
-          _id: "",
-          name: "",
-          device: "",
-          screenShot: "",
-          type: "",
-          value: [],
-          style:{
-            styleBg: {},
-            styleStyle: {},
-            styleBorder: {},
-            styleShadow: {}
-          }
-        },
-        editCol: null,
-        leftActive: false,
-        rightActive: false,
-        dialogVisible: false, // 样式编辑弹窗
-        dialogComVisible: false, // 样式编辑弹窗
-        dialogContentVisible: false, // 数据编辑
-        newList: [],
-        dataURL: "",
-        EditModelId: '',
-        EditContentId: ''
-      };
+import { mapGetters } from "vuex";
+import html2canvas from "html2canvas";
+// 数据集合操作
+import { addCategories, deleteCategories } from "@/api/categories";
+// 单个数据操作
+import { addContents, deleteContents } from "@/api/contents";
+// 获取自定义组件
+import { getIshows } from "@/api/ishow";
+// 获取系统组件
+import { getComponents } from "@/api/components";
+// 布局操作
+import { getLayoutsOne, updateLayouts } from "@/api/layouts";
+// 组件
+import StyleEdit from "./components/StyleEdit";
+import IshowComponent from "./components/Ishow";
+import SyncComponent from "vue-async-component";
+import ContentEdit from "./components/Content";
+import { getToken, setToken, removeToken } from "@/utils/auth";
+export default {
+  name: "Page401",
+  data() {
+    return {
+      edittingData: null,
+      styleSetting: {},
+      styleBg: {},
+      styleStyle: {},
+      styleBorder: {},
+      styleShadow: {},
+      componentList: [],
+      ishowList: [],
+      // 当前el编辑的样式对象
+      EditStyle: {
+        color: ""
+      },
+      viewLayoutsClass: "layoutEdit",
+      EditStyleShow: false,
+      EditType: 1, //根据这个样式编辑弹窗的菜单
+      textMap: {
+        layout: "整站布局",
+        page: "页面布局"
+      },
+      layoutTemp: {
+        _id: "",
+        name: "",
+        device: getToken("SiteDevice"),
+        screenShot: "",
+        type: "",
+        value: [],
+        style: {
+          styleBg: {},
+          styleStyle: {},
+          styleBorder: {},
+          styleShadow: {}
+        }
+      },
+      editCol: null,
+      leftActive: false,
+      rightActive: false,
+      dialogVisible: false, // 样式编辑弹窗
+      dialogComVisible: false, // 样式编辑弹窗
+      dialogContentVisible: false, // 数据编辑
+      newList: [],
+      dataURL: "",
+      EditModelId: "",
+      EditContentId: ""
+    };
+  },
+  mounted() {
+    if (this.$route.query.layoutId) {
+      this.getLayoutsOne({
+        _id: this.$route.query.layoutId
+      });
+    } else {
+      this.$route.go(-1);
+    }
+  },
+  methods: {
+    // 新建数据分类
+    addCategories() {
+      addCategories(this.categoryTemp)
+        .then(res => {
+          this.getCategories();
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000
+          });
+        })
+        .catch(err => {});
     },
-    mounted() {
-      if (this.$route.query.layoutId) {
-        this.getLayoutsOne({
-          _id: this.$route.query.layoutId
-        });
+    //获取ishow列表
+    getIshows() {
+      getIshows().then(response => {
+        if (response.data && response.data.length) {
+          this.ishowList = response.data;
+        }
+        //console.info(response)
+        //console.info(JSON.parse(response.data))
+      });
+    },
+    // 获取组件列表
+    getComponents() {
+      getComponents().then(response => {
+        if (response.data && response.data.length) {
+          this.componentList = response.data;
+        }
+      });
+    },
+    // 编辑布局样式
+    handleEditStyle(data) {
+      this.edittingData = data;
+      this.EditStyleShow = true;
+      console.log(data);
+      this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting || {}));
+      this.styleBg = JSON.parse(JSON.stringify(data.styleBg || {}));
+      this.styleStyle = JSON.parse(JSON.stringify(data.styleStyle || {}));
+      this.styleBorder = JSON.parse(JSON.stringify(data.styleBorder || {}));
+      this.styleShadow = JSON.parse(JSON.stringify(data.styleShadow || {}));
+    },
+    updataStyle(styleData) {
+      this.edittingData.styleSetting = JSON.parse(
+        JSON.stringify(styleData.styleSetting)
+      );
+      this.edittingData.styleBg = JSON.parse(JSON.stringify(styleData.styleBg));
+      this.edittingData.styleStyle = JSON.parse(
+        JSON.stringify(styleData.styleStyle)
+      );
+      this.edittingData.styleBorder = JSON.parse(
+        JSON.stringify(styleData.styleBorder)
+      );
+      this.edittingData.styleShadow = JSON.parse(
+        JSON.stringify(styleData.styleShadow)
+      );
+    },
+    // 移动组件
+    moveComponent(components, index, type) {
+      if (Math.abs(type)) {
+        const targetBlock = components.splice(index, 1)[0];
+        components.splice(index + type, 0, targetBlock);
       } else {
-        this.$route.go(-1);
+        return;
       }
     },
-    methods: {
-      // 新建数据分类
-      addCategories() {
-        addCategories(this.categoryTemp)
-          .then(res => {
-            this.getCategories();
-            this.dialogFormVisible = false;
-            this.$notify({
-              title: "成功",
-              message: "创建成功",
-              type: "success",
-              duration: 2000
-            });
-          })
-          .catch(err => {});
-      },
-      //获取ishow列表
-      getIshows() {
-        getIshows().then(response => {
-          if (response.data && response.data.length) {
-            this.ishowList = response.data;
-          }
-          //console.info(response)
-          //console.info(JSON.parse(response.data))
-        });
-      },
-      // 获取组件列表
-      getComponents() {
-        getComponents().then(response => {
-          if (response.data && response.data.length) {
-            this.componentList = response.data;
+    editComponent(component) {
+      if (component.dataType == "categories") {
+        // 组件数据是数据集
+        this.$router.push({
+          name: "contents",
+          query: {
+            categoryId: component.dataId
           }
         });
-      },
-      // 编辑布局样式
-      handleEditStyle(data) {
-        this.edittingData = data
-        this.EditStyleShow = true;
-        console.log(data)
-        this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting||{}));
-        this.styleBg = JSON.parse(JSON.stringify(data.styleBg||{}));
-        this.styleStyle = JSON.parse(JSON.stringify(data.styleStyle||{}));
-        this.styleBorder = JSON.parse(JSON.stringify(data.styleBorder||{}));
-        this.styleShadow = JSON.parse(JSON.stringify(data.styleShadow||{}));
-      },
-      updataStyle(styleData) {
-        this.edittingData.styleSetting = JSON.parse(JSON.stringify(styleData.styleSetting))
-        this.edittingData.styleBg = JSON.parse(JSON.stringify(styleData.styleBg))
-        this.edittingData.styleStyle = JSON.parse(JSON.stringify(styleData.styleStyle))
-        this.edittingData.styleBorder = JSON.parse(JSON.stringify(styleData.styleBorder))
-        this.edittingData.styleShadow = JSON.parse(JSON.stringify(styleData.styleShadow))
-      },
-      // 移动组件
-      moveComponent(components, index, type) {
-        if (Math.abs(type)) {
-          const targetBlock = components.splice(index, 1)[0];
-          components.splice(index + type, 0, targetBlock);
-        } else {
-          return;
+      } else if (component.dataType == "contents") {
+        // 组件数据是单个数据
+        this.dialogContentVisible = true;
+        this.EditContentId = component.dataId;
+        this.EditModelId = component.model;
+      }
+    },
+    // 删除组件
+    removeComponent(components, index) {
+      components.splice(index, 1)[0];
+    },
+    // 预览布局
+    viewLayouts() {},
+    // 转换成图片
+    toImage() {
+      this.viewLayoutsClass = "";
+      this.$nextTick(() => {});
+      html2canvas(this.$refs.imageWrapper, {
+        backgroundColor: null
+      })
+        .then(canvas => {
+          let dataURL = canvas.toDataURL("image/png");
+          this.dataURL = dataURL;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 添加组件点击
+    handleAddComponent(col) {
+      this.editCol = col;
+      this.getComponents();
+      this.getIshows();
+      this.dialogComVisible = true;
+    },
+    // 添加组件逻辑
+    addCom(item, type) {
+      item.type = type;
+      // 选中的是系统组件库
+      if (type == "component") {
+        if (item.dataType == "categories") {
+          // 创建该组件数据集合
+          // 数据集合模型
+          const _categoryTemp = {
+            type: "content",
+            model: item.model,
+            name: item.name + "的数据集合",
+            path: new Date().getTime().toString(), // 这个应该废弃
+            description: item.name + "的数据集合"
+          };
+          // 创建数据集合
+          addCategories(_categoryTemp)
+            .then(res => {
+              // 设置数据
+              const _component = {
+                type: "component",
+                dataType: item.dataType,
+                src: item.src,
+                dataId: res.data._id,
+                _id: item._id,
+                name: item.name
+              };
+              // 这里要做调整
+              this.editCol.components.push(Object.assign({}, _component));
+              this.dialogComVisible = false;
+            })
+            .catch(err => {});
+        } else if (item.dataType == "contents") {
+          // 创建单个数据
+          const _contentTemp = {
+            abstract: "",
+            category: "",
+            content: "",
+            thumbnail: "",
+            media: [],
+            extensions: {}
+          };
+          addContents(_contentTemp)
+            .then(res => {
+              // 设置数据id
+              item.dataId = res.data._id;
+              const _component = {
+                type: "component",
+                src: item.src,
+                dataType: item.dataType,
+                dataId: res.data._id,
+                _id: item._id,
+                name: item.name
+              };
+              // 这里要调整
+              this.editCol.components.push(Object.assign({}, _component));
+              this.dialogComVisible = false;
+            })
+            .catch(err => {});
         }
-      },
-      editComponent(component) {
-        if (component.dataType == 'categories') {
-          // 组件数据是数据集
-          this.$router.push({
-            name: "contents",
-            query: {
-              categoryId: component.dataId
-            }
-          });
-        } else if (component.dataType == 'contents') {
-          // 组件数据是单个数据
-          this.dialogContentVisible = true;
-          this.EditContentId = component.dataId
-          this.EditModelId = component.model
-        }
-      },
-      // 删除组件
-      removeComponent(components, index) {
-        components.splice(index, 1)[0];
-      },
-      // 预览布局
-      viewLayouts() {},
-      // 转换成图片
-      toImage() {
-        this.viewLayoutsClass = "";
-        this.$nextTick(() => {});
-        html2canvas(this.$refs.imageWrapper, {
+      } else if (type == "ishow") {
+        // ishow，直接添加
+        const _ishow = {
+          type: "ishow",
+          _id: item._id,
+          sce: item.src,
+          name: item.name,
+          description: item.description
+        };
+        this.editCol.components.push(Object.assign({}, _ishow));
+        this.dialogComVisible = false;
+      }
+    },
+    // 更新当前布局
+    updateLayouts() {
+      this.viewLayoutsClass = "";
+      this.$nextTick(() => {
+        window.setTimeout(() => {
+          html2canvas(this.$refs.imageWrapper, {
             backgroundColor: null
           })
-          .then(canvas => {
-            let dataURL = canvas.toDataURL("image/png");
-            this.dataURL = dataURL;
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      },
-      // 添加组件点击
-      handleAddComponent(col) {
-        this.editCol = col;
-        this.getComponents();
-        this.getIshows();
-        this.dialogComVisible = true;
-      },
-      // 添加组件逻辑
-      addCom(item, type) {
-        item.type = type
-        // 选中的是系统组件库
-        if (type == 'component') {
-          if (item.dataType == 'categories') {
-            // 创建该组件数据集合
-            // 数据集合模型
-            const _categoryTemp = {
-              type: "content",
-              model: item.model,
-              name: item.name + '的数据集合',
-              path: (new Date()).getTime().toString(), // 这个应该废弃
-              description: item.name + '的数据集合',
-            }
-            // 创建数据集合
-            addCategories(_categoryTemp)
-              .then(res => {
-                // 设置数据
-                const _component = {
-                  type: 'component',
-                  dataType: item.dataType,
-                  src: item.src,
-                  dataId: res.data._id,
-                  _id: item._id,
-                  name: item.name,
-                }
-                // 这里要做调整
-                this.editCol.components.push(Object.assign({}, _component));
-                this.dialogComVisible = false;
-              })
-              .catch(err => {});
-          } else if (item.dataType == 'contents') {
-            // 创建单个数据
-            const _contentTemp = {
-              abstract: '',
-              category: '',
-              content: '',
-              thumbnail: '',
-              media: [],
-              extensions: {}
-            }
-            addContents(_contentTemp)
-              .then(res => {
-                // 设置数据id
-                item.dataId = res.data._id
-                const _component = {
-                  type: 'component',
-                  src: item.src,
-                  dataType: item.dataType,
-                  dataId: res.data._id,
-                  _id: item._id,
-                  name: item.name,
-                }
-                // 这里要调整
-                this.editCol.components.push(Object.assign({}, _component));
-                this.dialogComVisible = false;
-              })
-              .catch(err => {});
-          }
-        } else if (type == 'ishow') {
-          // ishow，直接添加
-          const _ishow = {
-            type: "ishow",
-            _id: item._id,
-            sce: item.src,
-            name: item.name,
-            description: item.description
-          }
-          this.editCol.components.push(Object.assign({}, _ishow));
-          this.dialogComVisible = false;
-        }
-      },
-      // 更新当前布局
-      updateLayouts() {
-        this.viewLayoutsClass = "";
-        this.$nextTick(() => {
-          window.setTimeout(() => {
-            html2canvas(this.$refs.imageWrapper, {
-                backgroundColor: null
-              })
-              .then(canvas => {
-                let dataURL = canvas.toDataURL("image/png");
-                this.dataURL = dataURL;
-                this.layoutTemp.screenShot = dataURL;
-                updateLayouts(this.layoutTemp)
-                  .then(res => {
-                    this.$notify({
-                      title: "成功",
-                      message: "操作成功",
-                      type: "success",
-                      duration: 2000
-                    });
-                    this.viewLayoutsClass='layoutEdit'
-                    // this.$router.push({name:'layout'})
-                  })
-                  .catch(err => {});
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          }, 500);
-        });
-      },
-      // 读取当前布局
-      getLayoutsOne(data) {
-        getLayoutsOne(data)
-          .then(res => {
-            this.layoutTemp = res.data;
-          })
-          .catch(err => {});
-      },
-      // 预览
-      viewLayouts() {
-        this.viewLayoutsClass = "";
-      },
+            .then(canvas => {
+              let dataURL = canvas.toDataURL("image/png");
+              this.dataURL = dataURL;
+              this.layoutTemp.screenShot = dataURL;
+              updateLayouts(this.layoutTemp)
+                .then(res => {
+                  this.$notify({
+                    title: "成功",
+                    message: "操作成功",
+                    type: "success",
+                    duration: 2000
+                  });
+                  this.viewLayoutsClass = "layoutEdit";
+                  // this.$router.push({name:'layout'})
+                })
+                .catch(err => {});
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }, 500);
+      });
     },
-    computed: {
-      ...mapGetters(["cdnurl"])
+    // 读取当前布局
+    getLayoutsOne(data) {
+      getLayoutsOne(data)
+        .then(res => {
+          this.layoutTemp = res.data;
+        })
+        .catch(err => {});
     },
-    components: {
-      StyleEdit,
-      SyncComponent,
-      IshowComponent,
-      ContentEdit
+    // 预览
+    viewLayouts() {
+      this.viewLayoutsClass = "";
     }
-  };
-
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  components: {
+    StyleEdit,
+    SyncComponent,
+    IshowComponent,
+    ContentEdit
+  }
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  @import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
+@import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
 
-  .iconfont {
-    font-size: 12px !important;
+.iconfont {
+  font-size: 12px !important;
+}
+
+.LayoutDesigh-container {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 84px);
+  padding: 20px;
+.layout-view{
+    &.MOBILE {
+      width: 540px;
+      margin: 0 auto;
+    }
+}
+  #drag-box {
+
   }
 
-  .LayoutDesigh-container {
-    position: relative;
-    overflow: hidden;
-    min-height: calc(100vh - 84px);
-    padding: 20px;
+  .layoutEdit {
+    .show {
+      border: dotted 1px #ccc;
+      // background: #fff;
+      padding: 20px 0;
+      margin-top: 30px !important;
+      position: relative;
 
-    #drag-box {
-      // padding: 10px;
-      // transform:scale(0.8);
-      // background: #f7f8fb;
-    }
+      .block-controls {
+        position: absolute;
+        top: -28px;
+        left: -1px;
+      }
 
-    .layoutEdit {
-      .show {
-        border: dotted 1px #ccc;
-        // background: #fff;
-        padding: 20px 0;
-        margin-top: 30px !important;
+      input {
+        border: none;
+        background: none;
+        color: #343434;
+        text-align: center;
+        outline: none;
+      }
+
+      .el-row {
+        border: solid 1px #343434;
+        margin-bottom: 5px !important;
+        // padding: 10px;
+        margin: 10px;
         position: relative;
 
-        .block-controls {
+        .row-controls {
           position: absolute;
           top: -28px;
-          left: -1px;
+          right: -1px;
         }
 
-        input {
-          border: none;
-          background: none;
-          color: #343434;
-          text-align: center;
-          outline: none;
-        }
-
-        .el-row {
-          border: solid 1px #343434;
-          margin-bottom: 5px !important;
+        .el-col {
           // padding: 10px;
-          margin: 10px;
-          position: relative;
 
-          .row-controls {
-            position: absolute;
-            top: -28px;
-            right: -1px;
+          > div {
+            position: relative;
+            border: dashed 1px #409eff;
+            // padding: 10px;
+            text-align: center;
+            min-height: 70px;
+
+            .col-controls {
+              position: absolute;
+              left: 10px;
+              bottom: 10px;
+            }
+
+            .components-controls {
+              position: absolute;
+              top: 0;
+              left: 50%;
+              z-index: 9;
+            }
           }
 
-          .el-col {
-            // padding: 10px;
-
-            >div {
-              position: relative;
-              border: dashed 1px #409eff;
-              // padding: 10px;
-              text-align: center;
-              min-height: 70px;
-
-              .col-controls {
-                position: absolute;
-                left: 10px;
-                bottom: 10px;
-              }
-
-              .components-controls {
-                position: absolute;
-                top: 0;
-                left: 50%;
-                z-index: 9;
-              }
-            }
-
-            .ico-width {
-              position: absolute;
-              top: 5px;
-              right: 5px;
-            }
+          .ico-width {
+            position: absolute;
+            top: 5px;
+            right: 5px;
           }
         }
       }
     }
+  }
 
-    .rightMenu {
+  .rightMenu {
+    position: absolute;
+    z-index: 9;
+    transition: all 0.3s;
+    top: 0;
+    right: 0-300px;
+    height: 100%;
+    background: yellow;
+    overflow: visible;
+
+    &.active {
+      right: 0;
+    }
+
+    .toggle {
       position: absolute;
-      z-index: 9;
-      transition: all 0.3s;
-      top: 0;
-      right: 0-300px;
-      height: 100%;
-      background: yellow;
-      overflow: visible;
-
-      &.active {
-        right: 0;
-      }
-
-      .toggle {
-        position: absolute;
-        top: 50%;
-        right: 100%;
-      }
-    }
-
-    .page-view {
-      font-size: 36px;
-      height: 400px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #999;
-      background: #eee;
-      border: dashed 2px #ccc;
-      margin: 6px 0;
+      top: 50%;
+      right: 100%;
     }
   }
 
-  .component-list {
-    .card {
-      width: 180px;
-      float: left;
-      margin: 6px;
-    }
+  .page-view {
+    font-size: 36px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    background: #eee;
+    border: dashed 2px #ccc;
+    margin: 6px 0;
+  }
+}
 
-    .time {
-      font-size: 13px;
-      color: #999;
-    }
-
-    .bottom {
-      margin-top: 13px;
-      line-height: 12px;
-    }
-
-    .button {
-      float: right;
-    }
-
-    .image {
-      width: 100%;
-      display: block;
-    }
+.component-list {
+  .card {
+    width: 180px;
+    float: left;
+    margin: 6px;
   }
 
-  // 0,
-  // 1,
-  // 2,  old
-  // 3,  new
-  // 4
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
 
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+}
+
+// 0,
+// 1,
+// 2,  old
+// 3,  new
+// 4
 </style>

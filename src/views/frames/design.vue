@@ -8,7 +8,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-select v-model="frameTemp.device" placeholder="请选择框架适用终端">
+          <el-select v-model="frameTemp.device" placeholder="请选择框架适用终端" readonly disabled>
             <el-option label="PC端" value="PC"></el-option>
             <el-option label="MOBILE端" value="MOBILE"></el-option>
           </el-select>
@@ -22,126 +22,142 @@
     <div id="drag-box" ref="imageWrapper" :class="frameTemp.device">
       <div class="show" v-for="(block,i) in frameTemp.value" :key="i">
         <!-- 块区域 -->
-          <el-button-group class="block-controls">
-            <el-button>
-              <input v-model="block.text">
-            </el-button>
-            <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="i!=0">
-              <el-button circle type="danger" icon="el-icon-upload2" @click="moveBlock(i,-1)"></el-button>
-            </el-tooltip>
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="向下移动"
-              placement="top-start"
-              v-if="i!=frameTemp.value.length-1"
-            >
-              <el-button circle type="danger" icon="el-icon-download" @click="moveBlock(i,1)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="在后面追加一个容器" placement="top-start">
-              <el-button circle type="danger" icon="el-icon-plus" @click="addBlock(i)"></el-button>
-            </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
-              <el-button circle type="danger" icon="el-icon-close" @click="removeBlock(i)"></el-button>
-            </el-tooltip>
-          </el-button-group>
-          <div v-if="block.isPageView" style="text-align:center;height:300px;">
-                    <img src="./img/ico-page-view.png" style="height:100%;">
-                    页面展示区域
-          </div>
-          <div v-else>
-            <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="frameTemp.device">
-              <!-- 区块操作按钮 -->
-              <el-button-group class="row-controls">
-                <el-button>
-                  <input v-model="row.text">
-                </el-button>
-                <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="r!=0">
-                  <el-button
-                    circle
-                    type="warning"
-                    icon="el-icon-upload2"
-                    @click="moveRow(block,r,-1)"
-                  ></el-button>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
-                  <el-button
-                    circle
-                    type="warning"
-                    icon="el-icon-download"
-                    @click="moveRow(block,r,1)"
-                    v-if="r!=block.rows.length-1"
-                  ></el-button>
-                </el-tooltip>
-                <!-- <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
+        <el-button-group class="block-controls">
+          <el-button>
+            <input v-model="block.text">
+          </el-button>
+          <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="i!=0">
+            <el-button circle type="danger" icon="el-icon-upload2" @click="moveBlock(i,-1)"></el-button>
+          </el-tooltip>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="向下移动"
+            placement="top-start"
+            v-if="i!=frameTemp.value.length-1"
+          >
+            <el-button circle type="danger" icon="el-icon-download" @click="moveBlock(i,1)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="在后面追加一个容器" placement="top-start">
+            <el-button circle type="danger" icon="el-icon-plus" @click="addBlock(i)"></el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
+            <el-button circle type="danger" icon="el-icon-close" @click="removeBlock(i)"></el-button>
+          </el-tooltip>
+        </el-button-group>
+        <div v-if="block.isPageView" style="text-align:center;height:300px;">
+          <img src="./img/ico-page-view.png" style="height:100%;">
+          页面展示区域
+        </div>
+        <div v-else>
+          <el-row
+            v-for="(row,r) in block.rows"
+            :key="i+'-'+r"
+            class="rows"
+            :class="frameTemp.device"
+          >
+            <!-- 区块操作按钮 -->
+            <el-button-group class="row-controls">
+              <el-button>
+                <input v-model="row.text">
+              </el-button>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="向上移动"
+                placement="top-start"
+                v-if="r!=0"
+              >
+                <el-button
+                  circle
+                  type="warning"
+                  icon="el-icon-upload2"
+                  @click="moveRow(block,r,-1)"
+                ></el-button>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
+                <el-button
+                  circle
+                  type="warning"
+                  icon="el-icon-download"
+                  @click="moveRow(block,r,1)"
+                  v-if="r!=block.rows.length-1"
+                ></el-button>
+              </el-tooltip>
+              <!-- <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
                   <el-button
                     circle
                     type="warning"
                     icon="iconfont icon-smaller"
                     @click="row.style.width='1200px'"
                   ></el-button>
-                </el-tooltip> -->
-                <!-- <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
+              </el-tooltip>-->
+              <!-- <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
                   <el-button
                     circle
                     type="warning"
                     icon="iconfont icon-bigger"
                     @click="row.style.width='100%'"
                   ></el-button>
-                </el-tooltip> -->
-                <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
-                  <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
-                  <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
-                </el-tooltip>
-              </el-button-group>
-              <!-- 行区域 -->
-              <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols" :class="frameTemp.device">
-                <!-- 格子区域 -->
+              </el-tooltip>-->
+              <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
+                <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
+                <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
+              </el-tooltip>
+            </el-button-group>
+            <!-- 行区域 -->
+            <el-col
+              v-for="(col,j) in row.cols"
+              :span="col.width"
+              :key="i+'-'+r+'-'+j"
+              class="cols"
+              :class="frameTemp.device"
+            >
+              <!-- 格子区域 -->
+              <div>
                 <div>
-
-                  <div>
-                    <input v-model="col.text" placeholder="内容区域">
-                  </div>
-                  <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
-                  <!-- 内容-{{col.text}} -->
-                  <div>
-                    <!-- 内容区域操作按钮 -->
-                    <el-button-group class="col-controls">
-                      <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
-                        <el-button
-                          circle
-                          type="primary"
-                          icon="el-icon-zoom-out"
-                          @click="smaller(col)"
-                        ></el-button>
-                      </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
-                        <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
-                      </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
-                        <el-button
-                          circle
-                          type="primary"
-                          icon="el-icon-circle-plus"
-                          @click="addCol(row,j)"
-                        ></el-button>
-                      </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
-                        <el-button
-                          circle
-                          type="primary"
-                          icon="el-icon-circle-close"
-                          @click="removeCol(row,j)"
-                        ></el-button>
-                      </el-tooltip>
-                    </el-button-group>
-                  </div>
+                  <input v-model="col.text" placeholder="内容区域">
                 </div>
-              </el-col>
-            </el-row>
-          </div>
+                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
+                <!-- 内容-{{col.text}} -->
+                <div>
+                  <!-- 内容区域操作按钮 -->
+                  <el-button-group class="col-controls">
+                    <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-zoom-out"
+                        @click="smaller(col)"
+                      ></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
+                      <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-circle-plus"
+                        @click="addCol(row,j)"
+                      ></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
+                      <el-button
+                        circle
+                        type="primary"
+                        icon="el-icon-circle-close"
+                        @click="removeCol(row,j)"
+                      ></el-button>
+                    </el-tooltip>
+                  </el-button-group>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
       </div>
     </div>
 
@@ -159,6 +175,7 @@ import {
 } from "@/api/frames";
 
 import Sortable from "sortablejs";
+import { getToken, setToken, removeToken } from "@/utils/auth";
 
 var byId = function(id) {
   return document.getElementById(id);
@@ -173,7 +190,7 @@ export default {
       frameTemp: {
         _id: "",
         name: "",
-        device: "PC",
+        device: getToken("SiteDevice"),
         type: "",
         value: []
       },
@@ -199,12 +216,13 @@ export default {
           ]
         },
         {
-          text:'页面展示区域',
-          isPageView:true,
+          text: "页面展示区域",
+          isPageView: true
         },
         {
           text: "B",
-          rows: [{
+          rows: [
+            {
               text: "内容区块2",
               cols: [
                 {
@@ -351,7 +369,6 @@ export default {
     });
   },
   methods: {
-
     addFrames() {
       // this.frameTemp.value = this.layoutData;
       addFrames(this.frameTemp)
@@ -535,8 +552,7 @@ export default {
     },
     addBlock(index) {
       const newBlock = {
-        style: {
-        },
+        style: {},
         text: "内容区块",
         rows: [
           {
@@ -583,16 +599,15 @@ export default {
      * 栅栏缩小
      * */
     smaller(col) {
-      if(this.frameTemp.device=='PC'){
-      if (col.width > 3) {
-        col.width--;
+      if (this.frameTemp.device == "PC") {
+        if (col.width > 3) {
+          col.width--;
+        }
+      } else {
+        if (col.width > 3) {
+          col.width--;
+        }
       }
-      }else{
-      if (col.width > 3) {
-        col.width--;
-      }
-      }
-
     },
     /**
      * col，当前栅栏object
@@ -672,7 +687,7 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         onEnd: evt => {
-          is.layoutData.splice(evt.oldIndex, 1)[0];
+          this.layoutData.splice(evt.oldIndex, 1)[0];
           // this.layoutData.splice(evt.newIndex, 0, targetRow)
           // this.$nextTick(() => {
           // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
@@ -683,7 +698,6 @@ export default {
             const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0];
             this.layoutData.splice(evt.newIndex, 0, targetRow);
           }, 300);
-          console.log(evt);
           // for show the changes, you can delete in you code
           // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
           // this.newList.splice(evt.newIndex, 0, tempIndex)
@@ -736,13 +750,13 @@ export default {
     // padding: 10px;
     // transform:scale(0.8);
     background: #f7f8fb;
-    padding:4px;
-    &.PC{
-      width:100%;
+    padding: 4px;
+    &.PC {
+      width: 100%;
     }
-    &.MOBILE{
-      width:540px;
-      margin:0 auto;
+    &.MOBILE {
+      width: 540px;
+      margin: 0 auto;
     }
   }
 
@@ -773,12 +787,12 @@ export default {
       padding: 5px;
       margin: 10px auto;
       position: relative;
-      &.PC{
-        width:1200px;
+      &.PC {
+        width: 1200px;
       }
-      &.MOBILE{
-        width:100%;
-        padding:2px;
+      &.MOBILE {
+        width: 100%;
+        padding: 2px;
       }
       .row-controls {
         position: absolute;
@@ -788,14 +802,14 @@ export default {
 
       .cols {
         padding: 5px;
-          &.PC{
+        &.PC {
+        }
+        &.MOBILE {
+          padding: 4px;
+          > div {
+            padding: 2px;
           }
-          &.MOBILE{
-            padding:4px;
-            >div{
-              padding:2px;
-            }
-          }
+        }
         > div {
           position: relative;
           border: dashed 1px #409eff;
@@ -848,10 +862,10 @@ export default {
     align-items: center;
     color: #999;
   }
-  .el-button-group .el-button{
-    padding:3px;
-    input{
-      height:12px;
+  .el-button-group .el-button {
+    padding: 3px;
+    input {
+      height: 12px;
     }
   }
 }

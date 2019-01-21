@@ -45,13 +45,14 @@
         <template slot-scope="scope">
           <a
             target="_blank"
-            v-if="scope.row.thumbnail&&scope.row.thumbnail.src"
+            v-if="true||scope.row.thumbnail&&scope.row.thumbnail.src"
             :href="`${cdnurl}${scope.row.thumbnail.src}`"
             class="img-view"
             :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
           ></a>
         </template>
       </el-table-column>
+      <!-- :href="`${cdnurl}${scope.row.thumbnail.src}`" -->
       <el-table-column fixed label="名称">
         <template slot-scope="scope">
           <div>{{scope.row.name}}</div>
@@ -137,6 +138,7 @@
       :visible.sync="dialogFormVisible"
       width="900px"
       :close-on-click-modal="false"
+      v-if="dialogFormVisible"
     >
       <el-form ref="dataForm" :model="gameTemp" label-position="right" label-width="80px">
         <el-card shadow="hover">
@@ -151,9 +153,9 @@
                     <el-select v-model="gameTemp.platform" placeholder="请选择所属平台">
                       <el-option
                         :label="item.name"
-                        :value="item.platform"
+                        :value="item.value"
                         v-for="item in platformList"
-                        :key="item.platform"
+                        :key="item.value"
                       ></el-option>
                     </el-select>
                   </el-form-item>
@@ -259,6 +261,7 @@
                       :show-file-list="false"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload"
+                      :data="gameTemp"
                     >
                       <a
                         v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src"
