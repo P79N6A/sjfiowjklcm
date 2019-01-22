@@ -45,10 +45,9 @@
         <template slot-scope="scope">
           <a
             target="_blank"
-            v-if="true||scope.row.thumbnail&&scope.row.thumbnail.src"
-            :href="`${cdnurl}${scope.row.thumbnail.src}`"
+            :href="`${cdnurl}${scope.row.icon}`"
             class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
+            :style="`background-image:url(${cdnurl}${scope.row.icon});`"
           ></a>
         </template>
       </el-table-column>
