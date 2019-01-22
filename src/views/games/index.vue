@@ -257,17 +257,23 @@
                   <el-form-item label="封面" prop="thumbnail">
                     <el-upload
                       class="avatar-uploader"
-                      action="/api/media"
-                      :show-file-list="false"
+                      action="/api/games/icon"
+                      :show-file-list="true"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload"
                       :data="gameTemp"
+                      :auto-upload="false"
+                      list-type="text"
+                      ref="gameIcon"
+                      :limit="1"
+                      :on-change="handleChange"
+                      :on-remove="handleRemove"
                     >
                       <a
-                        v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src"
+                        v-if="gameTemp.icon"
                         class="img-view"
                         style="width:120px;height:120px;display:block;"
-                        :style="`background-image:url(${cdnurl}${gameTemp.thumbnail.src});`"
+                        :style="`background-image:url(${gameTemp.icon});`"
                       >
                         <div class="upload-icon">
                           <i class="el-icon-plus"></i>
@@ -275,14 +281,14 @@
                       </a>
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                    <div class="file-info" v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src">
+                    <!-- <div class="file-info" v-if="gameTemp.thumbnail&&gameTemp.thumbnail.src">
                       <p v-if="gameTemp.thumbnail.src">
                         <a target="_blank" :href="`${cdnurl}${gameTemp.thumbnail.src}`">
                           <i class="el-icon-picture"></i>
                           &nbsp;&nbsp;查看原图{{gameTemp.thumbnail.fileName}}
                         </a>
                       </p>
-                    </div>
+                    </div> -->
                   </el-form-item>
                 </td>
               </tr>
@@ -386,6 +392,7 @@ export default {
   },
   data() {
     return {
+      changeIcon:false,
       //搜索条件
       filterData: {
         device: "PC",
@@ -415,6 +422,7 @@ export default {
         device: "",
         id: "",
         code: "",
+        icon:"",
         //mg
         moduleid: "",
         mgself: "",
@@ -426,12 +434,11 @@ export default {
         online: false,
         try: true,
         line: 0,
-        thumbnail: {},
+        thumbnail: '',
         types: "", // 类型
         tags: [],
         description: "" // 备注
       },
-
       listLoading: true,
       dialogFormVisible: false,
       dialogInsertVisible: false,
@@ -442,7 +449,6 @@ export default {
       },
       // 不重要的值
       total: 0,
-
       listQuery: {
         page: 1,
         limit: 20,
@@ -478,7 +484,7 @@ export default {
           this.listLoading = false;
         });
     },
-    // 点击创建模型按钮
+    // 点击创建游戏按钮
     handleCreate() {
       this.resetTemp();
       this.dialogStatus = "create";
@@ -487,7 +493,20 @@ export default {
         this.$refs["dataForm"].clearValidate();
       });
     },
-    // 点击编辑模型按钮
+    // 文件列表改变
+    handleChange(file, fileList){
+      console.log(file)
+      this.gameTemp.icon=file.url;
+      this.gameTemp.thumbnail=file.name
+      this.changeIcon=true
+    },
+    // 文件列表移除
+    handleRemove(file,fileList){
+      this.gameTemp.icon=''
+      this.gameTemp.thumbnail=''
+      this.changeIcon=false
+    },
+    // 点击编辑游戏按钮
     handleUpdate(row) {
       this.gameTemp = Object.assign({}, row); // copy obj
       this.dialogStatus = "update";
@@ -496,9 +515,9 @@ export default {
         this.$refs["dataForm"].clearValidate();
       });
     },
-    // 点击删除模型按钮
+    // 点击删除游戏按钮
     handleDelete(data) {
-      this.$confirm("此操作将永久删除该数据模型, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -519,7 +538,7 @@ export default {
         });
     },
 
-    // 创建模型
+    // 创建游戏
     createGame() {
       // return;
       addGames({ gameList: [this.gameTemp] })
@@ -532,6 +551,7 @@ export default {
             type: "success",
             duration: 2000
           });
+          this.$refs.gameIcon.submit();
         })
         .catch(err => {});
     },
@@ -547,7 +567,7 @@ export default {
       this.gameTemp.online = false;
       this.updateGame();
     },
-    // 更新模型
+    // 更新游戏
     updateGame() {
       updateGames(this.gameTemp)
         .then(res => {
@@ -562,13 +582,14 @@ export default {
         })
         .catch(err => {});
     },
-    // 重制模型
+    // 重制游戏
     resetTemp() {
       this.gameTemp = {
-        platform: "",
-        device: "",
+        platform: this.filterData.platform,
+        device: this.filterData.device,
         id: "",
         code: "",
+        icon:"",
         //mg
         moduleid: "",
         mgself: "",
@@ -580,7 +601,7 @@ export default {
         online: false,
         try: true,
         line: 0,
-        thumbnail: {},
+        thumbnail: '',
         types: "", // 类型
         tags: [],
         description: "" // 备注
@@ -588,11 +609,7 @@ export default {
     },
     // 文件上传成功后
     handleAvatarSuccess(res, file) {
-      this.gameTemp.thumbnail = {
-        _id: res._id,
-        fileName: file.name,
-        src: res.src
-      };
+      this.gameTemp.thumbnail = res.icon
     },
     // 文件上传前
     beforeAvatarUpload(file) {
@@ -638,8 +655,6 @@ export default {
       this.file2Xce(file).then(tabJson => {
         if (tabJson && tabJson.length > 0) {
           this.xlsxJson = tabJson;
-          console.log("lkslk;ajsdflkdsj");
-          console.log(tabJson);
           tabJson[0].sheet.forEach(item => {
             item.tags = [];
             item.thumbnail = {
