@@ -45,9 +45,9 @@
         <template slot-scope="scope">
           <a
             target="_blank"
-            :href="`${cdnurl}${scope.row.icon}`"
+            :href="`${scope.row.icon}`"
             class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.icon});`"
+            :style="`background-image:url(${scope.row.icon});`"
           ></a>
         </template>
       </el-table-column>
@@ -287,7 +287,7 @@
                           &nbsp;&nbsp;查看原图{{gameTemp.thumbnail.fileName}}
                         </a>
                       </p>
-                    </div> -->
+                    </div>-->
                   </el-form-item>
                 </td>
               </tr>
@@ -391,7 +391,7 @@ export default {
   },
   data() {
     return {
-      changeIcon:false,
+      changeIcon: false,
       //搜索条件
       filterData: {
         device: "PC",
@@ -421,7 +421,7 @@ export default {
         device: "",
         id: "",
         code: "",
-        icon:"",
+        icon: "",
         //mg
         moduleid: "",
         mgself: "",
@@ -430,10 +430,10 @@ export default {
         gameType: "",
         name: "",
         eName: "",
-        online: false,
+        online: true,
         try: true,
         line: 0,
-        thumbnail: '',
+        thumbnail: "",
         types: "", // 类型
         tags: [],
         description: "" // 备注
@@ -476,7 +476,10 @@ export default {
       this.listLoading = true;
       getGames(this.filterData)
         .then(res => {
-          this.modelList = res.data;
+          this.modelList = res.data.filter(item => {
+            item.icon = `${this.cdnurl}${item.icon}?v=${new Date().getTime()}`;
+            return item;
+          });
           this.listLoading = false;
         })
         .catch(err => {
@@ -493,17 +496,17 @@ export default {
       });
     },
     // 文件列表改变
-    handleChange(file, fileList){
-      console.log(file)
-      this.gameTemp.icon=file.url;
-      this.gameTemp.thumbnail=file.name
-      this.changeIcon=true
+    handleChange(file, fileList) {
+      console.log(file);
+      this.gameTemp.icon = file.url;
+      this.gameTemp.thumbnail = file.name;
+      this.changeIcon = true;
     },
     // 文件列表移除
-    handleRemove(file,fileList){
-      this.gameTemp.icon=''
-      this.gameTemp.thumbnail=''
-      this.changeIcon=false
+    handleRemove(file, fileList) {
+      this.gameTemp.icon = "";
+      this.gameTemp.thumbnail = "";
+      this.changeIcon = false;
     },
     // 点击编辑游戏按钮
     handleUpdate(row) {
@@ -558,12 +561,14 @@ export default {
     toOnline(row) {
       this.gameTemp = Object.assign({}, row); // copy obj
       this.gameTemp.online = true;
+      row.online = true;
       this.updateGame();
     },
     // 设置为下架
     toStop(row) {
       this.gameTemp = Object.assign({}, row); // copy obj
       this.gameTemp.online = false;
+      row.online = false;
       this.updateGame();
     },
     // 更新游戏
@@ -571,13 +576,17 @@ export default {
       updateGames(this.gameTemp)
         .then(res => {
           this.dialogFormVisible = false;
-          this.getGames();
           this.$notify({
             title: "成功",
             message: "操作成功",
             type: "success",
             duration: 2000
           });
+          // 有更新封面
+          if (this.changeIcon) {
+            this.$refs.gameIcon.submit();
+          } else {
+          }
         })
         .catch(err => {});
     },
@@ -588,7 +597,7 @@ export default {
         device: this.filterData.device,
         id: "",
         code: "",
-        icon:"",
+        icon: "",
         //mg
         moduleid: "",
         mgself: "",
@@ -597,10 +606,10 @@ export default {
         gameType: "",
         name: "",
         eName: "",
-        online: false,
+        online: true,
         try: true,
         line: 0,
-        thumbnail: '',
+        thumbnail: "",
         types: "", // 类型
         tags: [],
         description: "" // 备注
@@ -608,7 +617,7 @@ export default {
     },
     // 文件上传成功后
     handleAvatarSuccess(res, file) {
-      this.gameTemp.thumbnail = res.icon
+      this.getGames();
     },
     // 文件上传前
     beforeAvatarUpload(file) {
@@ -656,11 +665,7 @@ export default {
           this.xlsxJson = tabJson;
           tabJson[0].sheet.forEach(item => {
             item.tags = [];
-            item.thumbnail = {
-              src: "",
-              fileName: "",
-              _id: ""
-            };
+            item.online = true;
           });
           addGames({ gameList: tabJson[0].sheet })
             .then(res => {

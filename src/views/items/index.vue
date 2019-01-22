@@ -39,25 +39,18 @@
       style="width: 100%"
     >
       <el-table-column align="center" label="序号" width="65" type="index"></el-table-column>
-      <el-table-column align="center" label="封面" prop="thumbnail" width="80">
+      <el-table-column align="center" label="封面" prop="icon" width="80">
         <template slot-scope="scope">
           <a
             target="_blank"
-            v-if="scope.row.thumbnail&&scope.row.thumbnail.src"
-            :href="`${cdnurl}${scope.row.thumbnail.src}`"
+            v-if="scope.row.game.icon"
+            :href="`${cdnurl}${scope.row.game.icon}`"
             class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
-          ></a>
-          <a
-            target="_blank"
-            v-else-if="scope.row.game.thumbnail&&scope.row.game.thumbnail.src"
-            :href="`${cdnurl}${scope.row.game.thumbnail.src}`"
-            class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.game.thumbnail.src});`"
+            :style="`background-image:url(${cdnurl}${scope.row.game.icon});`"
           ></a>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="名称" prop="thumbnail">
+      <el-table-column align="center" label="名称" prop="name">
         <template slot-scope="scope">
           <div>
             <span v-if="scope.row.name">{{scope.row.name}}</span>
@@ -69,7 +62,21 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="线注" prop="line"></el-table-column>
+      <el-table-column align="center" label="id/code" prop="name">
+        <template slot-scope="scope">
+          <div>
+            <span>{{scope.row.game.id}}</span>
+          </div>
+          <div>
+            <span>{{scope.row.game.code}}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="线注" prop="line">
+        <template slot-scope="scope">
+          <el-tag>{{scope.row.game.line}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.game.mgself" type="warning">是</el-tag>
@@ -84,6 +91,12 @@
       </el-table-column>
       <el-table-column label="备注" prop="description">
         <template slot-scope="scope">{{scope.row.game.description}}</template>
+      </el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.game.online" type="success">上线</el-tag>
+          <el-tag v-else type="danger">下架</el-tag>
+        </template>
       </el-table-column>
       <el-table-column
         :label="$t('table.actions')"
@@ -116,30 +129,25 @@
       :visible.sync="dialogFormVisible"
       width="900px"
       :close-on-click-modal="false"
-      v-if="gameList.length>0"
+      v-if="dialogFormVisible"
     >
-      <div>
-        <el-button type="danger" @click="addItems" icon="el-icon-edit">添加</el-button>
-      </div>
       <div class="game-list">
-        <div
-          v-for="game in gameList"
-          :key="game._id"
-          class="games"
-          @click="handleClick(game._id)"
-          v-if="!oldList.includes(game._id)"
-        >
+        <div v-for="game in gameList" :key="game._id" class="games" @click="handleClick(game._id)">
           <div :class="{active:selectGames.includes(game._id)}">
             <div
               class="img-view"
-              :style="`background-image:url(${cdnurl}${game.thumbnail.src});`"
-              v-if="game.thumbnail&&game.thumbnail.src"
+              :style="`background-image:url(${cdnurl}${game.icon});`"
+              v-if="game.icon"
             ></div>
             <div v-else class="img-view"></div>
             <div>{{game.name}}</div>
             <div>{{game.eName}}</div>
           </div>
         </div>
+      </div>
+      <div style="text-align:right;">
+        <el-button type="warning" @click="allItems">全选/取消</el-button>
+        <el-button type="primary" @click="addItems">确认</el-button>
       </div>
     </el-dialog>
   </div>
@@ -209,18 +217,36 @@ export default {
     },
     // 点击从系统导入
     handleCreate() {
-      this.dialogFormVisible = true;
       this.getGames();
     },
-    // 查询用户列表
+    // 查询游戏库列表
     getGames() {
-      let search = Object.assign({}, this.filterData);
+      let search = Object.assign(
+        {},
+        JSON.parse(JSON.stringify(this.filterData))
+      );
       search.online = true;
+      console.log("slkafjsj");
       getGames(search)
         .then(res => {
-          this.gameList = res.data;
+          this.gameList = res.data.filter(game => {
+            return !this.oldList.includes(game._id);
+          });
+          console.log("slkadfjsalkfj");
+          if (this.gameList.length == 0) {
+            this.$notify({
+              title: "提示",
+              message: "系统库没有可添加的数据",
+              type: "warning",
+              duration: 2000
+            });
+          } else {
+            this.dialogFormVisible = true;
+          }
         })
-        .catch(err => {});
+        .catch(err => {
+          console.log(err);
+        });
     },
     // 点击游戏按钮
     handleClick(_id) {
@@ -233,6 +259,18 @@ export default {
         this.selectGames.push(_id);
       }
     },
+    // 全选
+    allItems() {
+      if (this.selectGames.length == this.gameList.length) {
+        this.selectGames = [];
+      } else {
+        this.selectGames = [];
+        this.gameList.forEach(game => {
+          this.selectGames.push(game._id);
+        });
+      }
+    },
+    // 确认添加至大厅
     addItems(ids) {
       if (this.selectGames.length == 0) {
         this.$notify({
@@ -258,6 +296,7 @@ export default {
           });
           this.getList();
           this.selectGames = [];
+          this.dialogFormVisible = false;
         })
         .catch(err => {});
     },
@@ -283,6 +322,7 @@ export default {
           console.log(err);
         });
     },
+    // 读取大厅数据
     getList() {
       this.listLoading = true;
       getItems(this.filterData).then(response => {
@@ -295,6 +335,7 @@ export default {
         });
       });
     },
+    // 拖拽排序
     setSort() {
       const el = document.querySelectorAll(
         ".el-table__body-wrapper > table > tbody"
