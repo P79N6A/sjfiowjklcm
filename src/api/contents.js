@@ -22,6 +22,14 @@ export function addContents(data) {
     data
   })
 }
+export function sortComponents(data) {
+  return request({
+    url: '/api/contents',
+    method: 'put',
+    data
+  })
+}
+
 export function updateContents(data) {
   return request({
     url: '/api/contents/' + data._id,

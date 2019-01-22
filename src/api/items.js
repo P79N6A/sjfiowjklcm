@@ -15,6 +15,15 @@ export function addItems(data) {
     data
   })
 }
+
+export function sortItems(data) {
+  return request({
+    url: '/api/items',
+    method: 'put',
+    data
+  })
+}
+
 export function updateItems(data) {
   return request({
     url: '/api/items/' + data._id,

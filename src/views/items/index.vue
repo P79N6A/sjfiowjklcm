@@ -21,11 +21,15 @@
         <el-button type="warning" icon="el-icon-search" @click="getList">搜索</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加</el-button>
+        <el-button type="danger" @click="handleCreate">添加</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导出</el-button>
+        <el-button type="danger" @click="handleSort">保存排序</el-button>
       </span>
+
+      <!-- <span>
+        <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导出</el-button>
+      </span>-->
     </div>
     <br>
     <br>
@@ -37,6 +41,7 @@
       fit
       highlight-current-row
       style="width: 100%"
+      id="contents"
     >
       <el-table-column align="center" label="序号" width="65" type="index"></el-table-column>
       <el-table-column align="center" label="封面" prop="icon" width="80">
@@ -98,6 +103,7 @@
           <el-tag v-else type="danger">下架</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="排序" prop="sort"></el-table-column>
       <el-table-column
         :label="$t('table.actions')"
         align="center"
@@ -157,7 +163,7 @@
 import { mapGetters } from "vuex";
 import { fetchList } from "@/api/article";
 import { getGames } from "@/api/games";
-import { getItems, addItems, deleteItems } from "@/api/items";
+import { getItems, addItems, sortItems, deleteItems } from "@/api/items";
 import Sortable from "sortablejs";
 import { getPlatforms } from "@/api/platforms";
 import { getToken, setToken, removeToken } from "@/utils/auth";
@@ -183,8 +189,6 @@ export default {
         limit: 10
       },
       sortable: null,
-      oldList: [],
-      newList: [],
       //搜索条件
       filterData: {
         device: getToken("SiteDevice"),
@@ -259,6 +263,29 @@ export default {
         this.selectGames.push(_id);
       }
     },
+    // 保存排序
+    handleSort() {
+      let sortOps = [];
+      for (let i = 0; i < this.list.length; i++) {
+        sortOps.push({
+          _id: this.list[i]._id,
+          sort: i + 1
+        });
+      }
+      sortItems({ gameList: sortOps })
+        .then(res => {
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getList();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     // 全选
     allItems() {
       if (this.selectGames.length == this.gameList.length) {
@@ -328,8 +355,6 @@ export default {
       getItems(this.filterData).then(response => {
         this.list = response.data;
         this.listLoading = false;
-        this.oldList = this.list.map(v => v.game._id);
-        this.newList = this.oldList.slice();
         this.$nextTick(() => {
           this.setSort();
         });
@@ -337,9 +362,7 @@ export default {
     },
     // 拖拽排序
     setSort() {
-      const el = document.querySelectorAll(
-        ".el-table__body-wrapper > table > tbody"
-      )[0];
+      const el = document.querySelectorAll("#contents > table > tbody")[0];
       Sortable.create(el, {
         ghostClass: "sortable-ghost", // Class name for the drop placeholder,
         setData: function(dataTransfer) {

@@ -11,6 +11,9 @@
         {{
         $t('table.add') }}
       </el-button>
+      <el-button type="danger" @click="handleSort">
+        保存排序
+      </el-button>
       <span style="float:right;" v-if="categoryTemp">数据集合:{{categoryTemp.name}}</span>
     </div>
     <el-table
@@ -43,6 +46,7 @@
       </el-table-column>
 
       <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
+      <el-table-column label="排序" align="center" prop="sort"></el-table-column>
       <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
         <template slot-scope="scope">
           <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
@@ -471,14 +475,14 @@ import {
   addContents,
   deleteContents,
   updateContents,
+  sortComponents
 } from "@/api/contents";
 import Tinymce from "@/components/Tinymce";
 import { getAuthorities } from "@/api/authorities";
 import { getModels } from "@/api/model";
-import {
-  getCategoryOne
-} from "@/api/categories";
+import { getCategoryOne } from "@/api/categories";
 import waves from "@/directive/waves"; // Waves directive
+import Sortable from "sortablejs";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 function customizer(objValue, srcValue) {
   if (_.isArray(objValue)) {
@@ -546,6 +550,9 @@ export default {
         .then(res => {
           this.contentList = res.data.contents;
           this.listLoading = false;
+          this.$nextTick(() => {
+            this.setSort();
+          });
         })
         .catch(err => {
           this.listLoading = false;
@@ -735,7 +742,6 @@ export default {
           src: res.src
         };
       } else {
-
         this.contentTemp.extensions[this.contentKey] = {
           _id: res._id,
           fileName: file.name,
@@ -772,6 +778,55 @@ export default {
         // 计算高度
         ifrm.style.height = doc.body.scrollHeight + "px";
         doc.close();
+      });
+    },
+    // 保持排序
+    handleSort(){
+      let sortOps = [];
+      for (let i = 0; i < this.contentList.length; i++) {
+        sortOps.push({
+          _id: this.contentList[i]._id,
+          sort: i + 1
+        });
+      }
+      sortComponents({ gameList: sortOps })
+        .then(res => {
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getContents();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 拖拽排序
+    setSort() {
+      const el = document.querySelectorAll(
+        ".el-table__body-wrapper > table > tbody"
+      )[0];
+      Sortable.create(el, {
+        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
+        setData: function(dataTransfer) {
+          dataTransfer.setData("Text", "");
+          // to avoid Firefox bug
+          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+        },
+        onEnd: evt => {
+          // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
+          // 把数组根据dom的拖拽，做出新的排序
+          const targetRow = this.contentList.splice(evt.oldIndex, 1)[0];
+          this.contentList.splice(evt.newIndex, 0, targetRow);
+          const newArray = this.contentList.slice(0);
+          this.contentList = [];
+          // 数据变化后再次刷新
+          this.$nextTick(() => {
+            this.contentList = newArray;
+          });
+        }
       });
     }
   },
@@ -948,6 +1003,11 @@ export default {
   .favicon {
     height: 90px;
     display: block;
+  }
+  .sortable-ghost {
+    opacity: 0.8;
+    // color: #fff !important;
+    // background: #42b983 !important;
   }
 }
 </style>
