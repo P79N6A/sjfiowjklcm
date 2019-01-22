@@ -171,9 +171,9 @@ export default {
             top: "",
             bottom: "",
             opacity: 100,
-            margin: 0,
-            padding: 0,
-            rotate: 0,
+            margin: "",
+            padding: "",
+            rotate: "",
             width: "",
             height: ""
           },
@@ -251,10 +251,10 @@ export default {
             right: "",
             top: "",
             bottom: "",
-            opacity: "",
-            margin: 0,
-            padding: 0,
-            rotate: 0,
+            opacity: 100,
+            margin: "",
+            padding: "",
+            rotate: "",
             width: "",
             height: ""
           };
@@ -291,9 +291,9 @@ export default {
               top: "",
               bottom: "",
               opacity: 100,
-              margin: 0,
-              padding: 0,
-              rotate: 0,
+              margin: "",
+              padding: "",
+              rotate: "",
               width: "",
               height: ""
             };
@@ -330,9 +330,9 @@ export default {
                 top: "",
                 bottom: "",
                 opacity: 100,
-                margin: 0,
-                padding: 0,
-                rotate: 0,
+                margin: "",
+                padding: "",
+                rotate: "",
                 width: "",
                 height: ""
               };

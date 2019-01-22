@@ -22,135 +22,149 @@
       </el-row>
     </el-header>
     <div class="layout-view" :class="layoutTemp.device">
-    <div
-      id="drag-box"
-      ref="imageWrapper"
-      :class="[viewLayoutsClass]"
-      class="page"
-      :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]"
-    >
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
-        <!-- 块区域 -->
-        <!-- {{block}} -->
-        <div v-if="block.isPageView">
-          <el-button-group class="block-controls" v-show="viewLayoutsClass">
-            <el-button>{{block.text}}</el-button>
-          </el-button-group>
-          <div class="page-view">
-            <img src="./img/ico-page-view.png">
-            <div>页面内容展示区域</div>
-          </div>
-        </div>
-        <div
-          v-else
-          :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']"
-          :id="block.styleSetting.id"
-          :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]"
-        >
+      <div
+        id="drag-box"
+        ref="imageWrapper"
+        :class="[viewLayoutsClass]"
+        class="page"
+        :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]"
+      >
+        <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
           <!-- 块区域 -->
-          <el-button-group class="block-controls" v-show="viewLayoutsClass">
-            <el-button v-if="block.text">{{block.text}}</el-button>
-            <el-tooltip class="item" effect="dark" content="点击查看编辑容器" placement="top-start">
-              <el-button type="danger" icon="el-icon-edit-outline" @click="handleEditStyle(block)"></el-button>
-            </el-tooltip>
-          </el-button-group>
-          <el-row
-            v-for="(row,r) in block.rows"
-            :key="i+'-'+r"
-            class="rows"
-            :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
-            :id="row.styleSetting.id"
-            :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]"
+          <!-- {{block}} -->
+          <div v-if="block.isPageView">
+            <el-button-group class="block-controls" v-show="viewLayoutsClass">
+              <el-button>{{block.text}}</el-button>
+            </el-button-group>
+            <div class="page-view">
+              <img src="./img/ico-page-view.png">
+              <div>页面内容展示区域</div>
+            </div>
+          </div>
+          <div
+            v-else
+            :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']"
+            :id="block.styleSetting.id"
+            :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]"
           >
-            <!-- 区块操作按钮 -->
-            <el-button-group class="row-controls" v-show="viewLayoutsClass">
-              <el-button v-if="row.text">{{row.text}}</el-button>
-              <el-tooltip class="item" effect="dark" content="编辑当前内容区块" placement="top-start">
-                <el-button type="warning" icon="el-icon-edit-outline" @click="handleEditStyle(row)"></el-button>
+            <!-- 块区域 -->
+            <el-button-group class="block-controls" v-show="viewLayoutsClass">
+              <el-button v-if="block.text">{{block.text}}</el-button>
+              <el-tooltip class="item" effect="dark" content="点击查看编辑容器" placement="top-start">
+                <el-button
+                  type="danger"
+                  icon="el-icon-edit-outline"
+                  @click="handleEditStyle(block)"
+                ></el-button>
               </el-tooltip>
             </el-button-group>
-            <!-- 行区域 -->
-            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
-              <!-- 格子区域 -->
-              <div>
-                <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
-                  {{ (col.width/24*1200).toFixed(0)
-                  }}PX
-                </el-tag>
-                <!-- 内容-{{col.text}} -->
-                <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
-                  <el-button-group class="components-controls" v-show="viewLayoutsClass">
-                    <el-button v-if="item.text">{{item.text}}</el-button>
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="向前移动"
-                      placement="top-start"
-                      v-if="i!=0"
-                    >
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-upload2"
-                        @click="moveComponent(col.components,i,-1)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip
-                      class="item"
-                      effect="dark"
-                      content="向后移动"
-                      placement="top-start"
-                      v-if="i!=col.components.length-1"
-                    >
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-download"
-                        @click="moveComponent(col.components,i,1)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="编辑组件内容" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-edit"
-                        @click="editComponent(item)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="删除当前组件" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-close"
-                        @click="removeComponent(col.components,i)"
-                      ></el-button>
-                    </el-tooltip>
-                  </el-button-group>
+            <el-row
+              v-for="(row,r) in block.rows"
+              :key="i+'-'+r"
+              class="rows"
+              :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
+              :id="row.styleSetting.id"
+              :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]"
+              style="width:1200px;margin:0 auto;"
+            >
+              <!-- 区块操作按钮 -->
+              <el-button-group class="row-controls" v-show="viewLayoutsClass">
+                <el-button v-if="row.text">{{row.text}}</el-button>
+                <el-tooltip class="item" effect="dark" content="编辑当前内容区块" placement="top-start">
+                  <el-button
+                    type="warning"
+                    icon="el-icon-edit-outline"
+                    @click="handleEditStyle(row)"
+                  ></el-button>
+                </el-tooltip>
+              </el-button-group>
+              <!-- 行区域 -->
+              <el-col
+                v-for="(col,j) in row.cols"
+                :span="col.width"
+                :key="i+'-'+r+'-'+j"
+                class="cols"
+              >
+                <!-- 格子区域 -->
+                <div>
+                  <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
+                    {{ (col.width/24*1200).toFixed(0)
+                    }}PX
+                  </el-tag>
+                  <!-- 内容-{{col.text}} -->
+                  <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
+                    <el-button-group class="components-controls" v-show="viewLayoutsClass">
+                      <el-button v-if="item.text">{{item.text}}</el-button>
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="向前移动"
+                        placement="top-start"
+                        v-if="i!=0"
+                      >
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-upload2"
+                          @click="moveComponent(col.components,i,-1)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="向后移动"
+                        placement="top-start"
+                        v-if="i!=col.components.length-1"
+                      >
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-download"
+                          @click="moveComponent(col.components,i,1)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="编辑组件内容" placement="top-start">
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-edit"
+                          @click="editComponent(item)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="删除当前组件" placement="top-start">
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-close"
+                          @click="removeComponent(col.components,i)"
+                        ></el-button>
+                      </el-tooltip>
+                    </el-button-group>
+                    <div>
+                      <!-- 异步vue组件 -->
+                      <sync-component
+                        :url="`${cdnurl}${item.src}`"
+                        v-if="item.type=='component'"
+                        :data-id="item.dataId"
+                        :data-type="item.dataType"
+                      ></sync-component>
+                      <!-- 自定义ishow组件 -->
+                      <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
+                    </div>
+                  </div>
+                  <div v-show="viewLayoutsClass" style="padding:4px;">
+                    {{col.text}}
+                    <el-button @click="handleAddComponent(col)">点击添加组件</el-button>
+                  </div>
                   <div>
-                    <!-- 异步vue组件 -->
-                    <sync-component
-                      :url="`${cdnurl}${item.src}`"
-                      v-if="item.type=='component'"
-                      :data-id="item.dataId"
-                      :data-type="item.dataType"
-                    ></sync-component>
-                    <!-- 自定义ishow组件 -->
-                    <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
+                    <!-- 内容区域操作按钮 -->
                   </div>
                 </div>
-                <div v-show="viewLayoutsClass" style="padding:4px;">
-                  {{col.text}}
-                  <el-button @click="handleAddComponent(col)">点击添加组件</el-button>
-                </div>
-                <div>
-                  <!-- 内容区域操作按钮 -->
-                </div>
-              </div>
-            </el-col>
-          </el-row>
+              </el-col>
+            </el-row>
+          </div>
         </div>
       </div>
-    </div>
     </div>
 
     <!-- 工具栏 -->
@@ -551,14 +565,23 @@ export default {
   overflow: hidden;
   min-height: calc(100vh - 84px);
   padding: 20px;
-.layout-view{
+  .layout-view {
+    .el-row {
+      position: relative;
+      width: 1200px;
+      margin: 0 auto;
+    }
     &.MOBILE {
       width: 540px;
       margin: 0 auto;
+      .el-row {
+        position: relative;
+        width: 100%;
+        margin: 0;
+      }
     }
-}
+  }
   #drag-box {
-
   }
 
   .layoutEdit {
@@ -585,11 +608,11 @@ export default {
 
       .el-row {
         border: solid 1px #343434;
-        margin-bottom: 5px !important;
         // padding: 10px;
-        margin: 10px;
+        // margin: 10px;
         position: relative;
-
+        width: 1200px;
+        margin: 10px auto;
         .row-controls {
           position: absolute;
           top: -28px;
