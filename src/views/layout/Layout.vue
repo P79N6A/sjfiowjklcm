@@ -4,15 +4,15 @@
     <sidebar class="sidebar-container"/>
     <div class="main-container">
       <navbar v-show="showTop"/>
-      <tags-view v-show="showTop"/>
-      <div style="width:100%;text-align:center;overflow:hidden;height:18px;vertical-align:bottom;">
+      <!-- <tags-view v-show="showTop"/> -->
+      <!-- <div style="width:100%;text-align:center;overflow:hidden;height:18px;vertical-align:bottom;">
         <el-button
           :icon="showTop?'el-icon-arrow-up':'el-icon-arrow-down'"
           circle
           @click="showTop=!showTop"
           style="position:relative;bottom:12px;"
         ></el-button>
-      </div>
+      </div>-->
       <app-main/>
     </div>
   </div>
