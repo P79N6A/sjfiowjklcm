@@ -371,6 +371,27 @@
         <a href="/static/导入模板.xlsx" target="_blank">下载模板文件</a>
       </p>
     </el-dialog>
+    <el-dialog
+      title="导入列表"
+      :visible.sync="dialogInsertTable"
+      v-if="insertList.length>0"
+      width="900px"
+      :close-on-click-modal="false"
+    >
+      <el-table :data="insertList" border fit highlight-current-row style="width: 100%;">
+        <el-table-column type="index" align="center" width="50"></el-table-column>
+        <el-table-column align="center" prop="name" label="name"></el-table-column>
+        <el-table-column align="center" prop="eName" label="eName"></el-table-column>
+        <el-table-column align="center" prop="id" label="id"></el-table-column>
+        <el-table-column align="center" prop="code" label="code"></el-table-column>
+        <el-table-column align="center" prop="line" width="70" label="line"></el-table-column>
+        <el-table-column align="center" prop="device" width="50" label="终端"></el-table-column>
+        <el-table-column align="center" prop="platform" width="100" label="平台"></el-table-column>
+      </el-table>
+      <div style="padding:20px;text-align:right;">
+        <el-button @click="insertGame">导入</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -399,6 +420,7 @@ export default {
       },
       // 游戏平台类型
       platformList: [],
+      insertList: [],
       // 分类
       typeList: [
         { name: "奖池", value: "AMA" },
@@ -441,6 +463,7 @@ export default {
       listLoading: true,
       dialogFormVisible: false,
       dialogInsertVisible: false,
+      dialogInsertTable: false,
       dialogStatus: "",
       textMap: {
         update: "Edit",
@@ -667,18 +690,8 @@ export default {
             item.tags = [];
             item.online = true;
           });
-          addGames({ gameList: tabJson[0].sheet })
-            .then(res => {
-              this.dialogFormVisible = false;
-              this.getGames();
-              this.$notify({
-                title: "成功",
-                message: "操作成功",
-                type: "success",
-                duration: 2000
-              });
-            })
-            .catch(err => {});
+          this.dialogInsertTable = true;
+          this.insertList = tabJson[0].sheet;
           // xlsxJson就是解析出来的json数据,数据格式如下
           // [
           //   {
@@ -688,6 +701,20 @@ export default {
           // ]
         }
       });
+    },
+    insertGame() {
+      addGames({ gameList: tabJson[0].sheet })
+        .then(res => {
+          this.dialogFormVisible = false;
+          this.getGames();
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+        })
+        .catch(err => {});
     },
     // 分析文件
     file2Xce(file) {
