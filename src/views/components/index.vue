@@ -9,24 +9,23 @@
     </div>
     <div class="ishowList cfx">
       <div class="frames" v-for="(item,i) in componentList" :key="i">
-        <div>
-          <!-- 操作按钮区域 -->
-          <el-button-group>
-            <el-button type="primary" round icon="el-icon-edit" @click="handleEdit(item);">编辑</el-button>
-            <el-button type="danger" round icon="el-icon-delete" @click="handleDelete(item)">删除</el-button>
-          </el-button-group>
-        </div>
-        <div>{{item.name}}</div>
-        <br>
+        <h4>{{item.name}}</h4>
         <div class="frames-content">
           封面预览，未做
           <img :src="item.screenShot" style="display:block;width:100%;">
+          <div class="control">
+            <!-- 操作按钮区域 -->
+            <el-button-group>
+              <el-button type="primary" round icon="el-icon-edit" @click="handleEdit(item);">编辑</el-button>
+              <el-button type="danger" round icon="el-icon-delete" @click="handleDelete(item)">删除</el-button>
+            </el-button-group>
+          </div>
         </div>
       </div>
     </div>
     <!-- 创建组件 -->
     <el-dialog
-      :title="textMap[dialogStatus]"
+      :title="textMap[dialogStatus]+'组件'"
       :visible.sync="dialogFormVisible"
       width="800px"
       :close-on-click-modal="false"
@@ -36,32 +35,13 @@
           <el-input v-model="componentTemp.name"/>
         </el-form-item>
         <el-form-item label="*适用终端" prop="device">
-          <el-select v-model="componentTemp.device" placeholder="请选择适用终端">
+          <el-select v-model="componentTemp.device" placeholder="请选择适用终端" disabled>
             <el-option label="PC端" value="pc"></el-option>
             <el-option label="MOBILE端" value="MOBILE"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="*数据来源" prop="dataType">
-          <el-radio-group v-model="componentTemp.dataType">
-            <el-radio
-              :label="item.value"
-              v-for="item in dataTypeList"
-              :key="item.value"
-            >{{item.name}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <!-- <el-form-item label="数据集合" prop="device" v-if="componentTemp.dataType=='categories'">
-          <el-select v-model="componentTemp.category" placeholder="请选择数据集合">
-            <el-option
-              :label="item.name"
-              :value="item._id"
-              v-for="item in categoryList"
-              :key="item._id"
-            ></el-option>
-          </el-select>
-        </el-form-item>-->
-        <el-form-item label="数据模型" prop="device">
-          <el-select v-model="componentTemp.model" placeholder="请选择数据模型">
+        <el-form-item label="配置数据模型" prop="configModel">
+          <el-select v-model="componentTemp.configModel" placeholder="请选择数据模型">
             <el-option
               :label="item.name"
               :value="item._id"
@@ -70,10 +50,17 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <!-- <el-form-item label="编辑数据" v-if="dialogStatus=='update'">
-          <el-button v-if="componentTemp.dataDetail">编辑数据</el-button>
-          <el-button v-else @click="handleAddData">添加数据</el-button>
-        </el-form-item>-->
+        <el-form-item label="数据集模型" prop="categoryModel">
+          <el-select v-model="componentTemp.categoryModel" placeholder="请选择数据模型">
+            <el-option
+              :label="item.name"
+              :value="item._id"
+              v-for="item in modelList"
+              :key="item._id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="组件描述" prop="description">
           <el-input
             v-model="componentTemp.description"
@@ -81,28 +68,12 @@
             :autosize="{ minRows: 2, maxRows: 4}"
           ></el-input>
         </el-form-item>
-
-        <el-form-item label="组件script" prop="script">
+        <hr>
+        <el-form-item label="组件源码" prop="vue">
           <el-input
-            v-model="componentTemp.script"
+            v-model="componentTemp.vue"
             type="textarea"
-            :autosize="{ minRows: 10, maxRows: 20}"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="组件css" prop="css">
-          <el-input
-            v-model="componentTemp.css"
-            type="textarea"
-            :autosize="{ minRows: 10, maxRows: 20}"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="组件html" prop="html">
-          <el-input
-            v-model="componentTemp.html"
-            type="textarea"
-            :autosize="{ minRows: 10, maxRows: 20}"
+            :autosize="{ minRows: 10, maxRows: 10}"
           ></el-input>
         </el-form-item>
 
@@ -110,7 +81,7 @@
           <el-input
             v-model="componentTemp.dist"
             type="textarea"
-            :autosize="{ minRows: 10, maxRows: 20}"
+            :autosize="{ minRows: 10, maxRows: 10}"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -156,28 +127,18 @@ export default {
           src: "",
           _id: ""
         },
-
         name: "",
         description: "",
         // 源码
-        script: "",
-        css: "",
-        html: "",
+        vue: "",
         dist: "",
         // 数据相关
-        dataType: "",
-        // category: "", // 集合
-        model: "" // 模型
-        // content: ""
+        categoryModel: "", // 数据集和模型
+        configModel: "" // 组件配置模型
       },
-
       componentList: [],
       categoryList: [],
       modelList: [],
-      dataTypeList: [
-        { name: "数据集合", value: "categories" },
-        { name: "单个数据", value: "contents" }
-      ],
       dialogStatus: "",
       textMap: {
         update: "编辑",
@@ -228,15 +189,11 @@ export default {
         name: "",
         description: "",
         // 源码
-        script: "",
-        css: "",
-        html: "",
+        vue: "",
         dist: "",
         // 数据相关
-        dataType: "",
-        // category: "",
-        model: ""
-        // content: ""
+        categoryModel: "", // 数据集和模型
+        configModel: "" // 组件配置模型
       };
     },
     // 创建组件
@@ -322,7 +279,6 @@ export default {
     flex-wrap: wrap;
 
     .frames {
-      width: 25%;
       text-align: center;
       padding: 6px;
       cursor: pointer;
@@ -347,10 +303,27 @@ export default {
         font-size: 12px;
         transition: all 0.6s;
         height: 200px;
+        width: 200px;
         overflow: hidden;
-
+        position: relative;
         &:hover {
           overflow-y: scroll;
+          .control {
+            opacity: 1;
+          }
+        }
+        .control {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.3);
+          opacity: 0;
+          transition: all 0.4s;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
 

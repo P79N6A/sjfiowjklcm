@@ -1,11 +1,7 @@
 <template>
-  <div class="editStyle" v-if="value">
-    <el-button-group>
-      <el-button icon="el-icon-close" @click="$emit('input',false)">取消</el-button>
-      <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
-    </el-button-group>
+  <div class="editStyle">
     <el-tabs type="border-card">
-      <el-tab-pane label="基础属性"  :model="setting">
+      <el-tab-pane label="基础属性" :model="setting">
         <el-form ref="form" label-position="top">
           <el-form-item label="添加class">
             <el-input v-model="setting.class"></el-input>
@@ -14,28 +10,21 @@
           <el-form-item label="添加id">
             <el-input v-model="setting.id"></el-input>
           </el-form-item>
-        <el-form-item label="入场动画">
-          <el-select
-            v-model="setting.enterAnimation"
-            placeholder="请选择"
-          >
-            <el-option-group>
-              <el-option label="无" value=""></el-option>
-            </el-option-group>
-            <el-option-group
-              v-for="(group, i) in animateOptions"
-              :label="group.label"
-              :key="i"
-            >
-              <el-option
-                v-for="(item, j) in group.options"
-                :label="item.label"
-                :value="item.value"
-                :key="j"
-              ></el-option>
-            </el-option-group>
-          </el-select>
-        </el-form-item>
+          <el-form-item label="入场动画">
+            <el-select v-model="setting.enterAnimation" placeholder="请选择">
+              <el-option-group>
+                <el-option label="无" value></el-option>
+              </el-option-group>
+              <el-option-group v-for="(group, i) in animateOptions" :label="group.label" :key="i">
+                <el-option
+                  v-for="(item, j) in group.options"
+                  :label="item.label"
+                  :value="item.value"
+                  :key="j"
+                ></el-option>
+              </el-option-group>
+            </el-select>
+          </el-form-item>
         </el-form>
       </el-tab-pane>
       <!-- 基础样式 -->
@@ -43,8 +32,12 @@
         <el-form label-position="top" :model="style">
           <el-form-item label="定位方式">
             <el-select v-model="style.position" placeholder="请选择">
-              <el-option v-for="(item, index) in PositionOption" :label="item.label" :value="item.value" :key="index">
-              </el-option>
+              <el-option
+                v-for="(item, index) in PositionOption"
+                :label="item.label"
+                :value="item.value"
+                :key="index"
+              ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="左">
@@ -72,12 +65,10 @@
             <el-input v-model="style.padding"></el-input>
           </el-form-item>
           <el-form-item label="旋转角度">
-            <el-slider v-model="style.rotate" :min="0" :max="360" :step="1" show-input>
-            </el-slider>
+            <el-slider v-model="style.rotate" :min="0" :max="360" :step="1" show-input></el-slider>
           </el-form-item>
           <el-form-item label="透明度">
-            <el-slider v-model="style.opacity" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-slider v-model="style.opacity" :min="0" :max="100" :step="1" show-input></el-slider>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -85,7 +76,11 @@
       <el-tab-pane label="背景设置">
         <el-form label-position="top" :model="bg">
           <el-form-item label="背景图" prop="bg">
-            <div class="img-view" :style="{backgroundImage:bg.backgroundImage}" @click="changeImage">
+            <div
+              class="img-view"
+              :style="{backgroundImage:bg.backgroundImage}"
+              @click="changeImage"
+            >
               <i class="el-icon-plus"></i>
             </div>
             <div class="mt10 tl" v-if="bg.backgroundImage">
@@ -151,8 +146,12 @@
           </el-form-item>
           <el-form-item label="边框类型">
             <el-select v-model="border.borderStyle" placeholder="请选择">
-              <el-option v-for="(item, index) in borderStyleOptions" :label="item.label" :value="item.value" :key="index">
-              </el-option>
+              <el-option
+                v-for="(item, index) in borderStyleOptions"
+                :label="item.label"
+                :value="item.value"
+                :key="index"
+              ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="边框宽度">
@@ -179,12 +178,10 @@
             <el-input v-model="shadow.shadowWidth" shadowColor="阴影颜色" size="medium"/>
           </el-form-item>
           <el-form-item label="模糊半径">
-            <el-slider v-model="shadow.shadowRadius" :min="0" :max="100" :step="1" show-input>
-            </el-slider>
+            <el-slider v-model="shadow.shadowRadius" :min="0" :max="100" :step="1" show-input></el-slider>
           </el-form-item>
           <el-form-item label="阴影方向">
-            <el-slider v-model="shadow.shadowDire" :min="0" :max="360" :step="1" show-input>
-            </el-slider>
+            <el-slider v-model="shadow.shadowDire" :min="0" :max="360" :step="1" show-input></el-slider>
           </el-form-item>
         </el-form>
       </el-tab-pane>
@@ -193,176 +190,186 @@
         <textarea style="width:100%;height:500px;resize:none;outline:0;" rows="3" cols="20" wrap="soft" placeholder="请在此输入css代码，仅对当前选择元素有效">
 
         </textarea>
-      </el-tab-pane> -->
+      </el-tab-pane>-->
     </el-tabs>
-    <el-dialog title="媒体列表" :visible.sync="showPicList" width="800px">
+    <div style="padding:10px;text-align:right;">
+    <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
+    </div>
+    <el-dialog title="媒体列表" :visible.sync="showPicList" width="800px" :append-to-body="true">
       <file-list @select="selectFile"></file-list>
     </el-dialog>
   </div>
 </template>
 
 <script>
-  import fileList from '@/components/FileList'
-  import {
-    mapGetters
-  } from "vuex";
-  export default {
-    data() {
-      return {
-        showPicList: false,
-        setting: {
-          class: "",
-          id: "",
-          enterAnimation:"", // 入场动画
+import fileList from "@/components/FileList";
+import { mapGetters } from "vuex";
+export default {
+  data() {
+    return {
+      showPicList: false,
+      setting: {
+        class: "",
+        id: "",
+        enterAnimation: "" // 入场动画
+      },
+      bg: {
+        backgroundImage: "",
+        backgroundPosition: "",
+        backgroundSize: "",
+        backgroundRepeat: "",
+        backgroundColor: "",
+        backgroundAttachment: ""
+      },
+      style: {
+        position: "",
+        left: "",
+        right: "",
+        top: "",
+        bottom: "",
+        opacity: 100,
+        margin: 0,
+        padding: 0,
+        rotate: 0,
+        width: "",
+        height: ""
+      },
+      border: {
+        borderWidth: 0,
+        borderColor: "",
+        borderStyle: "",
+        borderRadius: 0
+      },
+      shadow: {
+        shadowWidth: 0,
+        shadowRadius: 0,
+        shadowDire: 0,
+        shadowColor: ""
+      },
+      PositionOption: [
+        {
+          name: "静止",
+          value: "static"
         },
-        bg: {
-          backgroundImage: '',
-          backgroundPosition: '',
-          backgroundSize: '',
-          backgroundRepeat: '',
-          backgroundColor: '',
-          backgroundAttachment: ''
+        {
+          name: "相对",
+          value: "relative"
         },
-        style: {
-          position: '',
-          left: '',
-          right: '',
-          top: '',
-          bottom: '',
-          opacity: 100,
-          margin: 0,
-          padding: 0,
-          rotate: 0,
-          width: '',
-          height: '',
+        {
+          name: "绝对",
+          value: "fixed"
         },
-        border: {
-          borderWidth: 0,
-          borderColor: '',
-          borderStyle: '',
-          borderRadius: 0,
+        {
+          name: "固定",
+          value: "absolute"
+        }
+      ],
+      borderStyleOptions: [
+        {
+          value: "none",
+          label: "--无--"
         },
-        shadow: {
-          shadowWidth: 0,
-          shadowRadius: 0,
-          shadowDire: 0,
-          shadowColor: '',
+        {
+          value: "solid",
+          label: "直线"
         },
-        PositionOption: [{
-            name: "静止",
-            value: "static"
-          },
-          {
-            name: "相对",
-            value: "relative"
-          },
-          {
-            name: "绝对",
-            value: "fixed"
-          },
-          {
-            name: "固定",
-            value: "absolute"
-          }
-        ],
-        borderStyleOptions: [{
-          value: 'none',
-          label: '--无--'
-        }, {
-          value: 'solid',
-          label: '直线'
-
-        }, {
-          value: 'dashed',
-          label: '虚线'
-        }, {
-          value: 'dotted',
-          label: '点状线'
-        }, {
-          value: 'double',
-          label: '双划线'
-        }, {
-          value: 'groove',
-          label: '3D凹槽'
-        }, {
-          value: 'ridge',
-          label: '3D垄状'
-        }, {
-          value: 'inset',
-          label: '3D内嵌'
-        }, {
-          value: 'outset',
-          label: '3D外嵌'
-        }],
+        {
+          value: "dashed",
+          label: "虚线"
+        },
+        {
+          value: "dotted",
+          label: "点状线"
+        },
+        {
+          value: "double",
+          label: "双划线"
+        },
+        {
+          value: "groove",
+          label: "3D凹槽"
+        },
+        {
+          value: "ridge",
+          label: "3D垄状"
+        },
+        {
+          value: "inset",
+          label: "3D内嵌"
+        },
+        {
+          value: "outset",
+          label: "3D外嵌"
+        }
+      ],
       animateOptions: [
-
         {
           label: "强调",
           options: [
             {
               value: "bounce",
-              label: "弹跳",
+              label: "弹跳"
             },
             {
               value: "flash",
-              label: "flash",
+              label: "flash"
             },
             {
               value: "pulse",
-              label: "pulse",
+              label: "pulse"
             },
             {
               value: "rubberBand",
-              label: "rubberBand",
+              label: "rubberBand"
             },
             {
               value: "shake",
-              label: "shake",
+              label: "shake"
             },
             {
               value: "headShake",
-              label: "headShake",
+              label: "headShake"
             },
             {
               value: "swing",
-              label: "swing",
+              label: "swing"
             },
             {
               value: "tada",
-              label: "tada",
+              label: "tada"
             },
             {
               value: "wobble",
-              label: "wobble",
+              label: "wobble"
             },
             {
               value: "jello",
-              label: "jello",
+              label: "jello"
             }
           ]
         },
-                {
+        {
           label: "进入",
           options: [
             {
               value: "bounceIn",
-              label: "bounceIn",
+              label: "bounceIn"
             },
             {
               value: "bounceInDown",
-              label: "bounceInDown",
+              label: "bounceInDown"
             },
             {
               value: "bounceInLeft",
-              label: "bounceInLeft",
+              label: "bounceInLeft"
             },
             {
               value: "bounceInRight",
-              label: "bounceInRight",
+              label: "bounceInRight"
             },
             {
               value: "bounceInUp",
-              label: "bounceInUp",
+              label: "bounceInUp"
             },
             {
               value: "bounceOut",
@@ -370,113 +377,103 @@
             },
             {
               value: "bounceOutDown",
-              label: "bounceOutDown",
+              label: "bounceOutDown"
             },
             {
               value: "bounceOutLeft",
-              label: "bounceOutLeft",
+              label: "bounceOutLeft"
             },
             {
               value: "bounceOutRight",
-              label: "bounceOutRight",
+              label: "bounceOutRight"
             },
             {
               value: "bounceOutUp",
-              label: "bounceOutUp",
+              label: "bounceOutUp"
             },
             {
               value: "fadeIn",
-              label: "fadeIn",
+              label: "fadeIn"
             },
             {
               value: "fadeInDown",
-              label: "fadeInDown",
+              label: "fadeInDown"
             }
           ]
         }
-      ],
+      ]
     };
+  },
+  components: {
+    fileList
+  },
+  props: {
+    styleSetting: Object,
+    styleBg: Object,
+    styleStyle: Object,
+    styleBorder: Object,
+    styleShadow: Object
+  },
+  methods: {
+    deleteImage() {},
+    changeImage() {
+      this.showPicList = true;
     },
-    components: {
-      fileList
+    selectFile(file) {
+      this.bg.backgroundImage = `url(${this.cdnurl}${file.src})`;
+      this.showPicList = false;
     },
-    props: {
-      value: Boolean,
-      styleSetting: Object,
-      styleBg: Object,
-      styleStyle: Object,
-      styleBorder: Object,
-      styleShadow: Object,
-    },
-    methods: {
-      deleteImage() {},
-      changeImage() {
-        this.showPicList = true;
-      },
-      selectFile(file) {
-        this.bg.backgroundImage = `url(${this.cdnurl}${file.src})`
-      },
-      updateStyle() {
-        this.$emit('updataStyle', {
-          styleSetting: JSON.parse(JSON.stringify(this.setting)),
-          styleBg: JSON.parse(JSON.stringify(this.bg)),
-          styleStyle: JSON.parse(JSON.stringify(this.style)),
-          styleBorder: JSON.parse(JSON.stringify(this.border)),
-          styleShadow: JSON.parse(JSON.stringify(this.shadow))
-        })
-      }
-    },
-    computed: {
-      ...mapGetters(["cdnurl"])
-    },
-    watch: {
-      value(val) {
-        if (val) {
-          Object.assign(this.setting,JSON.parse(JSON.stringify(this.styleSetting)))
-          Object.assign(this.bg,JSON.parse(JSON.stringify(this.styleBg)))
-          Object.assign(this.style,JSON.parse(JSON.stringify(this.styleStyle)))
-          Object.assign(this.border,JSON.parse(JSON.stringify(this.styleBorder)))
-          Object.assign(this.shadow,JSON.parse(JSON.stringify(this.styleShadow)))
-        } else {
-          // console.log("emit");
-        }
+    updateStyle() {
+      this.$emit("updataStyle", {
+        styleSetting: JSON.parse(JSON.stringify(this.setting)),
+        styleBg: JSON.parse(JSON.stringify(this.bg)),
+        styleStyle: JSON.parse(JSON.stringify(this.style)),
+        styleBorder: JSON.parse(JSON.stringify(this.border)),
+        styleShadow: JSON.parse(JSON.stringify(this.shadow))
+      });
+    }
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  watch: {
+    value(val) {
+      if (val) {
+        Object.assign(
+          this.setting,
+          JSON.parse(JSON.stringify(this.styleSetting))
+        );
+        Object.assign(this.bg, JSON.parse(JSON.stringify(this.styleBg)));
+        Object.assign(this.style, JSON.parse(JSON.stringify(this.styleStyle)));
+        Object.assign(
+          this.border,
+          JSON.parse(JSON.stringify(this.styleBorder))
+        );
+        Object.assign(
+          this.shadow,
+          JSON.parse(JSON.stringify(this.styleShadow))
+        );
+      } else {
+        // console.log("emit");
       }
     }
-  };
-
+  }
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .editStyle {
-    position: absolute;
-    z-index: 9;
-    transition: all 0.3s;
-    top: 0;
-    // left: 0-300px;
-    height: 100%;
-    overflow: visible;
-    background: #fff;
-    border-right: solid 1px #1f2d3d;
-    width: 300px;
-    left: 0;
+.editStyle {
+}
 
-    .toggle {
-      position: absolute;
-      top: 300px;
-      left: calc(100% - 10px);
-    }
-  }
-
-  .img-view {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: #eee;
-    text-align: center;
-    line-height: 60px;
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-  }
-
+.img-view {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #eee;
+  text-align: center;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+}
 </style>

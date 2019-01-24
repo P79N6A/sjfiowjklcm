@@ -123,15 +123,29 @@
                           @click="moveComponent(col.components,i,1)"
                         ></el-button>
                       </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="编辑组件内容" placement="top-start">
+                      <el-tooltip class="item" effect="dark" content="组件设置" placement="top-start">
                         <el-button
                           circle
                           type="primary"
-                          icon="el-icon-edit"
+                          icon="el-icon-setting"
                           @click="editComponent(item)"
                         ></el-button>
                       </el-tooltip>
-                      <el-tooltip class="item" effect="dark" content="删除当前组件" placement="top-start">
+                      <el-tooltip
+                        class="item"
+                        effect="dark"
+                        content="组件数据设置"
+                        placement="top-start"
+                        v-if="item.categoryModel"
+                      >
+                        <el-button
+                          circle
+                          type="primary"
+                          icon="el-icon-tickets"
+                          @click="editData(item)"
+                        ></el-button>
+                      </el-tooltip>
+                      <el-tooltip class="item" effect="dark" content="删除该组件" placement="top-start">
                         <el-button
                           circle
                           type="primary"
@@ -167,18 +181,18 @@
       </div>
     </div>
 
-    <!-- 工具栏 -->
-    <!-- 模块样式 -->
-    <StyleEdit
-      v-model="EditStyleShow"
-      class="active"
-      :styleSetting="styleSetting"
-      :styleBg="styleBg"
-      :styleStyle="styleStyle"
-      :styleBorder="styleBorder"
-      :styleShadow="styleShadow"
-      @updataStyle="updataStyle"
-    ></StyleEdit>
+    <!-- 样式编辑 -->
+    <el-dialog title="样式编辑" :visible.sync="EditStyleShow" width="600px" v-if="EditStyleShow">
+      <StyleEdit
+        class="active"
+        :styleSetting="styleSetting"
+        :styleBg="styleBg"
+        :styleStyle="styleStyle"
+        :styleBorder="styleBorder"
+        :styleShadow="styleShadow"
+        @updataStyle="updataStyle"
+      ></StyleEdit>
+    </el-dialog>
     <!-- 组件添加器 -->
     <el-dialog title="添加组件" :visible.sync="dialogComVisible" width="1000px">
       <el-tabs type="border-card">
@@ -227,9 +241,25 @@
         <el-button type="primary" @click="addCom">{{ $t('table.confirm') }}</el-button>
       </div>-->
     </el-dialog>
-    <!-- 组件数据编辑窗口 -->
-    <el-dialog title="数据编辑" width="600px" :visible.sync="dialogContentVisible">
-      <content-edit v-if="dialogContentVisible" :content-id="EditContentId" :model-id="EditModelId"></content-edit>
+    <!-- 数据编辑窗口 -->
+    <el-dialog title="数据编辑" width="900px" :visible.sync="dialogContentVisible">
+      <content-edit
+        v-if="dialogContentVisible"
+        :content-id="EditContentId"
+        :model-id="EditModelId"
+        :category-id="EditCategoryId"
+      ></content-edit>
+    </el-dialog>
+    <!-- 组件数据集合 -->
+    <el-dialog title="组件数据集合" width="1000px" :visible.sync="dialogCategoryVisible">
+      <content-list
+        v-if="dialogCategoryVisible"
+        :model-id="EditModelId"
+        :category-id="EditCategoryId"
+        @updateCategory="updateCategory"
+        @createContent="createContent"
+        @updateContent="updateContent"
+      ></content-list>
     </el-dialog>
   </div>
 </template>
@@ -252,6 +282,7 @@ import StyleEdit from "./components/StyleEdit";
 import IshowComponent from "./components/Ishow";
 import SyncComponent from "vue-async-component";
 import ContentEdit from "./components/Content";
+import ContentList from "./components/ContentList";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {
   name: "Page401",
@@ -295,11 +326,13 @@ export default {
       rightActive: false,
       dialogVisible: false, // 样式编辑弹窗
       dialogComVisible: false, // 样式编辑弹窗
-      dialogContentVisible: false, // 数据编辑
+      dialogContentVisible: false, // 组件配置编辑
+      dialogCategoryVisible: false, // 数据集合
       newList: [],
       dataURL: "",
       EditModelId: "",
-      EditContentId: ""
+      EditContentId: "",
+      EditCategoryId: ""
     };
   },
   mounted() {
@@ -345,11 +378,20 @@ export default {
         }
       });
     },
+    createContent(data) {
+      console.log(data);
+      this.EditContentId = "";
+      this.dialogContentVisible = true;
+    },
+    updateContent(data) {
+      console.log(data);
+      this.EditContentId = data._id;
+      this.dialogContentVisible = true;
+    },
     // 编辑布局样式
     handleEditStyle(data) {
       this.edittingData = data;
       this.EditStyleShow = true;
-      console.log(data);
       this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting || {}));
       this.styleBg = JSON.parse(JSON.stringify(data.styleBg || {}));
       this.styleStyle = JSON.parse(JSON.stringify(data.styleStyle || {}));
@@ -381,20 +423,23 @@ export default {
       }
     },
     editComponent(component) {
-      if (component.dataType == "categories") {
-        // 组件数据是数据集
-        this.$router.push({
-          name: "contents",
-          query: {
-            categoryId: component.dataId
-          }
-        });
-      } else if (component.dataType == "contents") {
-        // 组件数据是单个数据
-        this.dialogContentVisible = true;
-        this.EditContentId = component.dataId;
-        this.EditModelId = component.model;
-      }
+      // 组件配置
+      this.dialogContentVisible = true;
+      this.EditContentId = component.dataId;
+      this.EditModelId = component.configModel;
+      this.EditCategoryId = "";
+      // }
+    },
+    editData(item) {
+      // 组件内容
+      console.log(item);
+      this.edittingData = item;
+      this.EditCategoryId = item.categoryId;
+      this.EditModelId = item.categoryModel;
+      this.dialogCategoryVisible = true;
+    },
+    updateCategory(categoryId) {
+      this.edittingData.categoryId = categoryId;
     },
     // 删除组件
     removeComponent(components, index) {
@@ -429,61 +474,37 @@ export default {
       item.type = type;
       // 选中的是系统组件库
       if (type == "component") {
-        if (item.dataType == "categories") {
-          // 创建该组件数据集合
-          // 数据集合模型
-          const _categoryTemp = {
-            type: "content",
-            model: item.model,
-            name: item.name + "的数据集合",
-            path: new Date().getTime().toString(), // 这个应该废弃
-            description: item.name + "的数据集合"
-          };
-          // 创建数据集合
-          addCategories(_categoryTemp)
-            .then(res => {
-              // 设置数据
-              const _component = {
-                type: "component",
-                dataType: item.dataType,
-                src: item.src,
-                dataId: res.data._id,
-                _id: item._id,
-                name: item.name
-              };
-              // 这里要做调整
-              this.editCol.components.push(Object.assign({}, _component));
-              this.dialogComVisible = false;
-            })
-            .catch(err => {});
-        } else if (item.dataType == "contents") {
-          // 创建单个数据
-          const _contentTemp = {
-            abstract: "",
-            category: "",
-            content: "",
-            thumbnail: "",
-            media: [],
-            extensions: {}
-          };
-          addContents(_contentTemp)
-            .then(res => {
-              // 设置数据id
-              item.dataId = res.data._id;
-              const _component = {
-                type: "component",
-                src: item.src,
-                dataType: item.dataType,
-                dataId: res.data._id,
-                _id: item._id,
-                name: item.name
-              };
-              // 这里要调整
-              this.editCol.components.push(Object.assign({}, _component));
-              this.dialogComVisible = false;
-            })
-            .catch(err => {});
-        }
+        // 创建组件配置数据
+        const _contentTemp = {
+          abstract: "",
+          category: "",
+          content: "",
+          thumbnail: "",
+          media: [],
+          extensions: {},
+          isSingle: true
+        };
+        addContents(_contentTemp)
+          .then(res => {
+            // 设置数据id
+            item.dataId = res.data._id;
+            // 插入新组件
+            const _component = {
+              type: "component",
+              src: item.src,
+              // dataType: item.dataType,
+              configModel: item.configModel,
+              categoryModel: item.categoryModel,
+              dataId: res.data._id,
+              categoryId: "",
+              _id: item._id,
+              name: item.name
+            };
+            // 这里要调整
+            this.editCol.components.push(Object.assign({}, _component));
+            this.dialogComVisible = false;
+          })
+          .catch(err => {});
       } else if (type == "ishow") {
         // ishow，直接添加
         const _ishow = {
@@ -548,7 +569,8 @@ export default {
     StyleEdit,
     SyncComponent,
     IshowComponent,
-    ContentEdit
+    ContentEdit,
+    ContentList
   }
 };
 </script>
