@@ -259,6 +259,7 @@
         @updateCategory="updateCategory"
         @createContent="createContent"
         @updateContent="updateContent"
+        ref="contentList"
       ></content-list>
     </el-dialog>
   </div>
@@ -564,6 +565,15 @@ export default {
   },
   computed: {
     ...mapGetters(["cdnurl"])
+  },
+  watch: {
+    dialogContentVisible(val) {
+      console.log("sfjlksafjlkjlks;lks");
+      if (!val && this.dialogCategoryVisible) {
+        console.log("sa;fjlskadjf");
+        this.$refs.contentList.getContents();
+      }
+    }
   },
   components: {
     StyleEdit,
