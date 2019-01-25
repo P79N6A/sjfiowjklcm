@@ -66,7 +66,7 @@
               v-if="scope.row.thumbnail&&scope.row.thumbnail.src"
               :href="`${cdnurl}${scope.row.thumbnail.src}`"
               class="img-view"
-              :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
+              :style="`background-image:url('${cdnurl}${scope.row.thumbnail.src}');`"
             ></a>
           </template>
         </el-table-column>
@@ -137,7 +137,7 @@
                   target="_blank"
                   :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
                   class="img-view"
-                  :style="`background-image:url(${cdnurl}${scope.row.extensions[extend.key].src});`"
+                  :style="`background-image:url('${cdnurl}${scope.row.extensions[extend.key].src}');`"
                 ></a>
               </el-tooltip>
             </div>
@@ -361,7 +361,7 @@ export default {
     // 点击编辑按钮
     handleUpdate(row) {
       // 传数据
-      this.$emit('updateContent',row)
+      this.$emit("updateContent", row);
     },
     // 删除事件
     handleDelete(data) {
