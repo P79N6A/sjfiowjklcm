@@ -1,11 +1,11 @@
 <template>
   <div class="content-edit">
     <!-- 内容编辑弹窗,必须用v-if，促发文本域编辑器的重新渲染，可能会有其他问题，后续排查 -->
-    <el-card class="box-card" hover v-if="contentTemp">
+    <el-card class="box-card" hover v-if="modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content">
       <div slot="header" class="clearfix">
-        <span>系统参数---{{categoryId}}</span>
+        <span>系统参数</span>
       </div>
-      <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
+      <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px" >
         <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
           <el-upload
             class="avatar-uploader"
@@ -56,8 +56,8 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <br>
-    <br>
+    <!-- <br> -->
+    <!-- <br> -->
 
     <el-card class="box-card" hover v-if="contentTemp">
       <div slot="header" class="clearfix">

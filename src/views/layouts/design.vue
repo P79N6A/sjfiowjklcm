@@ -160,7 +160,7 @@
                         :url="`${cdnurl}${item.src}`"
                         v-if="item.type=='component'"
                         :data-id="item.dataId"
-                        :data-type="item.dataType"
+                        :category-id="item.categoryId"
                       ></sync-component>
                       <!-- 自定义ishow组件 -->
                       <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>

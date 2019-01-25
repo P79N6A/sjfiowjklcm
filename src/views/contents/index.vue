@@ -11,9 +11,7 @@
         {{
         $t('table.add') }}
       </el-button>
-      <el-button type="danger" @click="handleSort">
-        保存排序
-      </el-button>
+      <el-button type="danger" @click="handleSort">保存排序</el-button>
       <span style="float:right;" v-if="categoryTemp">数据集合:{{categoryTemp.name}}</span>
     </div>
     <el-table
@@ -112,7 +110,7 @@
                 target="_blank"
                 :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
                 class="img-view"
-                :style="`background-image:url(${cdnurl}${scope.row.extensions[extend.key].src});`"
+                :style="`background-image:url('${cdnurl}${scope.row.extensions[extend.key].src}');`"
               ></a>
             </el-tooltip>
           </div>
@@ -201,7 +199,11 @@
       width="900px"
       v-if="dialogFormVisible"
     >
-      <el-card class="box-card" hover v-if="contentTemp">
+      <el-card
+        class="box-card"
+        hover
+        v-if="modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content"
+      >
         <div slot="header" class="clearfix">
           <span>系统参数</span>
         </div>
@@ -781,7 +783,7 @@ export default {
       });
     },
     // 保持排序
-    handleSort(){
+    handleSort() {
       let sortOps = [];
       for (let i = 0; i < this.contentList.length; i++) {
         sortOps.push({
