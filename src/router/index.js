@@ -125,6 +125,16 @@ export const constantRouterMap = [{
           icon: 'email',
           noCache: true
         }
+      },
+      {
+        path: 'requirement',
+        component: () => import('@/views/requirement/index'),
+        name: 'requirement',
+        meta: {
+          title: 'requirement',
+          icon: 'email',
+          noCache: true
+        }
       }
     ]
   }

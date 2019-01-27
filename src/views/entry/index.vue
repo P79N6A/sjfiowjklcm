@@ -23,7 +23,12 @@
               站内信
             </router-link>
           </el-menu-item>
-          <el-button icon="el-icon-error" class="btn-logout" type="danger" @click="logout">退出</el-button>
+          <el-menu-item index="4">
+            <router-link :to="{name:'requirement'}">
+              需求列表
+            </router-link>
+          </el-menu-item>
+          <el-button icon="el-icon-error" class="btn-logout" type="danger" @click="logout">登出</el-button>
         </el-menu>
         <section class="main">
           <router-view>

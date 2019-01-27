@@ -85,7 +85,7 @@
           <el-input v-model="projectsTemp.name"/>
         </el-form-item>
         <el-form-item label="*适用终端" prop="name">
-          <el-radio-group v-model="projectsTemp.device" @change="checkList">
+          <el-radio-group v-model="projectsTemp.device">
             <el-radio
               :label="item.value"
               v-for="item in deviceTypeList"
