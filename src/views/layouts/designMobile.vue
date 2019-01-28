@@ -380,6 +380,7 @@
       },
       // 编辑布局样式
       handleEditStyle(data) {
+        console.log(data);
         this.edittingData = data;
         this.EditStyleShow = true;
         this.styleSetting = JSON.parse(JSON.stringify(data.styleSetting || {}));

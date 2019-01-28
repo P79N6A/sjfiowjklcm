@@ -431,15 +431,9 @@ export default {
         styleBorder: JSON.parse(JSON.stringify(this.border)),
         styleShadow: JSON.parse(JSON.stringify(this.shadow))
       });
-    }
-  },
-  computed: {
-    ...mapGetters(["cdnurl"])
-  },
-  watch: {
-    value(val) {
-      if (val) {
-        Object.assign(
+    },
+    initStyle(){
+              Object.assign(
           this.setting,
           JSON.parse(JSON.stringify(this.styleSetting))
         );
@@ -453,10 +447,13 @@ export default {
           this.shadow,
           JSON.parse(JSON.stringify(this.styleShadow))
         );
-      } else {
-        // console.log("emit");
-      }
     }
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  mounted() {
+    this.initStyle()
   }
 };
 </script>
