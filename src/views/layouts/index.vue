@@ -16,7 +16,7 @@
                         type="primary"
                         round
                         icon="el-icon-edit"
-                        @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                        @click="editFrame(item)"
                       >编辑</el-button>
                       <el-button
                         type="danger"
@@ -49,7 +49,7 @@
                         type="primary"
                         round
                         icon="el-icon-edit"
-                        @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                        @click="editFrame(item)"
                       >编辑</el-button>
                       <el-button
                         type="danger"
@@ -201,6 +201,14 @@ export default {
     this.getLayouts();
   },
   methods: {
+    editFrame(item){
+        if (getToken("SiteDevice").toUpperCase() == 'PC') {
+      this.$router.push({ name: 'layoutDesign', query: { layoutId: item._id}});
+        }else{
+      this.$router.push({ name: 'layoutDesignMobile', query: { layoutId: item._id}});
+
+        }
+    },
     // 读取框架列表
     getFrames() {
       getFrames({

@@ -49,8 +49,6 @@
             v-for="(row,r) in block.rows"
             :key="i+'-'+r"
             class="rows"
-            :class="frameTemp.device"
-            :style="{width:row.fullWidth?'100%':'1200px'}"
           >
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls">
@@ -80,22 +78,6 @@
                   v-if="r!=block.rows.length-1"
                 ></el-button>
               </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-smaller"
-                  @click="row.fullWidth=false"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-bigger"
-                  @click="row.fullWidth=true"
-                ></el-button>
-              </el-tooltip>
               <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
                 <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
               </el-tooltip>
@@ -109,14 +91,13 @@
               :span="col.width"
               :key="i+'-'+r+'-'+j"
               class="cols"
-              :class="frameTemp.device"
             >
               <!-- 格子区域 -->
               <div>
                 <div>
                   <input v-model="col.text" placeholder="内容区域">
                 </div>
-                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*1200).toFixed(0) }}PX</el-tag> -->
+                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*540).toFixed(0) }}PX</el-tag> -->
                 <!-- 内容-{{col.text}} -->
                 <div>
                   <!-- 内容区域操作按钮 -->
@@ -199,7 +180,7 @@ export default {
           rows: [
             {
               text: "内容区块1",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -222,7 +203,7 @@ export default {
           rows: [
             {
               text: "内容区块2",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -241,7 +222,7 @@ export default {
           rows: [
             {
               text: "内容区块3",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -275,7 +256,7 @@ export default {
           rows: [
             {
               text: "内容区块1",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -294,7 +275,7 @@ export default {
           rows: [
             {
               text: "内容区块2",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -313,7 +294,7 @@ export default {
           rows: [
             {
               text: "内容区块3",
-              fullWidth: false,
+              fullWidth: true,
               cols: [
                 {
                   text: "格子",
@@ -726,25 +707,22 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
-
-.iconfont {
-  font-size: 12px !important;
-}
-
+  .iconfont {
+    font-size: 12px !important;
+  }
 .FrameDesigh-container {
   position: relative;
   overflow: hidden;
   min-height: calc(100vh - 84px);
   padding: 20px;
   #drag-box {
-    // padding: 10px;
-    // transform:scale(0.8);
     display: flex;
     justify-content: center;
     flex-direction: column;
     background: #f7f8fb;
+    width: 540px;
+    margin:0 auto;
     padding: 4px;
-      width: 100%;
   }
 
   .show {
@@ -769,12 +747,14 @@ export default {
     }
 
     .rows {
-      box-shadow:0 0 1px 0 #343434;
+      box-shadow:0 0 0 1px #343434;
       margin-bottom: 5px !important;
       padding: 5px;
       margin: 10px auto;
       position: relative;
       min-height: 100px;
+        width: 100%;
+        padding: 2px;
       .row-controls {
         position: absolute;
         top: -21px;

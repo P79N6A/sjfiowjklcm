@@ -354,6 +354,17 @@ export const asyncRouterMap = [
         }
       },
       {
+        path: 'designMobile',
+        component: () => import('@/views/frames/designMobile.vue'),
+        name: 'frameDesignMobile',
+        hidden: true,
+        meta: {
+          title: '框架设计',
+          noCache: true,
+          authorities: [110801]
+        }
+      },
+      {
         path: 'layout',
         component: () => import('@/views/layouts/index.vue'),
         name: 'layout',
@@ -367,6 +378,17 @@ export const asyncRouterMap = [
         path: 'layoutdesign',
         component: () => import('@/views/layouts/design.vue'),
         name: 'layoutDesign',
+        hidden: true,
+        meta: {
+          title: '布局设置',
+          noCache: true,
+          authorities: [110901]
+        }
+      },
+      {
+        path: 'layoutDesignMobile',
+        component: () => import('@/views/layouts/designMobile.vue'),
+        name: 'layoutDesignMobile',
         hidden: true,
         meta: {
           title: '布局设置',

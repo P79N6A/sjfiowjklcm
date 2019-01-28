@@ -23,7 +23,7 @@
     </el-input>
     <div v-html="`<style>${testStyle}</style>`"></div>
     <!-- 页面操作区域 -->
-    <div class="layout-view" :class="layoutTemp.device">
+    <div class="layout-view">
       <div id="drag-box" ref="imageWrapper" :class="[viewLayoutsClass]" class="page" :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]">
         <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
           <div v-if="block.isPageView">
@@ -889,6 +889,8 @@
     padding: 20px;
 
     .layout-view {
+      width:540px;
+      margin:0 auto;
       .el-row {
         position: relative;
       }
