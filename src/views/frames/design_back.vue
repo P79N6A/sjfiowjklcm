@@ -1,5 +1,5 @@
 <template>
-  <div class="FrameDesigh-container">
+  <div class="LayoutDesigh-container">
     <el-header>
       <el-row :gutter="20">
         <el-col :span="6">
@@ -8,12 +8,17 @@
           </el-input>
         </el-col>
         <el-col :span="4">
+          <el-select v-model="frameTemp.device" placeholder="请选择框架适用终端" readonly disabled>
+            <el-option label="PC端" value="PC"></el-option>
+            <el-option label="MOBILE端" value="MOBILE"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="4">
           <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
           <el-button @click="$router.push({name:'frames'})">取消</el-button>
         </el-col>
       </el-row>
     </el-header>
-    <!-- 操作部分 -->
     <div id="drag-box" ref="imageWrapper" :class="frameTemp.device">
       <div class="show" v-for="(block,i) in frameTemp.value" :key="i">
         <!-- 块区域 -->
@@ -50,7 +55,6 @@
             :key="i+'-'+r"
             class="rows"
             :class="frameTemp.device"
-            :style="{width:row.fullWidth?'100%':'1200px'}"
           >
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls">
@@ -80,22 +84,22 @@
                   v-if="r!=block.rows.length-1"
                 ></el-button>
               </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-smaller"
-                  @click="row.fullWidth=false"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="iconfont icon-bigger"
-                  @click="row.fullWidth=true"
-                ></el-button>
-              </el-tooltip>
+              <!-- <el-tooltip class="item" effect="dark" content="固定居中宽度" placement="top-start">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="iconfont icon-smaller"
+                    @click="row.style.width='1200px'"
+                  ></el-button>
+              </el-tooltip>-->
+              <!-- <el-tooltip class="item" effect="dark" content="通屏100%宽度" placement="top-start">
+                  <el-button
+                    circle
+                    type="warning"
+                    icon="iconfont icon-bigger"
+                    @click="row.style.width='100%'"
+                  ></el-button>
+              </el-tooltip>-->
               <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
                 <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
               </el-tooltip>
@@ -135,7 +139,7 @@
                     <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
                       <el-button
                         circle
-                        type="warning"
+                        type="primary"
                         icon="el-icon-circle-plus"
                         @click="addCol(row,j)"
                       ></el-button>
@@ -143,9 +147,8 @@
                     <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
                       <el-button
                         circle
-                        type="danger"
+                        type="primary"
                         icon="el-icon-circle-close"
-                        v-if="row.cols.length>1"
                         @click="removeCol(row,j)"
                       ></el-button>
                     </el-tooltip>
@@ -199,7 +202,6 @@ export default {
           rows: [
             {
               text: "内容区块1",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -215,14 +217,13 @@ export default {
         },
         {
           text: "页面展示区域",
-          isPageView: false
+          isPageView: true
         },
         {
           text: "B",
           rows: [
             {
               text: "内容区块2",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -241,7 +242,6 @@ export default {
           rows: [
             {
               text: "内容区块3",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -275,7 +275,6 @@ export default {
           rows: [
             {
               text: "内容区块1",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -294,7 +293,6 @@ export default {
           rows: [
             {
               text: "内容区块2",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -313,7 +311,6 @@ export default {
           rows: [
             {
               text: "内容区块3",
-              fullWidth: false,
               cols: [
                 {
                   text: "格子",
@@ -372,8 +369,8 @@ export default {
     });
   },
   methods: {
-    // 添加框架
     addFrames() {
+      // this.frameTemp.value = this.layoutData;
       addFrames(this.frameTemp)
         .then(res => {
           this.$notify({
@@ -388,8 +385,8 @@ export default {
         })
         .catch(err => {});
     },
-    // 更新框架数据
     updateFrame() {
+      // this.frameTemp.value = this.layoutData;
       updateFrames(this.frameTemp)
         .then(res => {
           this.$notify({
@@ -401,7 +398,6 @@ export default {
         })
         .catch(err => {});
     },
-    //读取框架数据
     getFrame(data) {
       getFramesOne(data)
         .then(res => {
@@ -412,6 +408,9 @@ export default {
           });
         })
         .catch(err => {});
+    },
+    changeStyle(val) {
+      console.log(val);
     },
     /**
      * 内容区块移动
@@ -553,11 +552,14 @@ export default {
     },
     addBlock(index) {
       const newBlock = {
+        style: {},
         text: "内容区块",
         rows: [
           {
-            fullWidth: false,
-            text: "新内容区块",
+            style: {
+              // width: "1200px",
+              margin: "0 auto"
+            },
             cols: [
               {
                 text: "格子",
@@ -638,11 +640,13 @@ export default {
     /** 添加 */
     addRow(block, index) {
       const newRow = {
-        fullWidth: false,
-        text: "新内容区块",
+        style: {
+          width: "1200px",
+          margin: "0 auto"
+        },
         cols: [
           {
-            text: "格子",
+            text: "新内容",
             width: 24
           }
         ]
@@ -737,7 +741,7 @@ export default {
   font-size: 12px !important;
 }
 
-.FrameDesigh-container {
+.LayoutDesigh-container {
   position: relative;
   overflow: hidden;
   min-height: calc(100vh - 84px);
@@ -745,9 +749,6 @@ export default {
   #drag-box {
     // padding: 10px;
     // transform:scale(0.8);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     background: #f7f8fb;
     padding: 4px;
     &.PC {
@@ -786,7 +787,6 @@ export default {
       padding: 5px;
       margin: 10px auto;
       position: relative;
-      min-height: 100px;
       &.PC {
         width: 1200px;
       }
@@ -869,4 +869,10 @@ export default {
     }
   }
 }
+
+// 0,
+// 1,
+// 2,  old
+// 3,  new
+// 4
 </style>

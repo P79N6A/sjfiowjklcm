@@ -5,28 +5,29 @@
         <!-- 外框部分 -->
         <el-tab-pane label="整站布局" name="layout">
           <div class="layoutList cfx">
-            <div class="frames" v-for="(item,i) in layoutList" :key="i">
-              <div>
-                <!-- 操作按钮区域 -->
-                <el-button-group>
-                  <el-button
-                    type="primary"
-                    round
-                    icon="el-icon-edit"
-                    @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
-                  >编辑</el-button>
-                  <el-button
-                    type="danger"
-                    round
-                    icon="el-icon-delete"
-                    @click="handleDelete(item)"
-                  >删除</el-button>
-                </el-button-group>
-              </div>
-              <div>{{item.name}}</div>
-              <br>
-              <div class="frames-content">
-                <img :src="item.screenShot" style="display:block;width:100%;">
+            <div v-for="(item,i) in layoutList" :key="i">
+              <div class="title">{{item.name}}</div>
+              <div class="layouts">
+                <div class="layouts-content">
+                  <div class="control">
+                    <!-- 操作按钮区域 -->
+                    <el-button-group>
+                      <el-button
+                        type="primary"
+                        round
+                        icon="el-icon-edit"
+                        @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                      >编辑</el-button>
+                      <el-button
+                        type="danger"
+                        round
+                        icon="el-icon-delete"
+                        @click="handleDelete(item)"
+                      >删除</el-button>
+                    </el-button-group>
+                  </div>
+                  <img :src="item.screenShot" style="display:block;width:100%;">
+                </div>
               </div>
             </div>
           </div>
@@ -37,28 +38,29 @@
         <!-- 页面部分 -->
         <el-tab-pane label="页面布局" name="page">
           <div class="layoutList cfx">
-            <div class="frames" v-for="(item,i) in layoutList" :key="i">
-              <div>
-                <!-- 操作按钮区域 -->
-                <el-button-group>
-                  <el-button
-                    type="primary"
-                    round
-                    icon="el-icon-edit"
-                    @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
-                  >编辑</el-button>
-                  <el-button
-                    type="danger"
-                    round
-                    icon="el-icon-delete"
-                    @click="handleDelete(item)"
-                  >删除</el-button>
-                </el-button-group>
-              </div>
-              <div>{{item.name}}</div>
-              <br>
-              <div class="frames-content">
-                <img :src="item.screenShot" style="display:block;width:100%;">
+            <div v-for="(item,i) in layoutList" :key="i">
+              <div class="title">{{item.name}}</div>
+              <div class="layouts">
+                <div class="layouts-content">
+                  <div class="control">
+                    <!-- 操作按钮区域 -->
+                    <el-button-group>
+                      <el-button
+                        type="primary"
+                        round
+                        icon="el-icon-edit"
+                        @click="$router.push({ name: 'layoutDesign', query: { layoutId: item._id,layoutType:'layout'}})"
+                      >编辑</el-button>
+                      <el-button
+                        type="danger"
+                        round
+                        icon="el-icon-delete"
+                        @click="handleDelete(item)"
+                      >删除</el-button>
+                    </el-button-group>
+                  </div>
+                  <img :src="item.screenShot" style="display:block;width:100%;">
+                </div>
               </div>
             </div>
           </div>
@@ -80,7 +82,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="*选择框架" prop="value">
-            <div class="layoutList cfx">
+            <div class="framesList cfx">
               <div
                 class="frames"
                 v-for="(item,i) in framesList"
@@ -99,7 +101,7 @@
                         v-for="(row,r) in block.rows"
                         :key="i+'-'+r"
                         class="rows"
-                        :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
+                        :style="{width:row.fullWidth?'100%':'90%',margin:'0 auto'}"
                       >
                         <el-col
                           v-for="(col,j) in row.cols"
@@ -432,18 +434,20 @@ export default {
     .show {
       background: #eee;
     }
-
-    .frames {
-      width: 25%;
+    .title {
       text-align: center;
-      padding: 6px;
+    }
+    .layouts {
+      width: 300px;
+      text-align: center;
       cursor: pointer;
-
-      &.active {
-        .frames-content {
-          border-color: #409eff;
-          box-shadow: 0 0 4px 2px #ccc;
-        }
+      margin: 10px;
+      overflow: hidden;
+      border: solid 1px #ccc;
+      border-radius: 6px;
+      height: 350px;
+      &:hover {
+        overflow-y: scroll;
       }
 
       .rows {
@@ -451,18 +455,29 @@ export default {
         margin-bottom: 2px;
       }
 
-      .frames-content {
+      .layouts-content {
         padding: 6px;
         display: block;
-        border: solid 1px #ccc;
-        border-radius: 6px;
+        position: relative;
         font-size: 12px;
         transition: all 0.6s;
-        height: 350px;
-        overflow: hidden;
-
+        min-height: 100%;
         &:hover {
-          overflow-y: scroll;
+          .control {
+            display: block;
+          }
+        }
+
+        .control {
+          z-index: 9;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.2);
+          display: none;
+          padding-top: 100px;
         }
       }
 
@@ -481,7 +496,53 @@ export default {
       }
     }
   }
+  .framesList {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
 
+    .show {
+      background: #eee;
+    }
+
+    .frames {
+      width: 270px;
+      margin: 10px;
+      text-align: center;
+      height: 350px;
+      overflow: hidden;
+      border: solid 1px #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      &.active {
+        border-color: #409eff;
+        box-shadow: 0 0 4px 2px #ccc;
+      }
+      &:hover {
+        overflow-y: scroll;
+      }
+
+      .frames-content {
+        padding: 6px;
+        display: block;
+        position: relative;
+      }
+
+      .cols {
+        padding: 2px;
+        box-sizing: border-box;
+
+        > div {
+          border: dashed 1px #ccc;
+          padding: 10px 0;
+
+          .ico-width {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
   .bottom {
     border-top: solid 1px #ebeef5;
     margin-top: 20px;

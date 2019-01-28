@@ -5,7 +5,7 @@
         <el-col :span="6">
           <el-input v-model="layoutTemp.name" placeholder="请输入框架名称">
             <template slot="prepend">{{textMap[layoutTemp.type]}}</template>
-            <template slot="append">{{layoutTemp.device}}</template>
+            <!-- <template slot="append">{{layoutTemp.device}}</template> -->
           </el-input>
         </el-col>
         <el-col :span="10">
@@ -64,8 +64,7 @@
               class="rows"
               :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
               :id="row.styleSetting.id"
-              :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]"
-              style="width:1200px;margin:0 auto;"
+              :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow,{width:row.fullWidth?'100%':'1200px'}]"
             >
               <!-- 区块操作按钮 -->
               <el-button-group class="row-controls" v-show="viewLayoutsClass">
@@ -87,10 +86,10 @@
               >
                 <!-- 格子区域 -->
                 <div>
-                  <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
+                  <!-- <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
                     {{ (col.width/24*1200).toFixed(0)
                     }}PX
-                  </el-tag>
+                  </el-tag>-->
                   <!-- 内容-{{col.text}} -->
                   <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
                     <el-button-group class="components-controls" v-show="viewLayoutsClass">
@@ -600,17 +599,6 @@ export default {
   .layout-view {
     .el-row {
       position: relative;
-      width: 1200px;
-      margin: 0 auto;
-    }
-    &.MOBILE {
-      width: 540px;
-      margin: 0 auto;
-      .el-row {
-        position: relative;
-        width: 100%;
-        margin: 0;
-      }
     }
   }
   #drag-box {
@@ -640,10 +628,7 @@ export default {
 
       .el-row {
         border: solid 1px #343434;
-        // padding: 10px;
-        // margin: 10px;
         position: relative;
-        width: 1200px;
         margin: 10px auto;
         .row-controls {
           position: absolute;

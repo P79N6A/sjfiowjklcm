@@ -4,53 +4,54 @@
       <el-tabs type="border-card" v-model="frameType">
         <el-tab-pane label="整站框架" name="layout">
           <div class="frameList cfx">
-            <div class="frames" v-for="(item,i) in frameList" :key="i">
-              <div class="frames-content">
-                <div>
-                  <!-- 操作按钮区域 -->
-                  <el-button-group>
-                    <el-button
-                      type="primary"
-                      round
-                      icon="el-icon-edit"
-                      @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'layout'}})"
-                    >编辑</el-button>
-                    <el-button
-                      type="danger"
-                      round
-                      icon="el-icon-delete"
-                      @click="deleteFrame(item._id)"
-                    >删除</el-button>
-                  </el-button-group>
-                </div>
-                <h3>{{item.name}}</h3>
-                <div class="show" v-for="(block,i) in item.value" :key="i">
-                  <div v-if="block.isPageView" style="background:#aaa;">
-                    <img src="./img/ico-page-view.png">页面展示区域
+            <div v-for="(item,i) in frameList" :key="i">
+              <h3>{{item.name}}</h3>
+              <div class="frames">
+                <div class="frames-content">
+                  <div class="control">
+                    <!-- 操作按钮区域 -->
+                    <el-button-group>
+                      <el-button
+                        type="primary"
+                        round
+                        icon="el-icon-edit"
+                        @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'layout'}})"
+                      >编辑</el-button>
+                      <el-button
+                        type="danger"
+                        round
+                        icon="el-icon-delete"
+                        @click="deleteFrame(item._id)"
+                      >删除</el-button>
+                    </el-button-group>
                   </div>
-                  <div v-else>
-                  <el-row
-                    v-for="(row,r) in block.rows"
-                    :key="i+'-'+r"
-                    class="rows"
-                    :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
-                  >
-                    <!-- 行区域 -->
-                    <el-col
-                      v-for="(col,j) in row.cols"
-                      :span="col.width"
-                      :key="i+'-'+r+'-'+j"
-                      class="cols"
-                    >
-                      <!-- {{row}} -->
-                      <!-- 格子区域 -->
-                      <div>
-                        <span type="success" class="ico-width">{{col.text}}</span>
-                      </div>
-                    </el-col>
-                  </el-row>
+                  <div class="show" v-for="(block,i) in item.value" :key="i">
+                    <div v-if="block.isPageView" style="background:#aaa;">
+                      <img src="./img/ico-page-view.png">页面展示区域
+                    </div>
+                    <div v-else>
+                      <el-row
+                        v-for="(row,r) in block.rows"
+                        :key="i+'-'+r"
+                        class="rows"
+                        :style="{width:row.fullWidth?'100%':'90%',margin:'0 auto'}"
+                      >
+                        <!-- 行区域 -->
+                        <el-col
+                          v-for="(col,j) in row.cols"
+                          :span="col.width"
+                          :key="i+'-'+r+'-'+j"
+                          class="cols"
+                        >
+                          <!-- {{row}} -->
+                          <!-- 格子区域 -->
+                          <div>
+                            <span type="success" class="ico-width">{{col.text}}</span>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -63,46 +64,48 @@
         </el-tab-pane>
         <el-tab-pane label="页面框架" name="page">
           <div class="frameList cfx">
-            <div class="frames" v-for="(item,i) in frameList" :key="i">
-              <div class="frames-content">
-                <div>
-                  <!-- 操作按钮区域 -->
-                  <el-button-group>
-                    <el-button
-                      type="primary"
-                      round
-                      icon="el-icon-edit"
-                      @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'page'}})"
-                    >编辑</el-button>
-                    <el-button
-                      type="danger"
-                      round
-                      icon="el-icon-delete"
-                      @click="deleteFrame(item._id)"
-                    >删除</el-button>
-                  </el-button-group>
-                </div>
-                <h3>{{item.name}}</h3>
-                <div class="show" v-for="(block,i) in item.value" :key="i">
-                  <el-row
-                    v-for="(row,r) in block.rows"
-                    :key="i+'-'+r"
-                    class="rows"
-                    :style="{width:row.style&&row.style.width=='100%'?'100%':'90%',margin:'0 auto'}"
-                  >
-                    <!-- 行区域 -->
-                    <el-col
-                      v-for="(col,j) in row.cols"
-                      :span="col.width"
-                      :key="i+'-'+r+'-'+j"
-                      class="cols"
+            <div v-for="(item,i) in frameList" :key="i">
+              <h3>{{item.name}}</h3>
+              <div class="frames">
+                <div class="frames-content">
+                  <div class="control">
+                    <!-- 操作按钮区域 -->
+                    <el-button-group>
+                      <el-button
+                        type="primary"
+                        round
+                        icon="el-icon-edit"
+                        @click="$router.push({ name: 'frameDesign', query: { frameId: item._id,frameType:'page'}})"
+                      >编辑</el-button>
+                      <el-button
+                        type="danger"
+                        round
+                        icon="el-icon-delete"
+                        @click="deleteFrame(item._id)"
+                      >删除</el-button>
+                    </el-button-group>
+                  </div>
+                  <div class="show" v-for="(block,i) in item.value" :key="i">
+                    <el-row
+                      v-for="(row,r) in block.rows"
+                      :key="i+'-'+r"
+                      class="rows"
+                      :style="{width:row.fullWidth?'100%':'90%',margin:'0 auto'}"
                     >
-                      <!-- 格子区域 -->
-                      <div>
-                        <div type="success" class="ico-width">{{col.text}}</div>
-                      </div>
-                    </el-col>
-                  </el-row>
+                      <!-- 行区域 -->
+                      <el-col
+                        v-for="(col,j) in row.cols"
+                        :span="col.width"
+                        :key="i+'-'+r+'-'+j"
+                        class="cols"
+                      >
+                        <!-- 格子区域 -->
+                        <div>
+                          <div type="success" class="ico-width">{{col.text}}</div>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,7 +136,9 @@ export default {
   },
   methods: {
     getFrames() {
-      getFrames({ type: this.frameType })
+      getFrames({
+        type: this.frameType
+      })
         .then(res => {
           console.log(res.data);
           this.frameList = res.data;
@@ -147,7 +152,9 @@ export default {
         type: "warning"
       })
         .then(() => {
-          deleteFrames({ _id: _id }).then(res => {
+          deleteFrames({
+            _id: _id
+          }).then(res => {
             this.getFrames();
             this.$notify({
               title: "成功",
@@ -175,34 +182,64 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .framesList-container {
   padding: 20px;
+
   .frameList {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-    .show{
-      background:#eee;
+
+    .show {
+      background: #eee;
     }
+
     .frames {
-      width: 25%;
+      width: 300px;
+      margin: 10px;
       text-align: center;
-      padding: 6px;
+      height: 350px;
+      overflow: hidden;
+      border: solid 1px #ccc;
+      border-radius: 6px;
+
+      &:hover {
+        overflow-y: scroll;
+      }
+
       .rows {
-        // background: #eee;
         margin-bottom: 2px;
       }
+
       .frames-content {
         padding: 6px;
         display: block;
-        border: solid 1px #ccc;
-        border-radius: 6px;
+        position: relative;
+        &:hover {
+          .control {
+            display: block;
+          }
+        }
 
+        .control {
+          z-index: 9;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.2);
+          display: none;
+          padding-top: 100px;
+        }
       }
+
       .cols {
         padding: 2px;
         box-sizing: border-box;
+
         > div {
           border: dashed 1px #ccc;
           padding: 10px 0;
+
           .ico-width {
             font-size: 12px;
           }
@@ -210,11 +247,13 @@ export default {
       }
     }
   }
+
   .bottom {
     border-top: solid 1px #ebeef5;
     margin-top: 20px;
     padding-top: 20px;
   }
+
   .page-view {
     background: #e4e7ed;
     font-size: 14px;
