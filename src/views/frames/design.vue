@@ -215,7 +215,7 @@ export default {
         },
         {
           text: "页面展示区域",
-          isPageView: false
+          isPageView: true
         },
         {
           text: "B",
@@ -597,15 +597,9 @@ export default {
      * 栅栏缩小
      * */
     smaller(col) {
-      if (this.frameTemp.device == "PC") {
         if (col.width > 3) {
           col.width--;
         }
-      } else {
-        if (col.width > 3) {
-          col.width--;
-        }
-      }
     },
     /**
      * col，当前栅栏object

@@ -46,6 +46,13 @@
     computed: {
       ...mapGetters(["cdnurl"])
     },
+    watch:{
+      ishowId(val){
+        if(val){
+          this.getIshowOne();
+        }
+      }
+    },
     props: {
       ishowId: {
         type: String,

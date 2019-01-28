@@ -1,5 +1,5 @@
 <template>
-  <div class="LayoutDesigh-container">
+  <div class="FrameDesign-container">
     <el-header>
       <el-row :gutter="20">
         <el-col :span="6">
@@ -741,7 +741,7 @@ export default {
   font-size: 12px !important;
 }
 
-.LayoutDesigh-container {
+.FrameDesign-container {
   position: relative;
   overflow: hidden;
   min-height: calc(100vh - 84px);
