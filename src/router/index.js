@@ -348,7 +348,7 @@ export const asyncRouterMap = [
         name: 'frameDesign',
         hidden: true,
         meta: {
-          title: '框架设计',
+          title: '布局框架',
           noCache: true,
           authorities: [110801]
         }
@@ -359,7 +359,7 @@ export const asyncRouterMap = [
         name: 'frameDesignMobile',
         hidden: true,
         meta: {
-          title: '框架设计',
+          title: '布局内容',
           noCache: true,
           authorities: [110801]
         }
@@ -369,7 +369,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/layouts/index.vue'),
         name: 'layout',
         meta: {
-          title: '布局列表',
+          title: '布局内容',
           noCache: true,
           authorities: [110901]
         }
