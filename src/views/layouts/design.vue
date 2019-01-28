@@ -46,6 +46,7 @@
             :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']"
             :id="block.styleSetting.id"
             :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]"
+            style="display:flex;justify-content: center;"
           >
             <!-- 块区域 -->
             <el-button-group class="block-controls" v-show="viewLayoutsClass">
@@ -91,7 +92,12 @@
                     }}PX
                   </el-tag>-->
                   <!-- 内容-{{col.text}} -->
-                  <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
+                  <div
+                    v-for="(item,i) in col.components"
+                    :key="i"
+                    style="position:relative;"
+                    class="components-col"
+                  >
                     <el-button-group class="components-controls" v-show="viewLayoutsClass">
                       <el-button v-if="item.text">{{item.text}}</el-button>
                       <el-tooltip
@@ -596,12 +602,11 @@ export default {
   overflow: hidden;
   min-height: calc(100vh - 84px);
   padding: 20px;
+
   .layout-view {
     .el-row {
       position: relative;
     }
-  }
-  #drag-box {
   }
 
   .layoutEdit {
@@ -627,9 +632,10 @@ export default {
       }
 
       .el-row {
-        border: solid 1px #343434;
+        box-shadow:0 0 2px 2px #343434;
         position: relative;
         margin: 10px auto;
+
         .row-controls {
           position: absolute;
           top: -28px;
@@ -641,23 +647,28 @@ export default {
 
           > div {
             position: relative;
-            border: dashed 1px #409eff;
+            box-shadow:0 0 1px 1px #409eff;
             // padding: 10px;
             text-align: center;
             min-height: 70px;
+          }
 
-            .col-controls {
-              position: absolute;
-              left: 10px;
-              bottom: 10px;
-            }
+          .components-col {
+            min-height: 30px;
 
-            .components-controls {
-              position: absolute;
-              top: 0;
-              left: 50%;
-              z-index: 9;
+            &:hover {
+              .components-controls {
+                display: block;
+              }
             }
+          }
+
+          .components-controls {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 50%;
+            z-index: 9;
           }
 
           .ico-width {
