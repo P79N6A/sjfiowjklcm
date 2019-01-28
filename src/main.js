@@ -35,6 +35,8 @@ Vue.use(Element, {
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+// 注册事件总线
+Vue.prototype.$bus = new Vue()
 Vue.prototype._ = lodash
 Vue.config.productionTip = false
 new Vue({

@@ -119,9 +119,9 @@ export const constantRouterMap = [{
       {
         path: 'message',
         component: () => import('@/views/messages/index'),
-        name: 'userMessage',
+        name: 'UserMessage',
         meta: {
-          title: 'userMessage',
+          title: 'UserMessage',
           icon: 'email',
           noCache: true
         }
@@ -129,9 +129,9 @@ export const constantRouterMap = [{
       {
         path: 'requirement',
         component: () => import('@/views/requirement/index'),
-        name: 'requirement',
+        name: 'Userrequirement',
         meta: {
-          title: 'requirement',
+          title: 'Userrequirement',
           icon: 'email',
           noCache: true
         }
@@ -194,6 +194,57 @@ export const asyncRouterMap = [
   //   }
   //   ]
   // },
+  {
+    path: '/messages',
+    component: Layout,
+    meta: {
+      authorities: [120201]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/messages/index'),
+      name: 'messages',
+      meta: {
+        title: '站内信',
+        icon: 'email',
+        authorities: [120201]
+      }
+    }]
+  },
+  {
+    path: '/requirement',
+    component: Layout,
+    meta: {
+      authorities: [120301]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/requirement/index'),
+      name: 'requirement',
+      meta: {
+        title: '需求列表',
+        icon: 'tree',
+        authorities: [120301]
+      }
+    }]
+  },
+  {
+    path: '/project',
+    component: Layout,
+    meta: {
+      authorities: [120301]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/projects/index'),
+      name: 'projects',
+      meta: {
+        title: '项目列表',
+        icon: 'tree',
+        authorities: [120301]
+      }
+    }]
+  },
   {
     path: '/datas',
     component: Layout,
@@ -379,23 +430,23 @@ export const asyncRouterMap = [
       }
     }]
   },
-  {
-    path: '/promos',
-    component: Layout,
-    meta: {
-      authorities: [100401]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/promos/index'),
-      name: 'promos',
-      meta: {
-        title: '优惠列表',
-        icon: 'documentation',
-        authorities: [100401]
-      }
-    }]
-  },
+  // {
+  //   path: '/promos',
+  //   component: Layout,
+  //   meta: {
+  //     authorities: [100401]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/promos/index'),
+  //     name: 'promos',
+  //     meta: {
+  //       title: '优惠列表',
+  //       icon: 'documentation',
+  //       authorities: [100401]
+  //     }
+  //   }]
+  // },
   {
     path: '/components',
     component: Layout,
@@ -450,23 +501,7 @@ export const asyncRouterMap = [
       }
     }]
   },
-  {
-    path: '/messages',
-    component: Layout,
-    meta: {
-      authorities: [120201]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/messages/index'),
-      name: 'messages',
-      meta: {
-        title: '站内信',
-        icon: 'email',
-        authorities: [120201]
-      }
-    }]
-  },
+
   {
     path: '/medias',
     component: Layout,
