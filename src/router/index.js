@@ -523,7 +523,26 @@ export const asyncRouterMap = [
       }
     }]
   },
-
+  {
+    path: '/itgo',
+    component: {
+      template: '<router-view></router-view>'
+    },
+    hidden: true,
+    meta: {
+      authorities: [120301]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/itgo/index'),
+      name: 'itgo',
+      meta: {
+        title: '自定义组件库编辑',
+        icon: 'documentation',
+        authorities: [120301]
+      }
+    }]
+  },
   {
     path: '/medias',
     component: Layout,

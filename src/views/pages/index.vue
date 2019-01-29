@@ -85,6 +85,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="用户状态" prop="needLogin">
+          
           <el-switch
             style="display: block"
             v-model="pagesTemp.needLogin"
@@ -141,6 +142,7 @@
             :autosize="{ minRows: 3, maxRows: 100}"
             type="textarea"
             v-model="pagesTemp.head"
+            placeholder="代码将插入至<head>标签末尾"
           />
         </el-form-item>
 
@@ -149,6 +151,7 @@
             :autosize="{ minRows: 3, maxRows: 100}"
             type="textarea"
             v-model="pagesTemp.foot"
+            placeholder="代码将插入至<body>标签末尾"
           />
         </el-form-item>
       </el-form>
