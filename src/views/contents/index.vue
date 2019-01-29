@@ -42,7 +42,7 @@
           ></a>
         </template>
       </el-table-column>
-
+      <el-table-column label="标题" align="center" prop="title" v-if="modelTemp.system.title"></el-table-column>
       <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
       <el-table-column label="排序" align="center" prop="sort"></el-table-column>
       <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
@@ -245,6 +245,9 @@
                 </a>
               </p>
             </div>
+          </el-form-item>
+          <el-form-item label="标题" prop="title" v-if="modelTemp.system.title">
+            <el-input v-model="contentTemp.title"/>
           </el-form-item>
           <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
             <el-input v-model="contentTemp.abstract"/>
@@ -571,6 +574,9 @@ export default {
           fileName: "",
           src: ""
         };
+      }
+      if (this.modelTemp.system.title) {
+        _obj.title = "";
       }
       if (this.modelTemp.system.abstract) {
         _obj.abstract = "";

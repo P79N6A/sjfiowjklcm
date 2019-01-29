@@ -70,7 +70,7 @@
             ></a>
           </template>
         </el-table-column>
-
+        <el-table-column label="标题" align="center" prop="title" v-if="modelTemp.system.title"></el-table-column>
         <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
         <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
           <template slot-scope="scope">

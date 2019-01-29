@@ -1,11 +1,15 @@
 <template>
-  <div class="content-edit">
+  <div class="content-edit" v-if="modelTemp">
     <!-- 内容编辑弹窗,必须用v-if，促发文本域编辑器的重新渲染，可能会有其他问题，后续排查 -->
-    <el-card class="box-card" hover v-if="modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content">
+    <el-card
+      class="box-card"
+      hover
+      v-if="modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content"
+    >
       <div slot="header" class="clearfix">
         <span>系统参数</span>
       </div>
-      <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px" >
+      <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
         <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
           <el-upload
             class="avatar-uploader"
@@ -44,6 +48,9 @@
             </p>
           </div>
         </el-form-item>
+        <el-form-item label="标题" prop="title" v-if="modelTemp.system.title">
+          <el-input v-model="contentTemp.title"/>
+        </el-form-item>
         <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
           <el-input v-model="contentTemp.abstract"/>
         </el-form-item>
@@ -58,7 +65,6 @@
     </el-card>
     <!-- <br> -->
     <!-- <br> -->
-
     <el-card class="box-card" hover v-if="contentTemp">
       <div slot="header" class="clearfix">
         <span>扩展参数</span>
@@ -224,7 +230,7 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <div slot="footer" class="dialog-footer">
+    <div slot="footer" class="dialog-footer" style="padding:10px; 0">
       <!-- <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button> -->
       <el-button type="primary" @click="dialogStatus==='create'?addContents():updateContents()">
         {{ $t('table.confirm')
@@ -322,6 +328,9 @@ export default {
           fileName: "",
           src: ""
         };
+      }
+      if (this.modelTemp.system.title) {
+        _obj.title = "";
       }
       if (this.modelTemp.system.abstract) {
         _obj.abstract = "";

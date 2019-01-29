@@ -136,10 +136,23 @@
                   </td>
                 </tr>
                 <tr>
+                  <td>标题</td>
+                  <td>title</td>
+                  <td>文本框</td>
+                  <td>标题</td>
+                  <td>
+                    <el-switch
+                      v-model="modelTemp.system.title"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                    ></el-switch>
+                  </td>
+                </tr>
+                <tr>
                   <td>摘要</td>
                   <td>abstract</td>
-                  <td>文本域</td>
-                  <td>内容摘要</td>
+                  <td>文本框</td>
+                  <td>摘要</td>
                   <td>
                     <el-switch
                       v-model="modelTemp.system.abstract"
@@ -151,7 +164,7 @@
                 <tr>
                   <td>内容</td>
                   <td>content</td>
-                  <td>编辑器</td>
+                  <td>超文本</td>
                   <td>内容</td>
                   <td>
                     <el-switch
@@ -165,7 +178,7 @@
                   <td>标签</td>
                   <td>tags</td>
                   <td>标签</td>
-                  <td>内容标签</td>
+                  <td>标签</td>
                   <td>
                     <el-switch
                       v-model="modelTemp.system.tags"
@@ -340,7 +353,8 @@ export default {
         abstract: "摘要",
         content: "内容",
         tags: "标签",
-        thumbnail: "缩略图"
+        thumbnail: "缩略图",
+        title: "标题"
       },
       modelTemp: {
         type: "content", // 模型类型
@@ -356,6 +370,7 @@ export default {
         },
         // 系统键
         system: {
+          title: true,
           thumbnail: true, // 封面
           abstract: true, // 摘要
           content: true, // 内容
@@ -550,6 +565,7 @@ export default {
         },
         // 系统键
         system: {
+          title: true,
           thumbnail: true, // 封面
           abstract: true, // 摘要
           content: true, // 内容

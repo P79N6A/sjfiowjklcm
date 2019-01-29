@@ -193,7 +193,7 @@
       </el-tab-pane>-->
     </el-tabs>
     <div style="padding:10px;text-align:right;">
-    <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
+      <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
     </div>
     <el-dialog title="媒体列表" :visible.sync="showPicList" width="800px" :append-to-body="true">
       <file-list @select="selectFile"></file-list>
@@ -415,7 +415,9 @@ export default {
     styleShadow: Object
   },
   methods: {
-    deleteImage() {},
+    deleteImage() {
+      this.bg.backgroundImage = "";
+    },
     changeImage() {
       this.showPicList = true;
     },
@@ -432,28 +434,22 @@ export default {
         styleShadow: JSON.parse(JSON.stringify(this.shadow))
       });
     },
-    initStyle(){
-              Object.assign(
-          this.setting,
-          JSON.parse(JSON.stringify(this.styleSetting))
-        );
-        Object.assign(this.bg, JSON.parse(JSON.stringify(this.styleBg)));
-        Object.assign(this.style, JSON.parse(JSON.stringify(this.styleStyle)));
-        Object.assign(
-          this.border,
-          JSON.parse(JSON.stringify(this.styleBorder))
-        );
-        Object.assign(
-          this.shadow,
-          JSON.parse(JSON.stringify(this.styleShadow))
-        );
+    initStyle() {
+      Object.assign(
+        this.setting,
+        JSON.parse(JSON.stringify(this.styleSetting))
+      );
+      Object.assign(this.bg, JSON.parse(JSON.stringify(this.styleBg)));
+      Object.assign(this.style, JSON.parse(JSON.stringify(this.styleStyle)));
+      Object.assign(this.border, JSON.parse(JSON.stringify(this.styleBorder)));
+      Object.assign(this.shadow, JSON.parse(JSON.stringify(this.styleShadow)));
     }
   },
   computed: {
     ...mapGetters(["cdnurl"])
   },
   mounted() {
-    this.initStyle()
+    this.initStyle();
   }
 };
 </script>
