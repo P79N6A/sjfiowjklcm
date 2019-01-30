@@ -46,14 +46,11 @@ export default {
   
   .el-aside {
     background-color: #D3DCE6;
-    color: #343434;
-    text-align: center;
+    height:calc(100vh - 50px);
   }
   
   .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
+    height:calc(100vh - 50px);
   }
   
   body > .el-container {

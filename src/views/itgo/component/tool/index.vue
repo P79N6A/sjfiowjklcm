@@ -84,7 +84,7 @@
 <style scoped lang="scss">
   .i-tool {
     display: flex;
-
+    height:calc(100vh - 50px);
     .icons {
       background: #fff;
       border-left: solid 1px #eee;
