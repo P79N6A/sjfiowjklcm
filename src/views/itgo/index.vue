@@ -1,66 +1,53 @@
 <template>
   <div class="itgo-container">
-<el-container>
-  <el-header style="height:auto;">
-    <Iheader></Iheader>
-  </el-header>
-  <el-container>
-    <el-aside width="200px">Aside</el-aside>
-    <el-main>Main</el-main>
-    <el-aside width="272px">
-      <Itool></Itool>
-    </el-aside>
-  </el-container>
-</el-container>
+    <header>
+      <Iheader></Iheader>
+    </header>
+    <div class="contain">
+      <!-- <div class="left">
+        <Isidebar></Isidebar>
+      </div>-->
+      <div class="center">Main</div>
+      <div class="right">
+        <Itool></Itool>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Iheader from "./component/header"
-import Itool from "./component/tool"
+import Iheader from "./component/header";
+import Itool from "./component/tool";
+import Isidebar from "./component/sidebar";
 
 export default {
-  name: 'ClipboardDemo',
+  name: "ClipboardDemo",
 
   data() {
-    return {
-    }
+    return {};
   },
-  methods: {
-
-  },
+  methods: {},
   components: {
+    // 基本菜单
     Iheader,
-    Itool
-  },
-}
+    Itool,
+    Isidebar
+  }
+};
 </script>
 
-<style scoped>
-  .el-header{
-    background-color: #fff;
-    color: #333;
-    text-align: center;
-    border-bottom:solid 1px #ccc;
+<style scoped lang="scss">
+.itgo-container {
+  header {
+    border-bottom: solid 1px #ccc;
   }
-  
-  .el-aside {
-    background-color: #D3DCE6;
-    height:calc(100vh - 50px);
+  .contain {
+    display: flex;
+    justify-content: space-between;
   }
-  
-  .el-main {
-    height:calc(100vh - 50px);
+  .left {
+    width: 70px;
+    border-right: solid 1px #ccc;
   }
-  
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-  }
-  
-  .el-container:nth-child(7) .el-aside {
-  }
+}
 </style>
