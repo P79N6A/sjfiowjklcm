@@ -1,4 +1,4 @@
-<template>
+i<template>
   <div
     class="ishow-elementWrapper dragged"
     v-bind:class="{ active:isActive , 'ishow-elementWrapper--auto':isAuto}"
@@ -404,6 +404,8 @@ export default {
           if (this.isSpecialAnimate(animate[i]) === false) {
             name.push(animate[i].animationName);
             duration.push(animate[i].animationDuration + "s");
+            // iterationCount.push(animate[i].animationIterationCount || 1);
+            // 0%是否是opacity:0
             if (animate[i].isOut === true || i === 1) {
               mode.push("forwards");
             } else {

@@ -26,21 +26,21 @@
               <el-form-item label="背景对齐" prop="bg">
                 <div style="width:150px;text-align:left;">
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left top">1</el-radio-button>
-                    <el-radio-button label="center top">2</el-radio-button>
-                    <el-radio-button label="right top">3</el-radio-button>
+                    <el-radio-button label="left top"><i class="el-icon-arrow-up"  style="transform: rotate(-45deg)"></i></el-radio-button>
+                    <el-radio-button label="center top"><i class="el-icon-arrow-up"></i></el-radio-button>
+                    <el-radio-button label="right top"><i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i></el-radio-button>
                   </el-radio-group>
 
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left center">4</el-radio-button>
-                    <el-radio-button label="center center">5</el-radio-button>
-                    <el-radio-button label="right center">6</el-radio-button>
+                    <el-radio-button label="left center"><i class="el-icon-arrow-left"></i></el-radio-button>
+                    <el-radio-button label="center center"><i class="el-icon-loading"></i></el-radio-button>
+                    <el-radio-button label="right center"><i class="el-icon-arrow-right"></i></el-radio-button>
                   </el-radio-group>
 
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left bottom">7</el-radio-button>
-                    <el-radio-button label="center bottom">8</el-radio-button>
-                    <el-radio-button label="right bottom">9</el-radio-button>
+                    <el-radio-button label="left bottom"><i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i></el-radio-button>
+                    <el-radio-button label="center bottom"><i class="el-icon-arrow-down"></i></el-radio-button>
+                    <el-radio-button label="right bottom"><i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i></el-radio-button>
                   </el-radio-group>
                 </div>
               </el-form-item>

@@ -1,0 +1,15 @@
+{
+  "description":"",
+  "device":"",
+  "name":"",
+  "type":"",
+  "tag":"",
+  "value":{
+    "pageJson":[],
+    "pageSetting":{
+      "autoAnimation":true,
+      "infinite":false,
+      "interval":3
+    }
+  }
+}

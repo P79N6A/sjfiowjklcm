@@ -1,0 +1,425 @@
+{
+  "text": {
+    "type": 1,
+    "content": "你要编辑的文字",
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": 300,
+    "height": 38,
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "img": {
+    "type": 2,
+    "content": "",
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": 175,
+    "height": "auto",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "textarea": {
+    "type": 3,
+    "form": {
+      "name": "",
+      "cname": "",
+      "label": ""
+    },
+    "content": "",
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": 300,
+    "height": 35,
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "radio": {
+    "type": 4,
+    "content": "",
+    "form": {
+      "options": [],
+      "dire": "v",
+      "required": false,
+      "cname": ""
+    },
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": "300",
+    "height": "auto",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "checkbox": {
+    "type": 5,
+    "content": "",
+    "form": {
+      "options": [],
+      "dire": "v",
+      "required": false,
+      "cname": ""
+    },
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": "300",
+    "height": "auto",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "select": {
+    "type": 6,
+    "content": "",
+    "form": {
+      "options": [],
+      "selectedVal": 0,
+      "required": false,
+      "cname": ""
+    },
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": "300",
+    "height": "auto",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "button": {
+    "type": 7,
+    "content": "",
+    "form": {
+      "name": "提交",
+      "tip": "感谢您的参与",
+      "link": "",
+      "time": "",
+      "noRepeat": false,
+      "timeRange": false
+    },
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "width": "300",
+    "height": "38",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  }
+}

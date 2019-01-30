@@ -420,10 +420,14 @@ export default {
         this.histroyJson.push(json);
         len = len + 1;
         const min = len - 10 < 0 ? 0 : len - 10;
+        console.log(this.histroyJson)
         if (len >= 40) {
           this.histroyJson = this.parseJson(this.histroyJson.slice(min, len));
         }
       });
+
+
+
 
       // 获取设置历史纪录
       bus.$on("get-histroy", () => {
