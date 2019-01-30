@@ -48,6 +48,7 @@ export default {
   background: #fff;
   border-left: solid 1px #eee;
   border-right: solid 1px #eee;
+  height: 100%;
   .item {
     display: block;
     width: 40px;

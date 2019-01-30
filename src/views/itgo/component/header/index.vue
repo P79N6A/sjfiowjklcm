@@ -4,7 +4,7 @@
       <img src="/favicon.ico">
     </div>
     <div class="control">
-      <div class="item" @click="$bus.$emit('openLayerSet')" >
+      <div class="item" @click="$bus.$emit('openLayerSet')">
         <i class="el-icon-edit"></i>
         <p>文本</p>
       </div>
@@ -53,6 +53,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: #fafafa;
   .logo {
     border-right: solid 1px #ccc;
     width: 70px;

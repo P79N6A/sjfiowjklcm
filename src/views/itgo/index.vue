@@ -38,6 +38,7 @@ export default {
 
 <style scoped lang="scss">
 .itgo-container {
+  background: #eee;
   header {
     border-bottom: solid 1px #ccc;
   }
