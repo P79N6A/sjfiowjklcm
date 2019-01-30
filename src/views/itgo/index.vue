@@ -7,7 +7,9 @@
   <el-container>
     <el-aside width="200px">Aside</el-aside>
     <el-main>Main</el-main>
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="272px">
+      <Itool></Itool>
+    </el-aside>
   </el-container>
 </el-container>
   </div>
@@ -15,6 +17,8 @@
 
 <script>
 import Iheader from "./component/header"
+import Itool from "./component/tool"
+
 export default {
   name: 'ClipboardDemo',
 
@@ -26,7 +30,8 @@ export default {
 
   },
   components: {
-    Iheader
+    Iheader,
+    Itool
   },
 }
 </script>
