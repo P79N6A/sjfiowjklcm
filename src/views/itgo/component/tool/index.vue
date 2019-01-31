@@ -14,16 +14,27 @@
           </span>
         </div>
         <div class="tab-show" v-show="activeTab==1">
-          <layers></layers>
+          <layers
+            :tempJson="appJson.value.pageJson[activePageIndex].json"
+            :activeTempIndex="activeTempIndex"
+          ></layers>
         </div>
         <div class="tab-show" v-show="activeTab==2">
-          <pages></pages>
+          <pages
+            :pageJson="appJson.value.pageJson"
+            :activePageIndex="activePageIndex"
+            :activeTempIndex="activeTempIndex"
+          ></pages>
         </div>
       </div>
     </div>
-    <layerSet>元素设置</layerSet>
-    <pageSet>页面设置</pageSet>
-    <setting>组件设置</setting>
+    <layerSet
+      :appJson="appJson"
+      :activePageIndex="activePageIndex"
+      :activeTempIndex="activeTempIndex"
+    >元素设置</layerSet>
+    <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
+    <setting :appJson="appJson">全局场景设置</setting>
   </div>
 </template>
 
@@ -44,6 +55,7 @@ export default {
       activePage: 3
     };
   },
+  props: ["appJson", "activePageIndex", "activeTempIndex"],
   methods: {},
   components: { icons, pages, layers, pageSet, setting, layerSet }
 };

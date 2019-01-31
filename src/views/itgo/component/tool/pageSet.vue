@@ -26,21 +26,39 @@
               <el-form-item label="背景对齐" prop="bg">
                 <div style="width:150px;text-align:left;">
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left top"><i class="el-icon-arrow-up"  style="transform: rotate(-45deg)"></i></el-radio-button>
-                    <el-radio-button label="center top"><i class="el-icon-arrow-up"></i></el-radio-button>
-                    <el-radio-button label="right top"><i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i></el-radio-button>
+                    <el-radio-button label="left top">
+                      <i class="el-icon-arrow-up" style="transform: rotate(-45deg)"></i>
+                    </el-radio-button>
+                    <el-radio-button label="center top">
+                      <i class="el-icon-arrow-up"></i>
+                    </el-radio-button>
+                    <el-radio-button label="right top">
+                      <i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i>
+                    </el-radio-button>
                   </el-radio-group>
 
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left center"><i class="el-icon-arrow-left"></i></el-radio-button>
-                    <el-radio-button label="center center"><i class="el-icon-loading"></i></el-radio-button>
-                    <el-radio-button label="right center"><i class="el-icon-arrow-right"></i></el-radio-button>
+                    <el-radio-button label="left center">
+                      <i class="el-icon-arrow-left"></i>
+                    </el-radio-button>
+                    <el-radio-button label="center center">
+                      <i class="el-icon-loading"></i>
+                    </el-radio-button>
+                    <el-radio-button label="right center">
+                      <i class="el-icon-arrow-right"></i>
+                    </el-radio-button>
                   </el-radio-group>
 
                   <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left bottom"><i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i></el-radio-button>
-                    <el-radio-button label="center bottom"><i class="el-icon-arrow-down"></i></el-radio-button>
-                    <el-radio-button label="right bottom"><i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i></el-radio-button>
+                    <el-radio-button label="left bottom">
+                      <i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i>
+                    </el-radio-button>
+                    <el-radio-button label="center bottom">
+                      <i class="el-icon-arrow-down"></i>
+                    </el-radio-button>
+                    <el-radio-button label="right bottom">
+                      <i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i>
+                    </el-radio-button>
                   </el-radio-group>
                 </div>
               </el-form-item>
@@ -73,12 +91,12 @@
             <el-collapse-item title="基础" name="2">
               <el-form-item label="页面宽度" prop="width">
                 <el-input v-model="settingForm.width" placeholder="请输入组件长度">
-                  <template slot="append">PX</template>
+                  <!-- <template slot="append">PX</template> -->
                 </el-input>
               </el-form-item>
               <el-form-item label="页面高度" prop="height">
                 <el-input v-model="settingForm.height" placeholder="请输入组件宽度">
-                  <template slot="append">PX</template>
+                  <!-- <template slot="append">PX</template> -->
                 </el-input>
               </el-form-item>
               <el-form-item label="透明程度" prop="opacity">
@@ -91,12 +109,12 @@
             <el-collapse-item title="边框" name="3">
               <el-form-item label="边框宽度" prop="border">
                 <el-input v-model="settingForm.border.borderWidth" placeholder="边框宽度">
-                  <template slot="append">PX</template>
+                  <!-- <template slot="append">PX</template> -->
                 </el-input>
               </el-form-item>
               <el-form-item label="边框圆角" prop="border">
                 <el-input v-model="settingForm.border.borderRadius" placeholder="边框圆角">
-                  <template slot="append">PX</template>
+                  <!-- <template slot="append">PX</template> -->
                 </el-input>
               </el-form-item>
               <el-form-item label="边框颜色" prop="border">
@@ -249,10 +267,8 @@ export default {
         opacity: 100,
         rotate: 0,
 
-        enterAnimation: {},
-        enterAnimationDire: "",
-        leaveAnimation: {},
-        leaveAnimationDire: ""
+        enterAnimation: "",
+        leaveAnimation: ""
       },
       animateSelect: {},
       direName: "",
@@ -437,11 +453,34 @@ export default {
     this.$bus.$on("openPageSet", eventData => {
       this.dialogFormVisible = true;
     });
+  },
+  props: ["pageSet"],
+  watch: {
+    pageSet(val) {
+      if (this.dialogFormVisible) {
+      }
+      // style
+      this.settingForm.bg = this.pageSet.bg;
+      this.settingForm.border = this.pageSet.border;
+      this.settingForm.shadow = this.pageSet.shadow;
+      // base
+      this.settingForm.width = this.pageSet.width;
+      this.settingForm.height = this.pageSet.height;
+      this.settingForm.opacity = this.pageSet.opacity;
+      this.settingForm.rotate = this.pageSet.rotate;
+      this.settingForm.enterAnimation = this.pageSet.enterAnimation;
+      this.settingForm.leaveAnimation = this.pageSet.leaveAnimation;
+      console.log(val);
+    }
   }
 };
 </script>
 <style lang="scss">
 .page-set {
+  .el-dialog__wrapper {
+    right: auto !important;
+    overflow: inherit !important;
+  }
   .el-dialog__body {
     padding: 10px !important;
   }

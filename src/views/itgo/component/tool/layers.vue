@@ -7,31 +7,39 @@
         </el-tooltip>
 
         <el-tooltip class="item" effect="dark" content="复制当前图层" placement="top">
-          <el-button type="primary" icon="el-icon-printer"></el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-printer"
+            @click="$bus.$emit('copyTemp',activeTempIndex)"
+          ></el-button>
         </el-tooltip>
 
         <el-tooltip class="item" effect="dark" content="删除当前图层" placement="top">
-          <el-button type="danger" icon="el-icon-delete"></el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            @click="$bus.$emit('deleteTemp',activeTempIndex)"
+          ></el-button>
         </el-tooltip>
       </el-button-group>
     </div>
     <div class="layer-show">
       <div
         class="layers"
-        v-for="(item,i) in layers"
+        v-for="(item,i) in tempJson"
         :key="i"
-        :class="{active:activeLayer==item}"
-        @click="activeLayer=item"
+        :class="{active:activeTempIndex==i}"
+        @click="$bus.$emit('selectTemp',i)"
       >
         <i
           :class="item.isShow?'el-icon-view':'el-icon-circle-close-outline'"
-          @click="layers[i].isShow=!layers[i].isShow"
+          @click="$bus.$emit('toggleTempShow',i)"
         ></i>
         <i
           :class="item.isLock?'el-icon-circle-check':'el-icon-circle-close'"
-          @click="layers[i].isLock=!layers[i].isLock"
+          @click="$bus.$emit('toggleTempLock',i)"
         ></i>
-        <input v-model="layers[i].title">
+        <input v-model="tempJson[i].title">
       </div>
     </div>
   </div>
@@ -43,31 +51,7 @@ export default {
   name: "Layers",
 
   data() {
-    return {
-      activeLayer: null,
-      layers: [
-        {
-          isShow: true,
-          isLock: true,
-          title: "title1"
-        },
-        {
-          isShow: true,
-          isLock: false,
-          title: "title2"
-        },
-        {
-          isShow: false,
-          isLock: true,
-          title: "title3"
-        },
-        {
-          isShow: false,
-          isLock: false,
-          title: "title4"
-        }
-      ]
-    };
+    return {};
   },
   methods: {
     setSort() {
@@ -93,6 +77,7 @@ export default {
       });
     }
   },
+  props: ["tempJson", "activeTempIndex"],
   mounted() {
     this.setSort();
   },

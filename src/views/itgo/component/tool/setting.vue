@@ -79,7 +79,8 @@ export default {
     this.$bus.$on("openSetting", eventData => {
       this.dialogFormVisible = true;
     });
-  }
+  },
+  props: ["appJson"]
 };
 </script>
 <style lang="scss">

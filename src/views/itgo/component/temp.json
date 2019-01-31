@@ -1,6 +1,7 @@
 {
   "text": {
     "type": 1,
+    "title": "文字",
     "content": "你要编辑的文字",
     "position": {
       "top": 0,
@@ -59,6 +60,7 @@
   },
   "img": {
     "type": 2,
+    "title": "图片",
     "content": "",
     "position": {
       "top": 0,
@@ -117,6 +119,8 @@
   },
   "textarea": {
     "type": 3,
+    "title": "多行的文本输入框",
+    "content": "",
     "form": {
       "name": "",
       "cname": "",
@@ -180,6 +184,7 @@
   },
   "radio": {
     "type": 4,
+    "title": "单选列表",
     "content": "",
     "form": {
       "options": [],
@@ -244,6 +249,7 @@
   },
   "checkbox": {
     "type": 5,
+    "title": "多选列表",
     "content": "",
     "form": {
       "options": [],
@@ -308,6 +314,7 @@
   },
   "select": {
     "type": 6,
+    "title": "多选下拉框",
     "content": "",
     "form": {
       "options": [],
@@ -372,6 +379,7 @@
   },
   "button": {
     "type": 7,
+    "title": "按钮",
     "content": "",
     "form": {
       "name": "提交",
@@ -381,6 +389,67 @@
       "noRepeat": false,
       "timeRange": false
     },
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "isShow": true,
+    "isLock": false,
+    "width": "300",
+    "height": "38",
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "style": {
+        "width": 0,
+        "height": 0,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
+  "button": {
+    "type": 8,
+    "title": "功能组件",
+    "content": "",
+    "configId": "",
+    "category": "",
     "position": {
       "top": 0,
       "left": 10

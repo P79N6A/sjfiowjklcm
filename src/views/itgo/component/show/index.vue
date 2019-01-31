@@ -5,10 +5,10 @@
         <div class="ishow-screen">
           <div class="v-show ishow-showScreen">
             <VueDragResize
-              :isActive="activeDrag==drag"
+              :isActive="activeTempIndex==i"
               v-on:resizing="resize"
               v-on:dragging="resize"
-              v-for="(drag,i) in item"
+              v-for="(drag,i) in pageJson.json"
               v-show="drag.isShow"
               :isDraggable="!drag.isLock"
               :isResizable="!drag.isLock"
@@ -16,13 +16,19 @@
               :parentH="1000"
               :w="drag.width"
               :h="drag.height"
-              :x="drag.left"
-              :y="drag.top"
+              :x="drag.position.left"
+              :y="drag.position.top"
               :z="1000-i"
               :key="i"
-              @activated="onActivated(drag)"
+              @activated="onActivated(drag,i);$bus.$emit('selectTemp',i)"
             >
-              <div :style="`width:${drag.width}px;height:${drag.height}px;background:#ccc`">{{drag}}</div>
+              <div :style="`width:${drag.width}px;height:${drag.height}px;background:#ccc`">
+                {{drag.width}}-
+                {{drag.height}}
+                <br>
+                {{drag.position.left}}-
+                {{drag.position.top}}
+              </div>
             </VueDragResize>
           </div>
         </div>
@@ -80,10 +86,9 @@ export default {
     // button2Editor,
     VueDragResize
   },
-  props: ["pageJson"],
+  props: ["pageJson", "activeTempIndex"],
   methods: {
-    onActivated(item) {
-      console.log(item.isLock);
+    onActivated(item, i) {
       if (item.isLock) {
         this.activeDrag = null;
         return;
@@ -94,8 +99,8 @@ export default {
     resize(newRect) {
       this.activeDrag.width = newRect.width;
       this.activeDrag.height = newRect.height;
-      this.activeDrag.top = newRect.top;
-      this.activeDrag.left = newRect.left;
+      this.activeDrag.position.top = newRect.top;
+      this.activeDrag.position.left = newRect.left;
     }
   },
   mounted() {
