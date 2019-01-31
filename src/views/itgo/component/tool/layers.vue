@@ -24,12 +24,12 @@
         @click="activeLayer=item"
       >
         <i
-          :class="item.visible?'el-icon-view':'el-icon-circle-close-outline'"
-          @click="layers[i].visible=!layers[i].visible"
+          :class="item.isShow?'el-icon-view':'el-icon-circle-close-outline'"
+          @click="layers[i].isShow=!layers[i].isShow"
         ></i>
         <i
-          :class="item.lock?'el-icon-circle-check':'el-icon-circle-close'"
-          @click="layers[i].lock=!layers[i].lock"
+          :class="item.isLock?'el-icon-circle-check':'el-icon-circle-close'"
+          @click="layers[i].isLock=!layers[i].isLock"
         ></i>
         <input v-model="layers[i].title">
       </div>
@@ -47,23 +47,23 @@ export default {
       activeLayer: null,
       layers: [
         {
-          visible: true,
-          lock: true,
+          isShow: true,
+          isLock: true,
           title: "title1"
         },
         {
-          visible: true,
-          lock: false,
+          isShow: true,
+          isLock: false,
           title: "title2"
         },
         {
-          visible: false,
-          lock: true,
+          isShow: false,
+          isLock: true,
           title: "title3"
         },
         {
-          visible: false,
-          lock: false,
+          isShow: false,
+          isLock: false,
           title: "title4"
         }
       ]
@@ -95,7 +95,8 @@ export default {
   },
   mounted() {
     this.setSort();
-  }
+  },
+  created() {}
 };
 </script>
 

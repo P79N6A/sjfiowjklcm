@@ -2,13 +2,27 @@
   <div class="ishow-centerContainer">
     <div class="ishow-showWrapper">
       <div class="ishow-phoneMain tc">
-        <div class="ishow-screen" >
-          <div class="v-show ishow-showScreen" >
-            <VueDragResize :isActive="activeDrag==drag" v-on:resizing="resize" v-on:dragging="resize" v-for="(drag,i) in item"
-              :parentW="1000" :parentH="1000" :w="drag.width" :h="drag.height" :x="drag.left" :y="drag.top" :z="1000-i" :key="i" @activated="onActivated(drag)">
-              <div :style="`width:${drag.width}px;height:${drag.height}px;background:#ccc`">
-                {{drag}}
-              </div>
+        <div class="ishow-screen">
+          <div class="v-show ishow-showScreen">
+            <VueDragResize
+              :isActive="activeDrag==drag"
+              v-on:resizing="resize"
+              v-on:dragging="resize"
+              v-for="(drag,i) in item"
+              v-show="drag.isShow"
+              :isDraggable="!drag.isLock"
+              :isResizable="!drag.isLock"
+              :parentW="1000"
+              :parentH="1000"
+              :w="drag.width"
+              :h="drag.height"
+              :x="drag.left"
+              :y="drag.top"
+              :z="1000-i"
+              :key="i"
+              @activated="onActivated(drag)"
+            >
+              <div :style="`width:${drag.width}px;height:${drag.height}px;background:#ccc`">{{drag}}</div>
             </VueDragResize>
           </div>
         </div>
@@ -19,60 +33,72 @@
   </div>
 </template>
 <script>
-  import VueDragResize from 'vue-drag-resize'
+import VueDragResize from "vue-drag-resize";
 // import normalElement from "./normal-template.vue";
 // import button2Editor from "@/views/ishow/editor/button2-editor.vue";
 export default {
   data() {
     return {
-        item: [{
-            width: 200,
-            height: 100,
-            top: 30,
-            left: 30
-          },
-          {
-            width: 200,
-            height: 100,
-            top: 50,
-            left: 50
-          },
-          {
-            width: 200,
-            height: 100,
-            top: 90,
-            left: 90
-          },
-          {
-            width: 200,
-            height: 100,
-            top: 200,
-            left: 200
-          }
-        ],
-        activeDrag: null,
+      item: [
+        {
+          width: 200,
+          height: 100,
+          top: 30,
+          left: 30,
+          isLock: true,
+          isShow: true
+        },
+        {
+          width: 200,
+          height: 100,
+          top: 50,
+          left: 50,
+          isLock: false,
+          isShow: true
+        },
+        {
+          width: 200,
+          height: 100,
+          top: 90,
+          left: 90,
+          isLock: true,
+          isShow: false
+        },
+        {
+          width: 200,
+          height: 100,
+          top: 200,
+          left: 200,
+          isLock: false
+        }
+      ],
+      activeDrag: null
     };
   },
   components: {
     // normalElement,
     // button2Editor,
-      VueDragResize
+    VueDragResize
   },
-  props:["pageJson"],
+  props: ["pageJson"],
   methods: {
-      onActivated(item) {
-        // 缓存选定的元素
-        this.activeDrag = item
-      },
-      resize(newRect) {
-        console.log(newRect.width, newRect.height)
-        this.activeDrag.width = newRect.width;
-        this.activeDrag.height = newRect.height;
-        this.activeDrag.top = newRect.top;
-        this.activeDrag.left = newRect.left;
+    onActivated(item) {
+      console.log(item.isLock);
+      if (item.isLock) {
+        this.activeDrag = null;
+        return;
       }
+      // 缓存选定的元素
+      this.activeDrag = item;
+    },
+    resize(newRect) {
+      this.activeDrag.width = newRect.width;
+      this.activeDrag.height = newRect.height;
+      this.activeDrag.top = newRect.top;
+      this.activeDrag.left = newRect.left;
+    }
   },
-  mounted(){
+  mounted() {
     document.addEventListener("keydown", event => {
       // 撤销 ctrl+z
       if (
@@ -98,11 +124,11 @@ export default {
           ? 3
           : false;
       if (result !== false) {
-        this.activeDrag[arr[result][0]]+=arr[result][1]
+        this.activeDrag[arr[result][0]] += arr[result][1];
         // const data = this.parseJson(this.renderJson);
-        
+
         // data[this.showId].position[arr[result][0]] =
-          // data[this.showId].position[arr[result][0]] + arr[result][1];
+        // data[this.showId].position[arr[result][0]] + arr[result][1];
       }
 
       // 删除
