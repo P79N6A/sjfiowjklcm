@@ -3,7 +3,7 @@
     <div class="layer-control">
       <el-button-group>
         <el-tooltip class="item" effect="dark" content="当前图层设置" placement="top">
-          <el-button type="primary" icon="el-icon-setting"></el-button>
+          <el-button type="primary" icon="el-icon-setting" @click="$bus.$emit('openLayerSet')"></el-button>
         </el-tooltip>
 
         <el-tooltip class="item" effect="dark" content="复制当前图层" placement="top">
@@ -32,11 +32,11 @@
         @click="$bus.$emit('selectTemp',i)"
       >
         <i
-          :class="item.isShow?'el-icon-view':'el-icon-circle-close-outline'"
+          :class="item.config.isShow?'el-icon-view':'el-icon-circle-close-outline'"
           @click="$bus.$emit('toggleTempShow',i)"
         ></i>
         <i
-          :class="item.isLock?'el-icon-circle-check':'el-icon-circle-close'"
+          :class="item.config.isLock?'el-icon-circle-check':'el-icon-circle-close'"
           @click="$bus.$emit('toggleTempLock',i)"
         ></i>
         <input v-model="tempJson[i].title">
@@ -64,15 +64,20 @@ export default {
           // Detail see : https://github.com/RubaXa/Sortable/issues/1012
         },
         onEnd: evt => {
-          const targetRow = this.layers.splice(evt.oldIndex, 1)[0];
-          this.layers.splice(evt.newIndex, 0, targetRow);
-          // ，强制渲染当前列表
-          const newArray = this.layers.slice(0);
-          this.layers = [];
+          this.tempJson = [];
           // dom变化后再次刷新
           this.$nextTick(() => {
-            this.layers = newArray;
+            this.$bus.$emit("sortTemp", evt);
           });
+          // const targetRow = this.tempJson.splice(evt.oldIndex, 1)[0];
+          // this.tempJson.splice(evt.newIndex, 0, targetRow);
+          // // ，强制渲染当前列表
+          // const newArray = this.tempJson.slice(0);
+          // this.tempJson = [];
+          // // dom变化后再次刷新
+          // this.$nextTick(() => {
+          //   this.layers = newArray;
+          // });
         }
       });
     }

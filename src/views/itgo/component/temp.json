@@ -2,15 +2,16 @@
   "text": {
     "type": 1,
     "title": "文字",
-    "content": "你要编辑的文字",
     "position": {
       "top": 0,
       "left": 10
     },
-    "isShow": true,
-    "isLock": false,
-    "width": 300,
-    "height": 38,
+
+    "config":{
+      "isShow": true,
+      "isLock": false,
+    "content": "你要编辑的文字"
+  },
     "style": {
       "bg": {
         "backgroundImage": "",
@@ -37,13 +38,14 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize":14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
+      "base": {
+        "width": 100,
+        "height": 50,
         "opacity": 100,
         "rotate": 0
       }
@@ -61,15 +63,15 @@
   "img": {
     "type": 2,
     "title": "图片",
-    "content": "",
     "position": {
       "top": 0,
       "left": 10
     },
-    "isShow": true,
-    "isLock": false,
-    "width": 175,
-    "height": "auto",
+    "config":{
+      "isShow": true,
+      "isLock": false,
+    "content": ""
+  },
     "style": {
       "bg": {
         "backgroundImage": "",
@@ -94,15 +96,16 @@
         "color": "",
         "textAlign": "",
         "fontFamily": "",
-        "lineHeight": "",
+        "lineHeight": 1,
         "letterSpacing": "",
+        "fontSize":14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
+      "base": {
+        "width": 100,
+        "height": 40,
         "opacity": 100,
         "rotate": 0
       }
@@ -291,6 +294,7 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize":14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
@@ -315,7 +319,6 @@
   "select": {
     "type": 6,
     "title": "多选下拉框",
-    "content": "",
     "form": {
       "options": [],
       "selectedVal": 0,
@@ -326,10 +329,11 @@
       "top": 0,
       "left": 10
     },
-    "isShow": true,
-    "isLock": false,
-    "width": "300",
-    "height": "auto",
+    "config":{
+      "isShow": true,
+      "isLock": false,
+      "content": ""
+    },
     "style": {
       "bg": {
         "backgroundImage": "",
@@ -356,11 +360,12 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize":14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
       },
-      "style": {
+      "base": {
         "width": 0,
         "height": 0,
         "opacity": 100,
@@ -444,7 +449,7 @@
       }
     }
   },
-  "button": {
+  "video": {
     "type": 8,
     "title": "功能组件",
     "content": "",

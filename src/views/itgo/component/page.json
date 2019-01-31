@@ -21,11 +21,15 @@
     "shadowRadius": 0,
     "shadowDire": 0
   },
-  "enterAnimation": {},
-  "leaveAnimation": {},
-  "width": 400,
-  "height": 300,
-  "opacity": 100,
-  "rotate": 0,
+  "base":{
+    "width": 0,
+    "height": 0,
+    "opacity": 100,
+    "rotate": 0
+  },
+  "animate":{
+    "enterAnimation": "",
+    "leaveAnimation": ""
+  },
   "timer": null
 }

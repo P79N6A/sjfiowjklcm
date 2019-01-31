@@ -28,11 +28,7 @@
         </div>
       </div>
     </div>
-    <layerSet
-      :appJson="appJson"
-      :activePageIndex="activePageIndex"
-      :activeTempIndex="activeTempIndex"
-    >元素设置</layerSet>
+    <layerSet :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]">元素设置</layerSet>
     <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
     <setting :appJson="appJson">全局场景设置</setting>
   </div>
