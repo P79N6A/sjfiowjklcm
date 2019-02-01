@@ -1138,8 +1138,6 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
-
 .iconfont {
   font-size: 12px !important;
 }

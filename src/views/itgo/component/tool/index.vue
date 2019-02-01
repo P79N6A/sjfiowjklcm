@@ -31,6 +31,7 @@
     <layerSet :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]">元素设置</layerSet>
     <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
     <setting :appJson="appJson">全局场景设置</setting>
+    <imgList>图片资源框</imgList>
   </div>
 </template>
 
@@ -42,7 +43,8 @@ import pages from "./pages.vue";
 import pageSet from "./pageSet.vue";
 import layerSet from "./layerSet.vue";
 import setting from "./setting.vue";
-
+// 媒体资源相关
+import imgList from "@/components/ImgList";
 export default {
   name: "Iheader",
   data() {
@@ -53,7 +55,7 @@ export default {
   },
   props: ["appJson", "activePageIndex", "activeTempIndex"],
   methods: {},
-  components: { icons, pages, layers, pageSet, setting, layerSet }
+  components: { icons, pages, layers, pageSet, setting, layerSet, imgList }
 };
 </script>
 
