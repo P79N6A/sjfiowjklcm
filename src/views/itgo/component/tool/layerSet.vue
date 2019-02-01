@@ -258,7 +258,7 @@
                       placeholder="边框颜色"
                       size="medium"
                     >
-                      <el-color-picker slot="prepend" v-model="settingForm.borderColor" show-alpha></el-color-picker>
+                      <el-color-picker slot="prepend" v-model="settingForm.border.borderColor" show-alpha></el-color-picker>
                     </el-input>
                   </el-form-item>
                 </el-collapse-item>
@@ -717,12 +717,10 @@ export default {
     this.initData();
     // 图片路径
     this.$bus.$on("ChangeImgUrl", src => {
-      console.log("ChangeImgUrl")
       this.settingForm.config.content = src;
     });
     // 元素背景
     this.$bus.$on("ChangeEleBg", src => {
-      console.log("ChangeEleBg")
       this.settingForm.bg.backgroundImage = `url('${src}')`;
     });
   }
