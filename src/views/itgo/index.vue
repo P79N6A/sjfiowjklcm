@@ -59,8 +59,8 @@
                     },
                     style: {
                       bg: {
-                        backgroundImage: "/favicon.ico",
-                        backgroundColor: "#000",
+                        backgroundImage: "url('/favicon.ico')",
+                        backgroundColor: "#eee",
                         backgroundSize: "100% 100%",
                         backgroundRepeat: "repeat-x",
                         backgroundPosition: "center center"
@@ -225,7 +225,7 @@
                 ],
                 bg: {
                   backgroundImage: "url('/favicon.ico')",
-                  backgroundColor: "#000",
+                  backgroundColor: "#eee",
                   backgroundSize: "100% 100%",
                   backgroundRepeat: "repeat-x",
                   backgroundPosition: "center center"
@@ -665,8 +665,10 @@
     },
     watch: {
       activeTempIndex(val) {
-        // &&this.appJson.value.pageJson[this.activePageIndex].json[this.activeTempIndex].config.isShow
-        if (val.toString()) {
+        const _isShow=this.appJson.value.pageJson[this.activePageIndex].json[this.activeTempIndex].config.isShow
+        const _isLock=this.appJson.value.pageJson[this.activePageIndex].json[this.activeTempIndex].config.isLock
+
+        if (val.toString()&&!_isLock) {
           this.$bus.$emit("openLayerSet");
         }
       }

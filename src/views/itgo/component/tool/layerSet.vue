@@ -146,26 +146,23 @@
                 </el-collapse-item>
                 <!-- 边框 -->
                 <el-collapse-item title="边框" name="4">
-                  <el-form-item label="边框类型" prop="border">
+                                    <el-form-item label="边框类型" prop="border">
                     <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
                       <el-option v-for="(item, i) in borderStyleOptions" :label="item.label" :value="item.value" :key="i"></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="边框宽度" prop="border">
-                    <el-input v-model="settingForm.border.borderWidth" placeholder="边框宽度">
-                      <template slot="append">PX</template>
-                    </el-input>
+                    <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
                   </el-form-item>
                   <el-form-item label="边框圆角" prop="border">
-                    <el-input v-model="settingForm.border.borderRadius" placeholder="边框圆角">
-                      <template slot="append">PX</template>
-                    </el-input>
+                    <el-slider v-model="settingForm.border.borderRadius" :max="500" :min="0"></el-slider>
                   </el-form-item>
                   <el-form-item label="边框颜色" prop="border">
                     <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
                       <el-color-picker slot="prepend" v-model="settingForm.borderColor" show-alpha></el-color-picker>
                     </el-input>
                   </el-form-item>
+
                 </el-collapse-item>
                 <!-- 阴影 -->
                 <el-collapse-item title="阴影" name="5">
@@ -529,8 +526,7 @@
         this.settingForm.shadow = this.layerjson.style.shadow;
         this.settingForm.base = this.layerjson.style.base;
         this.settingForm.text = this.layerjson.style.text;
-        this.settingForm.config=this.settingForm.config;
-        console.log(this.settingForm.base)
+        this.settingForm.config=this.layerjson.config;
       }
     },
     props: ['layerjson'],

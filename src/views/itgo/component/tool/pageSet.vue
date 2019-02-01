@@ -100,6 +100,12 @@
             </el-collapse-item>
             <!-- 边框 -->
             <el-collapse-item title="边框" name="3">
+                            <el-form-item label="边框类型" prop="border">
+                <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
+                  <el-option v-for="(item, i) in borderStyleOptions" :label="item.label" :value="item.value" :key="i"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-collapse-item>
               <el-form-item label="边框宽度" prop="border">
                 <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
               </el-form-item>
@@ -111,12 +117,7 @@
                   <el-color-picker slot="prepend" v-model="settingForm.borderColor" show-alpha></el-color-picker>
                 </el-input>
               </el-form-item>
-              <el-form-item label="边框类型" prop="border">
-                <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
-                  <el-option v-for="(item, i) in borderStyleOptions" :label="item.label" :value="item.value" :key="i"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-collapse-item>
+
             <!-- 阴影 -->
             <el-collapse-item title="阴影" name="4">
               <el-form-item label="阴影颜色" prop="shadow">
