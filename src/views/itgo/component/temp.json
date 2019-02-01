@@ -88,9 +88,11 @@
       },
       "shadow": {
         "shadowColor": "",
-        "shadowWidth": 0,
-        "shadowRadius": 0,
-        "shadowDire": 0
+        "shadowX": 0,
+        "shadowY": 0,
+        "shadowFuzzy": 0,
+        "shadowDire": 0,
+        "shadowinSet": ""
       },
       "text": {
         "color": "",

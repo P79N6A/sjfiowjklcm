@@ -7,15 +7,48 @@
           <el-tab-pane label="样式">
             <el-form :label-position="'left'" label-width="70px" :model="settingForm">
               <el-collapse v-model="activeNames">
+                <!-- 其他 -->
+                <el-collapse-item title="基础" name="3">
+                  <el-form-item label="文字内容" prop="content" v-show="layerjson.type==2">
+                    <div class="img-view" :style="{backgroundImage:`url('${settingForm.config.content}'`}">
+                      <i class="el-icon-plus"></i>
+                    </div>
+                    <div class="mt10 tc">
+                      <el-button-group>
+                        <el-button type="primary" size="mini" @click="deleteImage">删除</el-button>
+                        <el-button type="danger" size="mini" @click="changeImage">修改</el-button>
+                      </el-button-group>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="元素宽度" prop="style">
+                    <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
+                      <template slot="append">PX</template>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item label="元素高度" prop="style">
+                    <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
+                      <template slot="append">PX</template>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item label="透明程度" prop="style">
+                    <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="旋转角度" prop="style">
+                    <el-slider v-model="settingForm.base.rotate" :min="0" :max="360"></el-slider>
+                  </el-form-item>
+                </el-collapse-item>
                 <!-- 文本 -->
-                <el-collapse-item title="文本" name="1">
+                <el-collapse-item title="文本" name="1" v-show="layerjson.type!=2">
                   <el-form-item label="文字内容" prop="content">
                     <el-input v-model="settingForm.config.content" placeholder="文字内容" type="textarea"></el-input>
                   </el-form-item>
-                  <el-form-item label="字体" prop="bg">
+                  <el-form-item label="字体类型" prop="bg">
                     <el-select v-model="settingForm.text.fontFamily" placeholder="请选择">
                       <el-option v-for="(item, i) in fontFamilyOptions" :label="item.label" :value="item.value" :key="i"></el-option>
                     </el-select>
+                  </el-form-item>
+                  <el-form-item label="字体大小" prop="border">
+                    <el-slider v-model="settingForm.text.fontSize" :min="12" :max="100"></el-slider>
                   </el-form-item>
                   <el-form-item label="字体颜色" prop="style">
                     <el-input v-model="settingForm.text.color" placeholder="字体颜色" size="medium">
@@ -125,25 +158,7 @@
                     </el-input>
                   </el-form-item>
                 </el-collapse-item>
-                <!-- 其他 -->
-                <el-collapse-item title="基础" name="3">
-                  <el-form-item label="元素宽度" prop="style">
-                    <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
-                      <template slot="append">PX</template>
-                    </el-input>
-                  </el-form-item>
-                  <el-form-item label="元素高度" prop="style">
-                    <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
-                      <template slot="append">PX</template>
-                    </el-input>
-                  </el-form-item>
-                  <el-form-item label="透明程度" prop="style">
-                    <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
-                  </el-form-item>
-                  <el-form-item label="旋转角度" prop="style">
-                    <el-slider v-model="settingForm.base.rotate" :min="0" :max="360"></el-slider>
-                  </el-form-item>
-                </el-collapse-item>
+
                 <!-- 边框 -->
                 <el-collapse-item title="边框" name="4">
                                     <el-form-item label="边框类型" prop="border">
@@ -513,7 +528,29 @@
             value: "outset",
             label: "3D外嵌"
           }
-        ]
+        ],
+        fontFamilyOptions:[
+          {
+            value:'',
+            label:'系统默认'
+          },
+          {
+            value: "SimSun",
+            label: "宋体"
+          },
+          {
+            value: "Microsoft Yahei",
+            label: "微软雅黑"
+          },          {
+            value: "Arial",
+            label: "无衬线字体1"
+          },          {
+            value: "Tahoma",
+            label: "无衬线字体2"
+          },          {
+            value: "Verdana",
+            label: "无衬线字体3"
+          },]
       };
     },
     methods: {

@@ -75,7 +75,7 @@
                         shadowColor: "#ccc",
                         shadowWidth: 2,
                         shadowRadius: 3,
-                        shadowDire: 4
+                        shadowDire: 0
                       },
                       text: {
                         color: "#ddd",
@@ -84,6 +84,7 @@
                         lineHeight: "1.5",
                         letterSpacing: "",
                         fontWeight: "",
+                        fontSize:14,
                         fontStyle: "italic",
                         textDecoration: ""
                       },
@@ -105,8 +106,8 @@
                     }
                   },
                   {
-                    type: 1,
-                    title: "文字2",
+                    type: 2,
+                    title: "图片2",
                     position: {
                       top: 50,
                       left: 50
@@ -114,7 +115,7 @@
                     "config": {
                       "isShow": true,
                       "isLock": false,
-                      "content": "你要编辑的文字"
+                      "content": "/favicon.ico"
                     },
                     style: {
                       bg: {
@@ -138,6 +139,7 @@
                       },
                       text: {
                         color: "",
+                        fontSize:14,
                         textAlign: "",
                         fontFamily: "",
                         lineHeight: "1",
@@ -197,6 +199,7 @@
                       },
                       text: {
                         color: "",
+                        fontSize:14,
                         textAlign: "",
                         fontFamily: "",
                         lineHeight: "1",
@@ -292,6 +295,7 @@
                     text: {
                       color: "",
                       textAlign: "",
+                        fontSize:14,
                       fontFamily: "",
                       lineHeight: "1",
                       letterSpacing: "",
@@ -384,6 +388,7 @@
                       },
                       text: {
                         color: "",
+                        fontSize:14,
                         textAlign: "",
                         fontFamily: "",
                         lineHeight: "1",
@@ -443,6 +448,7 @@
                       },
                       text: {
                         color: "",
+                        fontSize:14,
                         textAlign: "",
                         fontFamily: "",
                         lineHeight: "1",

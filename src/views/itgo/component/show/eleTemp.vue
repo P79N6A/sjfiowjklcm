@@ -47,8 +47,8 @@ i<template>
         return  {
           color:this.eleJson.style.text.color,
 
-          fontSize:this.eleJson.style.text.width+'px',
-          fontWeight:this.eleJson.style.text.height+'px',
+          fontSize:this.eleJson.style.text.fontSize+'px',
+          fontWeight:this.eleJson.style.text.fontWeight,
           fontStyle:this.eleJson.style.text.fontStyle,
           fontFamily:this.eleJson.style.text.fontFamily,
 
