@@ -2,7 +2,7 @@
   <div :class="pageJson.animate.enterAnimation" class="animated" style="border:dashed 1px #ccc;">
     <div class="i-show" :style="[baseCss,borderCss,bgCss,boxShadow]">
       <!-- 拖拽外框 -->
-      <div v-for="(drag,i) in pageJson.json">
+      <div v-for="(drag,i) in pageJson.json" :key="i">
         <VueDragResize
           :isActive="activeTempIndex==i"
           v-on:resizing="resize"
@@ -53,7 +53,7 @@ export default {
       this.activeDrag.position.left = newRect.left;
     }
   },
-  mounted() {
+  created() {
     document.addEventListener("keydown", event => {
       // 撤销 ctrl+z
       if (
@@ -87,17 +87,15 @@ export default {
       }
 
       // 删除
-      // if (event.keyCode === 8 || event.keyCode === 46) {
-      //   if (event.target.tagName === "BODY") {
-      //     bus.$emit("add-histroy");
-      //     delete this.renderJson[this.showId];
-      //     const data = this.parseJson(this.renderJson);
-      //     bus.$emit("update-json", data);
-      //     this.showId = false;
-      //   }
-      // }
+      if (event.keyCode === 8 || event.keyCode === 46) {
+        if (event.target.tagName === "BODY") {
+          // bus.$emit("add-histroy");
+          this.$bus.$emit("deleteTemp", this.activeTempIndex);
+        }
+      }
     });
   },
+
   computed: {
     activeDrag() {
       return this.pageJson.json[this.activeTempIndex];

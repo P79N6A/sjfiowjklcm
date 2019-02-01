@@ -7,11 +7,11 @@
       "left": 10
     },
 
-    "config":{
+    "config": {
       "isShow": true,
       "isLock": false,
-    "content": "你要编辑的文字"
-  },
+      "content": "你要编辑的文字"
+    },
     "style": {
       "bg": {
         "backgroundImage": "",
@@ -38,7 +38,7 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
-        "fontSize":14,
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
@@ -67,11 +67,11 @@
       "top": 0,
       "left": 10
     },
-    "config":{
+    "config": {
       "isShow": true,
       "isLock": false,
-    "content": ""
-  },
+      "content": ""
+    },
     "style": {
       "bg": {
         "backgroundImage": "",
@@ -100,7 +100,7 @@
         "fontFamily": "",
         "lineHeight": 1,
         "letterSpacing": "",
-        "fontSize":14,
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
@@ -296,7 +296,7 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
-        "fontSize":14,
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
@@ -331,7 +331,7 @@
       "top": 0,
       "left": 10
     },
-    "config":{
+    "config": {
       "isShow": true,
       "isLock": false,
       "content": ""
@@ -362,7 +362,7 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
-        "fontSize":14,
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "italic",
         "textDecoration": ""
@@ -511,5 +511,67 @@
         "target": "_blank"
       }
     }
-  }
+  },
+  "svg": {
+    "type": 9,
+    "title": "",
+    "position": {
+      "top": 0,
+      "left": 10
+    },
+    "config": {
+      "isShow": true,
+      "isLock": false,
+      "content": ""
+    },
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowX": 0,
+        "shadowY": 0,
+        "shadowFuzzy": 0,
+        "shadowDire": 0,
+        "shadowinSet": ""
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": 1,
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "base": {
+        "width": 100,
+        "height": 40,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  },
 }

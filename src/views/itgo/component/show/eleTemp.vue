@@ -9,8 +9,12 @@ i<template>
       <img :src="eleJson.config.content" alt class="img">
     </div>
     <!-- 视频 -->
-    <div v-else-if="eleJson.type===2" class :style="[borderCss,baseCss,bgCss,textCss,boxShadow]">
+    <div v-else-if="eleJson.type===8" class :style="[borderCss,baseCss,bgCss,textCss,boxShadow]">
       <video :src="eleJson.config.content" controls="controls">您的浏览器不支持 video 标签。</video>
+    </div>
+    <!-- svg-->
+    <div v-else-if="eleJson.type===9" class :style="[borderCss,baseCss,bgCss,textCss,boxShadow]">
+      <svg :d="eleJson.config.content"></svg>
     </div>
   </div>
 </template>

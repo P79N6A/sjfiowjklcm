@@ -20,7 +20,7 @@
         <i class="el-icon-printer"></i>
       </span>
     </el-tooltip>
-    <el-tooltip class="item" effect="dark" content="当前页设置2" placement="left">
+    <el-tooltip class="item" effect="dark" content="当前页样式" placement="left">
       <span class="item" @click="$bus.$emit('openPageSet')">
         <i class="el-icon-setting"></i>
       </span>

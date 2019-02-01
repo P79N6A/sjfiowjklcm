@@ -4,15 +4,15 @@
       <img src="/favicon.ico">
     </div>
     <div class="control">
-      <div class="item" @click="$bus.$emit('openLayerSet')">
+      <div class="item" @click="$bus.$emit('addTemp','text')">
         <i class="el-icon-edit"></i>
         <p>文本</p>
       </div>
-      <div class="item">
+      <div class="item" @click="$bus.$emit('addTemp','img')">
         <i class="el-icon-picture-outline"></i>
         <p>图片</p>
       </div>
-      <div class="item">
+      <div class="item" @click="$bus.$emit('openPageSet')">
         <i class="el-icon-rank"></i>
         <p>背景</p>
       </div>

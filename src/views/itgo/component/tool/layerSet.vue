@@ -258,7 +258,11 @@
                       placeholder="边框颜色"
                       size="medium"
                     >
-                      <el-color-picker slot="prepend" v-model="settingForm.border.borderColor" show-alpha></el-color-picker>
+                      <el-color-picker
+                        slot="prepend"
+                        v-model="settingForm.border.borderColor"
+                        show-alpha
+                      ></el-color-picker>
                     </el-input>
                   </el-form-item>
                 </el-collapse-item>
@@ -710,7 +714,9 @@ export default {
   },
   watch: {
     layerjson(val) {
-      this.initData();
+      if (val) {
+        this.initData();
+      }
     }
   },
   mounted() {

@@ -1,7 +1,66 @@
 {
   "page": 1,
-  "title": "新页",
-  "json": [],
+  "title": "第2页",
+  "json": [{
+    "type": 1,
+    "title": "文字1",
+    "position": {
+      "top": 50,
+      "left": 10
+    },
+    "config": {
+      "isShow": true,
+      "isLock": false,
+      "content": "你要编辑的文字"
+    },
+    "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontSize": 14,
+        "fontFamily": "",
+        "lineHeight": "1",
+        "letterSpacing": "",
+        "fontWeight": "",
+        "fontStyle": "italic",
+        "textDecoration": ""
+      },
+      "base": {
+        "width": 40,
+        "height": 70,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "animate": [],
+    "event": {
+      "onClick": {
+        "type": "",
+        "link": "",
+        "index": "",
+        "target": "_blank"
+      }
+    }
+  }],
   "bg": {
     "backgroundImage": "",
     "backgroundColor": "",
@@ -21,13 +80,13 @@
     "shadowRadius": 0,
     "shadowDire": 0
   },
-  "base":{
-    "width": 0,
-    "height": 0,
+  "base": {
+    "width": 300,
+    "height": 300,
     "opacity": 100,
     "rotate": 0
   },
-  "animate":{
+  "animate": {
     "enterAnimation": "",
     "leaveAnimation": ""
   },

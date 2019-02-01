@@ -474,14 +474,16 @@ export default {
     this.$bus.$on("openPageSet", eventData => {
       this.dialogFormVisible = true;
     });
-    this.$bus.$on('ChangePageBg',src=>{
+    this.$bus.$on("ChangePageBg", src => {
       this.settingForm.bg.backgroundImage = `url('${src}')`;
-    })
+    });
   },
   props: ["pageSet"],
   watch: {
     pageSet(val) {
-      this.initData();
+      if (val) {
+        this.initData();
+      }
     }
   },
   mounted() {
