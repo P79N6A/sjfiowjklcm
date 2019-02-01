@@ -398,7 +398,6 @@
                   ></el-switch>
                 </div>
               </el-collapse-item>
-              <!-- <el-collapse-item title="鼠标悬浮"></el-collapse-item> -->
             </el-collapse>
           </el-tab-pane>
         </el-tabs>
@@ -469,6 +468,13 @@ export default {
           index: "",
           target: ""
         }
+      },
+      animateTemp:{
+        animationDelay: 0, // 延时
+        animationDuration: 1, // 动画时间
+        animationFillMode: "both", 
+        animationIterationCount: 1, // 动画次数
+        animationName: "flipInY", // 动画class
       },
       animateOptions: [
         {

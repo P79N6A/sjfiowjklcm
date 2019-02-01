@@ -524,7 +524,7 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/itgo',
+    path: '/design',
     component: {
       template: '<router-view></router-view>'
     },
@@ -534,8 +534,8 @@ export const asyncRouterMap = [
     },
     children: [{
       path: 'index',
-      component: () => import('@/views/itgo/index'),
-      name: 'itgo',
+      component: () => import('@/views/design/index'),
+      name: 'design',
       meta: {
         title: '自定义组件库编辑',
         icon: 'documentation',
@@ -939,7 +939,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'https://nodercms.com',
       meta: {
-        title: 'ITGO官网',
+        title: '官网',
         icon: 'link'
       }
     }]

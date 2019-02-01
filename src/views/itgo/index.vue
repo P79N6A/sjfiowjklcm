@@ -1,5 +1,5 @@
 <template>
-  <div class="itgo-container">
+  <div class="design-container">
     <header>
       <Iheader></Iheader>
     </header>
@@ -718,7 +718,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.itgo-container {
+.design-container {
   background: #eee;
 
   header {

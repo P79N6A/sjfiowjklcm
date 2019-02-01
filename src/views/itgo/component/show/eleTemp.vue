@@ -14,11 +14,20 @@ i<template>
     </div>
     <!-- svg-->
     <div v-else-if="eleJson.type===9" class :style="[borderCss,baseCss,bgCss,textCss,boxShadow]">
-      <svg :d="eleJson.config.content"></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="9335104385" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 612 611.986" enable-background="new 0 0 612 611.986" xml:space="preserve" preserveAspectRatio="none" class="element svg-element">
+        <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
+      </svg>
+    </div>
+    <div v-else-if="eleJson.type===10">
+                            <!-- 异步vue组件 -->
+                      <sync-component
+                        :url="`${eleJson.config.content}`"
+                      ></sync-component>
     </div>
   </div>
 </template>
 <script>
+import SyncComponent from "vue-async-component";
 export default {
   data() {
     return {};
@@ -70,7 +79,8 @@ export default {
         }`
       };
     }
-  }
+  },
+  components: {SyncComponent}
 };
 </script>
 <style scoped lang="scss">

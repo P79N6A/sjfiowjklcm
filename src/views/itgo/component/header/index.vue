@@ -16,11 +16,11 @@
         <i class="el-icon-rank"></i>
         <p>背景</p>
       </div>
-      <div class="item">
+      <div class="item" @click="$bus.$emit('addTemp','svg')">
         <i class="el-icon-news"></i>
         <p>形状</p>
       </div>
-      <div class="item">
+      <div class="item" @click="$bus.$emit('addTemp','vue')">
         <i class="el-icon-menu"></i>
         <p>组件</p>
       </div>
