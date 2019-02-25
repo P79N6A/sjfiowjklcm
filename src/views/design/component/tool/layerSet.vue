@@ -1,13 +1,7 @@
 <template>
   <div class="layer-set">
-    <el-dialog
-      :visible.sync="dialogFormVisible"
-      v-el-drag-dialog
-      title="元素属性"
-      width="300px"
-      :modal="false"
-      :close-on-click-modal="false"
-    >
+    <el-dialog :visible.sync="dialogFormVisible" v-el-drag-dialog title="元素属性" width="300px" :modal="false"
+      :close-on-click-modal="false">
       <el-scrollbar class="shows">
         <el-tabs type="border-card">
           <el-tab-pane label="样式">
@@ -15,29 +9,49 @@
               <el-collapse v-model="activeNames">
                 <!-- 其他 -->
                 <el-collapse-item title="基础" name="3">
-                  <el-form-item label="图片内容" prop="content" v-show="layerjson.type==2">
-                    <div
-                      @click="$bus.$emit('openImgList','ChangeImgUrl')"
-                      class="img-view"
-                      :style="`background-image:url('${settingForm.config.content}')`"
-                    >
+                  <!-- 图片元素 -->
+                  <el-form-item label="图片内容" prop="content" v-if="layerjson.type==2">
+                    <div @click="$bus.$emit('openImgList','ChangeImgUrl')" class="img-view" :style="`background-image:url('${settingForm.config.content}')`">
                       <i class="el-icon-plus"></i>
                     </div>
                     <div class="mt10 tc">
                       <el-button-group>
-                        <el-button
-                          type="primary"
-                          size="mini"
-                          @click="settingForm.config.content=''"
-                        >删除</el-button>
-                        <el-button
-                          type="danger"
-                          size="mini"
-                          @click="$bus.$emit('openImgList','ChangeImgUrl')"
-                        >修改</el-button>
+                        <el-button type="primary" size="mini" @click="settingForm.config.content=''">删除</el-button>
+                        <el-button type="danger" size="mini" @click="$bus.$emit('openImgList','ChangeImgUrl')">修改</el-button>
                       </el-button-group>
                     </div>
                   </el-form-item>
+                  <!-- 形状元素 -->
+                  <el-form-item label="形状内容" prop="content" v-if="layerjson.type==9">
+                    <div @click="$bus.$emit('openSvgList','ChangSvg')" class="img-view">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        x="0px" y="0px" width="100%" height="100%" :viewBox="settingForm.config.viewBox" xml:space="preserve"
+                        preserveAspectRatio="none" v-show="settingForm.config.content">
+                        <path :d="settingForm.config.content" :fill="settingForm.text.color"></path>
+                      </svg>
+                      <i class="el-icon-plus" v-show="!settingForm.config.content"></i>
+                    </div>
+                    <div class="mt10 tc">
+                      <el-button-group>
+                        <el-button type="primary" size="mini" @click="settingForm.config.content=''">删除</el-button>
+                        <el-button type="danger" size="mini" @click="$bus.$emit('openSvgList','ChangSvg')">修改</el-button>
+                      </el-button-group>
+                    </div>
+                  </el-form-item>
+                  <!-- 形状元素 -->
+                  <el-form-item label="形状颜色" prop="style" v-if="layerjson.type==9">
+                    <el-input v-model="settingForm.text.color" placeholder="形状颜色" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.text.color" show-alpha></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                  <!-- vue元素 -->
+                  <el-form-item label="组件内容" prop="style" v-if="layerjson.type==10">
+                    <el-button-group>
+                      <el-button type="primary" size="mini" @click="editCom">组件配置</el-button>
+                      <el-button type="danger" size="mini" v-show="settingForm.config.categoryModel" @click="showDataList">组件数据</el-button>
+                    </el-button-group>
+                  </el-form-item>
+                  <!-- ================ -->
                   <el-form-item label="元素宽度" prop="style">
                     <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
                       <template slot="append">PX</template>
@@ -56,22 +70,13 @@
                   </el-form-item>
                 </el-collapse-item>
                 <!-- 文本 -->
-                <el-collapse-item title="文本" name="1" v-show="layerjson.type!=2">
+                <el-collapse-item title="文本" name="1" v-show="layerjson.type!=2&&layerjson.type!=9&&layerjson.type!=10">
                   <el-form-item label="文字内容" prop="content">
-                    <el-input
-                      v-model="settingForm.config.content"
-                      placeholder="文字内容"
-                      type="textarea"
-                    ></el-input>
+                    <el-input v-model="settingForm.config.content" placeholder="文字内容" type="textarea"></el-input>
                   </el-form-item>
                   <el-form-item label="字体类型" prop="bg">
                     <el-select v-model="settingForm.text.fontFamily" placeholder="请选择">
-                      <el-option
-                        v-for="(item, i) in fontFamilyOptions"
-                        :label="item.label"
-                        :value="item.value"
-                        :key="i"
-                      ></el-option>
+                      <el-option v-for="(item, i) in fontFamilyOptions" :label="item.label" :value="item.value" :key="i"></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="字体大小" prop="border">
@@ -91,76 +96,38 @@
                     </el-select>
                   </el-form-item>
                   <el-form-item label="行高" prop="border">
-                    <el-slider
-                      v-model="settingForm.text.lineHeight"
-                      :min="1"
-                      :max="10"
-                      :step="0.1"
-                      :format-tooltip="(val)=>{return val +'倍'}"
-                    ></el-slider>
+                    <el-slider v-model="settingForm.text.lineHeight" :min="1" :max="10" :step="0.1" :format-tooltip="(val)=>{return val +'倍'}"></el-slider>
                   </el-form-item>
                   <el-form-item label="字距" prop="border">
-                    <el-slider
-                      v-model="settingForm.text.letterSpacing"
-                      :min="0"
-                      :max="10"
-                      :step="0.1"
-                      :format-tooltip="(val)=>{return val +'PX'}"
-                    ></el-slider>
+                    <el-slider v-model="settingForm.text.letterSpacing" :min="0" :max="10" :step="0.1" :format-tooltip="(val)=>{return val +'PX'}"></el-slider>
                   </el-form-item>
                   <div class="line-style">
                     <el-tooltip class="item" effect="dark" content="加粗" placement="top">
-                      <i
-                        class="iconfont icon-jiacu"
-                        :class="{active:settingForm.text.fontWeight=='bold'}"
-                        @click="settingForm.text.fontWeight?settingForm.text.fontWeight='':settingForm.text.fontWeight='bold'"
-                      ></i>
+                      <i class="iconfont icon-jiacu" :class="{active:settingForm.text.fontWeight=='bold'}" @click="settingForm.text.fontWeight?settingForm.text.fontWeight='':settingForm.text.fontWeight='bold'"></i>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="倾斜" placement="top">
-                      <i
-                        class="iconfont icon-qingxie"
-                        :class="{active:settingForm.text.fontStyle=='italic'}"
-                        @click="settingForm.text.fontStyle?settingForm.text.fontStyle='':settingForm.text.fontStyle='italic'"
-                      ></i>
+                      <i class="iconfont icon-qingxie" :class="{active:settingForm.text.fontStyle=='italic'}" @click="settingForm.text.fontStyle?settingForm.text.fontStyle='':settingForm.text.fontStyle='italic'"></i>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="下划线" placement="top">
-                      <i
-                        class="iconfont icon-underline"
-                        :class="{active:settingForm.text.textDecoration=='underline'}"
-                        @click="settingForm.text.textDecoration=='underline'?settingForm.text.textDecoration='':settingForm.text.textDecoration='underline'"
-                      ></i>
+                      <i class="iconfont icon-underline" :class="{active:settingForm.text.textDecoration=='underline'}"
+                        @click="settingForm.text.textDecoration=='underline'?settingForm.text.textDecoration='':settingForm.text.textDecoration='underline'"></i>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="删除线" placement="line-through">
-                      <i
-                        class="iconfont icon-shanchuxian"
-                        :class="{active:settingForm.text.textDecoration=='line-through'}"
-                        @click="settingForm.text.textDecoration=='line-through'?settingForm.text.textDecoration='':settingForm.text.textDecoration='line-through'"
-                      ></i>
+                      <i class="iconfont icon-shanchuxian" :class="{active:settingForm.text.textDecoration=='line-through'}"
+                        @click="settingForm.text.textDecoration=='line-through'?settingForm.text.textDecoration='':settingForm.text.textDecoration='line-through'"></i>
                     </el-tooltip>
                   </div>
                 </el-collapse-item>
                 <!-- 背景 -->
                 <el-collapse-item title="背景" name="2">
                   <el-form-item label="背景图" prop="bg">
-                    <div
-                      class="img-view"
-                      :style="{backgroundImage:settingForm.bg.backgroundImage}"
-                      @click="$bus.$emit('openImgList','ChangeEleBg')"
-                    >
+                    <div class="img-view" :style="{backgroundImage:settingForm.bg.backgroundImage}" @click="$bus.$emit('openImgList','ChangeEleBg')">
                       <i class="el-icon-plus"></i>
                     </div>
                     <div class="mt10 tc">
                       <el-button-group>
-                        <el-button
-                          type="primary"
-                          size="mini"
-                          @click="settingForm.bg.backgroundImage=''"
-                        >删除</el-button>
-                        <el-button
-                          type="danger"
-                          size="mini"
-                          @click="$bus.$emit('openImgList','ChangeEleBg')"
-                        >修改</el-button>
+                        <el-button type="primary" size="mini" @click="settingForm.bg.backgroundImage=''">删除</el-button>
+                        <el-button type="danger" size="mini" @click="$bus.$emit('openImgList','ChangeEleBg')">修改</el-button>
                       </el-button-group>
                     </div>
                   </el-form-item>
@@ -220,16 +187,8 @@
                     </el-select>
                   </el-form-item>
                   <el-form-item label="背景颜色" prop="bg">
-                    <el-input
-                      v-model="settingForm.bg.backgroundColor"
-                      placeholder="纯色背景"
-                      size="medium"
-                    >
-                      <el-color-picker
-                        slot="prepend"
-                        v-model="settingForm.bg.backgroundColor"
-                        show-alpha
-                      ></el-color-picker>
+                    <el-input v-model="settingForm.bg.backgroundColor" placeholder="纯色背景" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.bg.backgroundColor" show-alpha></el-color-picker>
                     </el-input>
                   </el-form-item>
                 </el-collapse-item>
@@ -238,12 +197,7 @@
                 <el-collapse-item title="边框" name="4">
                   <el-form-item label="边框类型" prop="border">
                     <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
-                      <el-option
-                        v-for="(item, i) in borderStyleOptions"
-                        :label="item.label"
-                        :value="item.value"
-                        :key="i"
-                      ></el-option>
+                      <el-option v-for="(item, i) in borderStyleOptions" :label="item.label" :value="item.value" :key="i"></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="边框宽度" prop="border">
@@ -253,32 +207,16 @@
                     <el-slider v-model="settingForm.border.borderRadius" :max="500" :min="0"></el-slider>
                   </el-form-item>
                   <el-form-item label="边框颜色" prop="border">
-                    <el-input
-                      v-model="settingForm.border.borderColor"
-                      placeholder="边框颜色"
-                      size="medium"
-                    >
-                      <el-color-picker
-                        slot="prepend"
-                        v-model="settingForm.border.borderColor"
-                        show-alpha
-                      ></el-color-picker>
+                    <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.border.borderColor" show-alpha></el-color-picker>
                     </el-input>
                   </el-form-item>
                 </el-collapse-item>
                 <!-- 阴影 -->
                 <el-collapse-item title="阴影" name="5">
                   <el-form-item label="阴影颜色" prop="shadow">
-                    <el-input
-                      v-model="settingForm.shadow.shadowColor"
-                      placeholder="阴影颜色"
-                      size="medium"
-                    >
-                      <el-color-picker
-                        slot="prepend"
-                        v-model="settingForm.shadow.shadowColor"
-                        show-alpha
-                      ></el-color-picker>
+                    <el-input v-model="settingForm.shadow.shadowColor" placeholder="阴影颜色" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.shadow.shadowColor" show-alpha></el-color-picker>
                     </el-input>
                   </el-form-item>
                   <el-form-item label="水平偏移" prop="shadow">
@@ -294,13 +232,8 @@
                     <el-slider v-model="settingForm.shadow.shadowDire" :max="100"></el-slider>
                   </el-form-item>
                   <el-form-item label="阴影方向">
-                    <el-switch
-                      v-model="settingForm.shadow.shadowinSet"
-                      active-text="朝内"
-                      inactive-text="朝外"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
+                    <el-switch v-model="settingForm.shadow.shadowinSet" active-text="朝内" inactive-text="朝外"
+                      active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                   </el-form-item>
                 </el-collapse-item>
               </el-collapse>
@@ -309,62 +242,46 @@
           <el-tab-pane label="动画">
             <div class="control">
               <el-button-group>
-                <el-button>添加动画</el-button>
-                <el-button>预览动画</el-button>
+                <el-button @click="addAnimate">添加动画</el-button>
+                <el-button @click="preAnimate">预览动画</el-button>
               </el-button-group>
             </div>
             <div class="animate-list">
-              <el-collapse v-model="activeNames" v-for="(item,i) in animate" :key="i">
+              <el-collapse v-model="activeNames" v-for="(item,i) in animateTemp" :key="i">
                 <el-collapse-item :title="`动画${i+1}`" :name="i">
-                  <el-form :label-position="'left'" label-width="70px" :model="settingForm">
+                  <el-form :label-position="'left'" label-width="70px" :model="animationName">
                     <el-form-item label="动画">
-                      <el-select v-model="animate[i].animationTimingFunction" placeholder="请选择">
+                      <el-select v-model="animateTemp[i].animationName" placeholder="请选择">
                         <el-option label="无" value></el-option>
-                        <el-option-group
-                          v-for="(group, index2) in animateOptions"
-                          :label="group.label"
-                          :key="index2"
-                          v-if="(ctype===1&&group.label==='特殊')||group.label!=='特殊'"
-                        >
-                          <el-option
-                            v-for="(item, index3) in group.options"
-                            :label="item.label"
-                            :value="item.value"
-                            :disabled="item.disabled"
-                            :key="index3"
-                          ></el-option>
+                        <el-option-group v-for="(group, index2) in animateOptions" :label="group.label" :key="index2"
+                          v-if="(ctype===1&&group.label==='特殊')||group.label!=='特殊'">
+                          <el-option v-for="(item, index3) in group.options" :label="item.label" :value="item.value"
+                            :disabled="item.disabled" :key="index3"></el-option>
                         </el-option-group>
                       </el-select>
                     </el-form-item>
 
                     <el-form-item label="延时">
-                      <el-slider v-model="animate[i].animationDelay" :max="100" :step="0.1"></el-slider>
+                      <el-slider v-model="animateTemp[i].animationDelay" :max="100" :step="0.1"></el-slider>
                     </el-form-item>
                     <el-form-item label="时长">
-                      <el-slider v-model="animate[i].animationDuration" :max="100" :step="0.1"></el-slider>
+                      <el-slider v-model="animateTemp[i].animationDuration" :max="100" :step="0.1"></el-slider>
                     </el-form-item>
-                    <el-form-item
-                      label="次数"
-                      v-show="animate[i].animationIterationCount!='infinite'"
-                    >
-                      <el-input-number
-                        v-model="animate[i].animationIterationCount"
-                        :min="1"
-                        :max="1000"
-                        label="次数"
-                      ></el-input-number>
+                    <el-form-item label="次数" v-show="animateTemp[i].animationIterationCount!='infinite'">
+                      <el-input-number v-model="animateTemp[i].animationIterationCount" :min="1" :max="1000" label="次数"></el-input-number>
                     </el-form-item>
-                    <el-form-item label="循环" v-if="i==animate.length-1">
-                      <el-switch
-                        v-model="animate[i].animationIterationCount"
-                        active-color="#13ce66"
-                        inactive-color="#ff4949"
-                        active-value="infinite"
-                        inactive-value="1"
-                      ></el-switch>
+                    <el-form-item label="循环" v-if="i==animateTemp.length-1">
+                      <el-switch v-model="animateTemp[i].animationIterationCount" active-color="#13ce66" inactive-color="#ff4949"
+                        active-value="infinite" inactive-value="1"></el-switch>
                     </el-form-item>
+
+                  <el-form-item label="动画速度" prop="border">
+                    <el-select v-model="animateTemp[i].animationTimingFunction" placeholder="边框类型">
+                      <el-option v-for="(item, i) in TimingFunctionOptions" :label="item.label" :value="item.value" :key="i"></el-option>
+                    </el-select>
+                  </el-form-item>
                     <div style="padding:5px 0;text-align:center;">
-                      <el-button type="danger">删除动画</el-button>
+                      <el-button type="danger" @click="removeAnimate(i)">删除动画</el-button>
                     </div>
                   </el-form>
                 </el-collapse-item>
@@ -374,28 +291,23 @@
           <el-tab-pane label="事件">
             <el-collapse>
               <el-collapse-item title="鼠标点击">
-                <div>点击时触发事件</div>
-                <el-select v-model="event.click.type" placeholder="时间类型">
-                  <el-option
-                    v-for="(item, i) in eventOptions"
-                    :label="item.label"
-                    :value="item.value"
-                    :key="i"
-                  ></el-option>
+                <div>鼠标点击时触发的事件类型</div>
+                <el-select v-model="event.onClick.type" placeholder="时间类型">
+                  <el-option v-for="(item, i) in eventOptions" :label="item.label" :value="item.value" :key="i"></el-option>
                 </el-select>
-                <div v-show="event.click.type=='index'">页面下标
-                  <el-input v-model="event.click.index"></el-input>
+                <div v-show="event.onClick.type=='index'">
+                  页面下标
+                  <br>
+                <el-select v-model="event.onClick.index" placeholder="页面下标">
+                  <el-option v-for="(item, i) in pages" :label="`第${i+1}页`" :value="i" :key="i"></el-option>
+                </el-select>
                 </div>
-                <div v-show="event.click.type=='link'">链接地址
-                  <el-input v-model="event.click.link" v-show="event.click.type=='link'"></el-input>在新窗口打开
-                  <el-switch
-                    v-show="event.click.type=='link'"
-                    v-model="event.click.target"
-                    active-color="#13ce66"
-                    inactive-color="#ff4949"
-                    active-value="_blank"
-                    inactive-value="self"
-                  ></el-switch>
+                <div v-show="event.onClick.type=='link'">
+                  链接地址
+                  <br>
+                  <el-input v-model="event.onClick.link" v-show="event.onClick.type=='link'"></el-input>在新窗口打开
+                  <el-switch v-show="event.onClick.type=='link'" v-model="event.onClick.target" active-color="#13ce66"
+                    inactive-color="#ff4949" active-value="_blank" inactive-value="self"></el-switch>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -407,392 +319,482 @@
 </template>
 
 <script>
-import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
+  import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
+  import { addContents } from "@/api/contents";
 
-export default {
-  name: "layerSet",
-  directives: {
-    elDragDialog
-  },
-  data() {
-    return {
-      activeNames: ["1"],
-      dialogFormVisible: false,
-      settingForm: {
-        bg: {
-          backgroundImage: "",
-          backgroundColor: "",
-          backgroundSize: "",
-          backgroundRepeat: "",
-          backgroundPosition: ""
+  export default {
+    name: "layerSet",
+    directives: {
+      elDragDialog
+    },
+    data() {
+      return {
+        activeNames: ["1"],
+        dialogFormVisible: false,
+        settingForm: {
+          bg: {
+            backgroundImage: "",
+            backgroundColor: "",
+            backgroundSize: "",
+            backgroundRepeat: "",
+            backgroundPosition: ""
+          },
+          text: {
+            color: "#ddd",
+            textAlign: "center",
+            fontFamily: "simon",
+            lineHeight: "1.5",
+            letterSpacing: "",
+            fontSize: "",
+            fontWeight: "",
+            fontStyle: "italic",
+            textDecoration: ""
+          },
+          border: {
+            borderWidth: 0,
+            borderRadius: 0,
+            borderColor: "",
+            borderStyle: ""
+          },
+          shadow: {
+            shadowColor: "",
+            shadowX: 0,
+            shadowY: 0,
+            shadowFuzzy: 0,
+            shadowDire: 0,
+            shadowinSet: ""
+          },
+          base: {
+            width: 0,
+            height: 0,
+            opacity: 100,
+            rotate: 0
+          },
+          config: {
+            content: ""
+          }
         },
-        text: {
-          color: "#ddd",
-          textAlign: "center",
-          fontFamily: "simon",
-          lineHeight: "1.5",
-          letterSpacing: "",
-          fontSize: "",
-          fontWeight: "",
-          fontStyle: "italic",
-          textDecoration: ""
+        event: {
+          onClick: {
+            type: "",
+            link: "",
+            index: "",
+            target: ""
+          }
         },
-        border: {
-          borderWidth: 0,
-          borderRadius: 0,
-          borderColor: "",
-          borderStyle: ""
-        },
-        shadow: {
-          shadowColor: "",
-          shadowX: 0,
-          shadowY: 0,
-          shadowFuzzy: 0,
-          shadowDire: 0,
-          shadowinSet: ""
-        },
-        base: {
-          width: 0,
-          height: 0,
-          opacity: 100,
-          rotate: 0
-        },
-        config: {
-          content: ""
-        }
-      },
-      event: {
-        click: {
-          type: "",
-          link: "",
-          index: "",
-          target: ""
-        }
-      },
-      animateTemp:{
-        animationDelay: 0, // 延时
-        animationDuration: 1, // 动画时间
-        animationFillMode: "both", 
-        animationIterationCount: 1, // 动画次数
-        animationName: "flipInY", // 动画class
-      },
-      animateOptions: [
-        {
-          label: "强调",
-          options: [
-            {
-              value: "bounce",
-              label: "弹跳"
-            },
-            {
-              value: "flash",
-              label: "flash"
-            },
-            {
-              value: "pulse",
-              label: "pulse"
-            },
-            {
-              value: "rubberBand",
-              label: "rubberBand"
-            },
-            {
-              value: "shake",
-              label: "shake"
-            },
-            {
-              value: "headShake",
-              label: "headShake"
-            },
-            {
-              value: "swing",
-              label: "swing"
-            },
-            {
-              value: "tada",
-              label: "tada"
-            },
-            {
-              value: "wobble",
-              label: "wobble"
-            },
-            {
-              value: "jello",
-              label: "jello"
-            }
-          ]
-        },
-        {
-          label: "进入",
-          options: [
-            {
-              value: "bounceIn",
-              label: "bounceIn"
-            },
-            {
-              value: "bounceInDown",
-              label: "bounceInDown"
-            },
-            {
-              value: "bounceInLeft",
-              label: "bounceInLeft"
-            },
-            {
-              value: "bounceInRight",
-              label: "bounceInRight"
-            },
-            {
-              value: "bounceInUp",
-              label: "bounceInUp"
-            },
-            {
-              value: "bounceOut",
-              label: "bounceOut"
-            },
-            {
-              value: "bounceOutDown",
-              label: "bounceOutDown"
-            },
-            {
-              value: "bounceOutLeft",
-              label: "bounceOutLeft"
-            },
-            {
-              value: "bounceOutRight",
-              label: "bounceOutRight"
-            },
-            {
-              value: "bounceOutUp",
-              label: "bounceOutUp"
-            },
-            {
-              value: "fadeIn",
-              label: "fadeIn"
-            },
-            {
-              value: "fadeInDown",
-              label: "fadeInDown"
-            }
-          ]
-        }
-      ],
-      animateOptionsLeave: [
-        {
-          value: "fadeOut",
-          label: "淡出",
-          dire: false
-        },
-        {
-          value: "fadeOut-dire",
-          label: "移出",
-          dire: true
-        },
-        {
-          value: "bounceOut-dire",
-          label: "弹出",
-          dire: true
-        },
-        {
-          value: "flipOutY",
-          label: "翻转消失",
-          dire: false
-        },
-        {
-          value: "bounceOut",
-          label: "中心消失",
-          dire: false
-        },
-        {
-          value: "zoomOut",
-          label: "中心缩小",
-          dire: false
-        },
-        {
-          value: "rollOut-dire",
-          label: "翻滚退出",
-          dire: true
-        },
-        {
-          value: "flipOutX",
-          label: "翻开消失",
-          dire: false
-        },
-        {
-          value: "lightSpeedOut-dire",
-          label: "光速退出",
-          dire: true
-        },
-        {
-          value: "puffOut",
-          label: "放大退出",
-          dire: false
-        },
-        {
-          value: "hingeRight-dire",
-          label: "悬挂脱落",
-          dire: true
-        }
-      ],
-      borderStyleOptions: [
-        {
-          value: "none",
-          label: "--无--"
-        },
-        {
-          value: "solid",
-          label: "直线"
-        },
-        {
-          value: "dashed",
-          label: "虚线"
-        },
-        {
-          value: "dotted",
-          label: "点状线"
-        },
-        {
-          value: "double",
-          label: "双划线"
-        },
-        {
-          value: "groove",
-          label: "3D凹槽"
-        },
-        {
-          value: "ridge",
-          label: "3D垄状"
-        },
-        {
-          value: "inset",
-          label: "3D内嵌"
-        },
-        {
-          value: "outset",
-          label: "3D外嵌"
-        }
-      ],
-      fontFamilyOptions: [
+              eventOptions: [
         {
           value: "",
-          label: "系统默认"
+          label: "无"
         },
         {
-          value: "SimSun",
-          label: "宋体"
+          value: "close",
+          label: "关闭模块"
         },
         {
-          value: "Microsoft Yahei",
-          label: "微软雅黑"
+          value: "pre",
+          label: "上一场景"
         },
         {
-          value: "Arial",
-          label: "无衬线字体1"
+          value: "next",
+          label: "下一场景"
         },
         {
-          value: "Tahoma",
-          label: "无衬线字体2"
+          value: "index",
+          label: "指定序号页面"
         },
         {
-          value: "Verdana",
-          label: "无衬线字体3"
+          value: "link",
+          label: "超链接"
         }
-      ]
-    };
-  },
-  methods: {
-    // 初始化数据
-    initData() {
-      // style
-      console.log(this.layerjson);
-      this.settingForm.bg = this.layerjson.style.bg;
-      this.settingForm.border = this.layerjson.style.border;
-      this.settingForm.shadow = this.layerjson.style.shadow;
-      this.settingForm.base = this.layerjson.style.base;
-      this.settingForm.text = this.layerjson.style.text;
-      this.settingForm.config = this.layerjson.config;
-    }
-  },
-  props: ["layerjson"],
-  created() {
-    this.$bus.$on("openLayerSet", eventData => {
-      this.dialogFormVisible = true;
-    });
-  },
-  watch: {
-    layerjson(val) {
-      if (val) {
-        this.initData();
+      ],
+        animateTemp: [{
+          "animationDelay": 0,
+          "animationDuration": 1,
+          "animationFillMode": "both",
+          "animationIterationCount": 1,
+          "animationName": "",
+          "animationPlayState": "initial",
+          "animationTimingFunction": "ease"
+        }],
+        animateOptions: [{
+            label: "强调",
+            options: [{
+                value: "bounce",
+                label: "弹跳"
+              },
+              {
+                value: "flash",
+                label: "flash"
+              },
+              {
+                value: "pulse",
+                label: "pulse"
+              },
+              {
+                value: "rubberBand",
+                label: "rubberBand"
+              },
+              {
+                value: "shake",
+                label: "shake"
+              },
+              {
+                value: "headShake",
+                label: "headShake"
+              },
+              {
+                value: "swing",
+                label: "swing"
+              },
+              {
+                value: "tada",
+                label: "tada"
+              },
+              {
+                value: "wobble",
+                label: "wobble"
+              },
+              {
+                value: "jello",
+                label: "jello"
+              }
+            ]
+          },
+          {
+            label: "进入",
+            options: [{
+                value: "bounceIn",
+                label: "bounceIn"
+              },
+              {
+                value: "bounceInDown",
+                label: "bounceInDown"
+              },
+              {
+                value: "bounceInLeft",
+                label: "bounceInLeft"
+              },
+              {
+                value: "bounceInRight",
+                label: "bounceInRight"
+              },
+              {
+                value: "bounceInUp",
+                label: "bounceInUp"
+              },
+              {
+                value: "bounceOut",
+                label: "bounceOut"
+              },
+              {
+                value: "bounceOutDown",
+                label: "bounceOutDown"
+              },
+              {
+                value: "bounceOutLeft",
+                label: "bounceOutLeft"
+              },
+              {
+                value: "bounceOutRight",
+                label: "bounceOutRight"
+              },
+              {
+                value: "bounceOutUp",
+                label: "bounceOutUp"
+              },
+              {
+                value: "fadeIn",
+                label: "fadeIn"
+              },
+              {
+                value: "fadeInDown",
+                label: "fadeInDown"
+              }
+            ]
+          }
+        ],
+        animateOptionsLeave: [{
+            value: "fadeOut",
+            label: "淡出",
+            dire: false
+          },
+          {
+            value: "fadeOut-dire",
+            label: "移出",
+            dire: true
+          },
+          {
+            value: "bounceOut-dire",
+            label: "弹出",
+            dire: true
+          },
+          {
+            value: "flipOutY",
+            label: "翻转消失",
+            dire: false
+          },
+          {
+            value: "bounceOut",
+            label: "中心消失",
+            dire: false
+          },
+          {
+            value: "zoomOut",
+            label: "中心缩小",
+            dire: false
+          },
+          {
+            value: "rollOut-dire",
+            label: "翻滚退出",
+            dire: true
+          },
+          {
+            value: "flipOutX",
+            label: "翻开消失",
+            dire: false
+          },
+          {
+            value: "lightSpeedOut-dire",
+            label: "光速退出",
+            dire: true
+          },
+          {
+            value: "puffOut",
+            label: "放大退出",
+            dire: false
+          },
+          {
+            value: "hingeRight-dire",
+            label: "悬挂脱落",
+            dire: true
+          }
+        ],
+        TimingFunctionOptions:[          {
+            value: "linear",
+            label: "均匀线性"
+          },{
+            value: "ease",
+            label: "慢-快-慢"
+          },{
+            value: "ease-in",
+            label: "慢-快"
+          },{
+            value: "ease-out",
+            label: "快-慢"
+          }],
+        borderStyleOptions: [{
+            value: "none",
+            label: "--无--"
+          },
+          {
+            value: "solid",
+            label: "直线"
+          },
+          {
+            value: "dashed",
+            label: "虚线"
+          },
+          {
+            value: "dotted",
+            label: "点状线"
+          },
+          {
+            value: "double",
+            label: "双划线"
+          },
+          {
+            value: "groove",
+            label: "3D凹槽"
+          },
+          {
+            value: "ridge",
+            label: "3D垄状"
+          },
+          {
+            value: "inset",
+            label: "3D内嵌"
+          },
+          {
+            value: "outset",
+            label: "3D外嵌"
+          }
+        ],
+        fontFamilyOptions: [{
+            value: "",
+            label: "系统默认"
+          },
+          {
+            value: "SimSun",
+            label: "宋体"
+          },
+          {
+            value: "Microsoft Yahei",
+            label: "微软雅黑"
+          },
+          {
+            value: "Arial",
+            label: "无衬线字体1"
+          },
+          {
+            value: "Tahoma",
+            label: "无衬线字体2"
+          },
+          {
+            value: "Verdana",
+            label: "无衬线字体3"
+          }
+        ]
+      };
+    },
+    methods: {
+      // 初始化数据
+      initData() {
+        // style
+        this.settingForm.bg = this.layerjson.style.bg;
+        this.settingForm.border = this.layerjson.style.border;
+        this.settingForm.shadow = this.layerjson.style.shadow;
+        this.settingForm.base = this.layerjson.style.base;
+        this.settingForm.text = this.layerjson.style.text;
+        this.settingForm.config = this.layerjson.config;
+        this.animateTemp = this.layerjson.animate;
+        this.event=this.layerjson.event
+      },
+      removeAnimate(index){
+        this.animateTemp.splice(index,1)
+      },
+      addAnimate() {
+        this.animateTemp.push({
+          "animationDelay": 0,
+          "animationDuration": 1,
+          "animationFillMode": "both",
+          "animationIterationCount": 1,
+          "animationName": "",
+          "animationPlayState": "initial",
+          "animationTimingFunction": "ease"
+        })
+      },
+      showDataList(){
+        console.log("lasfjksj")
+        this.$bus.$emit('showDataList',this.settingForm.config)
+      },
+      preAnimate() {
+        this.$bus.$emit('animate-preview')
+      },
+      editCom(){
+        this.$bus.$emit('editData',this.settingForm.config)
       }
+    },
+    props: ["layerjson","pages"],
+    created() {
+      this.$bus.$on("openLayerSet", eventData => {
+        this.dialogFormVisible = true;
+      });
+    },
+    watch: {
+      layerjson(val) {
+        if (val) {
+          this.initData();
+        }
+      }
+    },
+    mounted() {
+      this.initData();
+      // 图片路径
+      this.$bus.$on("ChangeImgUrl", src => {
+        this.settingForm.config.content = src;
+      });
+      // 元素背景
+      this.$bus.$on("ChangeEleBg", src => {
+        this.settingForm.bg.backgroundImage = `url('${src}')`;
+      });
+      // svg
+      this.$bus.$on('ChangSvg', ele => {
+        this.settingForm.config.content = ele.value;
+        this.settingForm.config.viewBox = ele.viewBox;
+      })
+      // vue
+      this.$bus.$on('ChangeVue',ele=>{
+        this.settingForm.config.content = ele.src;
+        this.settingForm.config.configModel = ele.configModel;
+        this.settingForm.config.categoryModel = ele.categoryModel;
+        const _contentTemp = {
+          abstract: "",
+          category: "",
+          content: "",
+          thumbnail: "",
+          media: [],
+          extensions: {},
+          isSingle: true
+        };
+        addContents(_contentTemp)
+          .then(res => {
+            this.settingForm.config.dataId= res.data._id
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
     }
-  },
-  mounted() {
-    this.initData();
-    // 图片路径
-    this.$bus.$on("ChangeImgUrl", src => {
-      this.settingForm.config.content = src;
-    });
-    // 元素背景
-    this.$bus.$on("ChangeEleBg", src => {
-      this.settingForm.bg.backgroundImage = `url('${src}')`;
-    });
-  }
-};
+  };
+
 </script>
 <style lang="scss">
-.layer-set {
-  .el-dialog__wrapper {
-    right: auto !important;
-    overflow: inherit !important;
-    width: 0 !important;
-  }
-
-  .el-dialog__body {
-    padding: 0;
-  }
-
-  .shows {
-    height: calc(100vh - 84px);
-    overflow-y: hidden;
-
-    .title {
-      text-align: center;
+  .layer-set {
+    .el-dialog__wrapper {
+      right: auto !important;
+      overflow: inherit !important;
+      width: 0 !important;
     }
 
-    .line-style {
-      display: flex;
-      justify-content: space-around;
-      font-size: 20px;
+    .el-dialog__body {
+      padding: 0;
+    }
 
-      i {
-        color: #ccc;
-        cursor: pointer;
-        transition: all 0.2s;
+    .shows {
+      height: calc(100vh - 84px);
+      overflow-y: hidden;
 
-        &.active,
-        &:hover {
-          color: #409eff;
+      .title {
+        text-align: center;
+      }
+
+      .line-style {
+        display: flex;
+        justify-content: space-around;
+        font-size: 20px;
+
+        i {
+          color: #ccc;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &.active,
+          &:hover {
+            color: #409eff;
+          }
         }
       }
-    }
 
-    .control {
-      text-align: center;
-      padding: 10px 0;
-    }
+      .control {
+        text-align: center;
+        padding: 10px 0;
+      }
 
-    .img-view {
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-color: #eee;
-      text-align: center;
-      line-height: 160px;
-      width: 160px;
-      height: 160px;
-      display: inline-block;
-      font-size: 40px;
-      cursor: pointer;
+      .img-view {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #eee;
+        text-align: center;
+        line-height: 160px;
+        width: 160px;
+        height: 160px;
+        display: inline-block;
+        font-size: 40px;
+        cursor: pointer;
+      }
     }
   }
-}
+
 </style>

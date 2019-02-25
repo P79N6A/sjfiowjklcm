@@ -1,6 +1,7 @@
 <template>
+<div class="i-box" :style="[bgCss,{width:pageJson.config.fullScreen?'100%':''}]" >
   <div :class="pageJson.animate.enterAnimation" class="animated" style="border:dashed 1px #ccc;">
-    <div class="i-show" :style="[baseCss,borderCss,bgCss,boxShadow]">
+    <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
       <!-- 拖拽外框 -->
       <div v-for="(drag,i) in pageJson.json" :key="i">
         <VueDragResize
@@ -23,15 +24,14 @@
           :key="i"
           @activated="$bus.$emit('selectTemp',i)"
         >
-          <eleTemp :eleJson="drag">
+          <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
             <!-- 组件配置 -->
           </eleTemp>
-          <!-- <div :style="`width:${drag.style.base.width}px;height:${drag.style.base.height}px;background:#ccc;border:solid 1px red;`"> -->
-          <!-- </div> -->
         </VueDragResize>
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";
@@ -134,8 +134,20 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.i-show {
+.i-box{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+    // background: #fff;
+    // background-image: 
+    //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0),
+    //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0);
+    // background-position: 0 0, 15px 15px;
+    // background-size: 30px 30px;
+  .i-show {
   overflow: hidden;
   display: block;
 }
+}
+
 </style>

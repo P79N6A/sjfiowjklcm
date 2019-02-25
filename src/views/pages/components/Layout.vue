@@ -50,7 +50,7 @@
   import {
     mapGetters
   } from "vuex";
-  import IshowComponent from "./Ishow";
+  import IshowComponent from "./preview";
   import SyncComponent from "vue-async-component";
   export default {
     data() {

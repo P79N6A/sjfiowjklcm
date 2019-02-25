@@ -1,6 +1,6 @@
 <!-- <meta name="viewport" id="viewport" content="width=320, initial-scale=1.2875, maximum-scale=1.2875, user-scalable=no"> -->
 <template>
-  <div>
+  <div class="ishow-contain">
     <div class="ishow-headerWrapper">
       <header class="header">自定义组件库
         <div class="ishow-headerBtn">
@@ -10,8 +10,21 @@
     </div>
     <div class="ishowList cfx">
       <div class="frames" v-for="(item,i) in activityList" :key="i">
+        <h4>{{item.name}}</h4>
+        <div class="frames-content">
+                      <ishow-pre :ishow-id="item._id"></ishow-pre>
+          <div class="control">
+            <el-button-group>
+              <el-button type="primary" round @click="handleEdit(item);">编辑</el-button>
+              <el-button type="danger" round @click="handleDelete(item)">删除</el-button>
+            </el-button-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="ishowList cfx">
+      <div class="frames" v-for="(item,i) in activityList" :key="i">
         <div>
-          <!-- 操作按钮区域 -->
           <el-button-group>
             <el-button type="primary" round icon="el-icon-edit" @click="handleEdit(item);">编辑</el-button>
             <el-button type="danger" round icon="el-icon-delete" @click="handleDelete(item)">删除</el-button>
@@ -20,14 +33,10 @@
         <div>{{item.name}}</div>
         <br>
         <div class="frames-content">
-          封面预览，未做
-          <img :src="item.screenShot" style="display:block;width:100%;">
+                      <ishow-pre :ishow-id="item._id"></ishow-pre>
         </div>
       </div>
-    </div>
-    <!-- <picTool :type="'picCrop'" :picJson="picJson" ref="picTool" :addElementCrop="addElementCrop">
-                                    
-    </picTool>-->
+    </div> -->
   </div>
 </template>
 <script>
@@ -38,6 +47,7 @@ import {
   getIshows,
   deleteIshows
 } from "@/api/ishow";
+import IshowPre from "./preview";
 // import picTool from '@/views/ishow/global/picTool/index.vue';
 export default {
   data() {
@@ -67,6 +77,7 @@ export default {
   },
   components: {
     // picTool
+    IshowPre
   },
   created() {
     this.getIshows();
@@ -77,7 +88,7 @@ export default {
   methods: {
     handleEdit(item) {
       let routeData = this.$router.resolve({
-        name: "ishowsDesign",
+        name: "design",
         query: { ishowsId: item._id }
       });
       window.open(routeData.href, "_blank");
@@ -160,7 +171,7 @@ export default {
     },
     //新建场景
     linkNewSence() {
-      let routeData = this.$router.resolve({ name: "ishowsDesign" });
+      let routeData = this.$router.resolve({ name: "design" });
       window.open(routeData.href, "_blank");
     },
     //编辑h5
@@ -195,52 +206,75 @@ export default {
 };
 </script>
 <style lang="scss" scope>
-.ishowList {
-  display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
+.ishow-contain{
+    .ishowList {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
 
-  .frames {
-    width: 25%;
-    text-align: center;
-    padding: 6px;
-    cursor: pointer;
+      .frames {
+        text-align: center;
+        padding: 6px;
+        cursor: pointer;
 
-    &.active {
-      .frames-content {
-        border-color: #409eff;
-        box-shadow: 0 0 4px 2px #ccc;
+        &.active {
+          .frames-content {
+            border-color: #409eff;
+            box-shadow: 0 0 4px 2px #ccc;
+          }
+        }
+
+        .rows {
+          background: #eee;
+          margin-bottom: 2px;
+        }
+
+        .frames-content {
+          padding: 6px;
+          display: block;
+          border: solid 1px #ccc;
+          border-radius: 6px;
+          font-size: 12px;
+          transition: all 0.6s;
+          height: 200px;
+          width: 200px;
+          overflow: hidden;
+          position: relative;
+
+          &:hover {
+            overflow-y: scroll;
+
+            .control {
+              opacity: 1;
+            }
+          }
+
+          .control {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.4s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .cols {
+          padding: 2px;
+          box-sizing: border-box;
+
+          div {
+            border: dashed 1px #ccc;
+            padding: 2px 0;
+          }
+        }
       }
     }
-
-    .rows {
-      background: #eee;
-      margin-bottom: 2px;
-    }
-
-    .frames-content {
-      padding: 6px;
-      display: block;
-      border: solid 1px #ccc;
-      border-radius: 6px;
-      font-size: 12px;
-      transition: all 0.6s;
-      height: 200px;
-      overflow: hidden;
-      &:hover {
-        overflow-y: scroll;
-      }
-    }
-
-    .cols {
-      padding: 2px;
-      box-sizing: border-box;
-
-      div {
-        border: dashed 1px #ccc;
-        padding: 2px 0;
-      }
-    }
-  }
 }
+
 </style>

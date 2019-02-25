@@ -11,28 +11,24 @@
       <div class="frames" v-for="(item,i) in componentList" :key="i">
         <h4>{{item.name}}</h4>
         <div class="frames-content">
-          封面预览，未做
-          <img :src="item.screenShot" style="display:block;width:100%;">
+          <sync-component :url="`${cdnurl}${item.src}`"></sync-component>
+          <!-- <img :src="item.screenShot" style="display:block;width:100%;"> -->
           <div class="control">
             <!-- 操作按钮区域 -->
             <el-button-group>
-              <el-button type="primary" round icon="el-icon-edit" @click="handleEdit(item);">编辑</el-button>
-              <el-button type="danger" round icon="el-icon-delete" @click="handleDelete(item)">删除</el-button>
+              <el-button type="primary" round @click="handleEdit(item);">编辑</el-button>
+              <el-button type="danger" round @click="handleDelete(item)">删除</el-button>
             </el-button-group>
           </div>
         </div>
       </div>
     </div>
     <!-- 创建组件 -->
-    <el-dialog
-      :title="textMap[dialogStatus]+'组件'"
-      :visible.sync="dialogFormVisible"
-      width="800px"
-      :close-on-click-modal="false"
-    >
+    <el-dialog :title="textMap[dialogStatus]+'组件'" :visible.sync="dialogFormVisible" width="800px"
+      :close-on-click-modal="false">
       <el-form ref="dataFormKey" :model="componentTemp" label-position="right" label-width="120px">
         <el-form-item label="*组件名称" prop="name">
-          <el-input v-model="componentTemp.name"/>
+          <el-input v-model="componentTemp.name" />
         </el-form-item>
         <el-form-item label="*适用终端" prop="device">
           <el-select v-model="componentTemp.device" placeholder="请选择适用终端" disabled>
@@ -42,339 +38,345 @@
         </el-form-item>
         <el-form-item label="配置数据模型" prop="configModel">
           <el-select v-model="componentTemp.configModel" placeholder="请选择数据模型">
-            <el-option
-              :label="item.name"
-              :value="item._id"
-              v-for="item in modelList"
-              :key="item._id"
-            ></el-option>
+            <el-option :label="item.name" :value="item._id" v-for="item in modelList" :key="item._id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="数据集模型" prop="categoryModel">
           <el-select v-model="componentTemp.categoryModel" placeholder="请选择数据模型">
-            <el-option
-              :label="item.name"
-              :value="item._id"
-              v-for="item in modelList"
-              :key="item._id"
-            ></el-option>
+            <el-option :label="item.name" :value="item._id" v-for="item in modelList" :key="item._id"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="组件描述" prop="description">
-          <el-input
-            v-model="componentTemp.description"
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-          ></el-input>
+          <el-input v-model="componentTemp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4}"></el-input>
         </el-form-item>
         <hr>
         <el-form-item label="组件源码" prop="vue">
-          <el-input
-            v-model="componentTemp.vue"
-            type="textarea"
-            :autosize="{ minRows: 10, maxRows: 10}"
-          ></el-input>
+          <el-input v-model="componentTemp.vue" type="textarea" :autosize="{ minRows: 10, maxRows: 10}"></el-input>
         </el-form-item>
 
         <el-form-item label="组件dist" prop="dist">
-          <el-input
-            v-model="componentTemp.dist"
-            type="textarea"
-            :autosize="{ minRows: 10, maxRows: 10}"
-          ></el-input>
+          <el-input v-model="componentTemp.dist" type="textarea" :autosize="{ minRows: 10, maxRows: 10}"></el-input>
         </el-form-item>
       </el-form>
+      <div class="preview" v-if="componentTemp.src">
+        <sync-component :url="`${cdnurl}${componentTemp.src}`"></sync-component>
+      </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button
-          type="primary"
-          @click="dialogStatus==='create'?createComponent():updateComponent()"
-        >
+        <el-button type="primary" @click="dialogStatus==='create'?createComponent():updateComponent()">
           {{
           $t('table.confirm')}}
         </el-button>
       </div>
     </el-dialog>
+
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import {
-  getComponents,
-  addComponents,
-  updateComponents,
-  deleteComponents
-} from "@/api/components";
-import { getModels } from "@/api/model";
-export default {
-  data() {
-    return {
-      pageSize: 30,
-      pageNum: 1,
-      dialogFormVisible: false,
-      dialogVisible: false,
-      loading: false,
-      isthumbnail: false,
-      contentKey: null,
-      contentTemp: null,
-      modelTemp: null,
-      categoryTemp: null,
-      componentTemp: {
-        device: "pc",
-        type: "system",
-        thumbnail: {
-          src: "",
-          _id: ""
+  import SyncComponent from "vue-async-component";
+  import {
+    mapGetters
+  } from "vuex";
+  import {
+    getComponents,
+    addComponents,
+    updateComponents,
+    deleteComponents
+  } from "@/api/components";
+  import {
+    getModels
+  } from "@/api/model";
+  export default {
+    data() {
+      return {
+        pageSize: 30,
+        pageNum: 1,
+        dialogFormVisible: false,
+        dialogPreviewVisible: false,
+        dialogVisible: false,
+        loading: false,
+        isthumbnail: false,
+        contentKey: null,
+        contentTemp: null,
+        modelTemp: null,
+        categoryTemp: null,
+        componentTemp: {
+          device: "pc",
+          type: "system",
+          thumbnail: {
+            src: "",
+            _id: ""
+          },
+          name: "",
+          description: "",
+          // 源码
+          vue: "",
+          dist: "",
+          // 数据相关
+          categoryModel: "", // 数据集和模型
+          configModel: "" // 组件配置模型
         },
-        name: "",
-        description: "",
-        // 源码
-        vue: "",
-        dist: "",
-        // 数据相关
-        categoryModel: "", // 数据集和模型
-        configModel: "" // 组件配置模型
-      },
-      componentList: [],
-      categoryList: [],
-      modelList: [],
-      dialogStatus: "",
-      textMap: {
-        update: "编辑",
-        create: "创建"
-      }
-    };
-  },
-  components: {
-    // picTool
-  },
-  created() {
-    this.getComponents();
-    // this.fetchImgList().then(function(data){
-    //     this.$refs.picTool.setLoading(false);
-    // }.bind(this));
-  },
-  methods: {
-    // 查询数据模型列表
-    getModels() {
-      this.listLoading = true;
-      getModels({ type: "content" })
-        .then(res => {
-          this.modelList = res.data;
-          this.listLoading = false;
-        })
-        .catch(err => {
-          this.listLoading = false;
-        });
-    },
+        componentList: [],
+        categoryList: [],
+        modelList: [],
+        dialogStatus: "",
 
-    // 获取组件列表
-    getComponents() {
-      getComponents().then(response => {
-        if (response.data && response.data.length) {
-          this.componentList = response.data;
+        textMap: {
+          update: "编辑",
+          create: "创建"
         }
-      });
-    },
-    // 重置表单
-    resetTemp() {
-      this.componentTemp = {
-        device: "pc",
-        type: "system",
-        thumbnail: {
-          src: "",
-          _id: ""
-        },
-        name: "",
-        description: "",
-        // 源码
-        vue: "",
-        dist: "",
-        // 数据相关
-        categoryModel: "", // 数据集和模型
-        configModel: "" // 组件配置模型
       };
     },
-    // 创建组件
-    createComponent() {
-      addComponents(this.componentTemp)
-        .then(res => {
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
+    components: {
+      // picTool
+      SyncComponent
+    },
+    created() {
+      this.getComponents();
+      // this.fetchImgList().then(function(data){
+      //     this.$refs.picTool.setLoading(false);
+      // }.bind(this));
+    },
+    methods: {
+      // 查询数据模型列表
+      getModels() {
+        this.listLoading = true;
+        getModels({
+            type: "content"
+          })
+          .then(res => {
+            this.modelList = res.data;
+            this.listLoading = false;
+          })
+          .catch(err => {
+            this.listLoading = false;
           });
-          this.dialogFormVisible = false;
-          this.getComponents();
-        })
-        .catch(err => {});
-    },
-    // 更新组件
-    updateComponent() {
-      updateComponents(this.componentTemp)
-        .then(res => {
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
-          });
-          this.getComponents();
-          this.dialogFormVisible = false;
-        })
-        .catch(err => {});
-    },
-    // 添加点击事件
-    handleAdd() {
-      this.getModels();
-      this.dialogStatus = "create";
-      this.resetTemp();
-      this.dialogFormVisible = true;
-    },
-    // 编辑点击事件
-    handleEdit(row) {
-      this.getModels();
-      this.dialogStatus = "update";
-      this.resetTemp();
-      Object.assign(this.componentTemp, row);
-      this.dialogFormVisible = true;
-    },
-    // 删除点击事件
-    handleDelete(row) {
-      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          deleteComponents({
-            _id: row._id
-          }).then(res => {
-            this.getComponents();
+      },
+
+      // 获取组件列表
+      getComponents() {
+        getComponents().then(response => {
+          if (response.data && response.data.length) {
+            this.componentList = response.data;
+          }
+        });
+      },
+      // 重置表单
+      resetTemp() {
+        this.componentTemp = {
+          device: "pc",
+          type: "system",
+          thumbnail: {
+            src: "",
+            _id: ""
+          },
+          name: "",
+          description: "",
+          // 源码
+          vue: "",
+          dist: "",
+          // 数据相关
+          categoryModel: "", // 数据集和模型
+          configModel: "" // 组件配置模型
+        };
+      },
+      // 创建组件
+      createComponent() {
+        addComponents(this.componentTemp)
+          .then(res => {
             this.$notify({
               title: "成功",
               message: "操作成功",
               type: "success",
               duration: 2000
             });
+            this.dialogFormVisible = false;
+            this.getComponents();
+          })
+          .catch(err => {});
+      },
+      // 更新组件
+      updateComponent() {
+        updateComponents(this.componentTemp)
+          .then(res => {
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000
+            });
+            this.getComponents();
+            this.dialogFormVisible = false;
+          })
+          .catch(err => {});
+      },
+      // 添加点击事件
+      handleAdd() {
+        this.getModels();
+        this.dialogStatus = "create";
+        this.resetTemp();
+        this.dialogFormVisible = true;
+      },
+      // 编辑点击事件
+      handleEdit(row) {
+        this.getModels();
+        this.dialogStatus = "update";
+        this.resetTemp();
+        Object.assign(this.componentTemp, row);
+        this.dialogFormVisible = true;
+      },
+      // 删除点击事件
+      handleDelete(row) {
+        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          })
+          .then(() => {
+            deleteComponents({
+              _id: row._id
+            }).then(res => {
+              this.getComponents();
+              this.$notify({
+                title: "成功",
+                message: "操作成功",
+                type: "success",
+                duration: 2000
+              });
+            });
+          })
+          .catch(err => {
+            console.log(err);
           });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }
+    },
+    computed: {
+      ...mapGetters(["cdnurl"])
     }
-  },
-  computed: {
-    ...mapGetters(["cdnurl"])
-  }
-};
+  };
+
 </script>
 <style lang="scss" scope>
-.components-contain {
-  .ishowList {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
+  .components-contain {
+    .ishowList {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
 
-    .frames {
-      text-align: center;
-      padding: 6px;
-      cursor: pointer;
-
-      &.active {
-        .frames-content {
-          border-color: #409eff;
-          box-shadow: 0 0 4px 2px #ccc;
-        }
-      }
-
-      .rows {
-        background: #eee;
-        margin-bottom: 2px;
-      }
-
-      .frames-content {
+      .frames {
+        text-align: center;
         padding: 6px;
-        display: block;
-        border: solid 1px #ccc;
-        border-radius: 6px;
-        font-size: 12px;
-        transition: all 0.6s;
-        height: 200px;
-        width: 200px;
-        overflow: hidden;
-        position: relative;
-        &:hover {
-          overflow-y: scroll;
-          .control {
-            opacity: 1;
+        cursor: pointer;
+
+        &.active {
+          .frames-content {
+            border-color: #409eff;
+            box-shadow: 0 0 4px 2px #ccc;
           }
         }
-        .control {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: rgba(0, 0, 0, 0.3);
-          opacity: 0;
-          transition: all 0.4s;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+
+        .rows {
+          background: #eee;
+          margin-bottom: 2px;
         }
-      }
 
-      .cols {
-        padding: 2px;
-        box-sizing: border-box;
+        .frames-content {
+          padding: 6px;
+          display: block;
+          border: solid 1px #ccc;
+          border-radius: 6px;
+          font-size: 12px;
+          transition: all 0.6s;
+          height: 200px;
+          width: 200px;
+          overflow: hidden;
+          position: relative;
 
-        div {
-          border: dashed 1px #ccc;
-          padding: 2px 0;
+          &:hover {
+            overflow-y: scroll;
+
+            .control {
+              opacity: 1;
+            }
+          }
+
+          .control {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.4s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+
+        .cols {
+          padding: 2px;
+          box-sizing: border-box;
+
+          div {
+            border: dashed 1px #ccc;
+            padding: 2px 0;
+          }
         }
       }
     }
+
+    .img-view {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: #eee;
+      width: 60px;
+      height: 60px;
+      display: inline-block;
+      line-height: 2;
+    }
+
+    .avatar-uploader .el-upload {
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+      border-color: #409eff;
+    }
+
+    .avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: auto;
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      text-align: center;
+    }
+
+    .favicon {
+      height: 90px;
+      display: block;
+    }
+    .preview{
+      display:flex;
+      justify-content: center;
+      align-items:center;
+      background: #fff;
+      background-image:
+        linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0),
+        linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0);
+      background-position: 0 0, 15px 15px;
+      background-size: 30px 30px;
+      padding:10px;
+    }
   }
 
-  .img-view {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: #eee;
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    line-height: 2;
-  }
-
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: auto;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-  }
-
-  .favicon {
-    height: 90px;
-    display: block;
-  }
-}
 </style>

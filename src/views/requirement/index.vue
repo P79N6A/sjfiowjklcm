@@ -72,13 +72,13 @@
           <el-tag type="danger">{{scope.row.money}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="附件" align="center">
+      <!-- <el-table-column label="附件" align="center">
         <template slot-scope="scope">
           <div v-for="(file,i) in scope.row.media" :key="i">
             <a target="_blank" :href="cdnurl+file.src">{{file.name}}</a>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="提交时间" align="center" prop="createTime" width="90">
         <template slot-scope="scope">{{scope.row.createTime| parseTime('{y}-{m}-{d} {h}:{i}') }}</template>
       </el-table-column>
@@ -160,7 +160,7 @@
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="所属项目" prop="device">
+        <el-form-item label="项目" prop="device">
           <el-select
             v-model="requireTemp.project"
             placeholder="请选择所属项目"
@@ -179,7 +179,7 @@
           <el-input v-model="requireTemp.title" :disabled="dialogStatus=='update'"></el-input>
         </el-form-item>
 
-        <el-form-item label="内容" prop="content">
+        <el-form-item label="描述" prop="content">
           <tinymce :height="400" v-model="requireTemp.content" v-if="dialogStatus=='create'"></tinymce>
           <div v-else v-html="requireTemp.content" style="border:solid 1px #eee;padding:10px;"></div>
         </el-form-item>
@@ -198,7 +198,8 @@
           >
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
-        </el-form-item>-->
+        </el-form-item> -->
+
         <div v-if="dialogStatus=='update'">
           <hr>
           <hr>
@@ -216,8 +217,8 @@
               >{{user.nickname}}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="预计时间" prop="preTime">
-            <el-date-picker v-model="requireTemp.preTime" type="datetime" placeholder="选择日期时间"></el-date-picker>
+          <el-form-item label="交付时间" prop="preTime">
+            <el-date-picker v-model="requireTemp.preTime" type="datetime" placeholder="选择交付日期时间"></el-date-picker>
           </el-form-item>
 
           <el-form-item label="需求状态" prop="status">
@@ -234,6 +235,11 @@
             <el-input v-model="requireTemp.money"></el-input>
           </el-form-item>
         </div>
+          <el-form-item>
+            <p style="color:red;">1、当日提交的【普通需求】，正常流程下，我方工作人员会在次工作日作出评估。</p>
+            <p style="color:red;">2、【紧急需求】将在当日开始处理，所有非BUG类型【紧急需求】，需加收xxx元</p>
+            <p style="color:red;">3、需求处理结果，会以站内信通知，也可前往需求列表查看进度 </p>
+          </el-form-item>
       </el-form>
       <div v-if="dialogStatus=='update'">
         <hr>进度信息
@@ -506,9 +512,9 @@ export default {
     // 添加需求
     handleAdd() {
       // if (this.fileLength == 0) {
-      //   this.addRequiresments();
+        this.addRequiresments();
       // } else {
-      this.$refs.files.submit();
+      // this.$refs.files.submit();
       // }
     },
     // 更新需求数据

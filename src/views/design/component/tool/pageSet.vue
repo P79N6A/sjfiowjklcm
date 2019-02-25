@@ -108,16 +108,28 @@
                   <template slot="append">PX</template>
                 </el-input>
               </el-form-item>
+
               <el-form-item label="页面高度" prop="height">
                 <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
                   <template slot="append">PX</template>
                 </el-input>
               </el-form-item>
+
               <el-form-item label="透明程度" prop="opacity">
                 <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
               </el-form-item>
+
               <el-form-item label="旋转角度" prop="rotate">
                 <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
+              </el-form-item>
+              <el-form-item label="全屏画布">
+                <el-switch
+                  v-model="settingForm.config.fullScreen"
+                  active-text="是"
+                  inactive-text="否"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                ></el-switch>
               </el-form-item>
             </el-collapse-item>
             <!-- 边框 -->
@@ -260,6 +272,9 @@ export default {
         animate: {
           enterAnimation: "",
           leaveAnimation: ""
+        },
+        config:{
+          fullScreen:false
         }
       },
       animateOptions: [
@@ -468,6 +483,7 @@ export default {
       this.settingForm.shadow = this.pageSet.shadow;
       this.settingForm.base = this.pageSet.base;
       this.settingForm.animate = this.pageSet.animate;
+      this.settingForm.config=this.pageSet.config
     }
   },
   created() {

@@ -4,7 +4,7 @@
       <div>
         <icons></icons>
       </div>
-      <div class="tabs">
+      <div class="tabs" v-show="showMenu">
         <div class="title">
           <span class="menu" @click="activeTab=1" :class="{active:activeTab==1}">
             <i class="el-icon-menu"></i> 图层管理
@@ -28,10 +28,14 @@
         </div>
       </div>
     </div>
-    <layerSet :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]">元素设置</layerSet>
+    <layerSet :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]" :pages="appJson.value.pageJson">元素设置</layerSet>
     <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
     <setting :appJson="appJson">全局场景设置</setting>
     <imgList>图片资源框</imgList>
+    <svgList>图片资源框</svgList>
+    <componentList>系统组件资源框</componentList>
+    <dataOne>单个数据</dataOne>
+    <dataList>数据列表</dataList>
   </div>
 </template>
 
@@ -45,17 +49,29 @@ import layerSet from "./layerSet.vue";
 import setting from "./setting.vue";
 // 媒体资源相关
 import imgList from "@/components/ImgList";
+import svgList from "@/components/svgList";
+import componentList from "@/components/componentList";
+// 组建数据相关
+import dataOne from "@/components/dataOne";
+import dataList from "@/components/dataList";
+
 export default {
   name: "Iheader",
   data() {
     return {
       activeTab: 1,
-      activePage: 3
+      activePage: 3,
+      showMenu:true
     };
   },
   props: ["appJson", "activePageIndex", "activeTempIndex"],
   methods: {},
-  components: { icons, pages, layers, pageSet, setting, layerSet, imgList }
+  created(){
+    this.$bus.$on('setMenus',eventData=>{
+      this.showMenu=!this.showMenu
+    })
+  },
+  components: { icons, pages, layers, pageSet, setting, layerSet, imgList, svgList,componentList,dataOne,dataList}
 };
 </script>
 

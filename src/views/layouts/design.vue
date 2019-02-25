@@ -321,7 +321,8 @@
                         :category-id="item.categoryId"
                       ></sync-component>
                       <!-- 自定义ishow组件 -->
-                      <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
+                      <ishow-pre :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-pre>
+                      <!-- <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component> -->
                     </div>
                   </div>
                   <div
@@ -451,7 +452,7 @@
     <!-- 组件添加器 -->
     <el-dialog title="添加组件" :visible.sync="dialogComVisible" width="1000px">
       <el-tabs type="border-card">
-        <el-tab-pane label="系统组件">
+        <el-tab-pane label="功能组件">
           <div class="component-list cfx">
             <el-card
               :body-style="{ padding: '0px' }"
@@ -470,7 +471,7 @@
             </el-card>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="我的组件">
+        <el-tab-pane label="H5组件">
           <div class="component-list cfx">
             <el-card
               :body-style="{ padding: '0px' }"
@@ -504,7 +505,7 @@
         :model-id="EditModelId"
         :category-id="EditCategoryId"
       ></content-edit>
-    </el-dialog>
+    </el-dialog> 
     <!-- 组件数据集合 -->
     <el-dialog title="组件数据集合" width="1000px" :visible.sync="dialogCategoryVisible">
       <content-list
@@ -519,7 +520,7 @@
     </el-dialog>
     <!-- 高级样式 -->
     <el-dialog title="高级模式" width="800px" :visible.sync="dialogStyleVisible">
-      <el-input type="textarea" v-model="layoutTemp.styleText"></el-input>
+      <el-input type="textarea" v-model="layoutTemp.styleText" :autosize="{ minRows: 10, maxRows: 20}" placeholder="请粘贴入style样式内容"></el-input>
     </el-dialog>
   </div>
 </template>
@@ -540,6 +541,7 @@ import { getLayoutsOne, updateLayouts } from "@/api/layouts";
 // 组件
 import StyleEdit from "./components/StyleEdit";
 import IshowComponent from "./components/Ishow";
+import IshowPre from "./components/preview";
 import SyncComponent from "vue-async-component";
 import ContentEdit from "./components/Content";
 import ContentList from "./components/ContentList";
@@ -1131,6 +1133,7 @@ export default {
     StyleEdit,
     SyncComponent,
     IshowComponent,
+    IshowPre,
     ContentEdit,
     ContentList
   }

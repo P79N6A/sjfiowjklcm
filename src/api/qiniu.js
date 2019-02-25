@@ -6,3 +6,10 @@ export function getToken() {
     method: 'get'
   })
 }
+export function refresh(data) {
+  return request({
+    url: '/api/qiniu', // 假地址 自行替换
+    method: 'post',
+    data
+  })
+}

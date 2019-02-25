@@ -1,5 +1,5 @@
 i<template>
-  <div @click.stop class="i-ele" v-if="showEle">
+  <div class="i-ele" v-if="showEle">
     <!-- 普通文本 -->
     <div v-if="eleJson.type===1" :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]" class="animated">
       <div class v-html="eleJson.config.content"></div>

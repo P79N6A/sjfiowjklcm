@@ -480,7 +480,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/components/index'),
       name: 'components',
       meta: {
-        title: '组件库',
+        title: '功能组件',
         icon: 'documentation',
         authorities: [100401]
       }
@@ -497,32 +497,32 @@ export const asyncRouterMap = [
       component: () => import('@/views/ishow/index'),
       name: 'ishows',
       meta: {
-        title: '自定义组件库',
+        title: 'H5组件',
         icon: 'tree',
         authorities: [120301]
       }
     }]
   },
-  {
-    path: '/ishowsDesign',
-    component: {
-      template: '<router-view></router-view>'
-    },
-    hidden: true,
-    meta: {
-      authorities: [120301]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/ishow/design'),
-      name: 'ishowsDesign',
-      meta: {
-        title: '自定义组件库编辑',
-        icon: 'documentation',
-        authorities: [120301]
-      }
-    }]
-  },
+  // {
+  //   path: '/ishowsDesign',
+  //   component: {
+  //     template: '<router-view></router-view>'
+  //   },
+  //   hidden: true,
+  //   meta: {
+  //     authorities: [120301]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/ishow/design'),
+  //     name: 'ishowsDesign',
+  //     meta: {
+  //       title: '自定义组件库编辑',
+  //       icon: 'documentation',
+  //       authorities: [120301]
+  //     }
+  //   }]
+  // },
   {
     path: '/design',
     component: {
@@ -540,6 +540,40 @@ export const asyncRouterMap = [
         title: '自定义组件库编辑',
         icon: 'documentation',
         authorities: [120301]
+      }
+    }]
+  },
+  {
+    path: '/imgs',
+    component: Layout,
+    meta: {
+      authorities: [100401]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/imgs/index'),
+      name: 'imgs',
+      meta: {
+        title: '图片库',
+        icon: 'documentation',
+        authorities: [100401]
+      }
+    }]
+  },
+  {
+    path: '/svgs',
+    component: Layout,
+    meta: {
+      authorities: [100401]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/svgs/index'),
+      name: 'svgs',
+      meta: {
+        title: '形状库',
+        icon: 'documentation',
+        authorities: [100401]
       }
     }]
   },
@@ -572,6 +606,23 @@ export const asyncRouterMap = [
       name: 'SiteSet',
       meta: {
         title: '网站配置',
+        icon: 'component',
+        authorities: [110101]
+      }
+    }]
+  },
+  {
+    path: '/config',
+    component: Layout,
+    meta: {
+      authorities: [110101]
+    },
+    children: [{
+      path: 'index',
+      component: () => import('@/views/config/index'),
+      name: 'Config',
+      meta: {
+        title: '项目配置',
         icon: 'component',
         authorities: [110101]
       }

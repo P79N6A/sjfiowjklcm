@@ -1,8 +1,9 @@
 <template>
   <div class="icons">
-    <el-tooltip class="item" effect="dark" content="收起菜单" placement="left">
-      <span class="item">
-        <i class="el-icon-caret-right"></i>
+    <el-tooltip class="item" effect="dark" :content="iconActive?'收起菜单':'展开菜单'" placement="left">
+      <span class="item" @click="setMenuActive">
+        <i class="el-icon-caret-right" v-if="iconActive"></i>
+        <i class="el-icon-caret-left" v-else></i>
       </span>
     </el-tooltip>
     <el-tooltip class="item" effect="dark" content="撤销上一步操作" placement="left">
@@ -38,7 +39,15 @@ export default {
   name: "Icon",
 
   data() {
-    return {};
+    return {
+      iconActive:true
+    };
+  },
+  methods:{
+    setMenuActive(){
+      this.iconActive=!this.iconActive;
+      this.$bus.$emit('setMenus')
+    }
   }
 };
 </script>
