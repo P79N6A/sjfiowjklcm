@@ -309,7 +309,7 @@
                     <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
                   </el-form-item>
                   <el-form-item label="边框圆角" prop="border">
-                    <el-slider v-model="settingForm.border.borderRadius" :max="500" :min="0"></el-slider>
+                    <el-slider v-model="settingForm.border.borderRadius" :max="200" :min="0"></el-slider>
                   </el-form-item>
                   <el-form-item label="边框颜色" prop="border">
                     <el-input

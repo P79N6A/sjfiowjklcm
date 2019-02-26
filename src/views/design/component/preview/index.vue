@@ -28,8 +28,8 @@
     </div>
     <div
       class="indicators"
-      v-if="appJson.value.indicator.show"
-      :style="`bottom:${appJson.value.indicator.bottom}px;`"
+      v-if="appJson.value.indicator.show&&appJson.value.pageJson.length>1"
+      :style="`bottom:${appJson.value.indicator.bottom}px;background:${appJson.value.indicator.bg}`"
     >
       <div
         class="indicator"
@@ -43,7 +43,7 @@
           border-radius:${appJson.value.indicator.borderRadius}px;
           border-radius:${appJson.value.indicator.borderRadius}px;
           color:${i==activePage?appJson.value.indicator.textColorActive:appJson.value.indicator.textColor};
-          background:${i==activePage?appJson.value.indicator.colorActive:appJson.value.indicator.color};
+          background:${i==activePage?appJson.value.indicator.buttonColorActive:appJson.value.indicator.buttonColor};
           margin:0 ${appJson.value.indicator.margin}px;
         `"
       >
@@ -197,6 +197,8 @@ export default {
   .indicators {
     display: flex;
     position: absolute;
+    width:100%;
+    justify-content: center;
     .indicator {
       cursor: pointer;
       overflow: hidden;

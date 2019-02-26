@@ -1,37 +1,37 @@
 <template>
-<div class="i-box" :style="[bgCss,{width:pageJson.config.fullScreen?'100%':''}]" >
-  <div :class="pageJson.animate.enterAnimation" class="animated" style="border:dashed 1px #ccc;">
-    <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
-      <!-- 拖拽外框 -->
-      <div v-for="(drag,i) in pageJson.json" :key="i">
-        <VueDragResize
-          :isActive="activeTempIndex==i"
-          v-on:resizing="resize"
-          v-on:dragging="resize"
-          v-show="drag.config.isShow"
-          :isDraggable="!drag.config.isLock"
-          :isResizable="!drag.config.isLock"
-          :parentW="1000"
-          :parentH="1000"
-          :w="drag.style.base.width"
-          :minw="1"
-          :minh="1"
-          :h="drag.style.base.height"
-          :x="drag.position.left"
-          :y="drag.position.top"
-          :style="{transform: `rotate(${drag.style.base.rotate}deg)`}"
-          :z="1000-i"
-          :key="i"
-          @activated="$bus.$emit('selectTemp',i)"
-        >
-          <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
-            <!-- 组件配置 -->
-          </eleTemp>
-        </VueDragResize>
+  <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':''}]">
+    <div :class="pageJson.animate.enterAnimation" class="animated" style="border:dashed 1px #ccc;">
+      <div class="i-show" :style="[baseCss,,boxShadow]">
+        <!-- 拖拽外框 -->
+        <div v-for="(drag,i) in pageJson.json" :key="i">
+          <VueDragResize
+            :isActive="activeTempIndex==i"
+            v-on:resizing="resize"
+            v-on:dragging="resize"
+            v-show="drag.config.isShow"
+            :isDraggable="!drag.config.isLock"
+            :isResizable="!drag.config.isLock"
+            :parentW="1000"
+            :parentH="1000"
+            :w="drag.style.base.width"
+            :minw="1"
+            :minh="1"
+            :h="drag.style.base.height"
+            :x="drag.position.left"
+            :y="drag.position.top"
+            :style="{transform: `rotate(${drag.style.base.rotate}deg)`}"
+            :z="1000-i"
+            :key="i"
+            @activated="$bus.$emit('selectTemp',i)"
+          >
+            <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
+              <!-- 组件配置 -->
+            </eleTemp>
+          </VueDragResize>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";
@@ -134,20 +134,20 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.i-box{
-  display:flex;
+.i-box {
+  display: flex;
   justify-content: center;
   align-items: center;
-    // background: #fff;
-    // background-image: 
-    //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0),
-    //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0);
-    // background-position: 0 0, 15px 15px;
-    // background-size: 30px 30px;
-  .i-show {
   overflow: hidden;
-  display: block;
+  // background: #fff;
+  // background-image:
+  //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0),
+  //     linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0);
+  // background-position: 0 0, 15px 15px;
+  // background-size: 30px 30px;
+  .i-show {
+    overflow: hidden;
+    display: block;
+  }
 }
-}
-
 </style>

@@ -667,6 +667,7 @@ export default {
             showText: false,
             bottom: 0,
             margin: 0,
+            bg: "#rgba(0,0,0,0)",
             width: "10",
             height: "10",
             color: "#eee",

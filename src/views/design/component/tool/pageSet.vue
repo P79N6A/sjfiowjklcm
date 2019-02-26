@@ -144,19 +144,22 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
+              <el-form-item label="边框宽度" prop="border">
+                <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
+              </el-form-item>
+              <el-form-item label="边框圆角" prop="border">
+                <el-slider v-model="settingForm.border.borderRadius" :max="200" :min="0"></el-slider>
+              </el-form-item>
+              <el-form-item label="边框颜色" prop="border">
+                <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
+                  <el-color-picker
+                    slot="prepend"
+                    v-model="settingForm.border.borderColor"
+                    show-alpha
+                  ></el-color-picker>
+                </el-input>
+              </el-form-item>
             </el-collapse-item>
-            <el-form-item label="边框宽度" prop="border">
-              <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
-            </el-form-item>
-            <el-form-item label="边框圆角" prop="border">
-              <el-slider v-model="settingForm.border.borderRadius" :max="500" :min="0"></el-slider>
-            </el-form-item>
-            <el-form-item label="边框颜色" prop="border">
-              <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
-                <el-color-picker slot="prepend" v-model="settingForm.border.borderColor" show-alpha></el-color-picker>
-              </el-input>
-            </el-form-item>
-
             <!-- 阴影 -->
             <el-collapse-item title="阴影" name="4">
               <el-form-item label="阴影颜色" prop="shadow">
@@ -273,8 +276,8 @@ export default {
           enterAnimation: "",
           leaveAnimation: ""
         },
-        config:{
-          fullScreen:false
+        config: {
+          fullScreen: false
         }
       },
       animateOptions: [
@@ -483,7 +486,7 @@ export default {
       this.settingForm.shadow = this.pageSet.shadow;
       this.settingForm.base = this.pageSet.base;
       this.settingForm.animate = this.pageSet.animate;
-      this.settingForm.config=this.pageSet.config
+      this.settingForm.config = this.pageSet.config;
     }
   },
   created() {

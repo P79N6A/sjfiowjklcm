@@ -61,6 +61,11 @@
 
           <div v-if="appJson.value.indicator.show">
             <hr>
+            <el-form-item label="指示器背景色">
+              <el-input v-model="appJson.value.indicator.bg" placeholder="指示器背景色" size="medium">
+                <el-color-picker slot="prepend" v-model="appJson.value.indicator.bg" show-alpha></el-color-picker>
+              </el-input>
+            </el-form-item>
             <el-form-item label="距离底部">
               <el-input v-model="appJson.value.indicator.bottom" placeholder="指示器距离页面底部距离">
                 <template slot="append">PX</template>
@@ -85,20 +90,28 @@
               <el-slider v-model="appJson.value.indicator.borderRadius" :max="50" :min="0"></el-slider>
             </el-form-item>
 
-            <el-form-item label="指示器颜色">
-              <el-input v-model="appJson.value.indicator.color" placeholder="指示器颜色" size="medium">
-                <el-color-picker slot="prepend" v-model="appJson.value.indicator.color" show-alpha></el-color-picker>
-              </el-input>
-            </el-form-item>
-            <el-form-item label="指示器颜色(激活时)">
+            <el-form-item label="按钮颜色">
               <el-input
-                v-model="appJson.value.indicator.colorActive"
-                placeholder="指示器颜色(激活时)"
+                v-model="appJson.value.indicator.buttonColor"
+                placeholder="按钮颜色"
                 size="medium"
               >
                 <el-color-picker
                   slot="prepend"
-                  v-model="appJson.value.indicator.colorActive"
+                  v-model="appJson.value.indicator.buttonColor"
+                  show-alpha
+                ></el-color-picker>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="按钮颜色(激活时)">
+              <el-input
+                v-model="appJson.value.indicator.buttonColorActive"
+                placeholder="按钮颜色(激活时)"
+                size="medium"
+              >
+                <el-color-picker
+                  slot="prepend"
+                  v-model="appJson.value.indicator.buttonColorActive"
                   show-alpha
                 ></el-color-picker>
               </el-input>
