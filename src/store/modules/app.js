@@ -6,7 +6,7 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
-    cdnurl: `${window.location.protocol}//${window.location.hostname}:3000`,
+    cdnurl: ``,
     device: 'desktop',
     language: Cookies.get('language') || 'zh',
     size: Cookies.get('size') || 'medium'

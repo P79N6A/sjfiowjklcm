@@ -31,17 +31,14 @@
     </div>
     <div class="btns">
       <el-button type="primary" @click="$bus.$emit('openSetting')">预览和设置</el-button>
-      <el-button type="primary" @click="saveJson">保存</el-button>
+      <el-button type="primary" @click="$bus.$emit('saveJson')">保存</el-button>
       <el-button type="info">退出</el-button>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    addIshows,
-    updateIshows
-  } from "@/api/ishow";
+
   export default {
     name: "Iheader",
 
@@ -50,31 +47,6 @@
     },
     props: ["appJson"],
     methods: {
-      saveJson() {
-        if (this.appJson._id) {
-          updateIshows(this.appJson).then(res => {
-            this.$notify({
-              title: "提示",
-              message: "操作成功!",
-              type: "success",
-              duration: 2000
-            });
-          }).catch(err => {
-            console.log(err)
-          })
-        } else {
-          addIshows(this.appJson).then(res => {
-            this.$notify({
-              title: "提示",
-              message: "操作成功!",
-              type: "success",
-              duration: 2000
-            });
-          }).catch(err => {
-            console.log(err)
-          })
-        }
-      }
     }
   };
 

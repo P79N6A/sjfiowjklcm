@@ -57,13 +57,17 @@
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -119,19 +123,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -189,19 +198,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -260,19 +274,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -332,19 +351,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -404,19 +428,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -477,19 +506,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -544,19 +578,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -570,8 +609,8 @@
     "config": {
       "isShow": true,
       "isLock": false,
-      "viewBox":"",
-      "content": ""    
+      "viewBox": "",
+      "content": ""
     },
     "style": {
       "bg": {
@@ -613,19 +652,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   },
@@ -640,10 +684,10 @@
       "isShow": true,
       "isLock": false,
       "content": "",
-      "categoryModel":"",
-      "categoryId":"",
-      "configModel":"",
-      "dataId":""
+      "categoryModel": "",
+      "categoryId": "",
+      "configModel": "",
+      "dataId": ""
     },
     "style": {
       "bg": {
@@ -685,19 +729,24 @@
         "rotate": 0
       }
     },
-    "animate": [{"animationDelay": 0,
+    "animate": [{
+      "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
       "animationIterationCount": 1,
       "animationName": "",
       "animationPlayState": "initial",
-      "animationTimingFunction": "ease"}],
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
         "target": "_blank"
+      },
+      "hover": {
+        "animation": ""
       }
     }
   }

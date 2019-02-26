@@ -112,15 +112,11 @@
     <div class="site-btns">
       <el-button type="primary" @click="saveSiteInfo" icon="el-icon-setting">保存配置</el-button>
     </div>
-        <div class="site-btns">
-      <el-button type="primary" @click="refresh" icon="el-icon-setting">更新七牛</el-button>
-    </div>
   </div>
 </template>
 
 <script>
 import { siteInfoGet, siteInfoPut } from "@/api/site";
-import { refresh } from "@/api/qiniu";
 import { mapGetters } from "vuex";
 
 export default {
@@ -135,9 +131,9 @@ export default {
           description: "description",
           logo: "",
           // 其他
-          error404:'',
-          error500:'',
-          error403:'',
+          error404: "",
+          error500: "",
+          error403: "",
           codeHeader: "codeHeader",
           codeFooter: "codeFooter",
           // 其他配置
@@ -160,13 +156,6 @@ export default {
     ...mapGetters(["cdnurl"])
   },
   methods: {
-    refresh(){
-      refresh({type:"test-type"}).then(res=>{
-
-      }).catch(err=>{
-        
-      })
-    },
     saveSiteInfo() {
       siteInfoPut(this.siteInfo)
         .then(res => {

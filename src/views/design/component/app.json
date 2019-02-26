@@ -1,16 +1,29 @@
 {
-  "description":"",
-  "device":"",
-  "name":"",
-  "type":"",
-  "tag":"",
-  "_id":"",
-  "value":{
-    "pageJson":[],
-    "pageSetting":{
-      "autoAnimation":true,
-      "infinite":false,
-      "interval":3
+  "description": "",
+  "device": "",
+  "name": "",
+  "type": "",
+  "tag": "",
+  "_id": "",
+  "value": {
+    "pageJson": [],
+    "pageSetting": {
+      "autoAnimation": true,
+      "infinite": false,
+      "interval": 3
+    },
+    "indicator": {
+      "show": false,
+      "showText": false,
+      "bottom": 0,
+      "width": "10",
+      "height": "10",
+      "color": "#eee",
+      "colorActive": "#409EFF",
+      "textColor": "#000",
+      "textColorActive": "#fff",
+      "borderRadius": 0,
+      "margin": 0
     }
   }
 }
