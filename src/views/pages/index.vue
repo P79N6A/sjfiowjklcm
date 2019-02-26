@@ -43,12 +43,9 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <iframe
-                ref="iframeView"
-                src="/#/preview"
-                class="iframe-view"
-                :class="pagesTemp.device"
-              ></iframe>
+              <div class="iframe-view" :class="pagesTemp.device">
+                <iframe ref="iframeView" src="/#/preview"></iframe>
+              </div>
               <!-- 外框 -->
               <!-- <Layout :layoutTemp="selectNode.value.layout"> -->
               <!-- <Layout :layoutTemp="selectNode.value.content"></Layout> -->
@@ -85,7 +82,6 @@
           </el-select>
         </el-form-item>
         <el-form-item label="用户状态" prop="needLogin">
-          
           <el-switch
             style="display: block"
             v-model="pagesTemp.needLogin"
@@ -401,13 +397,51 @@ export default {
   }
   .iframe-view {
     border: none;
-    width: 1500px;
-    min-height: 100vh;
+    width: 1400px;
+    position: relative;
+    &.PC {
+      width: 1800px;
+      height: 950px;
+      background: url("./img/bg_mac.png") no-repeat center top;
+      background-size: 100% 100%;
+      iframe {
+        width: 1320px;
+        height: 731px;
+        position: absolute;
+        top: 80px;
+        left: 240px;
+      }
+    }
     &.MOBILE {
-      width: 540px;
-      border: dashed 1px #ccc;
+      width: 380px;
+      height: 800px;
       margin: 10px auto;
+      padding: 10px;
       display: block;
+      background: url("./img/bg_iphone.png") no-repeat center top;
+      background-size: 100% 100%;
+      iframe {
+        width: 340px;
+        height: 740px;
+        position: absolute;
+        top: 45px;
+        left: 20px;
+        border-radius: 0 0 20px 20px;
+      }
+    }
+    iframe {
+      border: none;
+      background: #fff;
+      background-image: linear-gradient(
+          45deg,
+          #eee 25%,
+          transparent 0,
+          transparent 75%,
+          #eee 0
+        ),
+        linear-gradient(45deg, #eee 25%, transparent 0, transparent 75%, #eee 0);
+      background-position: 0 0, 15px 15px;
+      background-size: 30px 30px;
     }
   }
 }
