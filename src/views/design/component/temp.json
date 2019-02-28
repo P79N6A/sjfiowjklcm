@@ -40,7 +40,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "base": {
@@ -113,7 +113,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "base": {
@@ -188,7 +188,7 @@
         "lineHeight": "",
         "letterSpacing": "",
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "style": {
@@ -264,7 +264,7 @@
         "lineHeight": "",
         "letterSpacing": "",
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "style": {
@@ -341,7 +341,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "style": {
@@ -418,7 +418,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "base": {
@@ -496,7 +496,7 @@
         "lineHeight": "",
         "letterSpacing": "",
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "style": {
@@ -568,7 +568,7 @@
         "lineHeight": "",
         "letterSpacing": "",
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "style": {
@@ -642,7 +642,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "base": {
@@ -719,7 +719,7 @@
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
-        "fontStyle": "italic",
+        "fontStyle": "",
         "textDecoration": ""
       },
       "base": {

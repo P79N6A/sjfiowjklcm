@@ -12,7 +12,7 @@
       <div class="frames" v-for="(item,i) in activityList" :key="i">
         <h4>{{item.name}}</h4>
         <div class="frames-content">
-                      <ishow-pre :ishow-id="item._id"></ishow-pre>
+          <ishow-pre :ishow-id="item._id"></ishow-pre>
           <div class="control">
             <el-button-group>
               <el-button type="primary" round @click="handleEdit(item);">编辑</el-button>
@@ -36,7 +36,7 @@
                       <ishow-pre :ishow-id="item._id"></ishow-pre>
         </div>
       </div>
-    </div> -->
+    </div>-->
   </div>
 </template>
 <script>
@@ -49,6 +49,7 @@ import {
 } from "@/api/ishow";
 import IshowPre from "./preview";
 // import picTool from '@/views/ishow/global/picTool/index.vue';
+import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {
   data() {
     return {
@@ -64,10 +65,18 @@ export default {
       activityList: [],
       ruleState: {
         settingTitle: [
-          { required: true, message: "标题不能为空", trigger: "blur" }
+          {
+            required: true,
+            message: "标题不能为空",
+            trigger: "blur"
+          }
         ],
         settingSummary: [
-          { required: true, message: "简介不能为空", trigger: "blur" }
+          {
+            required: true,
+            message: "简介不能为空",
+            trigger: "blur"
+          }
         ]
       },
       picJson: [],
@@ -87,11 +96,23 @@ export default {
   },
   methods: {
     handleEdit(item) {
-      let routeData = this.$router.resolve({
-        name: "design",
-        query: { ishowsId: item._id }
-      });
-      window.open(routeData.href, "_blank");
+      if (getToken("SiteDevice").toUpperCase() == "PC") {
+        let routeData = this.$router.resolve({
+          name: "design",
+          query: {
+            ishowsId: item._id
+          }
+        });
+        window.open(routeData.href, "_blank");
+      } else {
+        let routeData = this.$router.resolve({
+          name: "designMobile",
+          query: {
+            ishowsId: item._id
+          }
+        });
+        window.open(routeData.href, "_blank");
+      }
     },
     //提交表单
     submitSetting(formName) {
@@ -171,8 +192,17 @@ export default {
     },
     //新建场景
     linkNewSence() {
-      let routeData = this.$router.resolve({ name: "design" });
-      window.open(routeData.href, "_blank");
+      if (getToken("SiteDevice").toUpperCase() == "PC") {
+        let routeData = this.$router.resolve({
+          name: "design"
+        });
+        window.open(routeData.href, "_blank");
+      } else {
+        let routeData = this.$router.resolve({
+          name: "designMobile"
+        });
+        window.open(routeData.href, "_blank");
+      }
     },
     //编辑h5
     updateH5() {},
@@ -206,75 +236,74 @@ export default {
 };
 </script>
 <style lang="scss" scope>
-.ishow-contain{
-    .ishowList {
-      display: flex;
-      justify-content: start;
-      flex-wrap: wrap;
+.ishow-contain {
+  .ishowList {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
 
-      .frames {
-        text-align: center;
-        padding: 6px;
-        cursor: pointer;
+    .frames {
+      text-align: center;
+      padding: 6px;
+      cursor: pointer;
 
-        &.active {
-          .frames-content {
-            border-color: #409eff;
-            box-shadow: 0 0 4px 2px #ccc;
-          }
-        }
-
-        .rows {
-          background: #eee;
-          margin-bottom: 2px;
-        }
-
+      &.active {
         .frames-content {
-          padding: 6px;
-          display: block;
-          border: solid 1px #ccc;
-          border-radius: 6px;
-          font-size: 12px;
-          transition: all 0.6s;
-          height: 200px;
-          width: 200px;
-          overflow: hidden;
-          position: relative;
+          border-color: #409eff;
+          box-shadow: 0 0 4px 2px #ccc;
+        }
+      }
 
-          &:hover {
-            overflow-y: scroll;
+      .rows {
+        background: #eee;
+        margin-bottom: 2px;
+      }
 
-            .control {
-              opacity: 1;
-            }
-          }
+      .frames-content {
+        padding: 6px;
+        display: block;
+        border: solid 1px #ccc;
+        border-radius: 6px;
+        font-size: 12px;
+        transition: all 0.6s;
+        height: 200px;
+        width: 200px;
+        overflow: hidden;
+        position: relative;
+
+        &:hover {
+          overflow-y: scroll;
 
           .control {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transition: all 0.4s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            opacity: 1;
           }
         }
 
-        .cols {
-          padding: 2px;
-          box-sizing: border-box;
+        .control {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.3);
+          opacity: 0;
+          transition: all 0.4s;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
 
-          div {
-            border: dashed 1px #ccc;
-            padding: 2px 0;
-          }
+      .cols {
+        padding: 2px;
+        box-sizing: border-box;
+
+        div {
+          border: dashed 1px #ccc;
+          padding: 2px 0;
         }
       }
     }
+  }
 }
-
 </style>

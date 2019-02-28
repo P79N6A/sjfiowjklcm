@@ -375,28 +375,6 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'layoutdesign',
-        component: () => import('@/views/layouts/design.vue'),
-        name: 'layoutDesign',
-        hidden: true,
-        meta: {
-          title: '布局设置',
-          noCache: true,
-          authorities: [110901]
-        }
-      },
-      {
-        path: 'layoutDesignMobile',
-        component: () => import('@/views/layouts/designMobile.vue'),
-        name: 'layoutDesignMobile',
-        hidden: true,
-        meta: {
-          title: '布局设置',
-          noCache: true,
-          authorities: [110901]
-        }
-      },
-      {
         path: 'page',
         component: () => import('@/views/pages/index.vue'),
         name: 'page',
@@ -533,16 +511,49 @@ export const asyncRouterMap = [
       authorities: [120301]
     },
     children: [{
-      path: 'index',
-      component: () => import('@/views/design/index'),
-      name: 'design',
-      meta: {
-        title: '自定义组件库编辑',
-        icon: 'documentation',
-        authorities: [120301]
-      }
-    }]
+        path: 'compc',
+        component: () => import('@/views/design/index'),
+        name: 'design',
+        meta: {
+          title: '自定义组件库编辑',
+          icon: 'documentation',
+          authorities: [120301]
+        }
+      },
+      {
+        path: 'commobile',
+        component: () => import('@/views/design/mobile'),
+        name: 'designMobile',
+        meta: {
+          title: '自定义组件库编辑',
+          icon: 'documentation',
+          authorities: [120301]
+        }
+      },
+      {
+        path: 'layoutdesign',
+        component: () => import('@/views/layouts/design.vue'),
+        name: 'layoutDesign',
+        hidden: true,
+        meta: {
+          title: '布局设置',
+          noCache: true,
+          authorities: [110901]
+        }
+      }, {
+        path: 'layoutDesignMobile',
+        component: () => import('@/views/layouts/designMobile.vue'),
+        name: 'layoutDesignMobile',
+        hidden: true,
+        meta: {
+          title: '布局设置',
+          noCache: true,
+          authorities: [110901]
+        }
+      },
+    ]
   },
+
   {
     path: '/imgs',
     component: Layout,

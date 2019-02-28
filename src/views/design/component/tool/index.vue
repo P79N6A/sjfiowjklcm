@@ -2,7 +2,7 @@
   <div>
     <div class="i-tool">
       <div>
-        <icons></icons>
+        <icons :history="history" :historyIndex="historyIndex"></icons>
       </div>
       <div class="tabs" v-show="showMenu">
         <div class="title">
@@ -28,7 +28,10 @@
         </div>
       </div>
     </div>
-    <layerSet :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]" :pages="appJson.value.pageJson">元素设置</layerSet>
+    <layerSet
+      :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]"
+      :pages="appJson.value.pageJson"
+    >元素设置</layerSet>
     <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
     <setting :appJson="appJson">全局场景设置</setting>
     <imgList>图片资源框</imgList>
@@ -61,17 +64,35 @@ export default {
     return {
       activeTab: 1,
       activePage: 3,
-      showMenu:true
+      showMenu: true
     };
   },
-  props: ["appJson", "activePageIndex", "activeTempIndex"],
+  props: [
+    "appJson",
+    "activePageIndex",
+    "activeTempIndex",
+    "historyIndex",
+    "history"
+  ],
   methods: {},
-  created(){
-    this.$bus.$on('setMenus',eventData=>{
-      this.showMenu=!this.showMenu
-    })
+  created() {
+    this.$bus.$on("setMenus", eventData => {
+      this.showMenu = !this.showMenu;
+    });
   },
-  components: { icons, pages, layers, pageSet, setting, layerSet, imgList, svgList,componentList,dataOne,dataList}
+  components: {
+    icons,
+    pages,
+    layers,
+    pageSet,
+    setting,
+    layerSet,
+    imgList,
+    svgList,
+    componentList,
+    dataOne,
+    dataList
+  }
 };
 </script>
 

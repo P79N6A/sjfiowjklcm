@@ -1,47 +1,66 @@
 <template>
-  <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':''}]">
-    <div :class="pageJson.animate.enterAnimation" class="animated" style="border:dashed 1px #ccc;">
-      <div class="i-show" :style="[baseCss,,boxShadow]">
-        <!-- 拖拽外框 -->
-        <div v-for="(drag,i) in pageJson.json" :key="i">
-          <VueDragResize
-            :isActive="activeTempIndex==i"
-            v-on:resizing="resize"
-            v-on:dragging="resize"
-            v-show="drag.config.isShow"
-            :isDraggable="!drag.config.isLock"
-            :isResizable="!drag.config.isLock"
-            :parentW="1000"
-            :parentH="1000"
-            :w="drag.style.base.width"
-            :minw="1"
-            :minh="1"
-            :h="drag.style.base.height"
-            :x="drag.position.left"
-            :y="drag.position.top"
-            :style="{transform: `rotate(${drag.style.base.rotate}deg)`}"
-            :z="1000-i"
-            :key="i"
-            @activated="$bus.$emit('selectTemp',i)"
-          >
-            <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
-              <!-- 组件配置 -->
-            </eleTemp>
-          </VueDragResize>
+  <div>
+    <vue-ruler-tool
+      :content-layout="{left:200,top:100}"
+      :is-scale-revise="true"
+      :preset-line="presetLine"
+      position="static"
+    >
+      <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':''}]">
+        <div
+          :class="pageJson.animate.enterAnimation"
+          class="animated"
+          style="border:dashed 1px #ccc;"
+        >
+          <div class="i-show" :style="[baseCss,,boxShadow]">
+            <!-- 拖拽外框 -->
+            <div v-for="(drag,i) in pageJson.json" :key="i">
+              <VueDragResize
+                :isActive="activeTempIndex==i"
+                v-on:resizing="resize"
+                v-on:dragging="resize"
+                v-on:dragstop="$bus.$emit('saveHistory','拖拽元素位置')"
+                v-on:resizestop="$bus.$emit('saveHistory','调整元素大小')"
+                v-show="drag.config.isShow"
+                :isDraggable="!drag.config.isLock"
+                :isResizable="!drag.config.isLock"
+                :parentW="1000"
+                :parentH="1000"
+                :w="drag.style.base.width"
+                :minw="1"
+                :minh="1"
+                :h="drag.style.base.height"
+                :x="drag.position.left"
+                :y="drag.position.top"
+                :style="{transform: `rotate(${drag.style.base.rotate}deg)`}"
+                :z="1000-i"
+                :key="i"
+                @activated="$bus.$emit('selectTemp',i)"
+              >
+                <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
+                  <!-- 组件配置 -->
+                </eleTemp>
+              </VueDragResize>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </vue-ruler-tool>
   </div>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";
+import VueRulerTool from "@/components/Rule";
 import eleTemp from "./eleTemp.vue";
 export default {
   data() {
-    return {};
+    return {
+      presetLine: []
+    };
   },
   components: {
     VueDragResize,
+    VueRulerTool,
     eleTemp
   },
   props: ["pageJson", "activeTempIndex"],

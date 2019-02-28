@@ -1,7 +1,7 @@
 {
-  "description": "",
+  "description": "新组件",
   "device": "",
-  "name": "",
+  "name": "新组件",
   "type": "",
   "tag": "",
   "_id": "",
@@ -23,6 +23,7 @@
       "buttonColorActive": "#409EFF",
       "textColor": "#000",
       "textColorActive": "#fff",
+      "fontSize": 14,
       "borderRadius": 0,
       "margin": 0
     }

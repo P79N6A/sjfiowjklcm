@@ -41,7 +41,6 @@ import { getIshowOne, addIshows, updateIshows } from "@/api/ishow";
 export default {
   data() {
     return {
-      appId: null,
       // 场景json
       appJson: {
         description: "新组件",
@@ -448,8 +447,8 @@ export default {
   .center {
     flex: 1;
     display: flex;
-    justify-content: top;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     background: #fff;
     background-image: linear-gradient(
         45deg,

@@ -12,18 +12,18 @@
         <i class="el-icon-picture-outline"></i>
         <p>图片</p>
       </div>
-      <div class="item" @click="$bus.$emit('openPageSet')">
+      <!-- <div class="item" @click="$bus.$emit('openPageSet')">
         <i class="el-icon-rank"></i>
         <p>背景</p>
-      </div>
+      </div>-->
       <div class="item" @click="$bus.$emit('addTemp','svg')">
         <i class="el-icon-news"></i>
         <p>形状</p>
       </div>
-      <div class="item" @click="$bus.$emit('addTemp','vue')">
+      <!-- <div class="item" @click="$bus.$emit('addTemp','vue')">
         <i class="el-icon-menu"></i>
         <p>组件</p>
-      </div>
+      </div>-->
       <!-- <div class="item">
         <i class="el-icon-star-off"></i>
         <p>特效</p>

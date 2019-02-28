@@ -6,31 +6,43 @@
         <i class="el-icon-caret-left" v-else></i>
       </span>
     </el-tooltip>
-    <el-tooltip class="item" effect="dark" content="撤销上一步操作" placement="left">
+    <!-- <el-tooltip class="item" effect="dark" content="撤销上一步操作" placement="left">
       <span class="item">
         <i class="el-icon-d-arrow-left"></i>
       </span>
-    </el-tooltip>
-    <el-tooltip class="item" effect="dark" content="恢复操作" placement="left">
-      <span class="item">
-        <i class="el-icon-d-arrow-right"></i>
-      </span>
-    </el-tooltip>
-    <el-tooltip class="item" effect="dark" content="复制当前页" placement="left">
+    </el-tooltip>-->
+    <el-tooltip class="item" effect="dark" content="操作记录" placement="left">
       <span class="item">
         <i class="el-icon-printer"></i>
       </span>
     </el-tooltip>
+    <!-- <el-tooltip class="item" effect="dark" content="复制当前页" placement="left">
+      <span class="item">
+        <i class="el-icon-printer"></i>
+      </span>
+    </el-tooltip>-->
     <el-tooltip class="item" effect="dark" content="当前页样式" placement="left">
       <span class="item" @click="$bus.$emit('openPageSet')">
         <i class="el-icon-setting"></i>
       </span>
     </el-tooltip>
-    <el-tooltip class="item warning" effect="dark" content="超出虚线框部分将不会展示" placement="left">
+    <el-tooltip class="item warning" effect="dark" placement="left">
+      <div slot="content">除了背影，超出虚线框部分的元素将不会展示
+        <br>注:手机端最大宽度320px
+      </div>
       <span class="item">
         <i class="el-icon-warning"></i>
       </span>
     </el-tooltip>
+    <div class="history-list">
+      {{historyIndex}}
+      <p
+        v-for="(item,i) in history"
+        :key="i"
+        :class="[{active:i==historyIndex,disable:i>historyIndex}]"
+        @click="$bus.$emit('selectHistory',i)"
+      >{{item.title}}</p>
+    </div>
   </div>
 </template>
 
@@ -40,13 +52,14 @@ export default {
 
   data() {
     return {
-      iconActive:true
+      iconActive: true
     };
   },
-  methods:{
-    setMenuActive(){
-      this.iconActive=!this.iconActive;
-      this.$bus.$emit('setMenus')
+  props: ["historyIndex", "history"],
+  methods: {
+    setMenuActive() {
+      this.iconActive = !this.iconActive;
+      this.$bus.$emit("setMenus");
     }
   }
 };
@@ -75,6 +88,18 @@ export default {
     &:hover {
       background: #409eff;
       color: #fff;
+    }
+  }
+  .history-list {
+    p {
+      padding: 4px;
+      background: #eee;
+      &.active {
+        color: blue;
+      }
+      &.disable {
+        background: #333;
+      }
     }
   }
 }

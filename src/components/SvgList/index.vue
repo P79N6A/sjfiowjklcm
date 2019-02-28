@@ -1,16 +1,28 @@
 <template>
   <div class="svg-container">
     <!-- 系统形状库 -->
-    <el-dialog :visible.sync="dialogFormVisible" v-if="dialogFormVisible" title="形状列表" width="800px" :modal="false"
-      :close-on-click-modal="false">
+    <el-dialog
+      :visible.sync="dialogFormVisible"
+      v-if="dialogFormVisible"
+      title="形状列表"
+      width="800px"
+      :modal="false"
+      :close-on-click-modal="false"
+    >
       <el-row>
         <el-col :span="4" style="background:#606266;height: 610px;">
           <div class="menu-title">
             形状库
             <i class="el-icon-warning" @click="dialogRuleVisible=true;"></i>
           </div>
-          <el-menu default-active="2" class="el-menu-vertical-demo" @select="handleSelect" background-color="#545c64"
-            text-color="#fff" active-text-color="#409eff">
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @select="handleSelect"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#409eff"
+          >
             <el-menu-item index="1">
               <i class="el-icon-picture-outline"></i>
               <span slot="title">我的形状</span>
@@ -41,8 +53,18 @@
             <div class="svg-box">
               <div class="svg-content" v-for="(item,i) in svgList" :key="i">
                 <div class="svg-view">
-                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
-                    y="0px" width="100%" height="100%" :viewBox="item.viewBox" xml:space="preserve" preserveAspectRatio="none">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    version="1.1"
+                    x="0px"
+                    y="0px"
+                    width="100%"
+                    height="100%"
+                    :viewBox="item.viewBox"
+                    xml:space="preserve"
+                    preserveAspectRatio="none"
+                  >
                     <path :d="item.value" fill="#409eff"></path>
                   </svg>
                 </div>
@@ -58,12 +80,29 @@
             </div>
             <div class="svg-pre" v-if="showPre">
               <i class="el-icon-back pre-close" @click="showPre=false;"></i>
-              <el-carousel :autoplay="false" indicator-position="none" height="562px" :initial-index="preIndex" :change="handleChange">
+              <el-carousel
+                :autoplay="false"
+                indicator-position="none"
+                height="562px"
+                :initial-index="preIndex"
+                :change="handleChange"
+              >
                 <el-carousel-item v-for="item in preList" :key="item">
-                  <div style="display:flex;justify-content:center;align-items:center;height:100%;padding:20px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px"
-                      y="0px" width="100%" height="100%" :viewBox="item.viewBox" xml:space="preserve"
-                      preserveAspectRatio="none">
+                  <div
+                    style="display:flex;justify-content:center;align-items:center;height:100%;padding:20px;"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      version="1.1"
+                      x="0px"
+                      y="0px"
+                      width="100%"
+                      height="100%"
+                      :viewBox="item.viewBox"
+                      xml:space="preserve"
+                      preserveAspectRatio="none"
+                    >
                       <path :d="item.value" fill="#409eff"></path>
                     </svg>
                   </div>
@@ -82,8 +121,14 @@
         </el-col>
       </el-row>
     </el-dialog>
-    <el-dialog :visible.sync="dialogRuleVisible" title="页面设置" width="800px" :close-on-click-modal="false">
-      <div style="padding:20px;line-height:1.5;">本平台形状版权许可与服务协议
+    <el-dialog
+      :visible.sync="dialogRuleVisible"
+      title="页面设置"
+      width="800px"
+      :close-on-click-modal="false"
+    >
+      <div style="padding:20px;line-height:1.5;">
+        本平台形状版权许可与服务协议
         <h3>第一条 形状版权声明</h3>本平台平台形状库中所有收费形状素材均是经版权方合法授权的正版素材，其知识产权和所有权归版权方所有。用户须购买后方可享有有限使用权。
         <h3>第二条 授权使用方式</h3>本平台提供的形状授权是免版税金（RF,
         Royalty-Free）使用形状版权的方式。用户购买形状使用授权后，形状的使用权是非排他性的、全球性的、单用户的使用权，不受使用次数的限制，使用权不可转让。
@@ -102,231 +147,224 @@
 </template>
 
 <script>
-  import {
-    mapGetters
-  } from "vuex";
-  import {
-    getSvgs
-  } from "@/api/svgs";
-  export default {
-    name: "FileList",
-    props: {
-      value: {
-        type: String,
-        default: ""
-      }
-    },
-    data() {
-      return {
-        dialogFormVisible: false,
-        dialogRuleVisible: false,
-        emitEvent: null, // 选择形状后，需要促发的函数
-        dataTypeOption: [
-          "猪年专题",
-          "春节专题",
-          "精选",
-          "促销",
-          "邀请函",
-          "科技"
-        ],
-        dataSortOption: ["最新", "最热"],
-        dataPriceOption: ["", "0", "0-10元", "11-20元"],
-        picJson: [],
-        tempUrl: "",
-        isLoading: true,
-        //搜索条件
-        filterData: {
-          // 设置
-          price: '',
-          type: '',
-          festival: '',
-          style: '',
-          color: '',
-        },
-        svgList: [],
-        showPre: false,
-        preList: [],
-        preIndex: 0
-      };
-    },
-    created() {
-      this.$bus.$on("openSvgList", emitEvent => {
-        this.dialogFormVisible = true;
-        this.getSvgs();
-        this.emitEvent = emitEvent;
-      });
-    },
-    computed: {
-      ...mapGetters(["cdnurl"])
-    },
-    methods: {
-      // 查询用户列表
-      getSvgs() {
-        this.listLoading = true;
-        getSvgs(this.filterData)
-          .then(res => {
-            this.svgList = res.data
-            this.listLoading = false;
-          })
-          .catch(err => {
-            this.listLoading = false;
-          });
-      },
-      handleChange(index) {
-        this.preIndex = index;
-      },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      preview(url) {
-        window.open(url);
-      },
-      select(item) {
-        this.$bus.$emit(this.emitEvent, item);
-        this.dialogFormVisible=false;
-      }
+import { mapGetters } from "vuex";
+import { getSvgs } from "@/api/svgs";
+export default {
+  name: "FileList",
+  props: {
+    value: {
+      type: String,
+      default: ""
     }
-  };
-
+  },
+  data() {
+    return {
+      dialogFormVisible: false,
+      dialogRuleVisible: false,
+      emitEvent: null, // 选择形状后，需要促发的函数
+      dataTypeOption: [
+        "猪年专题",
+        "春节专题",
+        "精选",
+        "促销",
+        "邀请函",
+        "科技"
+      ],
+      dataSortOption: ["最新", "最热"],
+      dataPriceOption: ["", "0", "0-10元", "11-20元"],
+      picJson: [],
+      tempUrl: "",
+      isLoading: true,
+      //搜索条件
+      filterData: {
+        // 设置
+        price: "",
+        type: "",
+        festival: "",
+        style: "",
+        color: ""
+      },
+      svgList: [],
+      showPre: false,
+      preList: [],
+      preIndex: 0
+    };
+  },
+  created() {
+    this.$bus.$on("openSvgList", emitEvent => {
+      this.dialogFormVisible = true;
+      this.getSvgs();
+      this.emitEvent = emitEvent;
+    });
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  methods: {
+    // 查询用户列表
+    getSvgs() {
+      this.listLoading = true;
+      getSvgs(this.filterData)
+        .then(res => {
+          this.svgList = res.data;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          this.listLoading = false;
+        });
+    },
+    handleChange(index) {
+      this.preIndex = index;
+    },
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    preview(url) {
+      window.open(url);
+    },
+    select(item) {
+      this.$bus.$emit(this.emitEvent, item);
+      this.dialogFormVisible = false;
+    }
+  }
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  @import "src/styles/mixin.scss";
+@import "src/styles/mixin.scss";
 
-  .svg-container {
-    .el-dialog__body {
-      padding: 0;
-    }
+.svg-container {
+  .el-dialog__body {
+    padding: 0;
+  }
 
-    .menu-title {
-      font-size: 24px;
-      padding: 20px;
-      color: rgb(255, 255, 255);
-      background-color: rgb(84, 92, 100);
+  .menu-title {
+    font-size: 24px;
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(84, 92, 100);
 
-      i {
-        color: red;
-        font-size: 14px;
-        cursor: pointer;
-      }
-    }
-
-    .svg-list {
-      padding: 0 10px;
-      position: relative;
-
-      .search {
-        margin-bottom: 10px;
-
-        span {
-          padding: 0 10px;
-          border-right: solid 1px #343434;
-          line-height: 1;
-          vertical-align: middle;
-        }
-      }
-
-      .svg-box {
-        display: flex;
-        justify-content: start;
-        flex-wrap: wrap;
-        height: 550px;
-        overflow-y: scroll;
-        height: auto;
-      }
-
-      .svg-content {
-        position: relative;
-        margin: 4px;
-
-        &:hover {
-          .svg-control {
-            opacity: 1;
-          }
-        }
-
-        .svg-view {
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-color: #eee;
-          text-align: center;
-          width: 150px;
-          height: 150px;
-          display: inline-block;
-          cursor: pointer;
-        }
-
-        .svg-control {
-          position: absolute;
-          transition: all 0.4s;
-          top: 0;
-          left: 0;
-          width: 150px;
-          height: 150px;
-          background: rgba(0, 0, 0, 0.6);
-          text-align: center;
-          padding-top: 50px;
-          opacity: 0;
-
-          .icons {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            color: #fff;
-            padding: 10px;
-
-            i {
-              cursor: pointer;
-              transition: all 0.3s;
-              font-size: 18px;
-
-              &:hover,
-              &.active {
-                color: #409eff;
-              }
-            }
-          }
-        }
-
-        .svg-price {
-          font-size: 12px;
-        }
-      }
-
-      .svg-pre {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 610px;
-        background: rgba(0, 0, 0, 0.3);
-
-        .pre-close {
-          font-size: 30px;
-          font-weight: bold;
-          border: solid 2px #fff;
-          border-radius: 20em;
-          color: #fff;
-          padding: 2px;
-          position: absolute;
-          cursor: pointer;
-          left: 10px;
-          top: 10px;
-          z-index: 999;
-        }
-
-        .pre-foot {
-          display: flex;
-          justify-content: space-between;
-          background: #fff;
-          padding: 10px;
-        }
-      }
+    i {
+      color: red;
+      font-size: 14px;
+      cursor: pointer;
     }
   }
 
+  .svg-list {
+    padding: 0 10px;
+    position: relative;
+
+    .search {
+      margin-bottom: 10px;
+
+      span {
+        padding: 0 10px;
+        border-right: solid 1px #343434;
+        line-height: 1;
+        vertical-align: middle;
+      }
+    }
+
+    .svg-box {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+      height: 550px;
+      overflow-y: scroll;
+    }
+
+    .svg-content {
+      position: relative;
+      margin: 4px;
+
+      &:hover {
+        .svg-control {
+          opacity: 1;
+        }
+      }
+
+      .svg-view {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #eee;
+        text-align: center;
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .svg-control {
+        position: absolute;
+        transition: all 0.4s;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 150px;
+        background: rgba(0, 0, 0, 0.6);
+        text-align: center;
+        padding-top: 50px;
+        opacity: 0;
+
+        .icons {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          color: #fff;
+          padding: 10px;
+
+          i {
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+
+            &:hover,
+            &.active {
+              color: #409eff;
+            }
+          }
+        }
+      }
+
+      .svg-price {
+        font-size: 12px;
+      }
+    }
+
+    .svg-pre {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 610px;
+      background: rgba(0, 0, 0, 0.3);
+
+      .pre-close {
+        font-size: 30px;
+        font-weight: bold;
+        border: solid 2px #fff;
+        border-radius: 20em;
+        color: #fff;
+        padding: 2px;
+        position: absolute;
+        cursor: pointer;
+        left: 10px;
+        top: 10px;
+        z-index: 999;
+      }
+
+      .pre-foot {
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        padding: 10px;
+      }
+    }
+  }
+}
 </style>

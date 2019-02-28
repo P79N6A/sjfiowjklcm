@@ -138,7 +138,7 @@
                 ></el-color-picker>
               </el-input>
             </el-form-item>
-            <el-form-item label="指示器(激活时)" v-if="appJson.value.indicator.showText">
+            <el-form-item label="标题颜色(激活时)" v-if="appJson.value.indicator.showText">
               <el-input
                 v-model="appJson.value.indicator.textColorActive"
                 placeholder="标题颜色(激活时)"
@@ -149,6 +149,11 @@
                   v-model="appJson.value.indicator.textColorActive"
                   show-alpha
                 ></el-color-picker>
+              </el-input>
+            </el-form-item>
+            <el-form-item label="字体大小">
+              <el-input v-model="appJson.value.indicator.fontSize" placeholder="字体大小">
+                <template slot="append">PX</template>
               </el-input>
             </el-form-item>
           </div>

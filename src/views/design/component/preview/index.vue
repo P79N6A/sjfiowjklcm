@@ -1,11 +1,12 @@
 <template>
   <div v-if="showPage" class="page-show">
     <div
-      class="i-preview"
+      class="i-preview animated"
       :style="[bgCss,{width:pageJson.config.fullScreen?'100%':''}]"
       v-for="(pageJson,i) in appJson.value.pageJson"
       v-if="i==activePage"
       :key="i"
+      :class="pageJson.animate.enterAnimation"
     >
       <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
         <!-- 外框 -->
@@ -45,6 +46,7 @@
           color:${i==activePage?appJson.value.indicator.textColorActive:appJson.value.indicator.textColor};
           background:${i==activePage?appJson.value.indicator.buttonColorActive:appJson.value.indicator.buttonColor};
           margin:0 ${appJson.value.indicator.margin}px;
+          font-size:${appJson.value.indicator.fontSize}px;
         `"
       >
         <span v-if="appJson.value.indicator.showText">{{pageJson.title}}</span>
@@ -197,7 +199,7 @@ export default {
   .indicators {
     display: flex;
     position: absolute;
-    width:100%;
+    width: 100%;
     justify-content: center;
     .indicator {
       cursor: pointer;

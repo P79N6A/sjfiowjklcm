@@ -400,32 +400,32 @@ export default {
     width: 1400px;
     position: relative;
     &.PC {
-      width: 1800px;
-      height: 950px;
+      width: 1950px;
+      height: 1000px;
       background: url("./img/bg_mac.png") no-repeat center top;
       background-size: 100% 100%;
       iframe {
-        width: 1320px;
-        height: 731px;
+        width: 1440px;
+        height: 780px;
         position: absolute;
         top: 80px;
-        left: 240px;
+        left: 260px;
       }
     }
     &.MOBILE {
-      width: 380px;
-      height: 800px;
+      width: 360px;
+      height: 750px;
       margin: 10px auto;
       padding: 10px;
       display: block;
       background: url("./img/bg_iphone.png") no-repeat center top;
       background-size: 100% 100%;
       iframe {
-        width: 340px;
-        height: 740px;
+        width: 320px;
+        height: 690px;
         position: absolute;
-        top: 45px;
-        left: 20px;
+        top: 42px;
+        left: 18px;
         border-radius: 0 0 20px 20px;
       }
     }

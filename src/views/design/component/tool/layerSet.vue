@@ -875,7 +875,6 @@ export default {
       });
     },
     showDataList() {
-      console.log("lasfjksj");
       this.$bus.$emit("showDataList", this.settingForm.config);
     },
     preAnimate() {
@@ -915,9 +914,7 @@ export default {
     });
     // vue
     this.$bus.$on("ChangeVue", ele => {
-      this.settingForm.config.content = ele.src;
-      this.settingForm.config.configModel = ele.configModel;
-      this.settingForm.config.categoryModel = ele.categoryModel;
+      console.log('ChangeVue')
       const _contentTemp = {
         abstract: "",
         category: "",
@@ -930,6 +927,9 @@ export default {
       addContents(_contentTemp)
         .then(res => {
           this.settingForm.config.dataId = res.data._id;
+          this.settingForm.config.content = ele.src;
+          this.settingForm.config.configModel = ele.configModel;
+          this.settingForm.config.categoryModel = ele.categoryModel;
         })
         .catch(err => {
           console.log(err);
