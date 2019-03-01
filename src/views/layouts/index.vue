@@ -1,74 +1,32 @@
 <template>
   <div class="layoutsList-container">
     <el-card class="box-card">
-      <el-tabs type="border-card" v-model="layoutType">
-        <!-- 外框部分 -->
-        <el-tab-pane label="整站布局" name="layout">
-          <div class="layoutList cfx">
-            <div v-for="(item,i) in layoutList" :key="i">
-              <div class="title">{{item.name}}</div>
-              <div class="layouts">
-                <div class="layouts-content">
-                  <div class="control">
-                    <!-- 操作按钮区域 -->
-                    <el-button-group>
-                      <el-button
-                        type="primary"
-                        round
-                        icon="el-icon-edit"
-                        @click="editFrame(item)"
-                      >编辑</el-button>
-                      <el-button
-                        type="danger"
-                        round
-                        icon="el-icon-delete"
-                        @click="handleDelete(item)"
-                      >删除</el-button>
-                    </el-button-group>
-                  </div>
-                  <img :src="item.screenShot" style="display:block;width:100%;">
-                </div>
+      <div class="layoutList cfx">
+        <div v-for="(item,i) in layoutList" :key="i">
+          <div class="title">{{item.name}}</div>
+          <div class="layouts">
+            <div class="layouts-content">
+              <div class="control">
+                <!-- 操作按钮区域 -->
+                <el-button-group>
+                  <el-button type="primary" round icon="el-icon-edit" @click="editFrame(item)">编辑</el-button>
+                  <el-button
+                    type="danger"
+                    round
+                    icon="el-icon-delete"
+                    @click="handleDelete(item)"
+                  >删除</el-button>
+                </el-button-group>
               </div>
+              <img :src="item.screenShot" style="display:block;width:100%;">
             </div>
           </div>
-          <div class="bottom cfx">
-            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
-          </div>
-        </el-tab-pane>
-        <!-- 页面部分 -->
-        <el-tab-pane label="页面布局" name="page">
-          <div class="layoutList cfx">
-            <div v-for="(item,i) in layoutList" :key="i">
-              <div class="title">{{item.name}}</div>
-              <div class="layouts">
-                <div class="layouts-content">
-                  <div class="control">
-                    <!-- 操作按钮区域 -->
-                    <el-button-group>
-                      <el-button
-                        type="primary"
-                        round
-                        icon="el-icon-edit"
-                        @click="editFrame(item)"
-                      >编辑</el-button>
-                      <el-button
-                        type="danger"
-                        round
-                        icon="el-icon-delete"
-                        @click="handleDelete(item)"
-                      >删除</el-button>
-                    </el-button-group>
-                  </div>
-                  <img :src="item.screenShot" style="display:block;width:100%;">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom cfx">
-            <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+        </div>
+      </div>
+      <div class="bottom cfx">
+        <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
+      </div>
+
       <!-- 创建布局 -->
       <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="1000px">
         <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
@@ -201,19 +159,22 @@ export default {
     this.getLayouts();
   },
   methods: {
-    editFrame(item){
-        if (getToken("SiteDevice").toUpperCase() == 'PC') {
-      this.$router.push({ name: 'layoutDesign', query: { layoutId: item._id}});
-        }else{
-      this.$router.push({ name: 'layoutDesignMobile', query: { layoutId: item._id}});
-
-        }
+    editFrame(item) {
+      if (getToken("SiteDevice").toUpperCase() == "PC") {
+        this.$router.push({
+          name: "layoutDesign",
+          query: { layoutId: item._id }
+        });
+      } else {
+        this.$router.push({
+          name: "layoutDesignMobile",
+          query: { layoutId: item._id }
+        });
+      }
     },
     // 读取框架列表
     getFrames() {
-      getFrames({
-        type: this.layoutType
-      })
+      getFrames()
         .then(res => {
           this.framesList = res.data;
         })

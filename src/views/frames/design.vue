@@ -1,18 +1,12 @@
 <template>
   <div class="FrameDesigh-container">
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="6">
-          <el-input v-model="frameTemp.name" placeholder="请输入框架名称">
-            <template slot="prepend">{{textMap[frameTemp.type]}}</template>
-          </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
-          <el-button @click="$router.push({name:'frames'})">取消</el-button>
-        </el-col>
-      </el-row>
-    </el-header>
+    <div class="i-header">
+      <input v-model="frameTemp.name" placeholder="请输入框架名称">
+      <div class="float:right;">
+        <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
+        <el-button @click="$router.push({name:'frames'})">退出</el-button>
+      </div>
+    </div>
     <!-- 操作部分 -->
     <div id="drag-box" ref="imageWrapper">
       <div class="show" v-for="(block,i) in frameTemp.value" :key="i">
@@ -191,98 +185,21 @@ export default {
         type: "",
         value: []
       },
-
-      // 外框布局模型
-      layoutData: [
-        {
-          text: "A",
-          rows: [
-            {
-              text: "内容区块1",
-              fullWidth: false,
-              cols: [
-                {
-                  text: "格子",
-                  width: 24
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
-        },
-        {
-          text: "页面展示区域",
-          isPageView: true
-        },
-        {
-          text: "B",
-          rows: [
-            {
-              text: "内容区块2",
-              fullWidth: false,
-              cols: [
-                {
-                  text: "格子",
-                  width: 12
-                },
-                {
-                  text: "格子",
-                  width: 12
-                }
-              ]
-            }
-          ]
-        },
-        {
-          text: "c",
-          rows: [
-            {
-              text: "内容区块3",
-              fullWidth: false,
-              cols: [
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
-        }
-      ],
       // 页面布局模型
       pageData: [
         {
-          text: "A",
+          text: "区块1",
           rows: [
             {
-              text: "内容区块1",
+              text: "行内容1",
               fullWidth: false,
               cols: [
                 {
-                  text: "格子",
+                  text: "格子1",
                   width: 24
                 },
                 {
-                  text: "格子",
+                  text: "格子2",
                   width: 24
                 }
               ]
@@ -290,18 +207,18 @@ export default {
           ]
         },
         {
-          text: "B",
+          text: "区块2",
           rows: [
             {
-              text: "内容区块2",
+              text: "行内容1",
               fullWidth: false,
               cols: [
                 {
-                  text: "格子",
+                  text: "格子1",
                   width: 12
                 },
                 {
-                  text: "格子",
+                  text: "格子2",
                   width: 12
                 }
               ]
@@ -309,30 +226,30 @@ export default {
           ]
         },
         {
-          text: "c",
+          text: "区块3",
           rows: [
             {
-              text: "内容区块3",
+              text: "行内容1",
               fullWidth: false,
               cols: [
                 {
-                  text: "格子",
+                  text: "格子1",
                   width: 6
                 },
                 {
-                  text: "格子",
+                  text: "格子2",
                   width: 6
                 },
                 {
-                  text: "格子",
+                  text: "格子3",
                   width: 6
                 },
                 {
-                  text: "格子",
+                  text: "格子4",
                   width: 6
                 },
                 {
-                  text: "格子",
+                  text: "格子5",
                   width: 24
                 }
               ]
@@ -349,7 +266,7 @@ export default {
   mounted() {
     if (this.$route.query.frameType) {
       // 判断是否有frameType
-      this.frameTemp.type = this.$route.query.frameType;
+      // this.frameTemp.type = this.$route.query.frameType;
       if (this.$route.query.frameId) {
         // 查看数据库已有模板
         this.getFrame({
@@ -357,11 +274,11 @@ export default {
         });
       } else {
         // 新模板
-        if (this.$route.query.frameType == "layout") {
-          this.frameTemp.value = this.layoutData;
-        } else if (this.$route.query.frameType == "page") {
-          this.frameTemp.value = this.pageData;
-        }
+        // if (this.$route.query.frameType == "layout") {
+        //   this.frameTemp.value = this.layoutData;
+        // } else if (this.$route.query.frameType == "page") {
+        this.frameTemp.value = this.pageData;
+        // }
       }
     } else {
       this.$router.go(-1);
@@ -597,9 +514,9 @@ export default {
      * 栅栏缩小
      * */
     smaller(col) {
-        if (col.width > 3) {
-          col.width--;
-        }
+      if (col.width > 3) {
+        col.width--;
+      }
     },
     /**
      * col，当前栅栏object
@@ -667,33 +584,6 @@ export default {
         this.colMoveSet();
       });
     },
-    setSortBlock() {
-      const el = document.querySelectorAll(".drag-box")[0];
-      Sortable.create(el, {
-        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
-          dataTransfer.setData("Text", "");
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-        },
-        onEnd: evt => {
-          this.layoutData.splice(evt.oldIndex, 1)[0];
-          // this.layoutData.splice(evt.newIndex, 0, targetRow)
-          // this.$nextTick(() => {
-          // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
-          // this.layoutData.splice(evt.newIndex, 0, targetRow)
-          // this.setSort()
-          // })
-          setTimeout(() => {
-            const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0];
-            this.layoutData.splice(evt.newIndex, 0, targetRow);
-          }, 300);
-          // for show the changes, you can delete in you code
-          // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
-          // this.newList.splice(evt.newIndex, 0, tempIndex)
-        }
-      });
-    },
     setSort(el, group) {
       // const el = document.querySelectorAll('.show')
       Sortable.create(el, {
@@ -735,16 +625,33 @@ export default {
   position: relative;
   overflow: hidden;
   min-height: calc(100vh - 84px);
-  padding: 20px;
+  .i-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fafafa;
+    border-bottom: solid 1px #ccc;
+    height: 60px;
+    input {
+      border: none;
+      border-bottom: solid 1px #eee;
+      margin-right: 20px;
+      background: none;
+      outline: none;
+      padding: 4px;
+    }
+  }
   #drag-box {
     // padding: 10px;
     // transform:scale(0.8);
+    padding: 20px;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
     background: #f7f8fb;
     padding: 4px;
-      width: 100%;
+    width: 100%;
   }
 
   .show {
@@ -769,7 +676,7 @@ export default {
     }
 
     .rows {
-      box-shadow:0 0 1px 0 #343434;
+      box-shadow: 0 0 1px 0 #343434;
       margin-bottom: 5px !important;
       padding: 5px;
       margin: 10px auto;

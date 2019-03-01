@@ -45,11 +45,7 @@
           页面展示区域
         </div>
         <div v-else>
-          <el-row
-            v-for="(row,r) in block.rows"
-            :key="i+'-'+r"
-            class="rows"
-          >
+          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
             <!-- 区块操作按钮 -->
             <el-button-group class="row-controls">
               <el-button>
@@ -86,12 +82,7 @@
               </el-tooltip>
             </el-button-group>
             <!-- 行区域 -->
-            <el-col
-              v-for="(col,j) in row.cols"
-              :span="col.width"
-              :key="i+'-'+r+'-'+j"
-              class="cols"
-            >
+            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
               <!-- 格子区域 -->
               <div>
                 <div>
@@ -172,83 +163,6 @@ export default {
         type: "",
         value: []
       },
-
-      // 外框布局模型
-      layoutData: [
-        {
-          text: "A",
-          rows: [
-            {
-              text: "内容区块1",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 24
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
-        },
-        {
-          text: "页面展示区域",
-          isPageView: true
-        },
-        {
-          text: "B",
-          rows: [
-            {
-              text: "内容区块2",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 12
-                },
-                {
-                  text: "格子",
-                  width: 12
-                }
-              ]
-            }
-          ]
-        },
-        {
-          text: "c",
-          rows: [
-            {
-              text: "内容区块3",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
-        }
-      ],
       // 页面布局模型
       pageData: [
         {
@@ -330,7 +244,7 @@ export default {
   mounted() {
     if (this.$route.query.frameType) {
       // 判断是否有frameType
-      this.frameTemp.type = this.$route.query.frameType;
+      // this.frameTemp.type = this.$route.query.frameType;
       if (this.$route.query.frameId) {
         // 查看数据库已有模板
         this.getFrame({
@@ -338,11 +252,11 @@ export default {
         });
       } else {
         // 新模板
-        if (this.$route.query.frameType == "layout") {
-          this.frameTemp.value = this.layoutData;
-        } else if (this.$route.query.frameType == "page") {
-          this.frameTemp.value = this.pageData;
-        }
+        // if (this.$route.query.frameType == "layout") {
+        //   this.frameTemp.value = this.layoutData;
+        // } else if (this.$route.query.frameType == "page") {
+        this.frameTemp.value = this.pageData;
+        // }
       }
     } else {
       this.$router.go(-1);
@@ -578,9 +492,9 @@ export default {
      * 栅栏缩小
      * */
     smaller(col) {
-        if (col.width > 3) {
-          col.width--;
-        }
+      if (col.width > 3) {
+        col.width--;
+      }
     },
     /**
      * col，当前栅栏object
@@ -648,33 +562,6 @@ export default {
         this.colMoveSet();
       });
     },
-    setSortBlock() {
-      const el = document.querySelectorAll(".drag-box")[0];
-      Sortable.create(el, {
-        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
-          dataTransfer.setData("Text", "");
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-        },
-        onEnd: evt => {
-          this.layoutData.splice(evt.oldIndex, 1)[0];
-          // this.layoutData.splice(evt.newIndex, 0, targetRow)
-          // this.$nextTick(() => {
-          // const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0]
-          // this.layoutData.splice(evt.newIndex, 0, targetRow)
-          // this.setSort()
-          // })
-          setTimeout(() => {
-            const targetRow = this.layoutData.splice(evt.oldIndex, 1)[0];
-            this.layoutData.splice(evt.newIndex, 0, targetRow);
-          }, 300);
-          // for show the changes, you can delete in you code
-          // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
-          // this.newList.splice(evt.newIndex, 0, tempIndex)
-        }
-      });
-    },
     setSort(el, group) {
       // const el = document.querySelectorAll('.show')
       Sortable.create(el, {
@@ -707,9 +594,9 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
-  .iconfont {
-    font-size: 12px !important;
-  }
+.iconfont {
+  font-size: 12px !important;
+}
 .FrameDesigh-container {
   position: relative;
   overflow: hidden;
@@ -721,7 +608,7 @@ export default {
     flex-direction: column;
     background: #f7f8fb;
     width: 540px;
-    margin:0 auto;
+    margin: 0 auto;
     padding: 4px;
   }
 
@@ -747,14 +634,14 @@ export default {
     }
 
     .rows {
-      box-shadow:0 0 0 1px #343434;
+      box-shadow: 0 0 0 1px #343434;
       margin-bottom: 5px !important;
       padding: 5px;
       margin: 10px auto;
       position: relative;
       min-height: 100px;
-        width: 100%;
-        padding: 2px;
+      width: 100%;
+      padding: 2px;
       .row-controls {
         position: absolute;
         top: -21px;
