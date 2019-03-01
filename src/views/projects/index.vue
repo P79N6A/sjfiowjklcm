@@ -28,7 +28,9 @@
       <el-table-column label="网站拥有者">
         <template slot-scope="scope">
           <el-tag>{{scope.row.author.nickname}}</el-tag>
-          <p><a :href="scope.row.author.eamil">{{scope.row.author.email}}</a></p>
+          <p>
+            <a :href="scope.row.author.eamil">{{scope.row.author.email}}</a>
+          </p>
         </template>
       </el-table-column>
       <el-table-column label="网站主域名" prop="url">
@@ -49,7 +51,7 @@
           {{scope.row}}
         </template>
       </el-table-column>-->
-      <el-table-column label="备注" prop="description"></el-table-column>
+      <el-table-column label="项目描述" prop="description"></el-table-column>
       <el-table-column
         :label="$t('table.actions')"
         align="center"
@@ -72,7 +74,12 @@
     </el-table>
     <!-- 项目设置 -->
     <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="500px">
+    <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      width="500px"
+      v-if="dialogFormVisible"
+    >
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -84,6 +91,13 @@
         <el-form-item label="*项目名称" prop="name">
           <el-input v-model="projectsTemp.name"/>
         </el-form-item>
+
+        <el-form-item label="官网域名" prop="url">
+          <el-input v-model="projectsTemp.url"/>
+        </el-form-item>
+        <el-form-item label="项目描述" prop="description">
+          <el-input v-model="projectsTemp.description"/>
+        </el-form-item>
         <el-form-item label="*适用终端" prop="name">
           <el-radio-group v-model="projectsTemp.device">
             <el-radio
@@ -93,11 +107,16 @@
             >{{item.name}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="官网域名" prop="url">
-          <el-input v-model="projectsTemp.url"/>
-        </el-form-item>
-        <el-form-item label="项目备注" prop="description">
-          <el-input v-model="projectsTemp.description"/>
+        <el-form-item label="页面模板" prop="templateId">
+          <el-select v-model="projectsTemp.templateId">
+            <el-option label="空白模板" value></el-option>
+            <el-option
+              v-for="(item,i) in projectsList"
+              :key="i"
+              :label="item.name"
+              :value="item._id"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -135,7 +154,8 @@ export default {
         name: "",
         devide: "",
         url: "",
-        description: ""
+        description: "",
+        templateId: ""
       },
       // 终端列表
       deviceTypeList: [
@@ -193,7 +213,8 @@ export default {
         name: "",
         devide: "",
         url: "",
-        description: ""
+        description: "",
+        templateId: ""
       };
     },
     // 点击创建按钮

@@ -1,25 +1,29 @@
 <template>
-  <div class="page-show">
+  <div v-if="showPage" class="page-show">
     <div
-      class="i-preview"
+      class="i-preview animated"
       :style="[bgCss,{width:pageJson.config.fullScreen?'100%':''}]"
       v-for="(pageJson,i) in appJson.value.pageJson"
       v-if="i==activePage"
       :key="i"
+      :class="pageJson.animate.enterAnimation"
     >
-      <div :class="pageJson.animate.enterAnimation" class="animated">
-        <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
-          <!-- 拖拽外框 -->
-          <div v-for="(drag,i) in pageJson.json" :key="i" v-if="drag.config.isShow">
-            <div
-              :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
-              :key="i"
-            >
-              <eleTemp :eleJson="drag" :showId="i">
-                <!-- 组件配置 -->
-              </eleTemp>
-            </div>
-          </div>
+      <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
+        <!-- 外框 -->
+        <div
+          v-for="(drag,i) in pageJson.json"
+          :key="i"
+          v-if="drag.config.isShow"
+          :style="{cursor:drag.event.onClick.type?'pointer':'',position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`}"
+          @click="elClick(drag.event.onClick)"
+          @mouseenter="eleHovering=i"
+          @mouseout="eleHovering=null"
+          :class="eleHovering==i&&drag.event.hover?drag.event.hover.animation:''"
+          class="animated"
+        >
+          <eleTemp :eleJson="drag" :showId="i">
+            <!-- 组件配置 -->
+          </eleTemp>
         </div>
       </div>
     </div>
@@ -42,6 +46,7 @@
           color:${i==activePage?appJson.value.indicator.textColorActive:appJson.value.indicator.textColor};
           background:${i==activePage?appJson.value.indicator.buttonColorActive:appJson.value.indicator.buttonColor};
           margin:0 ${appJson.value.indicator.margin}px;
+          font-size:${appJson.value.indicator.fontSize}px;
         `"
       >
         <span v-if="appJson.value.indicator.showText">{{pageJson.title}}</span>
@@ -60,7 +65,8 @@ export default {
       infinite: true, // 是否循环播放
       interval: 3000, //动画时间间隔,单位ms
       timer: "",
-      showPage: true
+      showPage: true,
+      eleHovering: false
     };
   },
   components: {
@@ -109,6 +115,36 @@ export default {
             }
           })
           .catch(err => {});
+    },
+    // 点击事件
+    elClick(eventJson) {
+      console.log(eventJson);
+      if (eventJson.type == "next") {
+        // 下一场景
+        this.activePage =
+          (this.activePage + 1) % this.appJson.value.pageJson.length;
+      } else if (eventJson.type == "pre") {
+        // 上一场景
+        this.activePage =
+          (this.activePage - 1 + this.appJson.value.pageJson.length) %
+          this.appJson.value.pageJson.length;
+      } else if (eventJson.type == "index") {
+        this.activePage = eventJson.index;
+        // 到任意场景
+      } else if (eventJson.type == "link" && eventJson.link) {
+        if (eventJson.target == "_blank") {
+          window.open(eventJson.link);
+        } else {
+          window.location.href = eventJson.link;
+        }
+      } else if (eventJson.type == "close") {
+        window.clearInterval(this.timer);
+        this.showPage = false;
+      }
+    },
+    elMouseOver(eventJson) {
+      console.log(eventJson);
+      console.log("mouseOver");
     }
   },
   watch: {

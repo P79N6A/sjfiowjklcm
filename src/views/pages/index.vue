@@ -43,7 +43,7 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <div class="iframe-view" :class="pagesTemp.device">
+              <div class="iframe-view" :class="device">
                 <iframe ref="iframeView" src="/#/preview"></iframe>
               </div>
               <!-- 外框 -->
@@ -66,11 +66,11 @@
             <template slot="prepend">～域名</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="页面外框" prop="layout">
+        <!-- <el-form-item label="页面外框" prop="layout">
           <el-select v-model="pagesTemp.layout" placeholder="请选择页面外框">
             <el-option :label="item.name" :value="item._id" v-for="(item,i) in layoutList" :key="i"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="页面内容" prop="layout">
           <el-select v-model="pagesTemp.content" placeholder="请选择页面内容">
             <el-option
@@ -102,13 +102,6 @@
             active-value="pushed"
             inactive-value="draft"
           ></el-switch>
-        </el-form-item>
-        <el-form-item label="适配终端" prop="device">
-          <!-- 这个其实可以废弃，从cookie获取 -->
-          <el-select v-model="pagesTemp.device" placeholder="请选择页面适用终端" disabled>
-            <el-option label="PC端" value="pc"></el-option>
-            <el-option label="MOBILE端" value="MOBILE"></el-option>
-          </el-select>
         </el-form-item>
         <el-form-item label="说明" prop="remarks">
           <el-input
@@ -175,6 +168,7 @@ export default {
     return {
       hideMenu: false,
       pageList: null,
+      device:getToken("SiteDevice"),
       columns: [
         {
           text: "页面地址",
@@ -205,7 +199,7 @@ export default {
       pagesTemp: {
         _id: "",
         // 布局数据
-        layout: "",
+        // layout: "",
         content: "",
         // 页面其余参数
         name: "",
@@ -213,7 +207,6 @@ export default {
         remarks: "",
         needLogin: "",
         status: "draft",
-        device: getToken("SiteDevice"),
         // 页头基本配置
         title: "",
         keywords: "",
@@ -293,7 +286,7 @@ export default {
       this.pagesTemp = {
         _id: "",
         // 布局数据
-        layout: "",
+        // layout: "",
         content: "",
         // 页面其余参数
         name: "",
@@ -301,7 +294,7 @@ export default {
         remarks: "",
         needLogin: "",
         status: "draft",
-        device: getToken("SiteDevice"),
+        // device: getToken("SiteDevice"),
         // 页头基本配置
         title: "",
         keywords: "",

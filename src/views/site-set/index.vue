@@ -35,7 +35,7 @@
             </el-upload>只能是图片文件且不超过100KB!
           </el-form-item>
 
-          <el-form-item label="网站logo">
+          <!-- <el-form-item label="网站logo">
             <el-upload
               class="avatar-uploader"
               action="/api/media"
@@ -46,7 +46,7 @@
               <img v-if="siteInfo.value.logo" :src="cdnurl+siteInfo.value.logo" class="logo">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>只能是【.png】后缀的文件且不超过300KB!
-          </el-form-item>
+          </el-form-item>-->
         </el-form>
       </div>
     </el-card>
@@ -58,6 +58,9 @@
       </div>
       <div class="text item">
         <el-form label-position="left" label-width="80px" :model="siteInfo">
+          <el-form-item label="默认首页">
+            <el-input v-model="siteInfo.value.index" placeholder="输入网址，默认重定向到该页面"></el-input>
+          </el-form-item>
           <el-form-item label="页面丢失">
             <el-input v-model="siteInfo.value.error404" placeholder="当输入错误网页地址时，重定向到该地址"></el-input>
           </el-form-item>
@@ -125,17 +128,18 @@ export default {
       siteInfo: {
         value: {
           maintain: false,
-          title: "title",
+          title: "",
           favicon: "",
-          keywords: "keywords",
-          description: "description",
+          keywords: "",
+          description: "",
           logo: "",
           // 其他
+          index: "",
           error404: "",
           error500: "",
           error403: "",
-          codeHeader: "codeHeader",
-          codeFooter: "codeFooter",
+          codeHeader: "",
+          codeFooter: "",
           // 其他配置
           theme: "default"
         },
@@ -144,13 +148,15 @@ export default {
     };
   },
 
-  created() {
+  mounted() {
     siteInfoGet()
       .then(res => {
-        Object.assign(this.siteInfo.value, res.data.siteInfo.value);
-        this.siteInfo._id = res.data.siteInfo._id;
+        Object.assign(this.siteInfo.value, res.data.value);
+        this.siteInfo._id = res.data._id;
       })
-      .catch(err => {});
+      .catch(err => {
+        console.log(err);
+      });
   },
   computed: {
     ...mapGetters(["cdnurl"])
@@ -196,7 +202,7 @@ export default {
       if (!isLt300K) {
         this.$message.error("图片大小不能超过 300 KB!");
       }
-      return isPng && isLt300K;
+      return isImg && isLt300K;
     }
   }
 };
