@@ -44,9 +44,10 @@
             <i class="el-icon-circle-close-outline" @click="removeContent(row,r)"></i>
           </div>
           <el-row class="cols">
-            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width" :class="{preview:!editting,editting:editting}">
+            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width" :class="{preview:!editting,editting:editting}" :style="getStyle(box.style)">
               <el-tag type="success" class="ico-width" v-show="editting">{{(layoutTemp.value.contentWidth*box.width/24).toFixed(0)}}PX</el-tag>
               <div class="btns-box" v-show="editting">
+              <i class="el-icon-setting" @click="editStyle(box.style)"></i>
                 <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
                 <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>
                 <i class="el-icon-rank box-move"></i>

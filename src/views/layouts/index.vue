@@ -114,6 +114,12 @@
       "left": "",
       "bottom": "",
       "right": ""
+    },
+    "padding":{
+      top:0,
+      right:0,
+      bottom:0,
+      left:0
     }
   }
   const configTemp = {
@@ -201,6 +207,8 @@
             content.style = JSON.parse(JSON.stringify(styleTemp))
             content.boxs = content.boxs.filter(box => {
               box.components = [];
+              box.style = JSON.parse(JSON.stringify(styleTemp))
+              box.config = JSON.parse(JSON.stringify(configTemp))
               return box;
             });
             return content;

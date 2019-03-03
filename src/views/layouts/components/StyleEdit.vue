@@ -602,6 +602,7 @@
           this.settingForm.shadow = this.styleTemp.shadow;
           this.settingForm.base = this.styleTemp.base;
           this.settingForm.position = this.styleTemp.position;
+          this.settingForm.padding = this.styleTemp.padding;
         }
       },
       removeAnimate(index) {
