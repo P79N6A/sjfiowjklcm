@@ -20,7 +20,7 @@
                     <div
                       @click="$bus.$emit('openImgList','ChangeImgUrl')"
                       class="img-view"
-                      :style="`background-image:url('${settingForm.config.content}')`"
+                      :style="`background-image:url('${cdnurl}${settingForm.config.content}')`"
                     >
                       <i class="el-icon-plus"></i>
                     </div>
@@ -203,7 +203,7 @@
                   <el-form-item label="背景图" prop="bg">
                     <div
                       class="img-view"
-                      :style="{backgroundImage:settingForm.bg.backgroundImage}"
+                      :style="{backgroundImage:`url('${cdnurl}${settingForm.bg.backgroundImage}')`}"
                       @click="$bus.$emit('openImgList','ChangeEleBg')"
                     >
                       <i class="el-icon-plus"></i>
@@ -505,6 +505,7 @@
 <script>
 import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
 import { addContents } from "@/api/contents";
+  import { mapGetters } from "vuex";
 
 export default {
   name: "layerSet",
@@ -884,6 +885,9 @@ export default {
       this.$bus.$emit("editData", this.settingForm.config);
     }
   },
+      computed: {
+    ...mapGetters(["cdnurl"])
+  },
   props: ["layerjson", "pages"],
   created() {
     this.$bus.$on("openLayerSet", eventData => {
@@ -900,12 +904,14 @@ export default {
   mounted() {
     this.initData();
     // 图片路径
-    this.$bus.$on("ChangeImgUrl", src => {
-      this.settingForm.config.content = src;
+    this.$bus.$on("ChangeImgUrl", eventData => {
+      console.log(eventData.url)
+      this.settingForm.config.content = eventData.url;
     });
     // 元素背景
-    this.$bus.$on("ChangeEleBg", src => {
-      this.settingForm.bg.backgroundImage = `url('${src}')`;
+    this.$bus.$on("ChangeEleBg", eventData => {
+      console.log(eventData.url)
+      this.settingForm.bg.backgroundImage = eventData.url;
     });
     // svg
     this.$bus.$on("ChangSvg", ele => {
@@ -927,7 +933,7 @@ export default {
       addContents(_contentTemp)
         .then(res => {
           this.settingForm.config.dataId = res.data._id;
-          this.settingForm.config.content = ele.src;
+          this.settingForm.config.content = ele.url;
           this.settingForm.config.configModel = ele.configModel;
           this.settingForm.config.categoryModel = ele.categoryModel;
         })

@@ -1,38 +1,26 @@
 <template>
-  <div class="layout-view">
+  <div class="Layout-view">
     <div v-html="`<style>${layoutTemp.styleText}</style>`"></div>
-    <div id="drag-box" ref="imageWrapper" :class="[viewLayoutsClass]" class="page" :style="[layoutTemp.style.styleBg,layoutTemp.style.styleStyle,layoutTemp.style.styleBorder,layoutTemp.style.styleShadow]">
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i">
-        <div v-if="block.isPageView">
-          <div class="page-view">
-            <slot>
-              <div>页面内容展示区域</div>
-            </slot>
-          </div>
-        </div>
-        <div v-else :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']" :id="block.styleSetting.id"
-          :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]" style="display:flex;justify-content: center;flex-direction: column;">
-          <!-- 块区域 -->
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']"
-            :id="row.styleSetting.id" :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow,{width:row.fullWidth?'100%':'1200px'}]">
-            <!-- 区块操作按钮 -->
-            <!-- 行区域 -->
-            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
-              <!-- 格子区域 -->
-              <div>
-                <!-- <el-tag type="danger" class="ico-width" v-show="viewLayoutsClass">
-                    {{ (col.width/24*1200).toFixed(0)
-                    }}PX
-                  </el-tag>-->
-                <div v-for="(item,i) in col.components" :key="i" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
-                  <!-- 每个组件区域 -->
-                  <div>
-                    <!-- 异步vue组件 -->
-                    <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId"
-                      :category-id="item.categoryId"></sync-component>
-                    <!-- 自定义ishow组件 -->
-                    <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
-                  </div>
+
+    <div v-html="`<style>${layoutTemp.value.styleText}</style>`"></div>
+    <!-- 页面操作区域 -->
+    <div class="drag-box" id="drag" ref="imageWrapper" :style="getStyle(layoutTemp.value.style)">
+      <div class="rows" v-for="(row,i) in layoutTemp.value.rows" 
+      :key="i" 
+        :style="getStyle(row.style)"
+        >
+        <div class="contents" v-for="
+        (content,j) in row.contents" :key="j" 
+          :style="[getStyle(content.style),{width:content.fullWidth?'100%':layoutTemp.value.contentWidth+'px'}]"
+          >
+
+          <el-row class="cols">
+            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
+              <div class="view">
+                <!-- 格子区域 -->
+                <div v-for="(item,i) in box.components" :key="i" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
+                  <!-- 内容组件渲染 -->
+                  <ishow-pre :ishow-id="item._id"></ishow-pre>
                 </div>
               </div>
             </el-col>
@@ -50,8 +38,7 @@
   import {
     mapGetters
   } from "vuex";
-  import IshowComponent from "./preview";
-  import SyncComponent from "vue-async-component";
+  import IshowPre from "@/components/H5Preview";
   export default {
     data() {
       return {
@@ -98,6 +85,46 @@
             this.layoutTemp = res.data;
           })
           .catch(err => {});
+      },
+            getStyle(style){
+
+        return {
+            // 基础
+            // width: style.base.width + "px",
+            height: style.base.height?style.base.height + "px":'auto',
+            transform: `rotate(${style.base.rotate}deg)`,
+            opacity: style.base.opacity / 100,
+            overflow:style.base.overflow,
+            zIndex:style.base.zIndex,
+            // 定位
+            position:style.position.position,
+            left:style.position.left+'px',
+            right:style.position.right+'px',
+            top:style.position.top+'px',
+            bottom:style.position.bottom+'px',
+            // 边框
+            borderWidth: style.border.borderWidth + "px",
+            borderRadius: style.border.borderRadius + "px",
+            borderColor: style.border.borderColor,
+            borderStyle: style.border.borderStyle,
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${style.bg.backgroundImage}')`,
+            "backgroundColor":style.bg.backgroundColor,
+            "backgroundSize": style.bg.backgroundSize,
+            "backgroundRepeat": style.bg.backgroundRepeat,
+            "backgroundPosition": style.bg.backgroundPosition,
+            "backgroundAttachment":style.bg.backgroundAttachment,
+            // 阴影
+            boxShadow: `${style.shadow.shadowColor} ${
+              style.shadow.shadowX
+            }px ${style.shadow.shadowY}px ${
+              style.shadow.shadowFuzzy
+            }px ${style.shadow.shadowDire}px ${
+              style.shadow.shadowinSet ? "inset" : ""
+            }`
+        }
+
+        return `background:blue;`
       }
     },
     props: ["layoutTemp"],
@@ -105,22 +132,33 @@
       ...mapGetters(["cdnurl"])
     },
     components: {
-      SyncComponent,
-      IshowComponent
+      IshowPre
     }
   };
 
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .Layouts-container {
+  .Layout-view {
     position: relative;
     overflow: hidden;
-
-    .show {
-      >div {
+   .drag-box {
+      min-height: calc(100vh - 60px);
+      .rows {
+        position: relative;
         display: flex;
-        justify-content: center;
+        flex-flow: column;
+        align-items: center;
+
+        .contents {
+          position: relative;
+          .box {
+            position: relative;
+            .view {
+              overflow: hidden;
+            }
+          }
+        }
       }
     }
   }

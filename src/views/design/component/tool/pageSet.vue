@@ -16,7 +16,7 @@
               <el-form-item label="背景图" prop="bg">
                 <div
                   class="img-view"
-                  :style="`background-image:${settingForm.bg.backgroundImage}`"
+                  :style="`background-image:url('${cdnurl}${settingForm.bg.backgroundImage}')`"
                   @click="$bus.$emit('openImgList','ChangePageBg')"
                 >
                   <i class="el-icon-plus"></i>
@@ -35,6 +35,15 @@
                     >修改</el-button>
                   </el-button-group>
                 </div>
+              </el-form-item>
+              <el-form-item label="通屏背景">
+                <el-switch
+                  v-model="settingForm.config.fullScreen"
+                  active-text="是"
+                  inactive-text="否"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                ></el-switch>
               </el-form-item>
               <el-form-item label="背景对齐" prop="bg">
                 <div style="width:150px;text-align:left;">
@@ -121,15 +130,6 @@
 
               <el-form-item label="旋转角度" prop="rotate">
                 <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
-              </el-form-item>
-              <el-form-item label="全屏画布">
-                <el-switch
-                  v-model="settingForm.config.fullScreen"
-                  active-text="是"
-                  inactive-text="否"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                ></el-switch>
               </el-form-item>
             </el-collapse-item>
             <!-- 边框 -->
@@ -234,6 +234,7 @@
 
 <script>
 import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
+  import { mapGetters } from "vuex";
 
 export default {
   name: "pageSet",
@@ -489,12 +490,15 @@ export default {
       this.settingForm.config = this.pageSet.config;
     }
   },
+      computed: {
+    ...mapGetters(["cdnurl"])
+  },
   created() {
     this.$bus.$on("openPageSet", eventData => {
       this.dialogFormVisible = true;
     });
-    this.$bus.$on("ChangePageBg", src => {
-      this.settingForm.bg.backgroundImage = `url('${src}')`;
+    this.$bus.$on("ChangePageBg", eventData => {
+      this.settingForm.bg.backgroundImage = eventData.url;
     });
   },
   props: ["pageSet"],

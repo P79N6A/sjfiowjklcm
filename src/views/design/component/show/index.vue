@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <vue-ruler-tool
+  <div style="width:100%;">
+    <!-- <vue-ruler-tool
       :content-layout="{left:200,top:100}"
       :is-scale-revise="true"
       :preset-line="presetLine"
       position="static"
-    >
-      <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':''}]">
+    > -->
+      <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]">
         <div
           :class="pageJson.animate.enterAnimation"
           class="animated"
@@ -45,13 +45,14 @@
           </div>
         </div>
       </div>
-    </vue-ruler-tool>
+    <!-- </vue-ruler-tool> -->
   </div>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";
 import VueRulerTool from "@/components/Rule";
 import eleTemp from "./eleTemp.vue";
+  import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -116,6 +117,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["cdnurl"]),
     activeDrag() {
       return this.pageJson.json[this.activeTempIndex];
     },
@@ -136,7 +138,15 @@ export default {
       };
     },
     bgCss() {
-      return this.pageJson.bg;
+      return {
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${this.pageJson.bg.backgroundImage}')`,
+            "backgroundColor":this.pageJson.bg.backgroundColor,
+            "backgroundSize": this.pageJson.bg.backgroundSize,
+            "backgroundRepeat": this.pageJson.bg.backgroundRepeat,
+            "backgroundPosition": this.pageJson.bg.backgroundPosition,
+            "backgroundAttachment":this.pageJson.bg.backgroundAttachment,
+      };
     },
     boxShadow() {
       return {

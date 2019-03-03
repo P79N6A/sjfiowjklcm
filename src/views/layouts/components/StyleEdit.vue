@@ -1,472 +1,719 @@
 <template>
-  <div class="editStyle">
-    <el-tabs type="border-card">
-      <el-tab-pane label="基础属性" :model="setting">
-        <el-form ref="form" label-position="top">
-          <el-form-item label="添加class">
-            <el-input v-model="setting.class"></el-input>
-            <div style="color:red;font-size:12px;">(以空格分隔每个class)</div>
-          </el-form-item>
-          <el-form-item label="添加id">
-            <el-input v-model="setting.id"></el-input>
-          </el-form-item>
-          <el-form-item label="入场动画">
-            <el-select v-model="setting.enterAnimation" placeholder="请选择">
-              <el-option-group>
-                <el-option label="无" value></el-option>
-              </el-option-group>
-              <el-option-group v-for="(group, i) in animateOptions" :label="group.label" :key="i">
-                <el-option
-                  v-for="(item, j) in group.options"
-                  :label="item.label"
-                  :value="item.value"
-                  :key="j"
-                ></el-option>
-              </el-option-group>
-            </el-select>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <!-- 基础样式 -->
-      <el-tab-pane label="普通样式">
-        <el-form label-position="top" :model="style">
-          <el-form-item label="定位方式">
-            <el-select v-model="style.position" placeholder="请选择">
-              <el-option
-                v-for="(item, index) in PositionOption"
-                :label="item.label"
-                :value="item.value"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="左">
-            <el-input v-model="style.left"></el-input>
-          </el-form-item>
-          <el-form-item label="右">
-            <el-input v-model="style.right"></el-input>
-          </el-form-item>
-          <el-form-item label="上">
-            <el-input v-model="style.top"></el-input>
-          </el-form-item>
-          <el-form-item label="下">
-            <el-input v-model="style.bottom"></el-input>
-          </el-form-item>
-          <el-form-item label="宽度">
-            <el-input v-model="style.width"></el-input>
-          </el-form-item>
-          <el-form-item label="高度">
-            <el-input v-model="style.heigh"></el-input>
-          </el-form-item>
-          <el-form-item label="外边距">
-            <el-input v-model="style.margin"></el-input>
-          </el-form-item>
-          <el-form-item label="内边距">
-            <el-input v-model="style.padding"></el-input>
-          </el-form-item>
-          <el-form-item label="旋转角度">
-            <el-slider v-model="style.rotate" :min="0" :max="360" :step="1" show-input></el-slider>
-          </el-form-item>
-          <el-form-item label="透明度">
-            <el-slider v-model="style.opacity" :min="0" :max="100" :step="1" show-input></el-slider>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <!-- 背景 -->
-      <el-tab-pane label="背景设置">
-        <el-form label-position="top" :model="bg">
-          <el-form-item label="背景图" prop="bg">
-            <div
-              class="img-view"
-              :style="{backgroundImage:bg.backgroundImage}"
-              @click="changeImage"
-            >
-              <i class="el-icon-plus"></i>
+  <div class="layer-set">
+    <el-dialog :visible.sync="dialogFormVisible" v-el-drag-dialog title="元素属性" width="300px" :modal="false"
+      :close-on-click-modal="false">
+      <el-scrollbar class="shows" v-if="styleTemp">
+        <el-tabs type="border-card">
+          <el-tab-pane label="样式">
+            <el-form :label-position="'left'" label-width="70px" :model="settingForm">
+              <el-collapse v-model="activeNames">
+                <el-collapse-item title="基础" name="1">
+                  <el-form-item label="元素高度" prop="style">
+                    <el-input v-model="settingForm.base.height" placeholder="请输入组件高度">
+                      <template slot="append">PX</template>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item label="层级" prop="style">
+                    <el-input v-model="settingForm.base.zIndex" placeholder="层级顺序"></el-input>
+                  </el-form-item>
+                  <el-form-item label="透明程度" prop="style">
+                    <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="旋转角度" prop="style">
+                    <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="超出部分" prop="border">
+                    <el-select v-model="settingForm.base.overflow" placeholder="边框类型">
+                      <el-option label="显示" value="visible"></el-option>
+                      <!-- <el-option label="隐藏" value="hidden"></el-option> -->
+                      <el-option label="滚动" value="scroll"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-collapse-item>
+                <el-collapse-item title="定位" name="2">
+
+                  <el-form-item label="定位" prop="style">
+                      <el-select v-model="settingForm.position.position" placeholder="边框类型">
+                        <el-option v-for="(item, i) in positionOptions" :label="item.label" :value="item.value" :key="i"></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <el-form-item label="左边距离" prop="border">
+                      <el-input v-model="settingForm.position.left" placeholder="左边距离">
+                        <template slot="append">PX</template>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item label="右边距离" prop="border">
+                      <el-input v-model="settingForm.position.right" placeholder="右边距离">
+                        <template slot="append">PX</template>
+                      </el-input>
+                    </el-form-item>
+                    <el-form-item label="顶部距离" prop="border">
+                      <el-input v-model="settingForm.position.top" placeholder="顶部距离">
+                        <template slot="append">PX</template>
+                      </el-input>
+                    </el-form-item>
+
+                    <el-form-item label="底部距离" prop="border">
+                      <el-input v-model="settingForm.position.bottom" placeholder="底部距离">
+                        <template slot="append">PX</template>
+                      </el-input>
+                    </el-form-item>
+                </el-collapse-item>
+                <el-collapse-item title="背景" name="3">
+                  <el-form-item label="背景图" prop="bg">
+                    <div class="img-view" :style="`backgroundImage:url('${cdnurl}${settingForm.bg.backgroundImage}')`" @click="$bus.$emit('openImgList','ChangeStyleBg')">
+                      <i class="el-icon-plus"></i>
+                    </div>
+                    <div class="mt10 tc">
+                      <el-button-group>
+                        <el-button type="primary" size="mini" @click="settingForm.bg.backgroundImage=''">删除</el-button>
+                        <el-button type="danger" size="mini" @click="$bus.$emit('openImgList','ChangeEleBg')">修改</el-button>
+                      </el-button-group>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="背景对齐" prop="bg">
+                    <div style="width:150px;text-align:left;">
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left top">
+                          <i class="el-icon-arrow-up" style="transform: rotate(-45deg)"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center top">
+                          <i class="el-icon-arrow-up"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right top">
+                          <i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i>
+                        </el-radio-button>
+                      </el-radio-group>
+
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left center">
+                          <i class="el-icon-arrow-left"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center center">
+                          <i class="el-icon-loading"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right center">
+                          <i class="el-icon-arrow-right"></i>
+                        </el-radio-button>
+                      </el-radio-group>
+
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left bottom">
+                          <i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center bottom">
+                          <i class="el-icon-arrow-down"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right bottom">
+                          <i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i>
+                        </el-radio-button>
+                      </el-radio-group>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="背景覆盖" prop="bg">
+                    <el-select v-model="settingForm.bg.backgroundSize" placeholder="请选择">
+                      <el-option label="原始" value>原始</el-option>
+                      <el-option label="平铺" value="cover">平铺</el-option>
+                      <el-option label="适配" value="contain">适配</el-option>
+                      <el-option label="拉伸" value="100% 100%">拉伸</el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="背景重复" prop="bg">
+                    <el-select v-model="settingForm.bg.backgroundRepeat" placeholder="请选择">
+                      <el-option label="水平方向重复" value="repeat-x">水平方向重复</el-option>
+                      <el-option label="垂直方向重复" value="repeat-y">垂直方向重复</el-option>
+                      <el-option label="水平和垂直重复" value="repeat">水平和垂直重复</el-option>
+                      <el-option label="不重复" value="no-repeat">不重复</el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="背景颜色" prop="bg">
+                    <el-input v-model="settingForm.bg.backgroundColor" placeholder="纯色背景" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.bg.backgroundColor" show-alpha></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                </el-collapse-item>
+
+                <el-collapse-item title="边框" name="4">
+                  <el-form-item label="边框类型" prop="border">
+                    <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
+                      <el-option v-for="(item, i) in borderStyleOptions" :label="item.label" :value="item.value" :key="i"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="边框宽度" prop="border">
+                    <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="边框圆角" prop="border">
+                    <el-slider v-model="settingForm.border.borderRadius" :max="200" :min="0"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="边框颜色" prop="border">
+                    <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.border.borderColor" show-alpha></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                </el-collapse-item>
+                <el-collapse-item title="阴影" name="5">
+                  <el-form-item label="阴影颜色" prop="shadow">
+                    <el-input v-model="settingForm.shadow.shadowColor" placeholder="阴影颜色" size="medium">
+                      <el-color-picker slot="prepend" v-model="settingForm.shadow.shadowColor" show-alpha></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item label="水平偏移" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowX" :max="100" :min="-100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="垂直偏移" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowY" :max="100" :min="-100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="模糊半径" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowFuzzy" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="扩散半径" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowDire" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="阴影方向">
+                    <el-switch v-model="settingForm.shadow.shadowinSet" active-text="朝内" inactive-text="朝外"
+                      active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                  </el-form-item>
+                </el-collapse-item>
+              </el-collapse>
+            </el-form>
+          </el-tab-pane>
+          <el-tab-pane label="动画">
+            <div class="control">
+              <el-button-group>
+                <el-button @click="addAnimate">添加动画</el-button>
+                <el-button @click="preAnimate">预览动画</el-button>
+              </el-button-group>
             </div>
-            <div class="mt10 tl" v-if="bg.backgroundImage">
-              <el-button type="default" size="mini" @click="deleteImage">删除图片</el-button>
-              <el-button type="default" size="mini" @click="changeImage">修改图片</el-button>
+            <div class="animate-list">
+              <el-collapse v-model="activeNames" v-for="(item,i) in animateTemp" :key="i">
+                <el-collapse-item :title="`动画${i+1}`" :name="i">
+                  <el-form :label-position="'left'" label-width="70px" :model="animationName">
+                    <el-form-item label="动画">
+                      <el-select v-model="animateTemp[i].animationName" placeholder="请选择">
+                        <el-option label="无" value></el-option>
+                        <el-option-group v-for="(group, index2) in animateOptions" :label="group.label" :key="index2"
+                          v-if="(ctype===1&&group.label==='特殊')||group.label!=='特殊'">
+                          <el-option v-for="(item, index3) in group.options" :label="item.label" :value="item.value"
+                            :disabled="item.disabled" :key="index3"></el-option>
+                        </el-option-group>
+                      </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="延时">
+                      <el-slider v-model="animateTemp[i].animationDelay" :max="100" :step="0.1"></el-slider>
+                    </el-form-item>
+                    <el-form-item label="时长">
+                      <el-slider v-model="animateTemp[i].animationDuration" :max="100" :step="0.1"></el-slider>
+                    </el-form-item>
+                    <el-form-item label="次数" v-show="animateTemp[i].animationIterationCount!='infinite'">
+                      <el-input-number v-model="animateTemp[i].animationIterationCount" :min="1" :max="1000" label="次数"></el-input-number>
+                    </el-form-item>
+                    <el-form-item label="循环" v-if="i==animateTemp.length-1">
+                      <el-switch v-model="animateTemp[i].animationIterationCount" active-color="#13ce66" inactive-color="#ff4949"
+                        active-value="infinite" inactive-value="1"></el-switch>
+                    </el-form-item>
+
+                    <el-form-item label="动画速度" prop="border">
+                      <el-select v-model="animateTemp[i].animationTimingFunction" placeholder="边框类型">
+                        <el-option v-for="(item, i) in TimingFunctionOptions" :label="item.label" :value="item.value"
+                          :key="i"></el-option>
+                      </el-select>
+                    </el-form-item>
+                    <div style="padding:5px 0;text-align:center;">
+                      <el-button type="danger" @click="removeAnimate(i)">删除动画</el-button>
+                    </div>
+                  </el-form>
+                </el-collapse-item>
+              </el-collapse>
             </div>
-          </el-form-item>
-          <el-form-item label="固定方式">
-            <el-radio-group v-model="bg.backgroundAttachment" size="small">
-              <el-radio-button label="fixed">不滚动</el-radio-button>
-              <el-radio-button label="scroll">随内容滚动</el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="对齐方式">
-            <el-radio-group v-model="bg.backgroundPosition" size="small">
-              <el-radio-button label="left top">左-上</el-radio-button>
-              <el-radio-button label="center top">中-上</el-radio-button>
-              <el-radio-button label="right top">右-上</el-radio-button>
-            </el-radio-group>
-
-            <el-radio-group v-model="bg.backgroundPosition" size="small">
-              <el-radio-button label="left center">左-中</el-radio-button>
-              <el-radio-button label="center center">中-中</el-radio-button>
-              <el-radio-button label="right center">右-中</el-radio-button>
-            </el-radio-group>
-
-            <el-radio-group v-model="bg.backgroundPosition" size="small">
-              <el-radio-button label="left bottom">左-下</el-radio-button>
-              <el-radio-button label="center bottom">中-下</el-radio-button>
-              <el-radio-button label="right bottom">右-下</el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="覆盖方式">
-            <el-radio-group v-model="bg.backgroundSize" size="small">
-              <el-radio-button label>原始</el-radio-button>
-              <el-radio-button label="cover">平铺</el-radio-button>
-              <el-radio-button label="contain">适配</el-radio-button>
-              <el-radio-button label="100% 100%">拉伸</el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="重复方式">
-            <el-radio-group v-model="bg.backgroundRepeat" size="small">
-              <el-radio-button label="repeat-x">水平</el-radio-button>
-              <el-radio-button label="repeat-y">垂直</el-radio-button>
-              <el-radio-button label="repeat">全重复</el-radio-button>
-              <el-radio-button label="no-repeat">不重复</el-radio-button>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="背景颜色">
-            <el-input v-model="bg.backgroundColor" placeholder="请输入背景颜色" size="medium">
-              <el-color-picker slot="prepend" v-model="bg.backgroundColor" show-alpha></el-color-picker>
-            </el-input>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <!-- 边框 -->
-      <el-tab-pane label="边框">
-        <el-form label-position="top" :model="border">
-          <el-form-item label="边框颜色">
-            <el-input v-model="border.borderColor" placeholder="边框颜色" size="medium">
-              <el-color-picker v-model="border.borderColor" show-alpha slot="prepend"></el-color-picker>
-            </el-input>
-          </el-form-item>
-          <el-form-item label="边框类型">
-            <el-select v-model="border.borderStyle" placeholder="请选择">
-              <el-option
-                v-for="(item, index) in borderStyleOptions"
-                :label="item.label"
-                :value="item.value"
-                :key="index"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="边框宽度">
-            <el-input v-model="border.borderWidth" placeholder="边框宽度"></el-input>
-            <!-- <el-slider v-model="border.borderWidth" :min="0" :max="100" :step="1" show-input> -->
-            <!-- </el-slider> -->
-          </el-form-item>
-          <el-form-item label="边框圆角">
-            <el-input v-model="border.borderRadius" placeholder="边框圆角"></el-input>
-            <!-- <el-slider v-model="border.borderRadius" :min="0" :max="100" :step="1" show-input> -->
-            <!-- </el-slider> -->
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <!-- 阴影 -->
-      <el-tab-pane label="阴影">
-        <el-form label-position="top" :model="shadow">
-          <el-form-item label="阴影颜色">
-            <el-input v-model="shadow.shadowColor" shadowColor="阴影颜色" size="medium">
-              <el-color-picker v-model="shadow.shadowColor" show-alpha slot="prepend"></el-color-picker>
-            </el-input>
-          </el-form-item>
-          <el-form-item label="阴影大小">
-            <el-input v-model="shadow.shadowWidth" shadowColor="阴影颜色" size="medium"/>
-          </el-form-item>
-          <el-form-item label="模糊半径">
-            <el-slider v-model="shadow.shadowRadius" :min="0" :max="100" :step="1" show-input></el-slider>
-          </el-form-item>
-          <el-form-item label="阴影方向">
-            <el-slider v-model="shadow.shadowDire" :min="0" :max="360" :step="1" show-input></el-slider>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <!-- css样式编程模式 -->
-      <!-- <el-tab-pane label="编程样式">
-        <textarea style="width:100%;height:500px;resize:none;outline:0;" rows="3" cols="20" wrap="soft" placeholder="请在此输入css代码，仅对当前选择元素有效">
-
-        </textarea>
-      </el-tab-pane>-->
-    </el-tabs>
-    <div style="padding:10px;text-align:right;">
-      <el-button icon="el-icon-check" type="danger" @click="updateStyle">保存</el-button>
-    </div>
-    <el-dialog title="媒体列表" :visible.sync="showPicList" width="800px" :append-to-body="true">
-      <file-list @select="selectFile"></file-list>
+          </el-tab-pane>
+        </el-tabs>
+      </el-scrollbar>
     </el-dialog>
+    <imgList>图片资源框</imgList>
+
   </div>
 </template>
 
 <script>
-import fileList from "@/components/FileList";
-import { mapGetters } from "vuex";
-export default {
-  data() {
-    return {
-      showPicList: false,
-      setting: {
-        class: "",
-        id: "",
-        enterAnimation: "" // 入场动画
-      },
-      bg: {
-        backgroundImage: "",
-        backgroundPosition: "",
-        backgroundSize: "",
-        backgroundRepeat: "",
-        backgroundColor: "",
-        backgroundAttachment: ""
-      },
-      style: {
-        position: "",
-        left: "",
-        right: "",
-        top: "",
-        bottom: "",
-        opacity: 100,
-        margin: 0,
-        padding: 0,
-        rotate: 0,
-        width: "",
-        height: ""
-      },
-      border: {
-        borderWidth: 0,
-        borderColor: "",
-        borderStyle: "",
-        borderRadius: 0
-      },
-      shadow: {
-        shadowWidth: 0,
-        shadowRadius: 0,
-        shadowDire: 0,
-        shadowColor: ""
-      },
-      PositionOption: [
-        {
-          name: "静止",
-          value: "static"
+  import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
+  import imgList from "@/components/ImgList";
+  import { mapGetters } from "vuex";
+  
+  import {
+    addContents
+  } from "@/api/contents";
+
+  export default {
+    name: "layerSet",
+    directives: {
+      elDragDialog
+    },
+    data() {
+      return {
+        activeNames: ["1"],
+        dialogFormVisible: false,
+        settingForm: {
+          bg: {
+            backgroundImage: "",
+            backgroundColor: "",
+            backgroundSize: "",
+            backgroundRepeat: "",
+            backgroundPosition: ""
+          },
+          "position": {
+            "position": "",
+            "top": "",
+            "left": "",
+            "bottom": "",
+            "right": "",
+            "zIndex": ""
+          },
+          border: {
+            borderWidth: 0,
+            borderRadius: 0,
+            borderColor: "",
+            borderStyle: ""
+          },
+          shadow: {
+            shadowColor: "",
+            shadowX: 0,
+            shadowY: 0,
+            shadowFuzzy: 0,
+            shadowDire: 0,
+            shadowinSet: ""
+          },
+          base: {
+            width: 0,
+            height: 0,
+            opacity: 100,
+            rotate: 0
+          },
+          config: {
+            content: ""
+          }
         },
-        {
-          name: "相对",
-          value: "relative"
+        event: {
+          onClick: {
+            type: "",
+            link: "",
+            index: "",
+            target: ""
+          },
+          hover: {
+            animation: ""
+          }
         },
-        {
-          name: "绝对",
-          value: "fixed"
-        },
-        {
-          name: "固定",
-          value: "absolute"
+        positionOptions: [{
+            value: "",
+            label: "无"
+          },
+          {
+            value: "static",
+            label: "静止"
+          },
+          {
+            value: "relative",
+            label: "相对"
+          },
+          {
+            value: "absolute",
+            label: "绝对"
+          },
+          {
+            value: "fixed",
+            label: "固定"
+          },
+        ],
+        eventOptions: [{
+            value: "",
+            label: "无"
+          },
+          {
+            value: "close",
+            label: "关闭模块"
+          },
+          {
+            value: "pre",
+            label: "上一场景"
+          },
+          {
+            value: "next",
+            label: "下一场景"
+          },
+          {
+            value: "index",
+            label: "指定序号页面"
+          },
+          {
+            value: "link",
+            label: "超链接"
+          }
+        ],
+        animateTemp: [{
+          animationDelay: 0,
+          animationDuration: 1,
+          animationFillMode: "both",
+          animationIterationCount: 1,
+          animationName: "",
+          animationPlayState: "initial",
+          animationTimingFunction: "ease"
+        }],
+        animateOptions: [{
+            label: "强调",
+            options: [{
+                value: "bounce",
+                label: "弹跳"
+              },
+              {
+                value: "flash",
+                label: "flash"
+              },
+              {
+                value: "pulse",
+                label: "pulse"
+              },
+              {
+                value: "rubberBand",
+                label: "rubberBand"
+              },
+              {
+                value: "shake",
+                label: "shake"
+              },
+              {
+                value: "headShake",
+                label: "headShake"
+              },
+              {
+                value: "swing",
+                label: "swing"
+              },
+              {
+                value: "tada",
+                label: "tada"
+              },
+              {
+                value: "wobble",
+                label: "wobble"
+              },
+              {
+                value: "jello",
+                label: "jello"
+              }
+            ]
+          },
+          {
+            label: "进入",
+            options: [{
+                value: "bounceIn",
+                label: "bounceIn"
+              },
+              {
+                value: "bounceInDown",
+                label: "bounceInDown"
+              },
+              {
+                value: "bounceInLeft",
+                label: "bounceInLeft"
+              },
+              {
+                value: "bounceInRight",
+                label: "bounceInRight"
+              },
+              {
+                value: "bounceInUp",
+                label: "bounceInUp"
+              },
+              {
+                value: "bounceOut",
+                label: "bounceOut"
+              },
+              {
+                value: "bounceOutDown",
+                label: "bounceOutDown"
+              },
+              {
+                value: "bounceOutLeft",
+                label: "bounceOutLeft"
+              },
+              {
+                value: "bounceOutRight",
+                label: "bounceOutRight"
+              },
+              {
+                value: "bounceOutUp",
+                label: "bounceOutUp"
+              },
+              {
+                value: "fadeIn",
+                label: "fadeIn"
+              },
+              {
+                value: "fadeInDown",
+                label: "fadeInDown"
+              }
+            ]
+          }
+        ],
+        animateOptionsLeave: [{
+            value: "fadeOut",
+            label: "淡出",
+            dire: false
+          },
+          {
+            value: "fadeOut-dire",
+            label: "移出",
+            dire: true
+          },
+          {
+            value: "bounceOut-dire",
+            label: "弹出",
+            dire: true
+          },
+          {
+            value: "flipOutY",
+            label: "翻转消失",
+            dire: false
+          },
+          {
+            value: "bounceOut",
+            label: "中心消失",
+            dire: false
+          },
+          {
+            value: "zoomOut",
+            label: "中心缩小",
+            dire: false
+          },
+          {
+            value: "rollOut-dire",
+            label: "翻滚退出",
+            dire: true
+          },
+          {
+            value: "flipOutX",
+            label: "翻开消失",
+            dire: false
+          },
+          {
+            value: "lightSpeedOut-dire",
+            label: "光速退出",
+            dire: true
+          },
+          {
+            value: "puffOut",
+            label: "放大退出",
+            dire: false
+          },
+          {
+            value: "hingeRight-dire",
+            label: "悬挂脱落",
+            dire: true
+          }
+        ],
+        TimingFunctionOptions: [{
+            value: "linear",
+            label: "均匀线性"
+          },
+          {
+            value: "ease",
+            label: "慢-快-慢"
+          },
+          {
+            value: "ease-in",
+            label: "慢-快"
+          },
+          {
+            value: "ease-out",
+            label: "快-慢"
+          }
+        ],
+        borderStyleOptions: [{
+            value: "none",
+            label: "--无--"
+          },
+          {
+            value: "solid",
+            label: "直线"
+          },
+          {
+            value: "dashed",
+            label: "虚线"
+          },
+          {
+            value: "dotted",
+            label: "点状线"
+          },
+          {
+            value: "double",
+            label: "双划线"
+          },
+          {
+            value: "groove",
+            label: "3D凹槽"
+          },
+          {
+            value: "ridge",
+            label: "3D垄状"
+          },
+          {
+            value: "inset",
+            label: "3D内嵌"
+          },
+          {
+            value: "outset",
+            label: "3D外嵌"
+          }
+        ],
+        fontFamilyOptions: [{
+            value: "",
+            label: "系统默认"
+          },
+          {
+            value: "SimSun",
+            label: "宋体"
+          },
+          {
+            value: "Microsoft Yahei",
+            label: "微软雅黑"
+          },
+          {
+            value: "Arial",
+            label: "无衬线字体1"
+          },
+          {
+            value: "Tahoma",
+            label: "无衬线字体2"
+          },
+          {
+            value: "Verdana",
+            label: "无衬线字体3"
+          }
+        ]
+      };
+    },
+    methods: {
+      // 初始化数据
+      initData() {
+        if (this.styleTemp) {
+          this.settingForm.bg = this.styleTemp.bg;
+          this.settingForm.border = this.styleTemp.border;
+          this.settingForm.shadow = this.styleTemp.shadow;
+          this.settingForm.base = this.styleTemp.base;
+          this.settingForm.position = this.styleTemp.position;
         }
-      ],
-      borderStyleOptions: [
-        {
-          value: "none",
-          label: "--无--"
-        },
-        {
-          value: "solid",
-          label: "直线"
-        },
-        {
-          value: "dashed",
-          label: "虚线"
-        },
-        {
-          value: "dotted",
-          label: "点状线"
-        },
-        {
-          value: "double",
-          label: "双划线"
-        },
-        {
-          value: "groove",
-          label: "3D凹槽"
-        },
-        {
-          value: "ridge",
-          label: "3D垄状"
-        },
-        {
-          value: "inset",
-          label: "3D内嵌"
-        },
-        {
-          value: "outset",
-          label: "3D外嵌"
-        }
-      ],
-      animateOptions: [
-        {
-          label: "强调",
-          options: [
-            {
-              value: "bounce",
-              label: "弹跳"
-            },
-            {
-              value: "flash",
-              label: "flash"
-            },
-            {
-              value: "pulse",
-              label: "pulse"
-            },
-            {
-              value: "rubberBand",
-              label: "rubberBand"
-            },
-            {
-              value: "shake",
-              label: "shake"
-            },
-            {
-              value: "headShake",
-              label: "headShake"
-            },
-            {
-              value: "swing",
-              label: "swing"
-            },
-            {
-              value: "tada",
-              label: "tada"
-            },
-            {
-              value: "wobble",
-              label: "wobble"
-            },
-            {
-              value: "jello",
-              label: "jello"
-            }
-          ]
-        },
-        {
-          label: "进入",
-          options: [
-            {
-              value: "bounceIn",
-              label: "bounceIn"
-            },
-            {
-              value: "bounceInDown",
-              label: "bounceInDown"
-            },
-            {
-              value: "bounceInLeft",
-              label: "bounceInLeft"
-            },
-            {
-              value: "bounceInRight",
-              label: "bounceInRight"
-            },
-            {
-              value: "bounceInUp",
-              label: "bounceInUp"
-            },
-            {
-              value: "bounceOut",
-              label: "bounceOut"
-            },
-            {
-              value: "bounceOutDown",
-              label: "bounceOutDown"
-            },
-            {
-              value: "bounceOutLeft",
-              label: "bounceOutLeft"
-            },
-            {
-              value: "bounceOutRight",
-              label: "bounceOutRight"
-            },
-            {
-              value: "bounceOutUp",
-              label: "bounceOutUp"
-            },
-            {
-              value: "fadeIn",
-              label: "fadeIn"
-            },
-            {
-              value: "fadeInDown",
-              label: "fadeInDown"
-            }
-          ]
-        }
-      ]
-    };
-  },
-  components: {
-    fileList
-  },
-  props: {
-    styleSetting: Object,
-    styleBg: Object,
-    styleStyle: Object,
-    styleBorder: Object,
-    styleShadow: Object
-  },
-  methods: {
-    deleteImage() {
-      this.bg.backgroundImage = "";
+      },
+      removeAnimate(index) {
+        this.animateTemp.splice(index, 1);
+      },
+      addAnimate() {
+        this.animateTemp.push({
+          animationDelay: 0,
+          animationDuration: 1,
+          animationFillMode: "both",
+          animationIterationCount: 1,
+          animationName: "",
+          animationPlayState: "initial",
+          animationTimingFunction: "ease"
+        });
+      },
+      showDataList() {
+        this.$bus.$emit("showDataList", this.settingForm.config);
+      },
+      preAnimate() {
+        this.$bus.$emit("animate-preview");
+      },
+      editCom() {
+        this.$bus.$emit("editData", this.settingForm.config);
+      }
     },
-    changeImage() {
-      this.showPicList = true;
-    },
-    selectFile(file) {
-      this.bg.backgroundImage = `url(${this.cdnurl}${file.src})`;
-      this.showPicList = false;
-    },
-    updateStyle() {
-      this.$emit("updataStyle", {
-        styleSetting: JSON.parse(JSON.stringify(this.setting)),
-        styleBg: JSON.parse(JSON.stringify(this.bg)),
-        styleStyle: JSON.parse(JSON.stringify(this.style)),
-        styleBorder: JSON.parse(JSON.stringify(this.border)),
-        styleShadow: JSON.parse(JSON.stringify(this.shadow))
-      });
-    },
-    initStyle() {
-      Object.assign(
-        this.setting,
-        JSON.parse(JSON.stringify(this.styleSetting))
-      );
-      Object.assign(this.bg, JSON.parse(JSON.stringify(this.styleBg)));
-      Object.assign(this.style, JSON.parse(JSON.stringify(this.styleStyle)));
-      Object.assign(this.border, JSON.parse(JSON.stringify(this.styleBorder)));
-      Object.assign(this.shadow, JSON.parse(JSON.stringify(this.styleShadow)));
-    }
-  },
-  computed: {
+      computed: {
     ...mapGetters(["cdnurl"])
   },
-  mounted() {
-    this.initStyle();
-  }
-};
+    props: ["styleTemp"],
+    created() {
+      this.$bus.$on("openStyleSet", eventData => {
+        this.dialogFormVisible = true;
+        this.initData()
+      });
+      this.$bus.$on('ChangeStyleBg',eventData=>{
+        console.log(eventData);
+        this.settingForm.bg.backgroundImage=eventData.url;
+      })
+    },
+    watch: {
+      styleTemp(val) {
+        console.log(val)
+        if (val) {
+          this.initData();
+        }
+      }
+    },
+    mounted() {
+      // 元素背景
+      // this.initData();
+    },
+    components:{imgList}
+  };
+
 </script>
+<style lang="scss">
+  .layer-set {
+    .el-dialog__wrapper {
+      right: auto !important;
+      overflow: inherit !important;
+      width: 0 !important;
+    }
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-.editStyle {
-}
+    .el-dialog__body {
+      padding: 0;
+    }
 
-.img-view {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: #eee;
-  text-align: center;
-  line-height: 60px;
-  width: 60px;
-  height: 60px;
-  display: inline-block;
-}
+    .shows {
+      height: calc(100vh - 84px);
+      overflow-y: hidden;
+
+      .title {
+        text-align: center;
+      }
+
+      .line-style {
+        display: flex;
+        justify-content: space-around;
+        font-size: 20px;
+
+        i {
+          color: #ccc;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &.active,
+          &:hover {
+            color: #409eff;
+          }
+        }
+      }
+
+      .control {
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .img-view {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #eee;
+        text-align: center;
+        line-height: 160px;
+        width: 160px;
+        height: 160px;
+        display: inline-block;
+        font-size: 40px;
+        cursor: pointer;
+      }
+    }
+  }
+
 </style>

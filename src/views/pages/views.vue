@@ -21,6 +21,7 @@ export default {
       "message",
       event => {
         this.selectNode = event.data;
+        console.log(event.data.value.content)
       },
       false
     );

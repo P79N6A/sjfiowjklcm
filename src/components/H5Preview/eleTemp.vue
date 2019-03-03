@@ -6,11 +6,11 @@ i<template>
     </div>
     <!-- 图片 -->
     <div v-else-if="eleJson.type===2" :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]" class="animated">
-      <img :src="eleJson.config.content" alt class="img">
+      <img :src="`${cdnurl}${eleJson.config.content}`" alt class="img">
     </div>
     <!-- 视频 -->
     <div v-else-if="eleJson.type===8" :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]" class="animated">
-      <video :src="eleJson.config.content" controls="controls">您的浏览器不支持 video 标签。</video>
+      <video :src="`${cdnurl}${eleJson.config.content}`" controls="controls">您的浏览器不支持 video 标签。</video>
     </div>
     <!-- svg-->
     <div v-else-if="eleJson.type===9" :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]" class="animated">
@@ -22,13 +22,15 @@ i<template>
     </div>
     <div v-else-if="eleJson.type===10" :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]" class="animated">
       <!-- 异步vue组件 -->
-      <sync-component :url="`${eleJson.config.content}`" :data-id="eleJson.config.dataId" :category-id="eleJson.config.categoryId"></sync-component>
+      <sync-component :url="`${cdnurl}${eleJson.config.content}`" :data-id="eleJson.config.dataId" :category-id="eleJson.config.categoryId"></sync-component>
     </div>
   </div>
 </template>
 <script>
   import SyncComponent from "vue-async-component";
   const specialName = ["typewriter"];
+  import { mapGetters } from "vuex";
+
   export default {
     data() {
       return {
@@ -39,7 +41,8 @@ i<template>
       };
     },
     props: ["eleJson","activeTempIndex","showId"],
-    computed: {
+      computed: {
+    ...mapGetters(["cdnurl"]),
       borderCss() {
         return {
           borderWidth: this.eleJson.style.border.borderWidth + "px",
@@ -57,6 +60,15 @@ i<template>
         };
       },
       bgCss() {
+                      return {
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${this.eleJson.style.bg.backgroundImage}')`,
+            "backgroundColor":this.eleJson.style.bg.backgroundColor,
+            "backgroundSize": this.eleJson.style.bg.backgroundSize,
+            "backgroundRepeat": this.eleJson.style.bg.backgroundRepeat,
+            "backgroundPosition": this.eleJson.style.bg.backgroundPosition,
+            "backgroundAttachment":this.eleJson.style.bg.backgroundAttachment,
+      };
         return this.eleJson.style.bg;
       },
       textCss() {

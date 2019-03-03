@@ -15,7 +15,7 @@ i<template>
       :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]"
       class="animated"
     >
-      <img :src="eleJson.config.content" alt class="img">
+      <img :src="cdnurl+eleJson.config.content" alt class="img">
     </div>
     <!-- 视频 -->
     <div
@@ -23,7 +23,7 @@ i<template>
       :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]"
       class="animated"
     >
-      <video :src="eleJson.config.content" controls="controls">您的浏览器不支持 video 标签。</video>
+      <video :src="cdnurl+eleJson.config.content" controls="controls">您的浏览器不支持 video 标签。</video>
     </div>
     <!-- svg-->
     <div
@@ -53,7 +53,7 @@ i<template>
     >
       <!-- 异步vue组件 -->
       <sync-component
-        :url="`${eleJson.config.content}`"
+        :url="cdnurl+eleJson.config.content"
         :data-id="eleJson.config.dataId"
         :category-id="eleJson.config.categoryId"
       ></sync-component>
@@ -63,6 +63,7 @@ i<template>
 <script>
 import SyncComponent from "vue-async-component";
 const specialName = ["typewriter"];
+  import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -74,6 +75,7 @@ export default {
   },
   props: ["eleJson", "activeTempIndex", "showId"],
   computed: {
+    ...mapGetters(["cdnurl"]),
     borderCss() {
       return {
         borderWidth: this.eleJson.style.border.borderWidth + "px",
@@ -91,7 +93,16 @@ export default {
       };
     },
     bgCss() {
-      return this.eleJson.style.bg;
+      return {
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${this.eleJson.style.bg.backgroundImage}')`,
+            "backgroundColor":this.eleJson.style.bg.backgroundColor,
+            "backgroundSize": this.eleJson.style.bg.backgroundSize,
+            "backgroundRepeat": this.eleJson.style.bg.backgroundRepeat,
+            "backgroundPosition": this.eleJson.style.bg.backgroundPosition,
+            "backgroundAttachment":this.eleJson.style.bg.backgroundAttachment,
+        // this.eleJson.style.bg
+        };
     },
     textCss() {
       return {

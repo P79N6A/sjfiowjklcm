@@ -52,7 +52,7 @@
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
-                <div class="img-view" :style="`background-image:url('${item.icon}')`"></div>
+                <div class="img-view" :style="`background-image:url('${cdnurl}${item.url}')`"></div>
                 <div class="img-control">
                   <el-button @click="select(item)">使用</el-button>
                   <div class="icons">
@@ -78,7 +78,7 @@
                   >
                     <div
                       style="width:600px;height:100%;background-repeat:no-repeat;background-size:contain;background-position:center center;"
-                      :style="`background-image:url('${item.icon}')`"
+                      :style="`background-image:url('${cdnurl}${item.url}')`"
                     ></div>
                   </div>
                 </el-carousel-item>
@@ -182,10 +182,7 @@ export default {
       this.listLoading = true;
       getImgs(this.filterData)
         .then(res => {
-          this.imgList = res.data.filter(item => {
-            item.icon = `${this.cdnurl}${item.icon}?v=${new Date().getTime()}`;
-            return item;
-          });
+          this.imgList = res.data
           this.listLoading = false;
         })
         .catch(err => {
@@ -202,7 +199,7 @@ export default {
       window.open(url);
     },
     select(item) {
-      this.$bus.$emit(this.emitEvent, item.icon);
+      this.$bus.$emit(this.emitEvent, item);
       this.dialogFormVisible = false;
     }
   }

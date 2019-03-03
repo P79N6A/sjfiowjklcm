@@ -1,16 +1,18 @@
 <template>
   <div style="width:100%;">
-    <div class="i-preview" :style="[bgCss,{width:pageJson.config.fullScreen?'100%':''}]" v-for="(pageJson,i) in appJson.value.pageJson"
-      v-if="i==activePage" :key="i">
-      <div :class="pageJson.animate.enterAnimation" class="animated">
-        <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
-          <!-- 拖拽外框 -->
-          <div v-for="(drag,i) in pageJson.json" :key="i">
-            <div v-if="drag.config.isShow" :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
-              :key="i">
-              <eleTemp :eleJson="drag" :showId="i">
-                <!-- 组件配置 -->
-              </eleTemp>
+    <div v-for="(pageJson,i) in appJson.value.pageJson" :key="i">
+      <div class="i-preview" :style="[bgCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]" 
+        v-if="i==activePage" >
+        <div :class="pageJson.animate.enterAnimation" class="animated">
+          <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
+            <!-- 拖拽外框 -->
+            <div v-for="(drag,i) in pageJson.json" :key="i">
+              <div v-if="drag.config.isShow" :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
+                :key="i">
+                <eleTemp :eleJson="drag" :showId="i">
+                  <!-- 组件配置 -->
+                </eleTemp>
+              </div>
             </div>
           </div>
         </div>
@@ -21,9 +23,11 @@
 <script>
   import eleTemp from "./eleTemp.vue";
   import { getIshowOne } from "@/api/ishow"
+  import { mapGetters } from "vuex";
   export default {
     data() {
       return {
+        // appJson:null,
         activePage: 0, // 当前活跃的
         autoAnimation: true, //是否自动播放动画
         infinite: true, // 是否循环播放
@@ -35,7 +39,7 @@
     components: {
       eleTemp
     },
-    props: ["pageJson", "appJson", "ishowId"],
+    props: ["ishowId","appJson"],
     created() {
 
     },
@@ -43,8 +47,22 @@
       window.clearInterval(this.timer);
     },
     mounted() {
-      // 读取数据模型
-      this.getIshowOne();
+      if(this.appJson){
+            this.setVal();
+            window.clearInterval(this.timer);
+            if (this.autoAnimation) {
+              this.timer = window.setInterval(() => {
+                this.activePage = (this.activePage + 1) % this.appJson.value.pageJson.length;
+                if (this.activePage == this.appJson.value.pageJson.length - 1) {
+                  if (!this.infinite) {
+                    window.clearInterval(this.timer);
+                  }
+                }
+              }, this.interval);
+            }
+      }else{
+        this.getIshowOne();
+      }
     },
     methods: {
       setVal() {
@@ -56,7 +74,8 @@
       },
       // 读取数据内容
       getIshowOne() {
-        if (this.ishowId)
+        if (this.ishowId){
+        console.log('ishowId')
           getIshowOne({
             _id: this.ishowId
           }).then(res => {
@@ -77,6 +96,9 @@
           }).catch(err => {
 
           })
+          }else{
+            console.log("klsfjlkjj")
+          }
       }
     },
     watch: {
@@ -86,7 +108,8 @@
         }
       }
     },
-    computed: {
+      computed: {
+    ...mapGetters(["cdnurl"]),
       borderCss() {
         return {
           borderWidth: this.appJson.value.pageJson[this.activePage].border.borderWidth + "px",
@@ -104,7 +127,16 @@
         };
       },
       bgCss() {
-        return this.appJson.value.pageJson[this.activePage].bg;
+              return {
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${this.appJson.value.pageJson[this.activePage].bg.backgroundImage}')`,
+            "backgroundColor":this.appJson.value.pageJson[this.activePage].bg.backgroundColor,
+            "backgroundSize": this.appJson.value.pageJson[this.activePage].bg.backgroundSize,
+            "backgroundRepeat": this.appJson.value.pageJson[this.activePage].bg.backgroundRepeat,
+            "backgroundPosition": this.appJson.value.pageJson[this.activePage].bg.backgroundPosition,
+            "backgroundAttachment":this.appJson.value.pageJson[this.activePage].bg.backgroundAttachment,
+      };
+        // return this.appJson.value.pageJson[this.activePage].bg;
       },
       boxShadow() {
         return {

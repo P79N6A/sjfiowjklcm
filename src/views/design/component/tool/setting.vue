@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import Ipreview from "../preview";
+import Ipreview from "@/components/H5Preview";
 export default {
   name: "Setting",
 
