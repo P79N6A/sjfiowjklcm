@@ -1,12 +1,8 @@
-i<template>
-  <div @click.stop class="i-ele" v-if="showEle">
+<template>
+  <div @click.stop class="i-ele" v-if="showEle" :id="elId">
     <div class="cover"></div>
     <!-- 普通文本 -->
-    <div
-      v-if="eleJson.type===1"
-      :style="[borderCss,baseCss,bgCss,textCss,boxShadow,animateJson]"
-      class="animated"
-    >
+    <div v-if="eleJson.type===1" class="animated">
       <div class v-html="eleJson.config.content"></div>
     </div>
     <!-- 图片 -->
@@ -58,15 +54,26 @@ i<template>
         :category-id="eleJson.config.categoryId"
       ></sync-component>
     </div>
+    <div v-html="`<style>${getStyle(eleJson.style)}</style>`"></div>
   </div>
 </template>
 <script>
 import SyncComponent from "vue-async-component";
 const specialName = ["typewriter"];
-  import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
 export default {
   data() {
     return {
+      elId: makeid(),
       animateJson: "",
       animateIndex: 0,
       animateAll: true,
@@ -94,15 +101,17 @@ export default {
     },
     bgCss() {
       return {
-            // 背景
-            "backgroundImage": `url('${this.cdnurl}${this.eleJson.style.bg.backgroundImage}')`,
-            "backgroundColor":this.eleJson.style.bg.backgroundColor,
-            "backgroundSize": this.eleJson.style.bg.backgroundSize,
-            "backgroundRepeat": this.eleJson.style.bg.backgroundRepeat,
-            "backgroundPosition": this.eleJson.style.bg.backgroundPosition,
-            "backgroundAttachment":this.eleJson.style.bg.backgroundAttachment,
+        // 背景
+        backgroundImage: `url('${this.cdnurl}${
+          this.eleJson.style.bg.backgroundImage
+        }')`,
+        backgroundColor: this.eleJson.style.bg.backgroundColor,
+        backgroundSize: this.eleJson.style.bg.backgroundSize,
+        backgroundRepeat: this.eleJson.style.bg.backgroundRepeat,
+        backgroundPosition: this.eleJson.style.bg.backgroundPosition,
+        backgroundAttachment: this.eleJson.style.bg.backgroundAttachment
         // this.eleJson.style.bg
-        };
+      };
     },
     textCss() {
       return {
@@ -288,14 +297,63 @@ export default {
           }, duration * 1000);
         }, animate.animationDelay * 1000);
       }
+    },
+    getStyle(obj) {
+      return `
+      #${this.elId} {
+        border-width: ${obj.border.borderWidth}px;
+        border-radius: ${obj.border.borderRadius}px;
+        border-color: ${obj.border.borderColor};
+        border-style: ${obj.border.borderStyle};
+
+        width: ${obj.base.width}px;
+        height: ${obj.base.height}px;
+        transform: rotate(${obj.base.rotate || 0}deg);
+        opacity: ${obj.base.opacity / 100};
+        background-image: url('${this.cdnurl}${obj.bg.backgroundImage}');
+        background-color: ${obj.bg.backgroundColor};
+        background-size: ${obj.bg.backgroundSize};
+        background-repeat: ${obj.bg.backgroundRepeat};
+        background-position: ${obj.bg.backgroundPosition};
+        background-attachment: ${obj.bg.backgroundAttachment || "initial"};
+
+        color: ${obj.text.color};
+
+        font-size: ${obj.text.fontSize}px;
+        font-weight: ${obj.text.fontWeight};
+        font-style: ${obj.text.fontStyle || "normal"};
+        font-family: ${obj.text.fontFamily};
+
+        text-align: ${obj.text.textAlign};
+        line-height: ${obj.text.lineHeight};
+        letter-spacing: ${obj.text.letterSpacing}px;
+        text-decoration: ${obj.text.textDecoration || "none"};
+        box-shadow: ${obj.shadow.shadowColor} ${obj.shadow.shadowX || 0}px ${obj
+        .shadow.shadowY || 0}px ${obj.shadow.shadowFuzzy || 0}px ${obj.shadow
+        .shadowDire || 0}px ${obj.shadow.shadowinSet ? "inset" : ""};
+       } 
+      #${this.elId}:hover {
+        border-width: ${obj.border.borderWidth}px;
+        border-radius: ${obj.border.borderRadius}px;
+        border-color: blue;
+        background:blue;
+        border-style: ${obj.border.borderStyle};
+      }
+       .i-ele:hover{
+         background:blue;
+       }
+       `;
     }
   }
 };
 </script>
 <style scoped lang="scss">
+#aaa {
+  background: blue;
+}
 .i-ele {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   .cover {
     position: absolute;
     top: 0;
@@ -310,5 +368,8 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+.i-ele:hover {
+  background: blue;
 }
 </style>

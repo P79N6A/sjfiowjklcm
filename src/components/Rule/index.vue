@@ -2,7 +2,7 @@
   <div
     v-if="rulerToggle"
     id="rulerTool"
-    :style="{width : windowWidth + 'px',height : windowHeight + 'px',position:position}"
+    :style="{width : windowWidth + 'px',height : windowHeight + 'px',position:position,}"
     class="ScaleBox"
     onselectstart="return false;"
   >
@@ -45,7 +45,7 @@
     <div
       id="content"
       :style="{left: contentLayout.left + 'px',top: contentLayout.top + 'px'}"
-      style="padding: 18px;"
+      style="padding: 18px;width:100%;"
     >
       <slot/>
     </div>
