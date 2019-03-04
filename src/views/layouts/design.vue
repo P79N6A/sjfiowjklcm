@@ -1042,7 +1042,11 @@
               style.shadow.shadowFuzzy
             }px ${style.shadow.shadowDire}px ${
               style.shadow.shadowinSet ? "inset" : ""
-            }`
+            }`,
+            paddingTop:style.padding.top+'px',
+            paddingRight:style.padding.right+'px',
+            paddingBottom:style.padding.bottom+'px',
+            paddingLeft:style.padding.left+'px'
         }
 
         return `background:blue;`

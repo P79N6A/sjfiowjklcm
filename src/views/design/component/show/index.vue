@@ -1,12 +1,15 @@
 <template>
-  <div style="width:100%;">
-    <!-- <vue-ruler-tool
-      :content-layout="{left:200,top:100}"
-      :is-scale-revise="true"
-      :preset-line="presetLine"
-      position="static"
-    > -->
-      <div class="i-box" :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]">
+  <vue-ruler-tool
+    :content-layout="{left:0,top:0}"
+    :is-scale-revise="true"
+    :preset-line="presetLine"
+    position="relative"
+  >
+    <div style="width:100%;">
+      <div
+        class="i-box"
+        :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]"
+      >
         <div
           :class="pageJson.animate.enterAnimation"
           class="animated"
@@ -45,14 +48,14 @@
           </div>
         </div>
       </div>
-    <!-- </vue-ruler-tool> -->
-  </div>
+    </div>
+  </vue-ruler-tool>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";
 import VueRulerTool from "@/components/Rule";
 import eleTemp from "./eleTemp.vue";
-  import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -139,13 +142,15 @@ export default {
     },
     bgCss() {
       return {
-            // 背景
-            "backgroundImage": `url('${this.cdnurl}${this.pageJson.bg.backgroundImage}')`,
-            "backgroundColor":this.pageJson.bg.backgroundColor,
-            "backgroundSize": this.pageJson.bg.backgroundSize,
-            "backgroundRepeat": this.pageJson.bg.backgroundRepeat,
-            "backgroundPosition": this.pageJson.bg.backgroundPosition,
-            "backgroundAttachment":this.pageJson.bg.backgroundAttachment,
+        // 背景
+        backgroundImage: `url('${this.cdnurl}${
+          this.pageJson.bg.backgroundImage
+        }')`,
+        backgroundColor: this.pageJson.bg.backgroundColor,
+        backgroundSize: this.pageJson.bg.backgroundSize,
+        backgroundRepeat: this.pageJson.bg.backgroundRepeat,
+        backgroundPosition: this.pageJson.bg.backgroundPosition,
+        backgroundAttachment: this.pageJson.bg.backgroundAttachment
       };
     },
     boxShadow() {

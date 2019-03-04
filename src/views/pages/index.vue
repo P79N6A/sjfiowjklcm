@@ -70,7 +70,7 @@
           <el-select v-model="pagesTemp.layout" placeholder="请选择页面外框">
             <el-option :label="item.name" :value="item._id" v-for="(item,i) in layoutList" :key="i"></el-option>
           </el-select>
-        </el-form-item> -->
+        </el-form-item>-->
         <el-form-item label="页面内容" prop="layout">
           <el-select v-model="pagesTemp.content" placeholder="请选择页面内容">
             <el-option
@@ -168,7 +168,7 @@ export default {
     return {
       hideMenu: false,
       pageList: null,
-      device:getToken("SiteDevice"),
+      device: getToken("SiteDevice"),
       columns: [
         {
           text: "页面地址",
@@ -221,14 +221,6 @@ export default {
     };
   },
   methods: {
-    // 获取布局列表
-    getLayouts() {
-      getLayouts({ type: "layout" })
-        .then(res => {
-          this.layoutList = res.data;
-        })
-        .catch(err => {});
-    },
     // 获取页面列表
     getContents() {
       getLayouts({ type: "page" })
@@ -240,6 +232,7 @@ export default {
     // 点击创建操作
     handleCreate() {
       this.resetPageTemp();
+      this.getContents();
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
     },
@@ -356,8 +349,6 @@ export default {
   },
   mounted() {
     this.getPages();
-    this.getLayouts();
-    this.getContents();
     this.$iframe = this.$refs["iframeView"].contentWindow;
   }
 };
