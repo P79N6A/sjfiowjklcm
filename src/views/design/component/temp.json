@@ -10,9 +10,49 @@
     "config": {
       "isShow": true,
       "isLock": false,
-      "content": "你要编辑的文字"
+      "content": "你要编辑的文字",
+      "styleText":""
     },
     "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment":""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "base": {
+        "width": 100,
+        "height": 50,
+        "opacity": 100,
+        "rotate": 0
+      }
+    },
+    "hoverStyle": {
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -51,6 +91,15 @@
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
