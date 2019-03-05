@@ -8,17 +8,18 @@
     <div style="width:100%;">
       <div
         class="i-box"
-        :style="[bgCss,borderCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]"
+        :style="[bgCss,borderCss,boxShadow,{width:pageJson.config.fullScreen?'100%':pageJson.style.base.width + 'px'}]"
       >
         <div
           :class="pageJson.animate.enterAnimation"
           class="animated"
           style="border:dashed 1px #ccc;"
+          :style="[baseCss]"
         >
-          <div class="i-show" :style="[baseCss,,boxShadow]">
+          <div class="i-show">
             <!-- 拖拽外框 -->
             <div v-for="(drag,i) in pageJson.json" :key="i">
-              <VueDragResize
+              <!-- <VueDragResize
                 :isActive="activeTempIndex==i"
                 v-on:resizing="resize"
                 v-on:dragging="resize"
@@ -39,11 +40,11 @@
                 :z="1000-i"
                 :key="i"
                 @activated="$bus.$emit('selectTemp',i)"
-              >
-                <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
-                  <!-- 组件配置 -->
-                </eleTemp>
-              </VueDragResize>
+              >-->
+              <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
+                <!-- 组件配置 -->
+              </eleTemp>
+              <!-- </VueDragResize> -->
             </div>
           </div>
         </div>
@@ -126,41 +127,41 @@ export default {
     },
     borderCss() {
       return {
-        borderWidth: this.pageJson.border.borderWidth + "px",
-        borderRadius: this.pageJson.border.borderRadius + "px",
-        borderColor: this.pageJson.border.borderColor,
-        borderStyle: this.pageJson.border.borderStyle
+        borderWidth: this.pageJson.style.border.borderWidth + "px",
+        borderRadius: this.pageJson.style.border.borderRadius + "px",
+        borderColor: this.pageJson.style.border.borderColor,
+        borderStyle: this.pageJson.style.border.borderStyle
       };
     },
     baseCss() {
       return {
-        width: this.pageJson.base.width + "px",
-        height: this.pageJson.base.height + "px",
-        transform: `rotate(${this.pageJson.base.rotate}deg)`,
-        opacity: this.pageJson.base.opacity / 100
+        width: this.pageJson.style.base.width + "px",
+        height: this.pageJson.style.base.height + "px",
+        transform: `rotate(${this.pageJson.style.base.rotate}deg)`,
+        opacity: this.pageJson.style.base.opacity / 100
       };
     },
     bgCss() {
       return {
         // 背景
         backgroundImage: `url('${this.cdnurl}${
-          this.pageJson.bg.backgroundImage
+          this.pageJson.style.bg.backgroundImage
         }')`,
-        backgroundColor: this.pageJson.bg.backgroundColor,
-        backgroundSize: this.pageJson.bg.backgroundSize,
-        backgroundRepeat: this.pageJson.bg.backgroundRepeat,
-        backgroundPosition: this.pageJson.bg.backgroundPosition,
-        backgroundAttachment: this.pageJson.bg.backgroundAttachment
+        backgroundColor: this.pageJson.style.bg.backgroundColor,
+        backgroundSize: this.pageJson.style.bg.backgroundSize,
+        backgroundRepeat: this.pageJson.style.bg.backgroundRepeat,
+        backgroundPosition: this.pageJson.style.bg.backgroundPosition,
+        backgroundAttachment: this.pageJson.style.bg.backgroundAttachment
       };
     },
     boxShadow() {
       return {
-        boxShadow: `${this.pageJson.shadow.shadowColor} ${
-          this.pageJson.shadow.shadowX
-        }px ${this.pageJson.shadow.shadowY}px ${
-          this.pageJson.shadow.shadowFuzzy
-        }px ${this.pageJson.shadow.shadowDire}px ${
-          this.pageJson.shadow.shadowinSet ? "inset" : ""
+        boxShadow: `${this.pageJson.style.shadow.shadowColor} ${
+          this.pageJson.style.shadow.shadowX
+        }px ${this.pageJson.style.shadow.shadowY}px ${
+          this.pageJson.style.shadow.shadowFuzzy
+        }px ${this.pageJson.style.shadow.shadowDire}px ${
+          this.pageJson.style.shadow.shadowinSet ? "inset" : ""
         }`
       };
     }

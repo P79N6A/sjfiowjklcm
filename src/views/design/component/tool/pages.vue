@@ -78,7 +78,6 @@ export default {
   methods: {
     setSort() {
       const el = document.querySelectorAll(".page-show")[0];
-      console.log(el);
       Sortable.create(el, {
         ghostClass: "sortable-ghost", // Class name for the drop placeholder,
         setData: function(dataTransfer) {

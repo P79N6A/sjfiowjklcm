@@ -6,21 +6,27 @@
       "top": 0,
       "left": 10
     },
-
     "config": {
       "isShow": true,
       "isLock": false,
       "content": "你要编辑的文字",
-      "styleText":""
+      "styleText": "",
+      "class": ""
     },
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
         "backgroundSize": "",
         "backgroundRepeat": "",
         "backgroundPosition": "",
-        "backgroundAttachment":""
+        "backgroundAttachment": ""
       },
       "border": {
         "borderWidth": 0,
@@ -45,14 +51,29 @@
         "fontStyle": "",
         "textDecoration": ""
       },
-      "base": {
-        "width": 100,
-        "height": 50,
-        "opacity": 100,
-        "rotate": 0
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -83,11 +104,16 @@
         "fontStyle": "",
         "textDecoration": ""
       },
-      "base": {
-        "width": 100,
-        "height": 50,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "animate": [{
@@ -113,10 +139,8 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
@@ -130,15 +154,24 @@
     "config": {
       "isShow": true,
       "isLock": false,
-      "content": ""
+      "content": "你要编辑的文字",
+      "styleText": "",
+      "class": ""
     },
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
         "backgroundSize": "",
         "backgroundRepeat": "",
-        "backgroundPosition": ""
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
       },
       "border": {
         "borderWidth": 0,
@@ -148,31 +181,96 @@
       },
       "shadow": {
         "shadowColor": "",
-        "shadowX": 0,
-        "shadowY": 0,
-        "shadowFuzzy": 0,
-        "shadowDire": 0,
-        "shadowinSet": ""
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
       },
       "text": {
         "color": "",
         "textAlign": "",
         "fontFamily": "",
-        "lineHeight": 1,
+        "lineHeight": "",
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
+      }
+    },
+    "hoverStyle": {
       "base": {
         "width": 100,
-        "height": 40,
+        "height": 100,
         "opacity": 100,
         "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
@@ -186,31 +284,82 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
   "textarea": {
     "type": 3,
     "title": "多行的文本输入框",
-    "content": "",
-    "form": {
-      "name": "",
-      "cname": "",
-      "label": ""
+    "config": {
+      "isShow": true,
+      "isLock": false,
+      "content": "你要编辑的文字",
+      "styleText": "",
+      "class": ""
     },
-    "isShow": true,
-    "isLock": false,
-    "position": {
-      "top": 0,
-      "left": 10
-    },
-    "width": 300,
-    "height": 35,
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": "0",
+        "translateY": "0",
+        "scaleX": "1",
+        "scaleY": "1",
+        "rotateX": "0",
+        "rotateY": "0",
+        "rotateZ": "0",
+        "skewX": "0",
+        "skewY": "0"
+      }
+    },
+    "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -236,18 +385,33 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": "",
+        "translateY": "",
+        "scaleX": "",
+        "scaleY": "",
+        "rotateX": "",
+        "rotateY": "",
+        "rotateZ": "",
+        "skewX": "",
+        "skewY": ""
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
@@ -261,32 +425,82 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
   "radio": {
     "type": 4,
     "title": "单选列表",
-    "content": "",
-    "form": {
-      "options": [],
-      "dire": "v",
-      "required": false,
-      "cname": ""
+    "config": {
+      "isShow": true,
+      "isLock": false,
+      "content": "你要编辑的文字",
+      "styleText": "",
+      "class": ""
     },
-    "position": {
-      "top": 0,
-      "left": 10
-    },
-    "isShow": true,
-    "isLock": false,
-    "width": "300",
-    "height": "auto",
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": "0",
+        "translateY": "0",
+        "scaleX": "1",
+        "scaleY": "1",
+        "rotateX": "0",
+        "rotateY": "0",
+        "rotateZ": "0",
+        "skewX": "0",
+        "skewY": "0"
+      }
+    },
+    "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -312,18 +526,33 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": "",
+        "translateY": "",
+        "scaleX": "",
+        "scaleY": "",
+        "rotateX": "",
+        "rotateY": "",
+        "rotateZ": "",
+        "skewX": "",
+        "skewY": ""
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
@@ -337,10 +566,8 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
@@ -363,6 +590,66 @@
     "width": "300",
     "height": "auto",
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": "0",
+        "translateY": "0",
+        "scaleX": "1",
+        "scaleY": "1",
+        "rotateX": "0",
+        "rotateY": "0",
+        "rotateZ": "0",
+        "skewX": "0",
+        "skewY": "0"
+      }
+    },
+    "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -393,11 +680,16 @@
         "fontStyle": "",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": "",
+        "translateY": "",
+        "scaleX": "",
+        "scaleY": "",
+        "rotateX": "",
+        "rotateY": "",
+        "rotateZ": "",
+        "skewX": "",
+        "skewY": ""
       }
     },
     "animate": [{
@@ -579,18 +871,57 @@
   "video": {
     "type": 8,
     "title": "功能组件",
-    "content": "",
-    "configId": "",
-    "category": "",
-    "position": {
-      "top": 0,
-      "left": 10
+    "config": {
+      "isShow": true,
+      "isLock": false,
+      "content": "你要编辑的文字",
+      "styleText": "",
+      "class": ""
     },
-    "isShow": true,
-    "isLock": false,
-    "width": "300",
-    "height": "38",
     "style": {
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      }
+    },
+    "hoverStyle": {
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -616,13 +947,14 @@
         "fontFamily": "",
         "lineHeight": "",
         "letterSpacing": "",
+        "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
-      "style": {
-        "width": 0,
-        "height": 0,
+      "base": {
+        "width": 100,
+        "height": 100,
         "opacity": 100,
         "rotate": 0
       }
@@ -636,15 +968,22 @@
       "animationPlayState": "initial",
       "animationTimingFunction": "ease"
     }],
+    "hoverAnimate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
     "event": {
       "onClick": {
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
@@ -658,10 +997,71 @@
     "config": {
       "isShow": true,
       "isLock": false,
-      "viewBox": "",
-      "content": ""
+      "content": "你要编辑的文字",
+      "styleText": "",
+      "class": ""
     },
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
+      }
+    },
+    "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -677,31 +1077,43 @@
       },
       "shadow": {
         "shadowColor": "",
-        "shadowX": 0,
-        "shadowY": 0,
-        "shadowFuzzy": 0,
-        "shadowDire": 0,
-        "shadowinSet": ""
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
       },
       "text": {
-        "color": "#ccc",
+        "color": "",
         "textAlign": "",
         "fontFamily": "",
-        "lineHeight": 1,
+        "lineHeight": "",
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
-      "base": {
-        "width": 100,
-        "height": 40,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
@@ -715,10 +1127,8 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   },
@@ -736,9 +1146,71 @@
       "categoryModel": "",
       "categoryId": "",
       "configModel": "",
-      "dataId": ""
+      "dataId": "",
+      "styleText": "",
+      "class": ""
     },
     "style": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
+      "bg": {
+        "backgroundImage": "",
+        "backgroundColor": "",
+        "backgroundSize": "",
+        "backgroundRepeat": "",
+        "backgroundPosition": "",
+        "backgroundAttachment": ""
+      },
+      "border": {
+        "borderWidth": 0,
+        "borderRadius": 0,
+        "borderColor": "",
+        "borderStyle": ""
+      },
+      "shadow": {
+        "shadowColor": "",
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
+      },
+      "text": {
+        "color": "",
+        "textAlign": "",
+        "fontFamily": "",
+        "lineHeight": "",
+        "letterSpacing": "",
+        "fontSize": 14,
+        "fontWeight": "",
+        "fontStyle": "",
+        "textDecoration": ""
+      },
+      "transition": {
+        "duration": 0,
+        "timingFunction": "ease"
+      },
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
+      }
+    },
+    "hoverStyle": {
+      "base": {
+        "width": 100,
+        "height": 100,
+        "opacity": 100,
+        "rotate": 0
+      },
       "bg": {
         "backgroundImage": "",
         "backgroundColor": "",
@@ -754,31 +1226,43 @@
       },
       "shadow": {
         "shadowColor": "",
-        "shadowX": 0,
-        "shadowY": 0,
-        "shadowFuzzy": 0,
-        "shadowDire": 0,
-        "shadowinSet": ""
+        "shadowWidth": 0,
+        "shadowRadius": 0,
+        "shadowDire": 0
       },
       "text": {
         "color": "",
         "textAlign": "",
         "fontFamily": "",
-        "lineHeight": 1,
+        "lineHeight": "",
         "letterSpacing": "",
         "fontSize": 14,
         "fontWeight": "",
         "fontStyle": "",
         "textDecoration": ""
       },
-      "base": {
-        "width": 100,
-        "height": 40,
-        "opacity": 100,
-        "rotate": 0
+      "transform": {
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "animate": [{
+      "animationDelay": 0,
+      "animationDuration": 1,
+      "animationFillMode": "both",
+      "animationIterationCount": 1,
+      "animationName": "",
+      "animationPlayState": "initial",
+      "animationTimingFunction": "ease"
+    }],
+    "hoverAnimate": [{
       "animationDelay": 0,
       "animationDuration": 1,
       "animationFillMode": "both",
@@ -792,10 +1276,8 @@
         "type": "",
         "link": "",
         "index": "",
-        "target": "_blank"
-      },
-      "hover": {
-        "animation": ""
+        "target": "_blank",
+        "elSet": []
       }
     }
   }

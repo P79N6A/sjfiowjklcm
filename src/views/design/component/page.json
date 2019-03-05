@@ -1,7 +1,7 @@
 {
   "page": 1,
   "title": "第2页",
-  "fullScreen":false,
+  "fullScreen": false,
   "json": [{
     "type": 1,
     "title": "文字1",
@@ -62,37 +62,39 @@
       }
     }
   }],
-  "bg": {
-    "backgroundImage": "",
-    "backgroundColor": "",
-    "backgroundSize": "",
-    "backgroundRepeat": "",
-    "backgroundPosition": ""
-  },
-  "border": {
-    "borderWidth": 0,
-    "borderRadius": 0,
-    "borderColor": "",
-    "borderStyle": ""
-  },
-  "shadow": {
-    "shadowColor": "",
-    "shadowWidth": 0,
-    "shadowRadius": 0,
-    "shadowDire": 0
-  },
-  "base": {
-    "width": 300,
-    "height": 300,
-    "opacity": 100,
-    "rotate": 0
+  "style": {
+    "bg": {
+      "backgroundImage": "",
+      "backgroundColor": "",
+      "backgroundSize": "",
+      "backgroundRepeat": "",
+      "backgroundPosition": ""
+    },
+    "border": {
+      "borderWidth": 0,
+      "borderRadius": 0,
+      "borderColor": "",
+      "borderStyle": ""
+    },
+    "shadow": {
+      "shadowColor": "",
+      "shadowWidth": 0,
+      "shadowRadius": 0,
+      "shadowDire": 0
+    },
+    "base": {
+      "width": 300,
+      "height": 300,
+      "opacity": 100,
+      "rotate": 0
+    }
   },
   "animate": {
     "enterAnimation": "",
     "leaveAnimation": ""
   },
-  "config":{
-    "fullScreen":false
+  "config": {
+    "fullScreen": false
   },
   "timer": null
 }

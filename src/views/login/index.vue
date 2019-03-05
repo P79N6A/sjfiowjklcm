@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       loginForm: {
-        email: "david@cms.com",
+        email: "david@itgo.com",
         password: "aa123456",
         autoSignIn: false
       },

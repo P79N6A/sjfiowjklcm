@@ -118,8 +118,8 @@
       <el-table-column label="备注" prop="desc" min-width="150px"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.online">上架</el-tag>
-          <el-tag v-else type="danger">下架</el-tag>
+          <el-tag v-if="scope.row.isPublic">公开</el-tag>
+          <el-tag v-else type="danger">私有</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -133,10 +133,10 @@
             <el-button
               type="danger"
               size="mini"
-              v-if="scope.row.online"
+              v-if="scope.row.isPublic"
               @click="toStop(scope.row)"
-            >下架</el-button>
-            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上架</el-button>
+            >私有</el-button>
+            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">公开</el-button>
             <el-button
               type="primary"
               size="mini"
@@ -212,9 +212,9 @@
                   </el-form-item>
                 </td>
                 <td>
-                  <el-form-item label="在线状态" prop="online">
+                  <el-form-item label="是否公开" prop="isPublic">
                     <el-switch
-                      v-model="imgTemp.online"
+                      v-model="imgTemp.isPublic"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       active-text="是"
@@ -392,7 +392,7 @@ export default {
         }
       ],
       imgTemp: {
-        online: true,
+        isPublic: true,
         url: "",
         desc: "",
         // 文件信息
@@ -517,15 +517,15 @@ export default {
     // 设置为上线
     toOnline(row) {
       this.imgTemp = Object.assign({}, row); // copy obj
-      this.imgTemp.online = true;
-      row.online = true;
+      this.imgTemp.isPublic = true;
+      row.isPublic = true;
       this.updateGame();
     },
     // 设置为下架
     toStop(row) {
       this.imgTemp = Object.assign({}, row); // copy obj
-      this.imgTemp.online = false;
-      row.online = false;
+      this.imgTemp.isPublic = false;
+      row.isPublic = false;
       this.updateGame();
     },
     // 更新游戏
@@ -546,7 +546,7 @@ export default {
     // 重制游戏
     resetTemp() {
       this.imgTemp = {
-        online: true,
+        isPublic: true,
         url: "",
         desc: "",
         // 文件信息

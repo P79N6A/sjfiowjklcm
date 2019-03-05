@@ -10,6 +10,7 @@
     >
       <el-scrollbar class="shows">
         <el-form :label-position="'left'" label-width="70px" :model="settingForm">
+          {{settingForm.bg}}
           <el-collapse v-model="activeNames" @change="handleChange">
             <!-- 背景配置 -->
             <el-collapse-item title="背景" name="1">
@@ -234,7 +235,7 @@
 
 <script>
 import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
-  import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "pageSet",
@@ -482,15 +483,15 @@ export default {
     // 初始化数据
     initData() {
       // style
-      this.settingForm.bg = this.pageSet.bg;
-      this.settingForm.border = this.pageSet.border;
-      this.settingForm.shadow = this.pageSet.shadow;
-      this.settingForm.base = this.pageSet.base;
+      this.settingForm.bg = this.pageSet.style.bg;
+      this.settingForm.border = this.pageSet.style.border;
+      this.settingForm.shadow = this.pageSet.style.shadow;
+      this.settingForm.base = this.pageSet.style.base;
       this.settingForm.animate = this.pageSet.animate;
       this.settingForm.config = this.pageSet.config;
     }
   },
-      computed: {
+  computed: {
     ...mapGetters(["cdnurl"])
   },
   created() {

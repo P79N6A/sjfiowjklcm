@@ -57,92 +57,180 @@ export default {
               json: [
                 {
                   type: 1,
-                  title: "文字1",
+                  title: "文字",
                   position: {
-                    top: 10,
+                    top: 0,
                     left: 10
                   },
                   config: {
                     isShow: true,
                     isLock: false,
-                    content: "你要编辑的文字"
+                    content: "你要编辑的文字",
+                    styleText: "",
+                    class: ""
                   },
                   style: {
                     bg: {
-                      backgroundImage: "url('/favicon.ico')",
-                      backgroundColor: "#eee",
-                      backgroundSize: "100% 100%",
-                      backgroundRepeat: "repeat-x",
-                      backgroundPosition: "center center"
+                      backgroundImage: "",
+                      backgroundColor: "",
+                      backgroundSize: "",
+                      backgroundRepeat: "",
+                      backgroundPosition: "",
+                      backgroundAttachment: ""
                     },
                     border: {
                       borderWidth: 0,
                       borderRadius: 0,
-                      borderColor: "#564563",
-                      borderStyle: "solid"
+                      borderColor: "",
+                      borderStyle: ""
                     },
                     shadow: {
-                      shadowColor: "#ccc",
-                      shadowWidth: 2,
-                      shadowRadius: 3,
+                      shadowColor: "",
+                      shadowWidth: 0,
+                      shadowRadius: 0,
                       shadowDire: 0
                     },
                     text: {
-                      color: "#ddd",
-                      textAlign: "center",
-                      fontFamily: "simon",
-                      lineHeight: "1.5",
+                      color: "",
+                      textAlign: "",
+                      fontFamily: "",
+                      lineHeight: "",
                       letterSpacing: "",
-                      fontWeight: "",
                       fontSize: 14,
-                      fontStyle: "italic",
+                      fontWeight: "",
+                      fontStyle: "",
                       textDecoration: ""
                     },
                     base: {
                       width: 100,
-                      height: 100,
+                      height: 50,
                       opacity: 100,
                       rotate: 0
+                    },
+                    transition: {
+                      duration: 0,
+                      timingFunction: "ease"
+                    },
+                    transform: {
+                      translateX: 0,
+                      translateY: 0,
+                      scaleX: 1,
+                      scaleY: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                      rotateZ: 0,
+                      skewX: 0,
+                      skewY: 0
                     }
                   },
-                  animate: [],
+                  hoverStyle: {
+                    bg: {
+                      backgroundImage: "",
+                      backgroundColor: "",
+                      backgroundSize: "",
+                      backgroundRepeat: "",
+                      backgroundPosition: ""
+                    },
+                    border: {
+                      borderWidth: 0,
+                      borderRadius: 0,
+                      borderColor: "",
+                      borderStyle: ""
+                    },
+                    shadow: {
+                      shadowColor: "",
+                      shadowWidth: 0,
+                      shadowRadius: 0,
+                      shadowDire: 0
+                    },
+                    text: {
+                      color: "",
+                      textAlign: "",
+                      fontFamily: "",
+                      lineHeight: "",
+                      letterSpacing: "",
+                      fontSize: 14,
+                      fontWeight: "",
+                      fontStyle: "",
+                      textDecoration: ""
+                    },
+                    base: {
+                      width: 100,
+                      height: 50,
+                      opacity: 100,
+                      rotate: 0
+                    },
+                    transform: {
+                      translateX: 0,
+                      translateY: 0,
+                      scaleX: 1,
+                      scaleY: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                      rotateZ: 0,
+                      skewX: 0,
+                      skewY: 0
+                    }
+                  },
+                  animate: [
+                    {
+                      animationDelay: 0,
+                      animationDuration: 1,
+                      animationFillMode: "both",
+                      animationIterationCount: 1,
+                      animationName: "",
+                      animationPlayState: "initial",
+                      animationTimingFunction: "ease"
+                    }
+                  ],
+                  hoverAnimate: [
+                    {
+                      animationDelay: 0,
+                      animationDuration: 1,
+                      animationFillMode: "both",
+                      animationIterationCount: 1,
+                      animationName: "",
+                      animationPlayState: "initial",
+                      animationTimingFunction: "ease"
+                    }
+                  ],
                   event: {
                     onClick: {
                       type: "",
                       link: "",
                       index: "",
-                      target: "_blank"
-                    },
-                    hover: {
-                      animation: ""
+                      target: "_blank",
+                      elSet: []
                     }
                   }
                 }
               ],
-              bg: {
-                backgroundImage: "",
-                backgroundColor: "#eee",
-                backgroundSize: "100% 100%",
-                backgroundRepeat: "repeat-x",
-                backgroundPosition: "center center"
-              },
-              border: {
-                borderWidth: 0,
-                borderRadius: 0,
-                borderColor: "#564563",
-                borderStyle: "solid"
-              },
-              shadow: {
-                shadowColor: "#ccc",
-                shadowWidth: 0,
-                shadowRadius: 0,
-                shadowDire: 0
-              },
-              base: {
-                width: 320,
-                height: 400,
-                opacity: 100,
-                rotate: 0
+              style: {
+                bg: {
+                  backgroundImage: "",
+                  backgroundColor: "#eee",
+                  backgroundSize: "100% 100%",
+                  backgroundRepeat: "repeat-x",
+                  backgroundPosition: "center center"
+                },
+                border: {
+                  borderWidth: 0,
+                  borderRadius: 0,
+                  borderColor: "#564563",
+                  borderStyle: "solid"
+                },
+                shadow: {
+                  shadowColor: "#ccc",
+                  shadowWidth: 0,
+                  shadowRadius: 0,
+                  shadowDire: 0
+                },
+                base: {
+                  width: 320,
+                  height: 400,
+                  opacity: 100,
+                  rotate: 0
+                }
               },
               animate: {
                 enterAnimation: "",
@@ -213,6 +301,7 @@ export default {
     },
     // 选定元素
     selectTemp(index) {
+      console.log(index);
       this.activeTempIndex = index;
     },
     // 切换元素锁定状态
@@ -373,11 +462,6 @@ export default {
       this.$bus.$on("saveJson", eventData => {
         this.saveJson();
       });
-      // 历史纪录
-      this.history.push({
-        title: "打开组件",
-        value: JSON.parse(JSON.stringify(this.appJson))
-      });
       this.$bus.$on("saveHistory", eventData => {
         this.history.push({
           title: eventData,
@@ -405,12 +489,23 @@ export default {
     // 设置活动id,编辑状态
     const _id = this.$route.query.ishowsId || "";
     if (_id) {
-      getIshowOne({ _id: _id })
+      getIshowOne({
+        _id: _id
+      })
         .then(res => {
           this.appJson = res.data;
+          // 历史纪录
+          this.history.push({
+            title: "打开组件",
+            value: JSON.parse(JSON.stringify(this.appJson))
+          });
         })
         .catch(err => {});
     } else {
+      this.history.push({
+        title: "打开组件",
+        value: JSON.parse(JSON.stringify(this.appJson))
+      });
     }
     this.initEvent();
   },
@@ -424,7 +519,6 @@ export default {
       ].config.isLock;
 
       if (val.toString() && !_isLock) {
-        console.log("openLayerSet");
         this.$bus.$emit("openLayerSet");
       }
     }

@@ -12,7 +12,7 @@
       </span>
     </el-tooltip>-->
     <el-tooltip class="item" effect="dark" content="操作记录" placement="left">
-      <span class="item">
+      <span class="item" @click="showHistory=!showHistory" :class="{active:showHistory}">
         <i class="el-icon-printer"></i>
       </span>
     </el-tooltip>
@@ -34,14 +34,16 @@
         <i class="el-icon-warning"></i>
       </span>
     </el-tooltip>
-    <div class="history-list">
-      {{historyIndex}}
-      <p
-        v-for="(item,i) in history"
-        :key="i"
-        :class="[{active:i==historyIndex,disable:i>historyIndex}]"
-        @click="$bus.$emit('selectHistory',i)"
-      >{{item.title}}</p>
+    <div class="history-list" v-show="showHistory">
+      <h3>操作历史纪录</h3>
+      <div class="items">
+        <p
+          v-for="(item,i) in history"
+          :key="i"
+          :class="[{active:i==historyIndex,disable:i>historyIndex}]"
+          @click="$bus.$emit('selectHistory',i)"
+        >{{item.title}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -52,7 +54,8 @@ export default {
 
   data() {
     return {
-      iconActive: true
+      iconActive: true,
+      showHistory: false
     };
   },
   props: ["historyIndex", "history"],
@@ -71,6 +74,7 @@ export default {
   border-left: solid 1px #eee;
   border-right: solid 1px #eee;
   height: 100%;
+  position: relative;
   .item {
     display: block;
     width: 40px;
@@ -85,20 +89,40 @@ export default {
       color: #fff;
     }
 
-    &:hover {
+    &:hover,
+    &.active {
       background: #409eff;
       color: #fff;
     }
   }
   .history-list {
-    p {
-      padding: 4px;
+    position: absolute;
+    width: 250px;
+    background: #fff;
+    left: -251px;
+    top: 40px;
+    z-index: 99999;
+    h3 {
+      text-align: center;
+      margin: 0;
       background: #eee;
-      &.active {
-        color: blue;
-      }
-      &.disable {
-        background: #333;
+      padding: 8px 0;
+      font-size: 16px;
+    }
+    .items {
+      height: 400px;
+      overflow-y: scroll;
+      p {
+        padding: 4px;
+        background: #fff;
+        margin: 0;
+        border-bottom: solid 1px #ccc;
+        &.active {
+          color: blue;
+        }
+        &.disable {
+          background: #aaa;
+        }
       }
     }
   }
