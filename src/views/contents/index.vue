@@ -14,6 +14,7 @@
       <el-button type="danger" @click="handleSort">保存排序</el-button>
       <span style="float:right;" v-if="categoryTemp">数据集合:{{categoryTemp.name}}</span>
     </div>
+    {{modelTemp}}
     <el-table
       v-loading="listLoading"
       :data="contentList"
@@ -501,26 +502,6 @@ export default {
     resetContentTemp() {
       let _obj = {};
       _obj.category = this.categoryTemp._id;
-      // 检查系统默认的字段
-      // if (this.modelTemp.system.thumbnail) {
-      //   _obj.thumbnail = {
-      //     _id: "",
-      //     fileName: "",
-      //     src: ""
-      //   };
-      // }
-      // if (this.modelTemp.system.title) {
-      //   _obj.title = "";
-      // }
-      // if (this.modelTemp.system.abstract) {
-      //   _obj.abstract = "";
-      // }
-      // if (this.modelTemp.system.tags) {
-      //   _obj.tags = "";
-      // }
-      // if (this.modelTemp.system.content) {
-      //   _obj.content = "";
-      // }
       _obj.value = {};
       // 遍历扩展的数据类型
       for (let i = 0; i < this.modelTemp.value.length; i++) {
