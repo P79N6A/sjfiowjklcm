@@ -1267,16 +1267,19 @@
               </el-collapse-item>-->
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="高级">
+          <!-- <el-tab-pane label="高级">
             <el-input v-model="config.class" placeholder="添加元素class,以空格区分"></el-input>
-            <br>
+            <hr>
             <el-input
               type="textarea"
               :autosize="{ minRows: 20, maxRows: 40}"
               placeholder="输入自定义样式"
               v-model="config.styleText"
             ></el-input>
-          </el-tab-pane>
+            <el-button @click="$bus.$emit('renderStyle')">生效</el-button>
+            <p>注：每个元素有唯一的ID，当前元素的id为：#{{layerjson.id}}</p>
+            {{config}}
+          </el-tab-pane> -->
         </el-tabs>
       </el-scrollbar>
     </el-dialog>

@@ -1,4 +1,5 @@
 {
+  "id":"",
   "description": "新组件",
   "device": "",
   "name": "新组件",
@@ -13,6 +14,7 @@
       "interval": 3
     },
     "indicator": {
+      "position":"",
       "show": false,
       "showText": false,
       "bottom": 0,

@@ -1,5 +1,6 @@
 {
   "text": {
+    "id":"",
     "type": 1,
     "title": "文字",
     "position": {
@@ -145,6 +146,7 @@
     }
   },
   "img": {
+    "id":"",
     "type": 2,
     "title": "图片",
     "position": {
@@ -290,6 +292,7 @@
     }
   },
   "textarea": {
+    "id":"",
     "type": 3,
     "title": "多行的文本输入框",
     "config": {
@@ -431,6 +434,7 @@
     }
   },
   "radio": {
+    "id":"",
     "type": 4,
     "title": "单选列表",
     "config": {
@@ -572,6 +576,7 @@
     }
   },
   "checkbox": {
+    "id":"",
     "type": 5,
     "title": "多选列表",
     "content": "",
@@ -714,6 +719,7 @@
     }
   },
   "select": {
+    "id":"",
     "type": 6,
     "title": "多选下拉框",
     "form": {
@@ -791,6 +797,7 @@
     }
   },
   "button": {
+    "id":"",
     "type": 7,
     "title": "按钮",
     "content": "",
@@ -869,6 +876,7 @@
     }
   },
   "video": {
+    "id":"",
     "type": 8,
     "title": "功能组件",
     "config": {
@@ -988,6 +996,7 @@
     }
   },
   "svg": {
+    "id":"",
     "type": 9,
     "title": "形状",
     "position": {
@@ -1133,6 +1142,7 @@
     }
   },
   "vue": {
+    "id":"",
     "type": 10,
     "title": "vue功能组件",
     "position": {

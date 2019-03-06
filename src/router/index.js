@@ -598,7 +598,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/medias/index'),
       name: 'medias',
       meta: {
-        title: '媒体库',
+        title: '文件中转站',
         icon: 'documentation',
         authorities: [100401]
       }

@@ -1,12 +1,13 @@
 <template>
-  <div style="width:100%;">
-    <div v-for="(pageJson,i) in appJson.value.pageJson" :key="i">
-      <div class="i-preview" :style="[bgCss,{width:pageJson.config.fullScreen?'100%':pageJson.base.width + 'px'}]" 
+  <div style="width:100%;" :id="`${appJson.id}`">
+    <div v-for="(pageJson,i) in appJson.value.pageJson" :key="i" style="display:flex;width:100%;" :id="pageJson.id">
+      <transition :enter-active-class="pageJson.animate.enterAnimation" :leave-active-class="pageJson.animate.leaveAnimation">
+      <div class="i-box animated" :style="[bgCss,{width:pageJson.config.fullScreen?'100%': ''}]" 
         v-if="i==activePage" >
-        <div :class="pageJson.animate.enterAnimation" class="animated">
+        <div class="animated">
           <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
             <!-- 拖拽外框 -->
-            <div v-for="(drag,i) in pageJson.json" :key="i">
+            <div v-for="(drag,i) in pageJson.json" :key="i" :id="drag.id">
               <div v-if="drag.config.isShow" :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
                 :key="i">
                 <eleTemp :eleJson="drag" :showId="i">
@@ -16,7 +17,9 @@
             </div>
           </div>
         </div>
+        <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
       </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -112,40 +115,40 @@
     ...mapGetters(["cdnurl"]),
       borderCss() {
         return {
-          borderWidth: this.appJson.value.pageJson[this.activePage].border.borderWidth + "px",
-          borderRadius: this.appJson.value.pageJson[this.activePage].border.borderRadius + "px",
-          borderColor: this.appJson.value.pageJson[this.activePage].border.borderColor,
-          borderStyle: this.appJson.value.pageJson[this.activePage].border.borderStyle
+          borderWidth: this.appJson.value.pageJson[this.activePage].style.border.borderWidth + "px",
+          borderRadius: this.appJson.value.pageJson[this.activePage].style.border.borderRadius + "px",
+          borderColor: this.appJson.value.pageJson[this.activePage].style.border.borderColor,
+          borderStyle: this.appJson.value.pageJson[this.activePage].style.border.borderStyle
         };
       },
       baseCss() {
         return {
-          width: this.appJson.value.pageJson[this.activePage].base.width + "px",
-          height: this.appJson.value.pageJson[this.activePage].base.height + "px",
-          transform: `rotate(${this.appJson.value.pageJson[this.activePage].base.rotate}deg)`,
-          opacity: this.appJson.value.pageJson[this.activePage].base.opacity / 100
+          width: this.appJson.value.pageJson[this.activePage].style.base.width + "px",
+          height: this.appJson.value.pageJson[this.activePage].style.base.height + "px",
+          transform: `rotate(${this.appJson.value.pageJson[this.activePage].style.base.rotate}deg)`,
+          opacity: this.appJson.value.pageJson[this.activePage].style.base.opacity / 100
         };
       },
       bgCss() {
               return {
             // 背景
-            "backgroundImage": `url('${this.cdnurl}${this.appJson.value.pageJson[this.activePage].bg.backgroundImage}')`,
-            "backgroundColor":this.appJson.value.pageJson[this.activePage].bg.backgroundColor,
-            "backgroundSize": this.appJson.value.pageJson[this.activePage].bg.backgroundSize,
-            "backgroundRepeat": this.appJson.value.pageJson[this.activePage].bg.backgroundRepeat,
-            "backgroundPosition": this.appJson.value.pageJson[this.activePage].bg.backgroundPosition,
-            "backgroundAttachment":this.appJson.value.pageJson[this.activePage].bg.backgroundAttachment,
+            "backgroundImage": `url('${this.cdnurl}${this.appJson.value.pageJson[this.activePage].style.bg.backgroundImage}')`,
+            "backgroundColor":this.appJson.value.pageJson[this.activePage].style.bg.backgroundColor,
+            "backgroundSize": this.appJson.value.pageJson[this.activePage].style.bg.backgroundSize,
+            "backgroundRepeat": this.appJson.value.pageJson[this.activePage].style.bg.backgroundRepeat,
+            "backgroundPosition": this.appJson.value.pageJson[this.activePage].style.bg.backgroundPosition,
+            "backgroundAttachment":this.appJson.value.pageJson[this.activePage].style.bg.backgroundAttachment,
       };
         // return this.appJson.value.pageJson[this.activePage].bg;
       },
       boxShadow() {
         return {
-          boxShadow: `${this.appJson.value.pageJson[this.activePage].shadow.shadowColor} ${
-          this.appJson.value.pageJson[this.activePage].shadow.shadowX
-        }px ${this.appJson.value.pageJson[this.activePage].shadow.shadowY}px ${
-          this.appJson.value.pageJson[this.activePage].shadow.shadowFuzzy
-        }px ${this.appJson.value.pageJson[this.activePage].shadow.shadowDire}px ${
-          this.appJson.value.pageJson[this.activePage].shadow.shadowinSet ? "inset" : ""
+          boxShadow: `${this.appJson.value.pageJson[this.activePage].style.shadow.shadowColor} ${
+          this.appJson.value.pageJson[this.activePage].style.shadow.shadowX
+        }px ${this.appJson.value.pageJson[this.activePage].style.shadow.shadowY}px ${
+          this.appJson.value.pageJson[this.activePage].style.shadow.shadowFuzzy
+        }px ${this.appJson.value.pageJson[this.activePage].style.shadow.shadowDire}px ${
+          this.appJson.value.pageJson[this.activePage].style.shadow.shadowinSet ? "inset" : ""
         }`
         };
       }
@@ -154,11 +157,11 @@
 
 </script>
 <style lang="scss" scoped>
-  .i-preview {
+  .i-box {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    float:left;
     .i-show {
       overflow: hidden;
       display: block;

@@ -4,14 +4,37 @@
       v-el-drag-dialog
       :visible.sync="dialogFormVisible"
       title="页面设置"
-      width="250px"
+      width="260px"
       :modal="false"
       :close-on-click-modal="false"
     >
       <el-scrollbar class="shows">
         <el-form :label-position="'left'" label-width="70px" :model="settingForm">
-          {{settingForm.bg}}
+          <el-tabs type="border-card">
+            <el-tab-pane label="样式">
           <el-collapse v-model="activeNames" @change="handleChange">
+            <!-- 基本样式 -->
+            <el-collapse-item title="基础" name="2">
+              <el-form-item label="页面宽度" prop="width">
+                <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
+                  <template slot="append">PX</template>
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="页面高度" prop="height">
+                <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
+                  <template slot="append">PX</template>
+                </el-input>
+              </el-form-item>
+
+              <el-form-item label="透明程度" prop="opacity">
+                <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
+              </el-form-item>
+
+              <el-form-item label="旋转角度" prop="rotate">
+                <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
+              </el-form-item>
+            </el-collapse-item>
             <!-- 背景配置 -->
             <el-collapse-item title="背景" name="1">
               <el-form-item label="背景图" prop="bg">
@@ -111,28 +134,6 @@
                 </el-input>
               </el-form-item>
             </el-collapse-item>
-            <!-- 基本样式 -->
-            <el-collapse-item title="基础" name="2">
-              <el-form-item label="页面宽度" prop="width">
-                <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
-                  <template slot="append">PX</template>
-                </el-input>
-              </el-form-item>
-
-              <el-form-item label="页面高度" prop="height">
-                <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
-                  <template slot="append">PX</template>
-                </el-input>
-              </el-form-item>
-
-              <el-form-item label="透明程度" prop="opacity">
-                <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
-              </el-form-item>
-
-              <el-form-item label="旋转角度" prop="rotate">
-                <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
-              </el-form-item>
-            </el-collapse-item>
             <!-- 边框 -->
             <el-collapse-item title="边框" name="3">
               <el-form-item label="边框类型" prop="border">
@@ -194,8 +195,11 @@
                 ></el-switch>
               </el-form-item>
             </el-collapse-item>
+          </el-collapse>
+            </el-tab-pane>
+            <el-tab-pane label="动画">
             <!-- 入场动画 -->
-            <el-collapse-item title="入场动画" name="5">
+            <!-- <el-collapse-item title="入场动画" name="5"> -->
               <el-form-item label="入场动画" prop="name">
                 <el-select v-model="settingForm.animate.enterAnimation" placeholder="请选择">
                   <el-option-group>
@@ -215,7 +219,7 @@
                   </el-option-group>
                 </el-select>
               </el-form-item>
-              <!-- <el-form-item label="离场动画" prop="description">
+              <el-form-item label="离场动画" prop="description">
                 <el-select v-model="settingForm.animate.leaveAnimation" placeholder="请选择">
                   <el-option-group>
                     <el-option label="无" value></el-option>
@@ -224,9 +228,20 @@
                     <el-option v-for="(item, j) in group.options" :label="item.label" :value="item.value" :key="j"></el-option>
                   </el-option-group>
                 </el-select>
-              </el-form-item>-->
-            </el-collapse-item>
-          </el-collapse>
+              </el-form-item>
+            <!-- </el-collapse-item> -->
+            </el-tab-pane>
+            <el-tab-pane label="高级">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 20, maxRows: 40}"
+              placeholder="输入自定义样式"
+              v-model="settingForm.config.styleText"
+            ></el-input>
+            </el-tab-pane>
+
+          </el-tabs>
+
         </el-form>
       </el-scrollbar>
     </el-dialog>

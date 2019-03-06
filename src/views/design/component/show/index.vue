@@ -5,13 +5,14 @@
     :preset-line="presetLine"
     position="relative"
   >
-    <div style="width:100%;">
+    <div style="width:100%;" :id="`${appJson.id}`">
       <div
         class="i-box"
         :style="[bgCss,borderCss,boxShadow,{width:pageJson.config.fullScreen?'100%':pageJson.style.base.width + 'px'}]"
+        :id="pageJson.id"
       >
         <div
-          :class="pageJson.animate.enterAnimation"
+          :class="[pageJson.animate.enterAnimation,pageJson.animate.leaveAnimation]"
           class="animated"
           style="border:dashed 1px #ccc;"
           :style="[baseCss]"
@@ -19,36 +20,15 @@
           <div class="i-show">
             <!-- 拖拽外框 -->
             <div v-for="(drag,i) in pageJson.json" :key="i">
-              <!-- <VueDragResize
-                :isActive="activeTempIndex==i"
-                v-on:resizing="resize"
-                v-on:dragging="resize"
-                v-on:dragstop="$bus.$emit('saveHistory','拖拽元素位置')"
-                v-on:resizestop="$bus.$emit('saveHistory','调整元素大小')"
-                v-show="drag.config.isShow"
-                :isDraggable="!drag.config.isLock"
-                :isResizable="!drag.config.isLock"
-                :parentW="1000"
-                :parentH="1000"
-                :w="drag.style.base.width"
-                :minw="1"
-                :minh="1"
-                :h="drag.style.base.height"
-                :x="drag.position.left"
-                :y="drag.position.top"
-                :style="{transform: `rotate(${drag.style.base.rotate}deg)`}"
-                :z="1000-i"
-                :key="i"
-                @activated="$bus.$emit('selectTemp',i)"
-              >-->
+
               <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
                 <!-- 组件配置 -->
               </eleTemp>
-              <!-- </VueDragResize> -->
             </div>
           </div>
         </div>
       </div>
+      <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
     </div>
   </vue-ruler-tool>
 </template>
@@ -68,7 +48,7 @@ export default {
     VueRulerTool,
     eleTemp
   },
-  props: ["pageJson", "activeTempIndex"],
+  props: ["appJson", "pageJson", "activeTempIndex"],
   methods: {
     resize(newRect) {
       this.activeDrag.style.base.width = newRect.width;

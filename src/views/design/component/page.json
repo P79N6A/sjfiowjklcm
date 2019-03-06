@@ -1,5 +1,6 @@
 {
   "page": 1,
+  "id":"",
   "title": "第2页",
   "fullScreen": false,
   "json": [{
@@ -94,7 +95,8 @@
     "leaveAnimation": ""
   },
   "config": {
-    "fullScreen": false
+    "fullScreen": false,
+    "styleText":""
   },
   "timer": null
 }

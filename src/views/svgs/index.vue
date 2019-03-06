@@ -75,15 +75,15 @@
       <el-table-column label="备注" prop="desc" min-width="150px"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.online">上架</el-tag>
-          <el-tag v-else type="danger">下架</el-tag>
+          <el-tag v-if="scope.row.isPublic">公开</el-tag>
+          <el-tag v-else type="danger">私有</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('table.actions')" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button-group>
-            <el-button type="danger" size="mini" v-if="scope.row.online" @click="toStop(scope.row)">下架</el-button>
-            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上架</el-button>
+            <el-button type="danger" size="mini" v-if="scope.row.isPublic" @click="toStop(scope.row)">私有</el-button>
+            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">公开</el-button>
             <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">{{ $t('table.edit') }}</el-button>
             <el-button v-if="scope.row.status!='deleted'" size="mini" type="danger" @click="handleDelete(scope.row)">
               {{
@@ -112,8 +112,8 @@
                   </el-form-item>
                 </td>
                 <td>
-                  <el-form-item label="在线状态" prop="online">
-                    <el-switch v-model="svgTemp.online" active-color="#13ce66" inactive-color="#ff4949" active-text="是"
+                  <el-form-item label="公开" prop="isPublic">
+                    <el-switch v-model="svgTemp.isPublic" active-color="#13ce66" inactive-color="#ff4949" active-text="是"
                       inactive-text="否"></el-switch>
                   </el-form-item>
                 </td>
@@ -249,7 +249,7 @@
           } //Mid-autumn
         ],
         svgTemp: {
-          online: true,
+          isPublic: true,
           desc: '',
           // 设置
           price: 0, // 价格
@@ -356,15 +356,15 @@
       // 设置为上线
       toOnline(row) {
         this.svgTemp = Object.assign({}, row); // copy obj
-        this.svgTemp.online = true;
-        row.online = true;
+        this.svgTemp.isPublic = true;
+        row.isPublic = true;
         this.updateGame();
       },
       // 设置为下架
       toStop(row) {
         this.svgTemp = Object.assign({}, row); // copy obj
-        this.svgTemp.online = false;
-        row.online = false;
+        this.svgTemp.isPublic = false;
+        row.isPublic = false;
         this.updateGame();
       },
       // 更新游戏
@@ -385,7 +385,7 @@
       // 重制游戏
       resetTemp() {
         this.svgTemp = {
-          online: true,
+          isPublic: true,
           desc: '',
           value: '',
           // 设置

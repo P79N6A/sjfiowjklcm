@@ -13,6 +13,7 @@
         <Ishow
           :pageJson="appJson.value.pageJson[activePageIndex]"
           :activeTempIndex="activeTempIndex"
+          :appJson="appJson"
         ></Ishow>
       </div>
       <div class="right">
@@ -37,13 +38,23 @@ import Ishow from "./component/show";
 import eleTemp from "./component/temp.json";
 import pageTemp from "./component/page.json";
 import { getIshowOne, addIshows, updateIshows } from "@/api/ishow";
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+  for (var i = 0; i < 5; i++){
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  text='ele-'+text
+  return text;
+}
 export default {
   data() {
     return {
       appId: null,
       // 场景json
       appJson: {
+        id:"",
         description: "新组件",
         device: "",
         name: "新组件",
@@ -53,10 +64,12 @@ export default {
           pageJson: [
             {
               page: 1,
+              id:"",
               title: "第1页",
               json: [
                 {
                   type: 1,
+                  id:"",
                   title: "文字",
                   position: {
                     top: 0,
@@ -237,7 +250,8 @@ export default {
                 leaveAnimation: ""
               },
               config: {
-                fullScreen: false
+                fullScreen: false,
+                styleText:""
               },
               timer: null
             }
@@ -288,6 +302,7 @@ export default {
         }
 
         const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));
+        _newTemp.id=makeid();
         _pageJson.json.splice(this.activeTempIndex + 1, 0, _newTemp);
         this.activeTempIndex++;
       }
@@ -296,6 +311,7 @@ export default {
     copyTemp(index) {
       const _tempJson = this.appJson.value.pageJson[this.activePageIndex].json;
       let new_tempJson = JSON.parse(JSON.stringify(_tempJson[index]));
+      new_tempJson.id=makeid()
       new_tempJson.title = new_tempJson.title + "[复制]";
       _tempJson.splice(index + 1, 0, new_tempJson);
     },
@@ -347,6 +363,7 @@ export default {
     // 添加页面
     addPage(index) {
       let _pageJson = this.appJson.value.pageJson;
+      _pagejson.id=makeid()
       _pageJson.splice(index + 1, 0, JSON.parse(JSON.stringify(pageTemp)));
       this.activePageIndex = index + 1;
     },
@@ -360,6 +377,7 @@ export default {
         JSON.stringify(this.appJson.value.pageJson[index])
       );
       new_pageJson.title = new_pageJson.title + "[复制]";
+      new_pageJson.id=makeid();
       this.appJson.value.pageJson.splice(index + 1, 0, new_pageJson);
     },
     // 删除页面
@@ -502,6 +520,9 @@ export default {
         })
         .catch(err => {});
     } else {
+      this.appJson.id=makeid();
+      this.appJson.value.pageJson[0].id=makeid()
+      this.appJson.value.pageJson[0].json[0].id=makeid()
       this.history.push({
         title: "打开组件",
         value: JSON.parse(JSON.stringify(this.appJson))
