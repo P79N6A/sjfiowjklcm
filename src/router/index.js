@@ -564,7 +564,7 @@ export const asyncRouterMap = [
       component: () => import('@/views/imgs/index'),
       name: 'imgs',
       meta: {
-        title: '图片库',
+        title: '素材库',
         icon: 'documentation',
         authorities: [100401]
       }

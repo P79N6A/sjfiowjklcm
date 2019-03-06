@@ -23,10 +23,9 @@
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
-      <el-table-column label="启用的键" min-width="150px" prop="role.authorities">
+      <el-table-column label="字段" min-width="150px" prop="role.authorities">
         <template slot-scope="scope">
-          <el-tag v-for="(item,key,i) in scope.row.system" :key="i" v-if="item">{{systemTag[key]}}</el-tag>
-          <el-tag v-for="(item,i) in scope.row.extensions" :key="i" type="warning">{{ item.name }}</el-tag>
+          <el-tag v-for="(item,i) in scope.row.value" :key="i" type="warning">{{ item.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="备注" prop="description"></el-table-column>
@@ -80,132 +79,12 @@
             </el-form-item>
           </div>
         </el-card>
-        <br>
-        <br>
         <el-card shadow="hover">
           <div slot="header" class="clearfix">
-            <span>系统键</span>
+            <span>数据键值</span>
           </div>
           <div class="items">
-            <table class="model-table">
-              <thead>
-                <tr>
-                  <td>名称</td>
-                  <td>键名</td>
-                  <td>类型</td>
-                  <td>备注</td>
-                  <td>状态</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>缩略图</td>
-                  <td>thumbnail</td>
-                  <td>缩略图</td>
-                  <td>内容缩略图</td>
-                  <td>
-                    <el-switch
-                      v-model="modelTemp.system.thumbnail"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
-                  </td>
-                </tr>
-                <tr v-if="modelTemp.system.thumbnail">
-                  <td colspan="4">
-                    <el-input
-                      placeholder="请输入缩略图宽度"
-                      v-model="modelTemp.mixed.thumbnailSize.width"
-                      class="input-with-select"
-                    >
-                      <template slot="prepend">*缩略图宽度</template>
-                      <template slot="append">PX</template>
-                    </el-input>
-                  </td>
-                </tr>
-                <tr v-if="modelTemp.system.thumbnail">
-                  <td colspan="4">
-                    <el-input
-                      placeholder="请输入缩略图高度"
-                      v-model="modelTemp.mixed.thumbnailSize.height"
-                      class="input-with-select"
-                    >
-                      <template slot="prepend">*缩略图高度</template>
-                      <template slot="append">PX</template>
-                    </el-input>
-                  </td>
-                </tr>
-                <tr>
-                  <td>标题</td>
-                  <td>title</td>
-                  <td>文本框</td>
-                  <td>标题</td>
-                  <td>
-                    <el-switch
-                      v-model="modelTemp.system.title"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
-                  </td>
-                </tr>
-                <tr>
-                  <td>摘要</td>
-                  <td>abstract</td>
-                  <td>文本框</td>
-                  <td>摘要</td>
-                  <td>
-                    <el-switch
-                      v-model="modelTemp.system.abstract"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
-                  </td>
-                </tr>
-                <tr>
-                  <td>内容</td>
-                  <td>content</td>
-                  <td>超文本</td>
-                  <td>内容</td>
-                  <td>
-                    <el-switch
-                      v-model="modelTemp.system.content"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
-                  </td>
-                </tr>
-                <tr>
-                  <td>标签</td>
-                  <td>tags</td>
-                  <td>标签</td>
-                  <td>标签</td>
-                  <td>
-                    <el-switch
-                      v-model="modelTemp.system.tags"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                    ></el-switch>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </el-card>
-        <br>
-        <br>
-
-        <el-card shadow="hover">
-          <div slot="header" class="clearfix">
-            <span>扩展键</span>
-          </div>
-          <div class="items">
-            <el-table
-              :data="modelTemp.extensions"
-              border
-              fit
-              highlight-current-row
-              style="width: 100%;"
-            >
+            <el-table :data="modelTemp.value" border fit highlight-current-row style="width: 100%;">
               <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
               <el-table-column label="名称" prop="name" align="center"></el-table-column>
               <el-table-column label="键名" prop="key" align="center"></el-table-column>
@@ -247,9 +126,10 @@
         >{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
+
     <!-- 添加扩展键 -->
     <el-dialog
-      :title="`扩展键--${textMap[dialogKeyStatus]}`"
+      :title="`键值--${textMap[dialogKeyStatus]}`"
       :visible.sync="dialogExtendVisible"
       width="500px"
     >
@@ -273,17 +153,9 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <!-- 媒体数量设定 -->
-        <el-form-item label="宽度" v-if="keyTemp.type=='image'">
-          <el-input-number v-model="keyTemp.mixed.thumbnailSize.width" :min="1" :max="1920"></el-input-number>
-        </el-form-item>
-        <el-form-item label="高度" v-if="keyTemp.type=='image'">
-          <el-input-number v-model="keyTemp.mixed.thumbnailSize.height" :min="1" :max="1920"></el-input-number>
-        </el-form-item>
         <!-- 选择菜单设置 -->
         <el-form-item label="选项列表" v-if="keyTemp.type=='select'||keyTemp.type=='checkbox'">
           <el-table
-            v-loading="listLoading"
             :data="keyTemp.mixed.select"
             border
             fit
@@ -348,41 +220,44 @@ export default {
   data() {
     return {
       modelList: null,
-      systemTag: {
-        // 系统自带键
-        abstract: "摘要",
-        content: "内容",
-        tags: "标签",
-        thumbnail: "缩略图",
-        title: "标题"
-      },
       modelTemp: {
         type: "content", // 模型类型
         name: "", // 模型名称
         description: "", // 模型备注
-        extensions: [], // 扩展键
-        mixed: {
-          // 封面配置
-          thumbnailSize: {
-            width: 400,
-            height: 300
+        // 字段数据
+        value: [
+          {
+            name: "数据封面",
+            key: "thumbnail",
+            type: "media",
+            desc: "长x宽"
+          },
+          {
+            name: "内容",
+            key: "content",
+            type: "rtf",
+            desc: "富文本内容"
+          },
+          {
+            name: "数据标题",
+            key: "title",
+            type: "text",
+            desc: "数据标题"
+          },
+          {
+            name: "数据摘要",
+            key: "abstract",
+            type: "text",
+            desc: "数据摘要"
           }
-        },
-        // 系统键
-        system: {
-          title: true,
-          thumbnail: true, // 封面
-          abstract: true, // 摘要
-          content: true, // 内容
-          tags: true // 标签
-        }
+        ]
       },
       selectTemp: {
         // 多选，下拉模型
         name: "",
         value: ""
       },
-      // 新键模型
+      // 新键键模型
       keyTemp: {
         key: "",
         name: "",
@@ -403,16 +278,20 @@ export default {
           value: "text"
         },
         {
+          name: "文本域",
+          value: "textarea"
+        },
+        {
+          name: "富文本",
+          value: "rtf"
+        },
+        {
           name: "数字框",
           value: "number"
         },
         {
           name: "日期输入框",
           value: "date"
-        },
-        {
-          name: "文本域",
-          value: "textarea"
         },
         {
           name: "多选列表",
@@ -422,12 +301,12 @@ export default {
           name: "下拉选择列表",
           value: "select"
         },
+        // {
+        //   name: "图片上传框",
+        //   value: "image"
+        // },
         {
-          name: "图片上传框",
-          value: "image"
-        },
-        {
-          name: "文件上传框",
+          name: "多媒体选项",
           value: "media"
         },
         {
@@ -522,6 +401,8 @@ export default {
     },
     // 创建模型
     createModel() {
+      console.log(this.modelTemp);
+      // return;
       addModels(this.modelTemp)
         .then(res => {
           this.dialogFormVisible = false;
@@ -536,6 +417,8 @@ export default {
         .catch(err => {});
     },
     updateModel() {
+      console.log(this.modelTemp);
+      // return;
       updateModels(this.modelTemp)
         .then(res => {
           this.dialogFormVisible = false;
@@ -555,22 +438,32 @@ export default {
         type: "content", // 模型类型
         name: "", // 模型名称
         description: "", // 模型备注
-        extensions: [], // 扩展键
-        mixed: {
-          // 封面配置
-          thumbnailSize: {
-            width: 400,
-            height: 300
+        value: [
+          {
+            name: "数据封面",
+            key: "thumbnail",
+            type: "media",
+            desc: "长x宽"
+          },
+          {
+            name: "内容",
+            key: "content",
+            type: "rtf",
+            desc: "富文本内容"
+          },
+          {
+            name: "数据标题",
+            key: "title",
+            type: "text",
+            desc: "数据标题"
+          },
+          {
+            name: "数据摘要",
+            key: "abstract",
+            type: "text",
+            desc: "数据摘要"
           }
-        },
-        // 系统键
-        system: {
-          title: true,
-          thumbnail: true, // 封面
-          abstract: true, // 摘要
-          content: true, // 内容
-          tags: true // 标签
-        }
+        ]
       };
     },
     /*=====键值相关=====*/
@@ -609,16 +502,16 @@ export default {
     },
     // 点击删除键按钮
     deleteKey($index) {
-      this.modelTemp.extensions.splice($index, 1);
+      this.modelTemp.value.splice($index, 1);
     },
     // 添加键操作
     createKey() {
       let newKeyTemp = Object.assign({}, this.keyTemp);
       // 查重
-      const _index = this.modelTemp.extensions.findIndex(item => {
+      const _index = this.modelTemp.value.findIndex(item => {
         return item.key == newKeyTemp.key;
       });
-      if (_index >= 0 || this.systemTag[newKeyTemp.key]) {
+      if (_index >= 0) {
         this.$notify({
           title: "delete",
           message: "该键名已存在",
@@ -636,7 +529,7 @@ export default {
         delete newKeyTemp.mixed.thumbnailSize;
         delete newKeyTemp.mixed.select;
       }
-      this.modelTemp.extensions.push(newKeyTemp);
+      this.modelTemp.value.push(newKeyTemp);
       this.resetKeyTemp();
       this.dialogExtendVisible = false;
     },
@@ -653,7 +546,7 @@ export default {
         delete newKeyTemp.mixed.select;
       }
       // 更新键值
-      this.modelTemp.extensions.splice(this.edittingKey, 1, newKeyTemp);
+      this.modelTemp.value.splice(this.edittingKey, 1, newKeyTemp);
       // this.$notify({
       //   title: 'success',
       //   message: '修改成功',

@@ -177,30 +177,29 @@
                   <el-form-item label="封面" prop="thumbnail">
                     <el-upload
                       class="avatar-uploader"
-                      action="/api/imgs/icon"
+                      action="/api/imgs"
+                      :multiple="true"
                       :show-file-list="true"
                       :on-success="handleAvatarSuccess"
                       :before-upload="beforeAvatarUpload"
                       :data="imgTemp"
-                      :auto-upload="true"
+                      :auto-upload="false"
                       list-type="text"
                       ref="gameIcon"
                       :limit="1"
                       :on-change="handleChange"
                       :on-remove="handleRemove"
+                      drag
+                      v-if="!imgTemp.url"
                     >
-                      <a
-                        v-if="imgTemp.url"
-                        class="img-view"
-                        style="width:120px;height:120px;display:block;"
-                        :style="`background-image:url('${cdnurl}${imgTemp.url}');`"
-                      >
-                        <div class="upload-icon">
-                          <i class="el-icon-plus"></i>
-                        </div>
-                      </a>
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                      <i class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
+                    <a
+                      v-if="imgTemp.url"
+                      class="img-view"
+                      style="width:120px;height:120px;display:block;"
+                      :style="`background-image:url('${cdnurl}${imgTemp.url}');`"
+                    ></a>
                     <!-- <div class="file-info" v-if="imgTemp.thumbnail&&imgTemp.thumbnail.src">
                       <p v-if="imgTemp.thumbnail.src">
                         <a target="_blank" :href="`${cdnurl}${imgTemp.thumbnail.src}`">
@@ -289,7 +288,7 @@
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button
           type="primary"
-          @click="dialogStatus==='create'?createGame():updateGame()"
+          @click="dialogStatus==='create'?createImg():updateImg()"
         >{{ $t('table.confirm') }}</el-button>
       </div>
     </el-dialog>
@@ -499,37 +498,40 @@ export default {
         });
     },
     // 创建游戏
-    createGame() {
+    createImg() {
+      console.log("create");
       // return;
-      addImgs(this.imgTemp)
-        .then(res => {
-          this.dialogFormVisible = false;
-          this.getImgs();
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
-          });
-        })
-        .catch(err => {});
+      this.$refs.gameIcon.submit();
+      // addImgs(this.imgTemp)
+      //   .then(res => {
+      //     this.dialogFormVisible = false;
+      //     this.getImgs();
+      //     this.$notify({
+      //       title: "成功",
+      //       message: "操作成功",
+      //       type: "success",
+      //       duration: 2000
+      //     });
+      //   })
+      //   .catch(err => {}
+      // );
     },
     // 设置为上线
     toOnline(row) {
       this.imgTemp = Object.assign({}, row); // copy obj
       this.imgTemp.isPublic = true;
       row.isPublic = true;
-      this.updateGame();
+      this.updateImg();
     },
     // 设置为下架
     toStop(row) {
       this.imgTemp = Object.assign({}, row); // copy obj
       this.imgTemp.isPublic = false;
       row.isPublic = false;
-      this.updateGame();
+      this.updateImg();
     },
     // 更新游戏
-    updateGame() {
+    updateImg() {
       updateImgs(this.imgTemp)
         .then(res => {
           this.getImgs();
@@ -564,21 +566,26 @@ export default {
     },
     // 文件上传成功后
     handleAvatarSuccess(res, file) {
-      console.log(res);
-      console.log(file);
-      this.imgTemp.fileName = res.fileName;
-      this.imgTemp.md5 = res.md5;
-      this.imgTemp.size = res.size;
-      this.imgTemp.type = res.type;
-      this.imgTemp.url = res.url;
+      this.$notify({
+        title: "成功",
+        message: "操作成功",
+        type: "success",
+        duration: 2000
+      });
+      this.getImgs();
+      this.dialogFormVisible = false;
     },
     // 文件上传前
     beforeAvatarUpload(file) {
-      const isImg = file.type.includes("image");
-      if (!isImg) {
-        this.$message.error("只能上传图片类型文件!");
+      // const isImg = file.type.includes("image");
+      const isBig = file.size / 1024 / 1024 > 10;
+      // if (!isImg) {
+      //   this.$message.error("只能上传图片类型文件!");
+      // }
+      if (isBig) {
+        this.$message.error("最大只能上传10MB文件!");
       }
-      return isImg;
+      return !isBig;
     },
     // 获取标签
     getFesName(key) {

@@ -25,7 +25,7 @@
     >
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <!-- 渲染系统内置数据 -->
-      <el-table-column
+      <!-- <el-table-column
         align="center"
         label="封面"
         prop="thumbnail"
@@ -41,17 +41,17 @@
             :style="`background-image:url(${cdnurl}${scope.row.thumbnail.src});`"
           ></a>
         </template>
-      </el-table-column>
-      <el-table-column label="标题" align="center" prop="title" v-if="modelTemp.system.title"></el-table-column>
+      </el-table-column>-->
+      <!-- <el-table-column label="标题" align="center" prop="title" v-if="modelTemp.system.title"></el-table-column>
       <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
       <el-table-column label="排序" align="center" prop="sort"></el-table-column>
       <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
         <template slot-scope="scope">
           <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <!-- 内容太多了，以缩略图展示 -->
-      <el-table-column
+      <!-- <el-table-column
         label="内容"
         prop="content"
         v-if="modelTemp.system.content"
@@ -68,21 +68,19 @@
             </span>
           </el-tooltip>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <!-- 渲染扩展字段 -->
       <el-table-column
         :label="extend.name"
         align="center"
-        v-for="(extend,i) in modelTemp.extensions"
+        v-for="(extend,i) in modelTemp.value"
         :key="i"
       >
         <template slot-scope="scope">
-          <div
-            v-if="scope.row.extensions[extend.key]&&(extend.type=='media'||extend.type=='image')"
-          >
+          <div v-if="scope.row.value[extend.key]&&(extend.type=='media'||extend.type=='image')">
             <!-- 普通多媒体 -->
             <el-tooltip
-              v-if="extend.type=='media'&&scope.row.extensions[extend.key].src"
+              v-if="extend.type=='media'&&scope.row.value[extend.key].src"
               class="item"
               effect="dark"
               content="访问源文件"
@@ -90,17 +88,17 @@
             >
               <a
                 target="_blank"
-                :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+                :href="`${cdnurl}${scope.row.value[extend.key].src}`"
                 style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
               >
                 <svg-icon icon-class="documentation"/>
-                <!-- {{scope.row.extensions[extend.key]}} -->
-                {{scope.row.extensions[extend.key].fileName}}
+                <!-- {{scope.row.value[extend.key]}} -->
+                {{scope.row.value[extend.key].fileName}}
               </a>
             </el-tooltip>
             <!-- 图片 -->
             <el-tooltip
-              v-else-if="extend.type=='image'&&scope.row.extensions[extend.key].src"
+              v-else-if="extend.type=='image'&&scope.row.value[extend.key].src"
               class="item"
               effect="dark"
               content="访问源文件"
@@ -108,9 +106,9 @@
             >
               <a
                 target="_blank"
-                :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
+                :href="`${cdnurl}${scope.row.value[extend.key].src}`"
                 class="img-view"
-                :style="`background-image:url('${cdnurl}${scope.row.extensions[extend.key].src}');`"
+                :style="`background-image:url('${cdnurl}${scope.row.value[extend.key].src}');`"
               ></a>
             </el-tooltip>
           </div>
@@ -124,7 +122,7 @@
               placement="top-start"
             >
               <span
-                @click="hadleView(scope.row.extensions[extend.key])"
+                @click="hadleView(scope.row.value[extend.key])"
                 style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
               >
                 <svg-icon icon-class="documentation"/>
@@ -135,20 +133,20 @@
               v-else-if="extend.type=='color'"
               class="item"
               effect="dark"
-              :content="scope.row.extensions[extend.key]"
+              :content="scope.row.value[extend.key]"
               placement="top-start"
             >
               <span
                 style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
-                :style="{background:scope.row.extensions[extend.key]}"
+                :style="{background:scope.row.value[extend.key]}"
               ></span>
             </el-tooltip>
             <!-- 时间 -->
             <div
               v-else-if="extend.type=='date'"
-            >{{scope.row.extensions[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
+            >{{scope.row.value[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
             <!-- 其他文本 -->
-            <div v-else>{{scope.row.extensions[extend.key]}}</div>
+            <div v-else>{{scope.row.value[extend.key]}}</div>
           </div>
         </template>
       </el-table-column>
@@ -199,70 +197,6 @@
       width="900px"
       v-if="dialogFormVisible"
     >
-      <el-card
-        class="box-card"
-        hover
-        v-if="modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content"
-      >
-        <div slot="header" class="clearfix">
-          <span>系统参数</span>
-        </div>
-        <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
-          <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
-            <el-upload
-              class="avatar-uploader"
-              action="/api/media"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <a
-                v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src"
-                @click="beforeClick('thumbnail',true,true)"
-                class="img-view"
-                style="width:120px;height:120px;display:block;"
-                :style="`background-image:url(${cdnurl}${contentTemp.thumbnail.src});`"
-              >
-                <div class="upload-icon">
-                  <i class="el-icon-plus"></i>
-                </div>
-              </a>
-              <i
-                v-else
-                class="el-icon-plus avatar-uploader-icon"
-                @click="beforeClick('thumbnail',true,true)"
-              ></i>
-            </el-upload>
-            <div class="file-info" v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src">
-              <!-- <p v-if="contentTemp.thumbnail">文 件 名：{{contentTemp.thumbnail.fileName}}</p> -->
-              <p>图片尺寸要求</p>
-              <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p>
-              <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p>
-              <p v-if="contentTemp.thumbnail.src">
-                <a target="_blank" :href="`${cdnurl}${contentTemp.thumbnail.src}`">
-                  <i class="el-icon-picture"></i>
-                  &nbsp;&nbsp;查看原图{{contentTemp.thumbnail.fileName}}
-                </a>
-              </p>
-            </div>
-          </el-form-item>
-          <el-form-item label="标题" prop="title" v-if="modelTemp.system.title">
-            <el-input v-model="contentTemp.title"/>
-          </el-form-item>
-          <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
-            <el-input v-model="contentTemp.abstract"/>
-          </el-form-item>
-          <el-form-item label="标签" prop="tags" v-if="modelTemp.system.tags">
-            <el-input v-model="contentTemp.tags"/>
-            <div>标签以空格分开</div>
-          </el-form-item>
-          <el-form-item label="内容" prop="content" v-if="modelTemp.system.content">
-            <tinymce :height="400" v-model="contentTemp.content"/>
-          </el-form-item>
-        </el-form>
-      </el-card>
-      <br>
-      <br>
       <el-card class="box-card" hover v-if="contentTemp">
         <div slot="header" class="clearfix">
           <span>扩展参数</span>
@@ -276,20 +210,20 @@
           <el-form-item
             :label="extend.name"
             :prop="extend.key"
-            v-for="(extend,i) in modelTemp.extensions"
+            v-for="(extend,i) in modelTemp.value"
             :key="i"
           >
             <!-- 数字输入框 -->
             <el-input-number
               controls-position="right"
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               :placeholder="`请输入${extend.name}`"
               :min="0"
               v-if="extend.type=='number'"
             ></el-input-number>
             <!-- 日期-时间输入框 -->
             <el-date-picker
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               :placeholder="`请输入${extend.name}`"
               type="datetime"
               v-if="extend.type=='date'"
@@ -297,18 +231,18 @@
             <!-- 文本域输入框 -->
             <tinymce
               :height="400"
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               v-if="extend.type=='textarea'"
             ></tinymce>
             <!-- 文本输入框 -->
             <el-input
               :placeholder="`请输入${extend.name}`"
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               v-if="extend.type=='text'"
             ></el-input>
             <!-- 多选 -->
             <el-checkbox-group
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               v-if="extend.type=='checkbox'"
             >
               <el-checkbox
@@ -319,7 +253,7 @@
             </el-checkbox-group>
             <!-- 下拉选项 -->
             <el-select
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               :placeholder="`请选择${extend.name}`"
               v-if="extend.type=='select'"
             >
@@ -332,7 +266,7 @@
             </el-select>
             <!-- 颜色选择器 -->
             <el-color-picker
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               v-if="extend.type=='color'"
               color-format="rgb"
               :show-alpha="true"
@@ -340,7 +274,7 @@
 
             <el-switch
               v-if="extend.type=='switch'"
-              v-model="contentTemp.extensions[extend.key]"
+              v-model="contentTemp.value[extend.key]"
               active-color="#13ce66"
               inactive-color="#ff4949"
               active-text="是"
@@ -356,7 +290,7 @@
                 :before-upload="beforeAvatarUpload"
               >
                 <a
-                  v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                  v-if="contentTemp.value[extend.key]&&contentTemp.value[extend.key].src"
                   @click="beforeClick(extend.key,false,false)"
                   class="img-view medias"
                   style="width:120px;height:120px;display:block;"
@@ -373,11 +307,11 @@
               </el-upload>
               <div
                 class="file-info"
-                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                v-if="contentTemp.value[extend.key]&&contentTemp.value[extend.key].src"
               >
-                <p>{{contentTemp.extensions[extend.key].fileName}}</p>
+                <p>{{contentTemp.value[extend.key].fileName}}</p>
                 <p>
-                  <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
+                  <a target="_blank" :href="`${cdnurl}${contentTemp.value[extend.key].src}`">
                     <i class="el-icon-picture"></i>
                     &nbsp;&nbsp;查看文件
                   </a>
@@ -385,7 +319,7 @@
               </div>
             </div>
             <!-- 图片上传框 -->
-            <div v-if="extend.type=='image'">
+            <!-- <div v-if="extend.type=='image'">
               <el-upload
                 class="avatar-uploader"
                 action="/api/media"
@@ -394,11 +328,11 @@
                 :before-upload="beforeAvatarUpload"
               >
                 <a
-                  v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                  v-if="contentTemp.value[extend.key]&&contentTemp.value[extend.key].src"
                   @click="beforeClick(extend.key,false,true)"
                   class="img-view"
                   style="width:120px;height:120px;display:block;"
-                  :style="`background-image:url(${cdnurl}${contentTemp.extensions[extend.key].src});`"
+                  :style="`background-image:url(${cdnurl}${contentTemp.value[extend.key].src});`"
                 >
                   <div class="upload-icon">
                     <i class="el-icon-plus"></i>
@@ -412,19 +346,19 @@
               </el-upload>
               <div
                 class="file-info"
-                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                v-if="contentTemp.value[extend.key]&&contentTemp.value[extend.key].src"
               >
                 <p>图片尺寸要求</p>
                 <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p>
                 <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p>
                 <p>
-                  <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
+                  <a target="_blank" :href="`${cdnurl}${contentTemp.value[extend.key].src}`">
                     <i class="el-icon-picture"></i>
-                    &nbsp;&nbsp;查看原图{{contentTemp.extensions[extend.key].fileName}}
+                    &nbsp;&nbsp;查看原图{{contentTemp.value[extend.key].fileName}}
                   </a>
                 </p>
               </div>
-            </div>
+            </div>-->
           </el-form-item>
         </el-form>
       </el-card>
@@ -568,43 +502,43 @@ export default {
       let _obj = {};
       _obj.category = this.categoryTemp._id;
       // 检查系统默认的字段
-      if (this.modelTemp.system.thumbnail) {
-        _obj.thumbnail = {
-          _id: "",
-          fileName: "",
-          src: ""
-        };
-      }
-      if (this.modelTemp.system.title) {
-        _obj.title = "";
-      }
-      if (this.modelTemp.system.abstract) {
-        _obj.abstract = "";
-      }
-      if (this.modelTemp.system.tags) {
-        _obj.tags = "";
-      }
-      if (this.modelTemp.system.content) {
-        _obj.content = "";
-      }
-      _obj.extensions = {};
+      // if (this.modelTemp.system.thumbnail) {
+      //   _obj.thumbnail = {
+      //     _id: "",
+      //     fileName: "",
+      //     src: ""
+      //   };
+      // }
+      // if (this.modelTemp.system.title) {
+      //   _obj.title = "";
+      // }
+      // if (this.modelTemp.system.abstract) {
+      //   _obj.abstract = "";
+      // }
+      // if (this.modelTemp.system.tags) {
+      //   _obj.tags = "";
+      // }
+      // if (this.modelTemp.system.content) {
+      //   _obj.content = "";
+      // }
+      _obj.value = {};
       // 遍历扩展的数据类型
-      for (let i = 0; i < this.modelTemp.extensions.length; i++) {
-        if (this.modelTemp.extensions[i].type == "checkbox") {
+      for (let i = 0; i < this.modelTemp.value.length; i++) {
+        if (this.modelTemp.value[i].type == "checkbox") {
           // 多选框
-          _obj.extensions[this.modelTemp.extensions[i].key] = [];
+          _obj.value[this.modelTemp.value[i].key] = [];
         } else if (
-          this.modelTemp.extensions[i].type == "media" ||
-          this.modelTemp.extensions[i].type == "image"
+          this.modelTemp.value[i].type == "media" ||
+          this.modelTemp.value[i].type == "image"
         ) {
           // 文件上传框
-          _obj.extensions[this.modelTemp.extensions[i].key] = {
+          _obj.value[this.modelTemp.value[i].key] = {
             _id: "",
             fileName: "",
             src: ""
           };
         } else {
-          _obj.extensions[this.modelTemp.extensions[i].key] = "";
+          _obj.value[this.modelTemp.value[i].key] = "";
         }
       }
       console.log(_obj);
@@ -619,12 +553,12 @@ export default {
       //   this.contentTemp.thumbnail = this.contentTemp.thumbnail._id;
       // }
       // 遍历扩展数据的文件
-      for (var key in this.contentTemp.extensions) {
-        if (this.contentTemp.extensions[key]._id) {
-          this.contentTemp.media.push(this.contentTemp.extensions[key]._id);
+      for (var key in this.contentTemp.value) {
+        if (this.contentTemp.value[key]._id) {
+          this.contentTemp.media.push(this.contentTemp.value[key]._id);
         }
-        // if(!this.contentTemp.extensions[key]){
-        //   delete this.contentTemp.extensions[key]
+        // if(!this.contentTemp.value[key]){
+        //   delete this.contentTemp.value[key]
         // }
       }
       console.log(this.contentTemp);
@@ -750,7 +684,7 @@ export default {
           src: res.src
         };
       } else {
-        this.contentTemp.extensions[this.contentKey] = {
+        this.contentTemp.value[this.contentKey] = {
           _id: res._id,
           fileName: file.name,
           src: res.src
