@@ -668,46 +668,46 @@ export const asyncRouterMap = [
   //     }
   //   }]
   // },
-  {
-    path: '/codepage',
-    component: Layout,
-    redirect: '/codepage/edit',
-    meta: {
-      icon: 'table',
-      title: 'codepage',
-      authorities: [999]
-      // roles: ['admin'] // or you can only set roles in sub nav
-    },
-    children: [{
-      path: 'codeedit',
-      component: () => import('@/views/codepen/index.vue'),
-      name: 'codeedit',
-      meta: {
-        title: 'codeedit',
-        noCache: true
-      }
-    }]
-  },
-  {
-    path: '/links',
-    component: Layout,
-    alwaysShow: true, // will always show the root menu
-    redirect: '/links/index',
-    meta: {
-      icon: 'table',
-      title: 'links',
-      authorities: [999]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/links/index.vue'),
-      name: 'LinksList',
-      meta: {
-        title: 'LinksList',
-        noCache: true
-      }
-    }]
-  },
+  // {
+  //   path: '/codepage',
+  //   component: Layout,
+  //   redirect: '/codepage/edit',
+  //   meta: {
+  //     icon: 'table',
+  //     title: 'codepage',
+  //     authorities: [999]
+  //     // roles: ['admin'] // or you can only set roles in sub nav
+  //   },
+  //   children: [{
+  //     path: 'codeedit',
+  //     component: () => import('@/views/codepen/index.vue'),
+  //     name: 'codeedit',
+  //     meta: {
+  //       title: 'codeedit',
+  //       noCache: true
+  //     }
+  //   }]
+  // },
+  // {
+  //   path: '/links',
+  //   component: Layout,
+  //   alwaysShow: true, // will always show the root menu
+  //   redirect: '/links/index',
+  //   meta: {
+  //     icon: 'table',
+  //     title: 'links',
+  //     authorities: [999]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/links/index.vue'),
+  //     name: 'LinksList',
+  //     meta: {
+  //       title: 'LinksList',
+  //       noCache: true
+  //     }
+  //   }]
+  // },
 
   // {
   //   path: '/layoutpage',
@@ -748,86 +748,86 @@ export const asyncRouterMap = [
   //     }
   //   ]
   // },
-  {
-    path: '/icon',
-    component: Layout,
-    meta: {
-      authorities: [999]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/svg-icons/index'),
-      name: 'Icons',
-      meta: {
-        title: 'icons',
-        icon: 'icon',
-        noCache: true
-      }
-    }]
-  },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   meta: {
+  //     authorities: [999]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/svg-icons/index'),
+  //     name: 'Icons',
+  //     meta: {
+  //       title: 'icons',
+  //       icon: 'icon',
+  //       noCache: true
+  //     }
+  //   }]
+  // },
 
   /** When your routing table is too long, you can split it into small modules**/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/list',
-    name: 'Example',
-    meta: {
-      title: 'example',
-      icon: 'example',
-      authorities: [999]
-    },
-    children: [{
-        path: 'create',
-        component: () => import('@/views/example/create'),
-        name: 'CreateArticle',
-        meta: {
-          title: 'createArticle',
-          icon: 'edit'
-        }
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/example/edit'),
-        name: 'EditArticle',
-        meta: {
-          title: 'editArticle',
-          noCache: true
-        },
-        hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/example/list'),
-        name: 'ArticleList',
-        meta: {
-          title: 'articleList',
-          icon: 'list'
-        }
-      }
-    ]
-  },
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/list',
+  //   name: 'Example',
+  //   meta: {
+  //     title: 'example',
+  //     icon: 'example',
+  //     authorities: [999]
+  //   },
+  //   children: [{
+  //       path: 'create',
+  //       component: () => import('@/views/example/create'),
+  //       name: 'CreateArticle',
+  //       meta: {
+  //         title: 'createArticle',
+  //         icon: 'edit'
+  //       }
+  //     },
+  //     {
+  //       path: 'edit/:id(\\d+)',
+  //       component: () => import('@/views/example/edit'),
+  //       name: 'EditArticle',
+  //       meta: {
+  //         title: 'editArticle',
+  //         noCache: true
+  //       },
+  //       hidden: true
+  //     },
+  //     {
+  //       path: 'list',
+  //       component: () => import('@/views/example/list'),
+  //       name: 'ArticleList',
+  //       meta: {
+  //         title: 'articleList',
+  //         icon: 'list'
+  //       }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/tab',
-    component: Layout,
-    meta: {
-      authorities: [999]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/tab/index'),
-      name: 'Tab',
-      meta: {
-        title: 'tab',
-        icon: 'tab'
-      }
-    }]
-  },
+  // {
+  //   path: '/tab',
+  //   component: Layout,
+  //   meta: {
+  //     authorities: [999]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/tab/index'),
+  //     name: 'Tab',
+  //     meta: {
+  //       title: 'tab',
+  //       icon: 'tab'
+  //     }
+  //   }]
+  // },
 
   // {
   //   path: '/error',
@@ -874,63 +874,63 @@ export const asyncRouterMap = [
   //   }]
   // },
 
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    name: 'Excel',
-    meta: {
-      title: 'excel',
-      icon: 'excel',
-      authorities: [999]
-    },
-    children: [{
-        path: 'export-excel',
-        component: () => import('@/views/excel/exportExcel'),
-        name: 'ExportExcel',
-        meta: {
-          title: 'exportExcel'
-        }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/selectExcel'),
-        name: 'SelectExcel',
-        meta: {
-          title: 'selectExcel'
-        }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/uploadExcel'),
-        name: 'UploadExcel',
-        meta: {
-          title: 'uploadExcel'
-        }
-      }
-    ]
-  },
+  // {
+  //   path: '/excel',
+  //   component: Layout,
+  //   redirect: '/excel/export-excel',
+  //   name: 'Excel',
+  //   meta: {
+  //     title: 'excel',
+  //     icon: 'excel',
+  //     authorities: [999]
+  //   },
+  //   children: [{
+  //       path: 'export-excel',
+  //       component: () => import('@/views/excel/exportExcel'),
+  //       name: 'ExportExcel',
+  //       meta: {
+  //         title: 'exportExcel'
+  //       }
+  //     },
+  //     {
+  //       path: 'export-selected-excel',
+  //       component: () => import('@/views/excel/selectExcel'),
+  //       name: 'SelectExcel',
+  //       meta: {
+  //         title: 'selectExcel'
+  //       }
+  //     },
+  //     {
+  //       path: 'upload-excel',
+  //       component: () => import('@/views/excel/uploadExcel'),
+  //       name: 'UploadExcel',
+  //       meta: {
+  //         title: 'uploadExcel'
+  //       }
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/zip',
-    component: Layout,
-    redirect: '/zip/download',
-    alwaysShow: true,
-    meta: {
-      title: 'zip',
-      icon: 'zip',
-      authorities: [999]
+  // {
+  //   path: '/zip',
+  //   component: Layout,
+  //   redirect: '/zip/download',
+  //   alwaysShow: true,
+  //   meta: {
+  //     title: 'zip',
+  //     icon: 'zip',
+  //     authorities: [999]
 
-    },
-    children: [{
-      path: 'download',
-      component: () => import('@/views/zip/index'),
-      name: 'ExportZip',
-      meta: {
-        title: 'exportZip'
-      }
-    }]
-  },
+  //   },
+  //   children: [{
+  //     path: 'download',
+  //     component: () => import('@/views/zip/index'),
+  //     name: 'ExportZip',
+  //     meta: {
+  //       title: 'exportZip'
+  //     }
+  //   }]
+  // },
 
   // {
   //   path: '/theme',
@@ -998,7 +998,7 @@ export const asyncRouterMap = [
       authorities: [999]
     },
     children: [{
-      path: 'https://nodercms.com',
+      path: 'https://itgo88.com',
       meta: {
         title: '官网',
         icon: 'link'

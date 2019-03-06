@@ -5,7 +5,7 @@
         class="filter-item"
         style="margin-left: 10px;"
         type="primary"
-        icon="el-icon-edit"
+        icon="el-icon-plus"
         @click="handleCreate"
       >
         {{
@@ -126,14 +126,20 @@
         :auto-upload="false"
       >
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或
+        <div class="el-upload__text">
+          将文件拖到此处，或
           <em>点击上传</em>
         </div>
       </el-upload>
-      <el-button style="width:100%;margin-top:10px;" size="medium" @click="$refs.upload.submit()">上传</el-button>
+      <el-button
+        style="width:100%;margin-top:10px;"
+        size="medium"
+        @click="$refs.upload.submit()"
+        type="primary"
+      >上传</el-button>
     </el-dialog>
     <!-- 编辑文件名和文件描述 -->
-    <el-dialog title="编辑文件信息" :visible.sync="dialogFormVisible" width="500px">
+    <el-dialog title="文件描述" :visible.sync="dialogFormVisible" width="500px">
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -142,14 +148,14 @@
         label-width="70px"
         style="width: 400px; margin-left:50px;"
       >
-        <el-form-item label="文件名" prop="fileName">
+        <!-- <el-form-item label="文件名" prop="fileName">
           <el-input v-model="mediaTemp.name">
             <template slot="append">{{mediaTemp.type}}</template>
           </el-input>
-        </el-form-item>
-        <el-form-item label="文件描述" prop="description">
-          <el-input v-model="mediaTemp.description"/>
-        </el-form-item>
+        </el-form-item>-->
+        <!-- <el-form-item label="文件描述" prop="description"> -->
+        <el-input v-model="mediaTemp.description" type="textarea"/>
+        <!-- </el-form-item>  -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
