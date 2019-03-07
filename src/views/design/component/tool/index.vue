@@ -37,7 +37,8 @@
     <imgList>图片资源框</imgList>
     <svgList>图片资源框</svgList>
     <componentList>系统组件资源框</componentList>
-    <dataOne>单个数据</dataOne>
+    <contentEdit>数据编辑</contentEdit>
+    <!-- <dataOne>单个数据</dataOne> -->
     <dataList>数据列表</dataList>
   </div>
 </template>
@@ -55,8 +56,10 @@ import imgList from "@/components/ImgList";
 import svgList from "@/components/svgList";
 import componentList from "@/components/componentList";
 // 组建数据相关
-import dataOne from "@/components/dataOne";
-import dataList from "@/components/dataList";
+import contentEdit from "@/components/Content";
+
+// import dataOne from "@/components/dataOne";
+// import dataList from "@/components/dataList";
 
 export default {
   name: "Iheader",
@@ -90,8 +93,9 @@ export default {
     imgList,
     svgList,
     componentList,
-    dataOne,
-    dataList
+    contentEdit,
+    // dataOne,
+    // dataList
   }
 };
 </script>

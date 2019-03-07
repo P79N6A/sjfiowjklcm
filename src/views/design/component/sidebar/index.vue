@@ -129,17 +129,12 @@ export default {
     getComponents() {
       getComponents(this.query).then(response => {
         if (response.data) {
-          this.componentList = response.data.filter(item => {
-            item.src = `${this.cdnurl}${item.src}?v=${new Date().getTime()}`;
-            return item;
-          });
+          this.componentList = response.data;
         }
       });
     },
     selectCom(item) {
-      this.$bus.$emit("addTemp", "vue");
-      this.$bus.$emit("selectTemp", this.activeTempIndex + 1);
-      this.$bus.$emit("ChangeVue", item);
+      this.$bus.$emit("addTemp", { type: "vue", data: item });
     }
   }
 };

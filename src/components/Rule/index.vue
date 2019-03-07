@@ -368,7 +368,7 @@ export default {
 .ScaleBox {
   left: 0;
   top: 0;
-  z-index: 999;
+  /* z-index: 999; */
   overflow: hidden;
   user-select: none;
 }
@@ -383,7 +383,7 @@ export default {
   left: 0;
   top: 0;
   overflow: hidden;
-  z-index: 999;
+  /* z-index: 999; */
 }
 
 .ScaleRuler_h {

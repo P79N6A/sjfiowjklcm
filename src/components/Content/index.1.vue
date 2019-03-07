@@ -14,6 +14,7 @@
       <el-button type="danger" @click="handleSort">保存排序</el-button>
       <span style="float:right;" v-if="categoryTemp">数据集合:{{categoryTemp.name}}</span>
     </div>
+    {{modelTemp}}
     <el-table
       v-loading="listLoading"
       :data="contentList"
@@ -32,87 +33,92 @@
         :key="i"
       >
         <template slot-scope="scope">
-          <!-- 多媒体 -->
-          <el-tooltip
-            v-if="(extend.type=='media'||extend.type=='image')&&scope.row.value[extend.key]"
-            class="item"
-            effect="dark"
-            content="访问源文件"
-            placement="top-start"
-          >
-            <a
-              target="_blank"
-              :href="`${cdnurl}${scope.row.value[extend.key]}`"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+          <div v-if="scope.row.value[extend.key]&&(extend.type=='media'||extend.type=='image')">
+            <!-- 普通多媒体 -->
+            <el-tooltip
+              v-if="extend.type=='media'&&scope.row.value[extend.key].src"
+              class="item"
+              effect="dark"
+              content="访问源文件"
+              placement="top-start"
             >
-              <svg-icon icon-class="documentation"/>
-              <!-- {{scope.row.value[extend.key].fileName}} -->
-            </a>
-          </el-tooltip>
-          <!-- 富文本 -->
-          <el-tooltip
-            v-else-if="extend.type=='rtf'"
-            class="item"
-            effect="dark"
-            content="点击查看内容"
-            placement="top-start"
-          >
-            <span
-              @click="hadleView(scope.row.value[extend.key])"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              <a
+                target="_blank"
+                :href="`${cdnurl}${scope.row.value[extend.key].src}`"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+                <!-- {{scope.row.value[extend.key]}} -->
+                {{scope.row.value[extend.key].fileName}}
+              </a>
+            </el-tooltip>
+            <!-- 图片 -->
+            <el-tooltip
+              v-else-if="extend.type=='image'&&scope.row.value[extend.key].src"
+              class="item"
+              effect="dark"
+              content="访问源文件"
+              placement="top-start"
             >
-              <svg-icon icon-class="documentation"/>
-            </span>
-          </el-tooltip>
-          <!-- 文本域 -->
-          <el-tooltip
-            v-else-if="extend.type=='textarea'"
-            class="item"
-            effect="dark"
-            content="点击查看内容"
-            placement="top-start"
-          >
-            <span
-              @click="hadleView(scope.row.value[extend.key])"
-              style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
-            >
-              <svg-icon icon-class="documentation"/>
-            </span>
-          </el-tooltip>
-          <!-- 颜色 -->
-          <el-tooltip
-            v-else-if="extend.type=='color'"
-            class="item"
-            effect="dark"
-            :content="scope.row.value[extend.key]"
-            placement="top-start"
-          >
-            <span
-              style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
-              :style="{background:scope.row.value[extend.key]}"
-            ></span>
-          </el-tooltip>
-          <!-- 时间 -->
-          <div
-            v-else-if="extend.type=='date'"
-          >{{scope.row.value[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
-          <!-- 开关 -->
-          <div v-else-if="extend.type=='switch'">
-            <el-tag type="success" v-if="scope.row.value[extend.key]">是</el-tag>
-            <el-tag type="danger" v-else>否</el-tag>
+              <a
+                target="_blank"
+                :href="`${cdnurl}${scope.row.value[extend.key].src}`"
+                class="img-view"
+                :style="`background-image:url('${cdnurl}${scope.row.value[extend.key].src}');`"
+              ></a>
+            </el-tooltip>
           </div>
-          <!-- 开关 -->
-          <div v-else-if="extend.type=='checkbox'">
-            <el-tag
-              type="success"
-              v-for="(item,i) in scope.row.value[extend.key]"
-              :key="i"
-              style="margin-right:4px;"
-            >{{item}}</el-tag>
-            <!-- <el-tag type="danger" v-else>否</el-tag> -->
+          <div v-else>
+            <!-- 富文本 -->
+            <el-tooltip
+              v-if="extend.type=='rtf'"
+              class="item"
+              effect="dark"
+              content="点击查看内容"
+              placement="top-start"
+            >
+              <span
+                @click="hadleView(scope.row.value[extend.key])"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+              </span>
+            </el-tooltip>
+            <!-- 文本域 -->
+            <el-tooltip
+              v-if="extend.type=='textarea'"
+              class="item"
+              effect="dark"
+              content="点击查看内容"
+              placement="top-start"
+            >
+              <span
+                @click="hadleView(scope.row.value[extend.key])"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+              </span>
+            </el-tooltip>
+            <!-- 颜色 -->
+            <el-tooltip
+              v-else-if="extend.type=='color'"
+              class="item"
+              effect="dark"
+              :content="scope.row.value[extend.key]"
+              placement="top-start"
+            >
+              <span
+                style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
+                :style="{background:scope.row.value[extend.key]}"
+              ></span>
+            </el-tooltip>
+            <!-- 时间 -->
+            <div
+              v-else-if="extend.type=='date'"
+            >{{scope.row.value[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
+            <!-- 其他文本 -->
+            <div v-else>{{scope.row.value[extend.key]}}</div>
           </div>
-          <!-- 其他文本 -->
-          <div v-else>{{scope.row.value[extend.key]}}</div>
         </template>
       </el-table-column>
       <!-- 操作部分 -->
@@ -180,7 +186,6 @@
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
-    <contentEdit></contentEdit>
   </div>
 </template>
 
@@ -192,12 +197,11 @@ import {
   updateContents,
   sortComponents
 } from "@/api/contents";
+import { getAuthorities } from "@/api/authorities";
 import { getCategoryOne } from "@/api/categories";
 import waves from "@/directive/waves"; // Waves directive
 import Sortable from "sortablejs";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
-import contentEdit from "@/components/Content";
-
 function customizer(objValue, srcValue) {
   if (_.isArray(objValue)) {
     return objValue.concat(srcValue);
@@ -210,8 +214,20 @@ export default {
   },
   data() {
     return {
+      authorList: null,
+      roleList: null,
       contentList: null,
+      modelList: null,
+      // 栏目模版
+      // categoryTemp: {
+      //   model: "",
+      //   name: "",
+      //   path: "",
+      //   description: ""
+      // },
+
       categoryTemp: null,
+      contentTemp: null,
       modelTemp: null,
       total: 0,
       listQuery: {
@@ -240,9 +256,6 @@ export default {
     this.getContents();
     // 读取数据模型
     this.getCategoryOne();
-    this.$bus.$on("refreshList", eventData => {
-      this.getContents();
-    });
   },
   methods: {
     // 查询数据分类列表
@@ -260,6 +273,52 @@ export default {
           this.listLoading = false;
         });
     },
+    // 重置表单模型
+    resetContentTemp() {
+      let _obj = {};
+      _obj.category = this.categoryTemp._id;
+      _obj.value = {};
+      // 遍历扩展的数据类型
+      for (let i = 0; i < this.modelTemp.value.length; i++) {
+        if (this.modelTemp.value[i].type == "checkbox") {
+          // 多选框
+          _obj.value[this.modelTemp.value[i].key] = [];
+        } else if (
+          this.modelTemp.value[i].type == "media" ||
+          this.modelTemp.value[i].type == "image"
+        ) {
+          // 文件上传框
+          _obj.value[this.modelTemp.value[i].key] = {
+            _id: "",
+            fileName: "",
+            src: ""
+          };
+        } else {
+          _obj.value[this.modelTemp.value[i].key] = "";
+        }
+      }
+      console.log(_obj);
+      // 数据原始模版，处理完毕
+      this.contentTemp = _obj;
+    },
+    // 重组提交前的数据
+    setPostData() {
+      this.contentTemp.media = [];
+      // 把文件类型的_id提取处理
+      // if (this.contentTemp.thumbnail && this.contentTemp.thumbnail._id) {
+      //   this.contentTemp.thumbnail = this.contentTemp.thumbnail._id;
+      // }
+      // 遍历扩展数据的文件
+      for (var key in this.contentTemp.value) {
+        if (this.contentTemp.value[key]._id) {
+          this.contentTemp.media.push(this.contentTemp.value[key]._id);
+        }
+        // if(!this.contentTemp.value[key]){
+        //   delete this.contentTemp.value[key]
+        // }
+      }
+      console.log(this.contentTemp);
+    },
     // 获取当前数据集合的数据
     getCategoryOne() {
       getCategoryOne({
@@ -270,38 +329,47 @@ export default {
           this.modelTemp = res.data.model;
           // 保存数据集
           this.categoryTemp = res.data;
+          // 保存表单模型
+          this.resetContentTemp();
         })
         .catch(err => {});
     },
     // 点击创建按钮
     handleCreate() {
-      console.log("crate data");
-      this.$bus.$emit("editContent", {
-        modelId: this.modelTemp._id,
-        categoryId: this.categoryTemp._id,
-        contentId: null,
-        emitEvent: "refreshList"
-      });
+      this.resetContentTemp();
+      this.dialogStatus = "create";
+      this.dialogFormVisible = true;
     },
     // 点击编辑按钮
     handleUpdate(row) {
-      this.$bus.$emit("editContent", {
-        modelId: this.modelTemp._id,
-        categoryId: this.categoryTemp._id,
-        contentId: row._id,
-        emitEvent: "refreshList"
+      this.resetContentTemp();
+      _.mergeWith(this.contentTemp, row, customizer);
+      if (this.contentTemp.tags) {
+        this.contentTemp.tags = this.contentTemp.tags.join(" ");
+      }
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["dataFormTemp"].clearValidate();
+        this.$refs["dataFormTempExtend"].clearValidate();
       });
-      // this.resetContentTemp();
-      // _.mergeWith(this.contentTemp, row, customizer);
-      // if (this.contentTemp.tags) {
-      //   this.contentTemp.tags = this.contentTemp.tags.join(" ");
-      // }
-      // this.dialogStatus = "update";
-      // this.dialogFormVisible = true;
-      // this.$nextTick(() => {
-      //   this.$refs["dataFormTemp"].clearValidate();
-      //   this.$refs["dataFormTempExtend"].clearValidate();
-      // });
+    },
+    // 更新操作
+    updateContents() {
+      console.log(this.contentTemp);
+      // return;
+      updateContents(this.contentTemp)
+        .then(res => {
+          this.dialogFormVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "修改成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getContents();
+        })
+        .catch(err => {});
     },
     // 删除事件
     handleDelete(data) {
@@ -325,11 +393,50 @@ export default {
           console.log(err);
         });
     },
+    // bug-fixed，为了文件上传后，设置图片封面预览
+    beforeClick(key, isthumbnail, mustImg) {
+      if (isthumbnail) {
+        this.isthumbnail = true;
+      } else {
+        this.isthumbnail = false;
+        this.contentKey = key;
+      }
+      if (mustImg) {
+        this.mustImg = true;
+      } else {
+        this.mustImg = false;
+      }
+    },
+    // 文件上传成功后
+    handleAvatarSuccess(res, file) {
+      if (this.isthumbnail) {
+        this.contentTemp.thumbnail = {
+          _id: res._id,
+          fileName: file.name,
+          src: res.src
+        };
+      } else {
+        this.contentTemp.value[this.contentKey] = {
+          _id: res._id,
+          fileName: file.name,
+          src: res.src
+        };
+      }
+      // this.siteInfo.value.favicon = res.src;
+    },
     // 预览
     hadleView(content) {
       this.dialogViewVisible = true;
       this.viewContent = `<link href="/static/css/scroll.css" rel="stylesheet"></link>${content}`;
       this.tabActive = "device_pc";
+    },
+    // 文件上传前
+    beforeAvatarUpload(file) {
+      const isImg = file.type.includes("image");
+      if (this.mustImg && !isImg) {
+        this.$message.error("只能上传图片类型文件!");
+      }
+      return (this.mustImg && isImg) || !this.mustImg;
     },
     // 预览iframe
     setiframe(iframe, content) {
@@ -408,11 +515,10 @@ export default {
     dialogViewVisible() {
       this.setiframe(this.tabActive, this.viewContent);
     }
-  },
-  components: { contentEdit }
+  }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .content-container {
   padding: 20px;
   .img-view {
@@ -492,6 +598,87 @@ export default {
       margin: 0 auto;
       display: block;
     }
+  }
+}
+.content-edit {
+  .avatar-uploader {
+    display: inline-block;
+  }
+  .file-info {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 10px;
+    p {
+      margin: 0;
+    }
+  }
+  .img-view {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #eee;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 2;
+    &.medias {
+      background-image: url(./img/ico-file.png);
+      background-size: 60% auto;
+    }
+    &:hover {
+      .upload-icon {
+        background: none;
+      }
+    }
+    .upload-icon {
+      background: rgba(0, 0, 0, 0.1);
+      transition: all 0.4s;
+      color: #409eff;
+      height: 100%;
+      line-height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .el-icon-plus {
+        font-size: 50px;
+        font-weight: bold;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+      }
+    }
+  }
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+  }
+
+  .favicon {
+    height: 90px;
+    display: block;
+  }
+  .sortable-ghost {
+    opacity: 0.8;
+    // color: #fff !important;
+    // background: #42b983 !important;
   }
 }
 </style>

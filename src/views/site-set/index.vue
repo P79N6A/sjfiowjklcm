@@ -2,7 +2,6 @@
   <div class="siteSet-container">
     <el-tabs type="border-card">
       <el-tab-pane label="站点SEO">
-
         <div class="text item">
           <el-form label-position="left" label-width="80px" :model="siteInfo.value">
             <el-form-item label="网站标题">
@@ -91,10 +90,8 @@
           </el-form>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="等级信息">
-      </el-tab-pane>
-      <el-tab-pane label="游戏平台">
-      </el-tab-pane>
+      <el-tab-pane label="等级信息"></el-tab-pane>
+      <el-tab-pane label="游戏平台"></el-tab-pane>
     </el-tabs>
     <br>
     <br>
@@ -216,7 +213,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .siteSet-container {
   padding: 20px;
 

@@ -130,7 +130,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .siteSet-container {
     padding: 20px;
 

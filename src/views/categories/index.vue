@@ -32,7 +32,7 @@
       <el-table-column label="名称" prop="name"></el-table-column>
       <!-- <el-table-column label="目录" prop="path">
         <template slot-scope="scope">{{ scope.row.path}}/{{ scope.row.name}}.json</template>
-      </el-table-column> -->
+      </el-table-column>-->
       <el-table-column label="内容模版">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.model">{{ scope.row.model.name}}</el-tag>
@@ -231,7 +231,7 @@ export default {
     // 重置数据
     resetTemp() {
       this.categoryTemp = {
-        type:"content",
+        type: "content",
         model: "",
         name: "",
         path: "",
@@ -319,8 +319,8 @@ export default {
       // 数据生效
     }
   },
-    computed: {
+  computed: {
     ...mapGetters(["cdnurl"])
-  },
+  }
 };
 </script>

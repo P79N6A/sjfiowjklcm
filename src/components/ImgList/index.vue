@@ -136,7 +136,7 @@ export default {
     return {
       dialogFormVisible: false,
       dialogRuleVisible: false,
-      emitEvent: null, // 选择图片后，需要促发的函数
+      emitEvent: null, // 选择图片后，需要触发的函数
       dataTypeOption: [
         "猪年专题",
         "春节专题",
@@ -182,7 +182,7 @@ export default {
       this.listLoading = true;
       getImgs(this.filterData)
         .then(res => {
-          this.imgList = res.data
+          this.imgList = res.data;
           this.listLoading = false;
         })
         .catch(err => {

@@ -1,156 +1,17 @@
 <template>
   <div class="content-edit">
     <el-dialog title="数据" :visible.sync="dialogVisible" width="1000px">
-    <!-- 内容编辑弹窗,必须用v-if，促发文本域编辑器的重新渲染，可能会有其他问题，后续排查 -->
-    <el-card
-      class="box-card"
-      hover
-      v-if="modelTemp&&(modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content)"
-    >
-      <div slot="header" class="clearfix">
-        <span>系统参数</span>
-      </div>
-      <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
-        <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
-          <el-upload
-            class="avatar-uploader"
-            action="/api/media"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <a
-              v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src"
-              @click="beforeClick('thumbnail',true,true)"
-              class="img-view"
-              style="width:120px;height:120px;display:block;"
-              :style="`background-image:url(${cdnurl}${contentTemp.thumbnail.src});`"
-            >
-              <div class="upload-icon">
-                <i class="el-icon-plus"></i>
-              </div>
-            </a>
-            <i
-              v-else
-              class="el-icon-plus avatar-uploader-icon"
-              @click="beforeClick('thumbnail',true,true)"
-            ></i>
-          </el-upload>
-          <div class="file-info" v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src">
-            <!-- <p v-if="contentTemp.thumbnail">文 件 名：{{contentTemp.thumbnail.fileName}}</p> -->
-            <!-- <p>图片尺寸要求</p> -->
-            <!-- <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p> -->
-            <!-- <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p> -->
-            <p v-if="contentTemp.thumbnail.src">
-              <a target="_blank" :href="`${cdnurl}${contentTemp.thumbnail.src}`">
-                <i class="el-icon-picture"></i>
-                &nbsp;&nbsp;查看原图{{contentTemp.thumbnail.fileName}}
-              </a>
-            </p>
-          </div>
-        </el-form-item>
-        <el-form-item label="标题" prop="title" v-if="modelTemp.system.title">
-          <el-input v-model="contentTemp.title"/>
-        </el-form-item>
-        <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
-          <el-input v-model="contentTemp.abstract"/>
-        </el-form-item>
-        <el-form-item label="标签" prop="tags" v-if="modelTemp.system.tags">
-          <el-input v-model="contentTemp.tags"/>
-          <div>标签以空格分开</div>
-        </el-form-item>
-        <el-form-item label="内容" prop="content" v-if="modelTemp.system.content">
-          <tinymce :height="400" v-model="contentTemp.content"/>
-        </el-form-item>
-      </el-form>
-    </el-card>
-    <!-- <br> -->
-    <!-- <br> -->
-    <el-card class="box-card" hover v-if="contentTemp">
-      <div slot="header" class="clearfix">
-        <span>扩展参数</span>
-      </div>
-      <el-form
-        ref="dataFormTempExtend"
-        :model="contentTemp"
-        label-position="right"
-        label-width="100px"
+      <!-- 内容编辑弹窗,必须用v-if，促发文本域编辑器的重新渲染，可能会有其他问题，后续排查 -->
+      <el-card
+        class="box-card"
+        hover
+        v-if="modelTemp&&(modelTemp.system.thumbnail||modelTemp.system.abstract||modelTemp.system.tags||modelTemp.system.content)"
       >
-        <el-form-item
-          :label="extend.name"
-          :prop="extend.key"
-          v-for="(extend,i) in modelTemp.extensions"
-          :key="i"
-        >
-          <!-- 数字输入框 -->
-          <el-input-number
-            controls-position="right"
-            v-model="contentTemp.extensions[extend.key]"
-            :placeholder="`请输入${extend.name}`"
-            :min="0"
-            v-if="extend.type=='number'"
-          ></el-input-number>
-          <!-- 日期-时间输入框 -->
-          <el-date-picker
-            v-model="contentTemp.extensions[extend.key]"
-            :placeholder="`请输入${extend.name}`"
-            type="datetime"
-            v-if="extend.type=='date'"
-          ></el-date-picker>
-          <!-- 文本域输入框 -->
-          <tinymce
-            :height="400"
-            v-model="contentTemp.extensions[extend.key]"
-            v-if="extend.type=='textarea'"
-          ></tinymce>
-          <!-- 文本输入框 -->
-          <el-input
-            :placeholder="`请输入${extend.name}`"
-            v-model="contentTemp.extensions[extend.key]"
-            v-if="extend.type=='text'"
-          ></el-input>
-          <!-- 多选 -->
-          <el-checkbox-group
-            v-model="contentTemp.extensions[extend.key]"
-            v-if="extend.type=='checkbox'"
-          >
-            <el-checkbox
-              v-for="(checkbox,i) in extend.mixed.select"
-              :label="checkbox.value"
-              :key="i"
-            >{{checkbox.name}}</el-checkbox>
-          </el-checkbox-group>
-          <!-- 下拉选项 -->
-          <el-select
-            v-model="contentTemp.extensions[extend.key]"
-            :placeholder="`请选择${extend.name}`"
-            v-if="extend.type=='select'"
-          >
-            <el-option
-              v-for="(option,i) in extend.mixed.select"
-              :key="i"
-              :label="option.name"
-              :value="option.value"
-            ></el-option>
-          </el-select>
-          <!-- 颜色选择器 -->
-          <el-color-picker
-            v-model="contentTemp.extensions[extend.key]"
-            v-if="extend.type=='color'"
-            color-format="rgb"
-            :show-alpha="true"
-          ></el-color-picker>
-
-          <el-switch
-            v-if="extend.type=='switch'"
-            v-model="contentTemp.extensions[extend.key]"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-text="是"
-            inactive-text="否"
-          ></el-switch>
-          <!-- 文件上传框 -->
-          <div v-if="extend.type=='media'">
+        <div slot="header" class="clearfix">
+          <span>系统参数</span>
+        </div>
+        <el-form ref="dataFormTemp" :model="contentTemp" label-position="right" label-width="100px">
+          <el-form-item label="封面" prop="thumbnail" v-if="modelTemp.system.thumbnail">
             <el-upload
               class="avatar-uploader"
               action="/api/media"
@@ -159,49 +20,11 @@
               :before-upload="beforeAvatarUpload"
             >
               <a
-                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
-                @click="beforeClick(extend.key,false,false)"
-                class="img-view medias"
-                style="width:120px;height:120px;display:block;"
-              >
-                <div class="upload-icon">
-                  <i class="el-icon-plus"></i>
-                </div>
-              </a>
-              <i
-                v-else
-                class="el-icon-plus avatar-uploader-icon"
-                @click="beforeClick(extend.key,false,false)"
-              ></i>
-            </el-upload>
-            <div
-              class="file-info"
-              v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
-            >
-              <p>{{contentTemp.extensions[extend.key].fileName}}</p>
-              <p>
-                <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
-                  <i class="el-icon-picture"></i>
-                  &nbsp;&nbsp;查看文件
-                </a>
-              </p>
-            </div>
-          </div>
-          <!-- 图片上传框 -->
-          <div v-if="extend.type=='image'">
-            <el-upload
-              class="avatar-uploader"
-              action="/api/media"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <a
-                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
-                @click="beforeClick(extend.key,false,true)"
+                v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src"
+                @click="beforeClick('thumbnail',true,true)"
                 class="img-view"
                 style="width:120px;height:120px;display:block;"
-                :style="`background-image:url(${cdnurl}${contentTemp.extensions[extend.key].src});`"
+                :style="`background-image:url(${cdnurl}${contentTemp.thumbnail.src});`"
               >
                 <div class="upload-icon">
                   <i class="el-icon-plus"></i>
@@ -210,34 +33,211 @@
               <i
                 v-else
                 class="el-icon-plus avatar-uploader-icon"
-                @click="beforeClick(extend.key,false,true)"
+                @click="beforeClick('thumbnail',true,true)"
               ></i>
             </el-upload>
-            <div
-              class="file-info"
-              v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
-            >
+            <div class="file-info" v-if="contentTemp.thumbnail&&contentTemp.thumbnail.src">
+              <!-- <p v-if="contentTemp.thumbnail">文 件 名：{{contentTemp.thumbnail.fileName}}</p> -->
               <!-- <p>图片尺寸要求</p> -->
               <!-- <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p> -->
               <!-- <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p> -->
-              <p>
-                <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
+              <p v-if="contentTemp.thumbnail.src">
+                <a target="_blank" :href="`${cdnurl}${contentTemp.thumbnail.src}`">
                   <i class="el-icon-picture"></i>
-                  &nbsp;&nbsp;查看原图{{contentTemp.extensions[extend.key].fileName}}
+                  &nbsp;&nbsp;查看原图{{contentTemp.thumbnail.fileName}}
                 </a>
               </p>
             </div>
-          </div>
-        </el-form-item>
-      </el-form>
-    </el-card>
-    <div slot="footer" class="dialog-footer" style="padding:10px; 0">
-      <!-- <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button> -->
-      <el-button type="primary" @click="dialogStatus==='create'?addContents():updateContents()">
-        {{ $t('table.confirm')
-        }}
-      </el-button>
-    </div>
+          </el-form-item>
+          <el-form-item label="标题" prop="title" v-if="modelTemp.system.title">
+            <el-input v-model="contentTemp.title"/>
+          </el-form-item>
+          <el-form-item label="摘要" prop="abstract" v-if="modelTemp.system.abstract">
+            <el-input v-model="contentTemp.abstract"/>
+          </el-form-item>
+          <el-form-item label="标签" prop="tags" v-if="modelTemp.system.tags">
+            <el-input v-model="contentTemp.tags"/>
+            <div>标签以空格分开</div>
+          </el-form-item>
+          <el-form-item label="内容" prop="content" v-if="modelTemp.system.content">
+            <tinymce :height="400" v-model="contentTemp.content"/>
+          </el-form-item>
+        </el-form>
+      </el-card>
+      <!-- <br> -->
+      <!-- <br> -->
+      <el-card class="box-card" hover v-if="contentTemp">
+        <div slot="header" class="clearfix">
+          <span>扩展参数</span>
+        </div>
+        <el-form
+          ref="dataFormTempExtend"
+          :model="contentTemp"
+          label-position="right"
+          label-width="100px"
+        >
+          <el-form-item
+            :label="extend.name"
+            :prop="extend.key"
+            v-for="(extend,i) in modelTemp.extensions"
+            :key="i"
+          >
+            <!-- 数字输入框 -->
+            <el-input-number
+              controls-position="right"
+              v-model="contentTemp.extensions[extend.key]"
+              :placeholder="`请输入${extend.name}`"
+              :min="0"
+              v-if="extend.type=='number'"
+            ></el-input-number>
+            <!-- 日期-时间输入框 -->
+            <el-date-picker
+              v-model="contentTemp.extensions[extend.key]"
+              :placeholder="`请输入${extend.name}`"
+              type="datetime"
+              v-if="extend.type=='date'"
+            ></el-date-picker>
+            <!-- 文本域输入框 -->
+            <tinymce
+              :height="400"
+              v-model="contentTemp.extensions[extend.key]"
+              v-if="extend.type=='textarea'"
+            ></tinymce>
+            <!-- 文本输入框 -->
+            <el-input
+              :placeholder="`请输入${extend.name}`"
+              v-model="contentTemp.extensions[extend.key]"
+              v-if="extend.type=='text'"
+            ></el-input>
+            <!-- 多选 -->
+            <el-checkbox-group
+              v-model="contentTemp.extensions[extend.key]"
+              v-if="extend.type=='checkbox'"
+            >
+              <el-checkbox
+                v-for="(checkbox,i) in extend.mixed.select"
+                :label="checkbox.value"
+                :key="i"
+              >{{checkbox.name}}</el-checkbox>
+            </el-checkbox-group>
+            <!-- 下拉选项 -->
+            <el-select
+              v-model="contentTemp.extensions[extend.key]"
+              :placeholder="`请选择${extend.name}`"
+              v-if="extend.type=='select'"
+            >
+              <el-option
+                v-for="(option,i) in extend.mixed.select"
+                :key="i"
+                :label="option.name"
+                :value="option.value"
+              ></el-option>
+            </el-select>
+            <!-- 颜色选择器 -->
+            <el-color-picker
+              v-model="contentTemp.extensions[extend.key]"
+              v-if="extend.type=='color'"
+              color-format="rgb"
+              :show-alpha="true"
+            ></el-color-picker>
+
+            <el-switch
+              v-if="extend.type=='switch'"
+              v-model="contentTemp.extensions[extend.key]"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              active-text="是"
+              inactive-text="否"
+            ></el-switch>
+            <!-- 文件上传框 -->
+            <div v-if="extend.type=='media'">
+              <el-upload
+                class="avatar-uploader"
+                action="/api/media"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <a
+                  v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                  @click="beforeClick(extend.key,false,false)"
+                  class="img-view medias"
+                  style="width:120px;height:120px;display:block;"
+                >
+                  <div class="upload-icon">
+                    <i class="el-icon-plus"></i>
+                  </div>
+                </a>
+                <i
+                  v-else
+                  class="el-icon-plus avatar-uploader-icon"
+                  @click="beforeClick(extend.key,false,false)"
+                ></i>
+              </el-upload>
+              <div
+                class="file-info"
+                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+              >
+                <p>{{contentTemp.extensions[extend.key].fileName}}</p>
+                <p>
+                  <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
+                    <i class="el-icon-picture"></i>
+                    &nbsp;&nbsp;查看文件
+                  </a>
+                </p>
+              </div>
+            </div>
+            <!-- 图片上传框 -->
+            <div v-if="extend.type=='image'">
+              <el-upload
+                class="avatar-uploader"
+                action="/api/media"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <a
+                  v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+                  @click="beforeClick(extend.key,false,true)"
+                  class="img-view"
+                  style="width:120px;height:120px;display:block;"
+                  :style="`background-image:url(${cdnurl}${contentTemp.extensions[extend.key].src});`"
+                >
+                  <div class="upload-icon">
+                    <i class="el-icon-plus"></i>
+                  </div>
+                </a>
+                <i
+                  v-else
+                  class="el-icon-plus avatar-uploader-icon"
+                  @click="beforeClick(extend.key,false,true)"
+                ></i>
+              </el-upload>
+              <div
+                class="file-info"
+                v-if="contentTemp.extensions[extend.key]&&contentTemp.extensions[extend.key].src"
+              >
+                <!-- <p>图片尺寸要求</p> -->
+                <!-- <p>图片宽度：{{categoryTemp.model.mixed.thumbnailSize.width}} PX</p> -->
+                <!-- <p>图片高度：{{categoryTemp.model.mixed.thumbnailSize.height}} PX</p> -->
+                <p>
+                  <a target="_blank" :href="`${cdnurl}${contentTemp.extensions[extend.key].src}`">
+                    <i class="el-icon-picture"></i>
+                    &nbsp;&nbsp;查看原图{{contentTemp.extensions[extend.key].fileName}}
+                  </a>
+                </p>
+              </div>
+            </div>
+          </el-form-item>
+        </el-form>
+      </el-card>
+      <div slot="footer" class="dialog-footer" style="padding:10px; 0">
+        <!-- <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button> -->
+        <el-button type="primary" @click="dialogStatus==='create'?addContents():updateContents()">
+          {{ $t('table.confirm')
+          }}
+        </el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible:false,
+      dialogVisible: false,
       // 栏目模版
       categoryTemp: null,
       contentTemp: null,
@@ -279,9 +279,9 @@ export default {
       contentKey: null,
       mustImg: false,
       // ======= //
-      modelId:'',
-      contentId:'',
-      categoryId:''
+      modelId: "",
+      contentId: "",
+      categoryId: ""
     };
   },
   methods: {
@@ -307,7 +307,7 @@ export default {
     // 读取数据模型
     getModelOne() {
       if (this.modelId) {
-        console.log("get-model-one")
+        console.log("get-model-one");
         getModelOne({
           _id: this.modelId
         })
@@ -319,7 +319,7 @@ export default {
           })
           .catch(err => {});
       } else {
-        console.log('no-model-id')
+        console.log("no-model-id");
       }
     },
     // 重置表单字段
@@ -489,15 +489,15 @@ export default {
       return (this.mustImg && isImg) || !this.mustImg;
     }
   },
-  created(){
-    this.$bus.$on('editData',eventData=>{
-      this.dialogVisible=true;
+  created() {
+    this.$bus.$on("editData", eventData => {
+      this.dialogVisible = true;
       console.log(eventData);
-      this.modelId=eventData.configModel;
-      this.contentId=eventData.dataId;
-      this.categoryId=eventData.categoryModel;
+      this.modelId = eventData.configModel;
+      this.contentId = eventData.dataId;
+      this.categoryId = eventData.categoryModel;
       this.getModelOne();
-    })
+    });
   },
   computed: {
     ...mapGetters(["cdnurl"])
@@ -507,7 +507,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .content-edit {
   padding: 20px;
 

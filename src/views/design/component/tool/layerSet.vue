@@ -1246,40 +1246,8 @@
                   ></el-switch>
                 </div>
               </el-collapse-item>
-              <!-- <el-collapse-item title="鼠标悬浮">
-                <el-select v-model="event.hover.animation" placeholder="请选择">
-                  <el-option label="无" value></el-option>
-                  <el-option-group
-                    v-for="(group, index2) in animateOptions"
-                    :label="group.label"
-                    :key="index2"
-                    v-if="(ctype===1&&group.label==='特殊')||group.label!=='特殊'"
-                  >
-                    <el-option
-                      v-for="(item, index3) in group.options"
-                      :label="item.label"
-                      :value="item.value"
-                      :disabled="item.disabled"
-                      :key="index3"
-                    ></el-option>
-                  </el-option-group>
-                </el-select>
-              </el-collapse-item>-->
             </el-collapse>
           </el-tab-pane>
-          <!-- <el-tab-pane label="高级">
-            <el-input v-model="config.class" placeholder="添加元素class,以空格区分"></el-input>
-            <hr>
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 20, maxRows: 40}"
-              placeholder="输入自定义样式"
-              v-model="config.styleText"
-            ></el-input>
-            <el-button @click="$bus.$emit('renderStyle')">生效</el-button>
-            <p>注：每个元素有唯一的ID，当前元素的id为：#{{layerjson.id}}</p>
-            {{config}}
-          </el-tab-pane> -->
         </el-tabs>
       </el-scrollbar>
     </el-dialog>
@@ -1288,7 +1256,7 @@
 
 <script>
 import elDragDialog from "@/directive/el-dragDialog"; // base on element-ui
-import { addContents } from "@/api/contents";
+import { addCategories } from "@/api/categories";
 import { mapGetters } from "vuex";
 
 export default {
@@ -1307,7 +1275,7 @@ export default {
         categoryModel: "",
         categoryId: "",
         configModel: "",
-        dataId: "",
+        configId: "",
         styleText: "",
         class: ""
       },
@@ -1762,13 +1730,51 @@ export default {
       });
     },
     showDataList() {
-      this.$bus.$emit("showDataList", this.config);
+      console.log(this.config);
+      // this.$bus.$emit("showDataList", this.config);
+      if (this.config.categoryId) {
+        let routeData = this.$router.resolve({
+          name: "contents",
+          query: {
+            categoryId: this.config.categoryId
+          }
+        });
+        window.open(routeData.href, "_blank");
+      } else {
+        addCategories({
+          type: "content",
+          model: this.config.categoryModel,
+          name: "vue组件",
+          description: "vue组件"
+        })
+          .then(res => {
+            this.config.categoryId = res.data._id;
+            this.$notify({
+              title: "成功",
+              message: "创建数据集成功",
+              type: "success",
+              duration: 2000
+            });
+            let routeData = this.$router.resolve({
+              name: "contents",
+              query: {
+                categoryId: this.config.categoryId
+              }
+            });
+            window.open(routeData.href, "_blank");
+          })
+          .catch(err => {});
+      }
     },
     preAnimate() {
       this.$bus.$emit("animate-preview");
     },
     editCom() {
-      this.$bus.$emit("editData", this.config);
+      this.$bus.$emit("editContent", {
+        modelId: this.config.configModel,
+        contentId: this.config.configId,
+        emitEvent: "ChangeVue"
+      });
     }
   },
   computed: {
@@ -1799,26 +1805,22 @@ export default {
       this.config.viewBox = ele.viewBox;
     });
     // vue
-    this.$bus.$on("ChangeVue", ele => {
-      const _contentTemp = {
-        abstract: "",
-        category: "",
-        content: "",
-        thumbnail: "",
-        media: [],
-        extensions: {},
-        isSingle: true
-      };
-      addContents(_contentTemp)
-        .then(res => {
-          this.config.dataId = res.data._id;
-          this.config.content = ele.url;
-          this.config.configModel = ele.configModel;
-          this.config.categoryModel = ele.categoryModel;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+    this.$bus.$on("ChangeVue", data => {
+      if (data._id) {
+        this.config.configId = data._id;
+      }
+      if (data.url) {
+        this.config.content = data.url;
+      }
+      if (data.configModel) {
+        this.config.configModel = data.configModel;
+      }
+      if (data.categoryModel) {
+        this.config.categoryModel = data.categoryModel;
+      }
+      if (data.categoryId) {
+        this.config.categoryId = data.categoryId;
+      }
     });
   },
   watch: {
@@ -1826,6 +1828,7 @@ export default {
       if (val) {
         this.initData();
         console.log("layerjson");
+        console.log(val);
       }
     },
     styleForm(val) {

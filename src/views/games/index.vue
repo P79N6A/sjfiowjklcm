@@ -749,7 +749,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .games-container {
   padding: 30px;
   .model-table {

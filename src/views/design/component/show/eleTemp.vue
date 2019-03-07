@@ -1,11 +1,28 @@
 <template>
-  <VueDragResize :isActive="activeTempIndex==showId" v-on:resizing="resize" v-on:dragging="resize" v-on:dragstop="dragstop"
-    v-on:resizestop="resizestop" v-show="eleJson.config.isShow" :isDraggable="!eleJson.config.isLock" :isResizable="!eleJson.config.isLock"
-    :parentW="1000" :parentH="1000" :w="eleJson.style.base.width" :minw="1" :minh="1" :h="eleJson.style.base.height" :x="eleJson.position.left"
-    :y="eleJson.position.top" :style="{transform: `rotate(${eleJson.style.base.rotate}deg)`}" :z="1000-showId" :key="showId"
-    @activated="$bus.$emit('selectTemp',showId)">
+  <VueDragResize
+    :isActive="activeTempIndex==showId"
+    v-on:resizing="resize"
+    v-on:dragging="resize"
+    v-on:dragstop="dragstop"
+    v-on:resizestop="resizestop"
+    v-show="eleJson.config.isShow"
+    :isDraggable="!eleJson.config.isLock"
+    :isResizable="!eleJson.config.isLock"
+    :parentW="1000"
+    :parentH="1000"
+    :w="eleJson.style.base.width"
+    :minw="1"
+    :minh="1"
+    :h="eleJson.style.base.height"
+    :x="eleJson.position.left"
+    :y="eleJson.position.top"
+    :style="{transform: `rotate(${eleJson.style.base.rotate}deg)`}"
+    :z="1000-showId"
+    :key="showId"
+    @activated="$bus.$emit('selectTemp',showId)"
+  >
     <div @click.stop class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
-      <!-- <div class="cover"></div> -->
+      <div class="cover"></div>
       <!-- 普通文本 -->
       <div class="animated ele-show">
         <div v-if="eleJson.type===1">
@@ -21,14 +38,28 @@
         </div>
         <!-- svg-->
         <div v-else-if="eleJson.type===9">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
-            width="100%" height="100%" :viewBox="eleJson.config.viewBox" xml:space="preserve" preserveAspectRatio="none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            x="0px"
+            y="0px"
+            width="100%"
+            height="100%"
+            :viewBox="eleJson.config.viewBox"
+            xml:space="preserve"
+            preserveAspectRatio="none"
+          >
             <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
           </svg>
         </div>
         <div v-else-if="eleJson.type===10">
           <!-- 异步vue组件 -->
-          <sync-component :url="cdnurl+eleJson.config.content" :data-id="eleJson.config.dataId" :category-id="eleJson.config.categoryId"></sync-component>
+          <sync-component
+            :url="cdnurl+eleJson.config.content"
+            :data-id="eleJson.config.dataId"
+            :category-id="eleJson.config.categoryId"
+          ></sync-component>
         </div>
       </div>
 
@@ -37,158 +68,156 @@
   </VueDragResize>
 </template>
 <script>
-  import SyncComponent from "vue-async-component";
-  import VueDragResize from "vue-drag-resize";
-  import {
-    mapGetters
-  } from "vuex";
-  // 生成随机ID
-  function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+import SyncComponent from "vue-async-component";
+import VueDragResize from "vue-drag-resize";
+import { mapGetters } from "vuex";
+// 生成随机ID
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    for (var i = 0; i < 5; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    text = 'class-' + text
-    return text;
+  for (var i = 0; i < 5; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-  export default {
-    data() {
-      return {
-        elId: makeid(),
-        styleText: "",
-        animateJson: "",
-        animateIndex: 0,
-        showEle: true // 用来做动画预览，重新渲染
-      };
-    },
-    props: ["eleJson", "activeTempIndex", "showId"],
-    computed: {
-      ...mapGetters(["cdnurl"])
-    },
-    created() {
-      // 预览动画修播放效果
-      this.$bus.$on("animate-preview", () => {
-        if (this.activeTempIndex === this.showId) {
-          this.showEle = false;
-          this.$nextTick(() => {
-            console.log("animate-pre")
-            this.getStyle(
-              this.eleJson.style,
-              this.eleJson.hoverStyle,
-              this.eleJson.animate,
-              this.eleJson.hoverAnimate
-            );
-            this.showEle = true;
-          });
-        }
-      });
-      // 渲染样式
-      this.$bus.$on("renderStyle", () => {
-        if (this.activeTempIndex === this.showId) {
-          console.log("render")
+  text = "class-" + text;
+  return text;
+}
+export default {
+  data() {
+    return {
+      elId: makeid(),
+      styleText: "",
+      animateJson: "",
+      animateIndex: 0,
+      showEle: true // 用来做动画预览，重新渲染
+    };
+  },
+  props: ["eleJson", "activeTempIndex", "showId"],
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  created() {
+    // 预览动画修播放效果
+    this.$bus.$on("animate-preview", () => {
+      if (this.activeTempIndex === this.showId) {
+        this.showEle = false;
+        this.$nextTick(() => {
+          console.log("animate-pre");
           this.getStyle(
             this.eleJson.style,
             this.eleJson.hoverStyle,
             this.eleJson.animate,
             this.eleJson.hoverAnimate
           );
-        }
-      });
-    },
-    components: {
-      SyncComponent,
-      VueDragResize
-    },
-    methods: {
-      // 拖拽结束
-      dragstop(newRect) {
-        this.$bus.$emit("saveHistory", "移动元素");
-        // 渲染样式
-        console.log('drag-stop')
+          this.showEle = true;
+        });
+      }
+    });
+    // 渲染样式
+    this.$bus.$on("renderStyle", () => {
+      if (this.activeTempIndex === this.showId) {
+        console.log("render");
         this.getStyle(
           this.eleJson.style,
           this.eleJson.hoverStyle,
           this.eleJson.animate,
           this.eleJson.hoverAnimate
         );
-      },
-      // 改变大小结束
-      resizestop(newRect) {
-        this.$bus.$emit("saveHistory", "更改元素尺寸");
-        // 渲染样式
-        console.log("resize-stop")
-        this.getStyle(
-          this.eleJson.style,
-          this.eleJson.hoverStyle,
-          this.eleJson.animate,
-          this.eleJson.hoverAnimate
-        );
-      },
-      // 正在拖拽
-      resize(newRect) {
-        if (this.eleJson.style.base.width == this.eleJson.hoverStyle.base.width) {
-          this.eleJson.hoverStyle.base.width = this.eleJson.style.base.width =
-            newRect.width;
-        } else {
-          this.eleJson.style.base.width = newRect.width;
-        }
-        if (
-          this.eleJson.style.base.height == this.eleJson.hoverStyle.base.height
-        ) {
-          this.eleJson.hoverStyle.base.height = this.eleJson.style.base.height =
-            newRect.height;
-        } else {
-          this.eleJson.style.base.height = newRect.height;
-        }
-        this.eleJson.position.top = newRect.top;
-        this.eleJson.position.left = newRect.left;
-      },
-      // 渲染全部动画
-      renderAllAnimate(animate) {
-        const result = {
-          "-webkit-animation-timing-function": "ease"
-        };
-        const delay = [],
-          duration = [],
-          name = [],
-          mode = [],
-          infinity = [],
-          iterationCount = [],
-          timingFunction = [];
+      }
+    });
+  },
+  components: {
+    SyncComponent,
+    VueDragResize
+  },
+  methods: {
+    // 拖拽结束
+    dragstop(newRect) {
+      this.$bus.$emit("saveHistory", "移动元素");
+      // 渲染样式
+      console.log("drag-stop");
+      this.getStyle(
+        this.eleJson.style,
+        this.eleJson.hoverStyle,
+        this.eleJson.animate,
+        this.eleJson.hoverAnimate
+      );
+    },
+    // 改变大小结束
+    resizestop(newRect) {
+      this.$bus.$emit("saveHistory", "更改元素尺寸");
+      // 渲染样式
+      console.log("resize-stop");
+      this.getStyle(
+        this.eleJson.style,
+        this.eleJson.hoverStyle,
+        this.eleJson.animate,
+        this.eleJson.hoverAnimate
+      );
+    },
+    // 正在拖拽
+    resize(newRect) {
+      if (this.eleJson.style.base.width == this.eleJson.hoverStyle.base.width) {
+        this.eleJson.hoverStyle.base.width = this.eleJson.style.base.width =
+          newRect.width;
+      } else {
+        this.eleJson.style.base.width = newRect.width;
+      }
+      if (
+        this.eleJson.style.base.height == this.eleJson.hoverStyle.base.height
+      ) {
+        this.eleJson.hoverStyle.base.height = this.eleJson.style.base.height =
+          newRect.height;
+      } else {
+        this.eleJson.style.base.height = newRect.height;
+      }
+      this.eleJson.position.top = newRect.top;
+      this.eleJson.position.left = newRect.left;
+    },
+    // 渲染全部动画
+    renderAllAnimate(animate) {
+      const result = {
+        "-webkit-animation-timing-function": "ease"
+      };
+      const delay = [],
+        duration = [],
+        name = [],
+        mode = [],
+        infinity = [],
+        iterationCount = [],
+        timingFunction = [];
 
-        if (animate && animate.length) {
-          for (let i = 0; i < animate.length; i++) {
-            let delayTime = 0;
-            timingFunction.push(animate[i].animationTimingFunction);
-            name.push(animate[i].animationName);
-            duration.push(animate[i].animationDuration + "s");
-            infinity.push(animate[i].animationIterationCount);
-            iterationCount.push(animate[i].animationIterationCount || 1);
-            mode.push("none");
+      if (animate && animate.length) {
+        for (let i = 0; i < animate.length; i++) {
+          let delayTime = 0;
+          timingFunction.push(animate[i].animationTimingFunction);
+          name.push(animate[i].animationName);
+          duration.push(animate[i].animationDuration + "s");
+          infinity.push(animate[i].animationIterationCount);
+          iterationCount.push(animate[i].animationIterationCount || 1);
+          mode.push("none");
 
-            // 判断延迟是否需要加前面的值
-            if (i === 0) {
-              delayTime = animate[i].animationDelay;
-            } else {
-              for (let j = 0; j < i; j++) {
-                delayTime +=
-                  animate[j].animationDelay +
-                  animate[j].animationDuration *
+          // 判断延迟是否需要加前面的值
+          if (i === 0) {
+            delayTime = animate[i].animationDelay;
+          } else {
+            for (let j = 0; j < i; j++) {
+              delayTime +=
+                animate[j].animationDelay +
+                animate[j].animationDuration *
                   animate[j].animationIterationCount;
-              }
-              delayTime += animate[i].animationDelay;
             }
-            delayTime += "s";
-            delay.push(delayTime);
+            delayTime += animate[i].animationDelay;
           }
-          result.animationName = name.join(",");
-          result.animationDuration = duration.join(",");
-          result.animationFillMode = mode.join(",");
-          result.animationDelay = delay.join(",");
-          result.animationIterationCount = iterationCount.join(",");
-          return `
+          delayTime += "s";
+          delay.push(delayTime);
+        }
+        result.animationName = name.join(",");
+        result.animationDuration = duration.join(",");
+        result.animationFillMode = mode.join(",");
+        result.animationDelay = delay.join(",");
+        result.animationIterationCount = iterationCount.join(",");
+        return `
           animation-timing-function: ${timingFunction.join(",")};
           animation-name: ${name.join(",")};
           animation-duration: ${duration.join(",")};
@@ -196,16 +225,15 @@
           animation-delay: ${delay.join(",")};
           animation-iteration-count: ${iterationCount.join(",")};
         `;
-        }
-        return "";
-      },
-      // 渲染样式
-      getStyle(style, hoverStyle, animate, hoverAnimate) {
-        console.log("getStryle");
-        const animateText = this.renderAllAnimate(animate);
-        const animateTextHover = this.renderAllAnimate(hoverAnimate);
-        this.styleText =
-          `
+      }
+      return "";
+    },
+    // 渲染样式
+    getStyle(style, hoverStyle, animate, hoverAnimate) {
+      console.log("getStryle");
+      const animateText = this.renderAllAnimate(animate);
+      const animateTextHover = this.renderAllAnimate(hoverAnimate);
+      this.styleText = `
       .${this.elId} {
         width: ${style.base.width}px;
         height: ${style.base.height}px;
@@ -312,62 +340,59 @@
               ${animateTextHover}
              }
         `;
-      }
-    },
-    watch: {
-      
-      eleJson(val) {
-        console.log("change")
-        // 渲染样式
-        this.getStyle(
-          this.eleJson.style,
-          this.eleJson.hoverStyle,
-          this.eleJson.animate,
-          this.eleJson.hoverAnimate
-        );
-      }
-    },
-    mounted(){
-      this.$nextTick(()=>{
-        // 渲染样式
-        console.log('mounted')
-        this.getStyle(
-          this.eleJson.style,
-          this.eleJson.hoverStyle,
-          this.eleJson.animate,
-          this.eleJson.hoverAnimate
-        );
-      })
     }
-  };
-
+  },
+  watch: {
+    eleJson(val) {
+      console.log("change");
+      // 渲染样式
+      this.getStyle(
+        this.eleJson.style,
+        this.eleJson.hoverStyle,
+        this.eleJson.animate,
+        this.eleJson.hoverAnimate
+      );
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      // 渲染样式
+      console.log("mounted");
+      this.getStyle(
+        this.eleJson.style,
+        this.eleJson.hoverStyle,
+        this.eleJson.animate,
+        this.eleJson.hoverAnimate
+      );
+    });
+  }
+};
 </script>
 <style scoped lang="scss">
-  .i-ele {
-    position: relative;
-    overflow: hidden;
+.i-ele {
+  position: relative;
+  overflow: hidden;
 
-    // overflow: hidden;
-    .cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0);
-      z-index: 9;
-    }
-
-    .ele-show {
-      width: 100%;
-      height: 100%;
-    }
-
-    .img {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-    }
+  // overflow: hidden;
+  .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0);
+    z-index: 9;
   }
 
+  .ele-show {
+    width: 100%;
+    height: 100%;
+  }
+
+  .img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>

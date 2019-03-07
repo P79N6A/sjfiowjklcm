@@ -626,7 +626,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .imgs-container {
   padding: 30px;
 

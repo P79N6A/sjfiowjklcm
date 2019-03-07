@@ -812,7 +812,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .content-container {
   padding: 20px;
   .img-view {

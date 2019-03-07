@@ -195,7 +195,6 @@ export default {
         } else if (key == "svg") {
           this.$bus.$emit("openSvgList", "ChangSvg");
         } else if (key == "vue") {
-          // this.$bus.$emit("openComList", "ChangeVue");
         }
 
         const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));

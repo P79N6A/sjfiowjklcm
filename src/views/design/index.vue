@@ -42,10 +42,10 @@ function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-  for (var i = 0; i < 5; i++){
+  for (var i = 0; i < 5; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-  text='ele-'+text
+  text = "ele-" + text;
   return text;
 }
 export default {
@@ -54,7 +54,7 @@ export default {
       appId: null,
       // 场景json
       appJson: {
-        id:"",
+        id: "",
         description: "新组件",
         device: "",
         name: "新组件",
@@ -64,12 +64,12 @@ export default {
           pageJson: [
             {
               page: 1,
-              id:"",
+              id: "",
               title: "第1页",
               json: [
                 {
                   type: 1,
-                  id:"",
+                  id: "",
                   title: "文字",
                   position: {
                     top: 0,
@@ -251,7 +251,7 @@ export default {
               },
               config: {
                 fullScreen: false,
-                styleText:""
+                styleText: ""
               },
               timer: null
             }
@@ -289,20 +289,35 @@ export default {
   methods: {
     /**========元素操作========**/
     // 添加元素
-    addTemp(key) {
+    addTemp(obj) {
+      let key = obj.type;
+      let data = obj.data;
+
       if (key && eleTemp && eleTemp[key]) {
         let _pageJson = this.appJson.value.pageJson[this.activePageIndex];
-
+        const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));
+        _newTemp.id = makeid();
         if (key == "img") {
           this.$bus.$emit("openImgList", "ChangeImgUrl");
         } else if (key == "svg") {
           this.$bus.$emit("openSvgList", "ChangSvg");
         } else if (key == "vue") {
-          // this.$bus.$emit("openComList", "ChangeVue");
+          if (data.configId) {
+            _newTemp.config.configId = data.configId;
+          }
+          if (data.url) {
+            _newTemp.config.content = data.url;
+          }
+          if (data.configModel) {
+            _newTemp.config.configModel = data.configModel;
+          }
+          if (data.categoryModel) {
+            _newTemp.config.categoryModel = data.categoryModel;
+          }
+          if (data.categoryId) {
+            _newTemp.config.categoryId = data.categoryId;
+          }
         }
-
-        const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));
-        _newTemp.id=makeid();
         _pageJson.json.splice(this.activeTempIndex + 1, 0, _newTemp);
         this.activeTempIndex++;
       }
@@ -311,7 +326,7 @@ export default {
     copyTemp(index) {
       const _tempJson = this.appJson.value.pageJson[this.activePageIndex].json;
       let new_tempJson = JSON.parse(JSON.stringify(_tempJson[index]));
-      new_tempJson.id=makeid()
+      new_tempJson.id = makeid();
       new_tempJson.title = new_tempJson.title + "[复制]";
       _tempJson.splice(index + 1, 0, new_tempJson);
     },
@@ -363,7 +378,7 @@ export default {
     // 添加页面
     addPage(index) {
       let _pageJson = this.appJson.value.pageJson;
-      _pagejson.id=makeid()
+      _pagejson.id = makeid();
       _pageJson.splice(index + 1, 0, JSON.parse(JSON.stringify(pageTemp)));
       this.activePageIndex = index + 1;
     },
@@ -377,7 +392,7 @@ export default {
         JSON.stringify(this.appJson.value.pageJson[index])
       );
       new_pageJson.title = new_pageJson.title + "[复制]";
-      new_pageJson.id=makeid();
+      new_pageJson.id = makeid();
       this.appJson.value.pageJson.splice(index + 1, 0, new_pageJson);
     },
     // 删除页面
@@ -520,9 +535,9 @@ export default {
         })
         .catch(err => {});
     } else {
-      this.appJson.id=makeid();
-      this.appJson.value.pageJson[0].id=makeid()
-      this.appJson.value.pageJson[0].json[0].id=makeid()
+      this.appJson.id = makeid();
+      this.appJson.value.pageJson[0].id = makeid();
+      this.appJson.value.pageJson[0].json[0].id = makeid();
       this.history.push({
         title: "打开组件",
         value: JSON.parse(JSON.stringify(this.appJson))
