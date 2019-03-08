@@ -47,7 +47,7 @@ import {
   getIshows,
   deleteIshows
 } from "@/api/ishow";
-import IshowPre from "./preview";
+import IshowPre from "@/components/H5Preview";
 // import picTool from '@/views/ishow/global/picTool/index.vue';
 import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {

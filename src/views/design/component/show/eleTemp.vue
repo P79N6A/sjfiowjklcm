@@ -26,7 +26,7 @@
       <!-- 普通文本 -->
       <div class="animated ele-show">
         <div v-if="eleJson.type===1">
-          <div class v-html="eleJson.config.content"></div>
+          <div v-html="eleJson.config.content" class="text"></div>
         </div>
         <!-- 图片 -->
         <div v-else-if="eleJson.type===2">
@@ -387,12 +387,19 @@ export default {
   .ele-show {
     width: 100%;
     height: 100%;
-  }
-
-  .img {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+    .img {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+    .text {
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 </style>

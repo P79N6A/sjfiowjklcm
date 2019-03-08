@@ -109,7 +109,9 @@
       <el-table-column label="颜色">
         <template slot-scope="scope">{{getColorName(scope.row.color)}}</template>
       </el-table-column>
-      <el-table-column label="大小" prop="size"></el-table-column>
+      <el-table-column label="大小" prop="size">
+        <template slot-scope="scope">{{(scope.row.size/1024).toFixed(2)}}KB</template>
+      </el-table-column>
       <el-table-column label="标签" prop="tags" min-width="150px">
         <template slot-scope="scope">
           <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>

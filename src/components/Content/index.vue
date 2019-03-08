@@ -179,7 +179,6 @@ export default {
   },
   created() {
     this.$bus.$on("editContent", eventData => {
-      console.log(eventData);
       this.modelId = eventData.modelId || null;
       this.categoryId = eventData.categoryId || null;
       this.contentId = eventData.contentId || null;
@@ -248,13 +247,12 @@ export default {
     },
     // 新增数据
     addContents() {
-      console.log(this.contentTemp);
       addContents(this.contentTemp)
         .then(res => {
           this.dialogFormVisible = false;
           this.$notify({
             title: "成功",
-            message: "修改成功",
+            message: "创建成功",
             type: "success",
             duration: 2000
           });

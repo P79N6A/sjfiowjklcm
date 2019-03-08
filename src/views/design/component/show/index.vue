@@ -19,12 +19,10 @@
         >
           <div class="i-show">
             <!-- 拖拽外框 -->
-            <div v-for="(drag,i) in pageJson.json" :key="i">
               <!-- {{drag.config}} -->
-              <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i">
+              <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i" v-for="(drag,i) in pageJson.json" :key="i">
                 <!-- 组件配置 -->
               </eleTemp>
-            </div>
           </div>
         </div>
       </div>

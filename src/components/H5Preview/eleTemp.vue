@@ -2,10 +2,10 @@ i<template>
   <div @click.stop class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
     <!-- 普通文本 -->
     <div v-if="eleJson.type===1" class="animated">
-      <div class v-html="eleJson.config.content"></div>
+      <div class="text" v-html="eleJson.config.content"></div>
     </div>
     <!-- 图片 -->
-    <div v-else-if="eleJson.type===2"  class="animated">
+    <div v-else-if="eleJson.type===2" class="animated">
       <img :src="`${cdnurl}${eleJson.config.content}`" alt class="img">
     </div>
     <!-- 视频 -->
@@ -14,97 +14,109 @@ i<template>
     </div>
     <!-- svg-->
     <div v-else-if="eleJson.type===9" class="animated">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-        x="0px" y="0px" width="100%" height="100%" :viewBox="eleJson.config.viewBox" xml:space="preserve"
-        preserveAspectRatio="none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        x="0px"
+        y="0px"
+        width="100%"
+        height="100%"
+        :viewBox="eleJson.config.viewBox"
+        xml:space="preserve"
+        preserveAspectRatio="none"
+      >
         <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
       </svg>
     </div>
     <div v-else-if="eleJson.type===10" class="animated">
       <!-- 异步vue组件 -->
-      <sync-component :url="`${cdnurl}${eleJson.config.content}`" :data-id="eleJson.config.dataId" :category-id="eleJson.config.categoryId"></sync-component>
+      <sync-component
+        :url="`${cdnurl}${eleJson.config.content}`"
+        :data-id="eleJson.config.dataId"
+        :category-id="eleJson.config.categoryId"
+      ></sync-component>
     </div>
-      <div v-html="`<style>${styleText}</style>`"></div>
-
+    <div v-html="`<style>${styleText}</style>`"></div>
   </div>
 </template>
 <script>
-  import SyncComponent from "vue-async-component";
-  import { mapGetters } from "vuex";
-  // 生成随机ID
-  function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+import SyncComponent from "vue-async-component";
+import { mapGetters } from "vuex";
+// 生成随机ID
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    for (var i = 0; i < 5; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    text = 'class-' + text
-    return text;
+  for (var i = 0; i < 5; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-  export default {
-    data() {
-      return {
-        elId: makeid(),
-        styleText:"",
-        animateJson: '',
-        animateIndex: 0,
-        animateAll: true,
-        showEle:true, // 用来做动画预览，重新渲染
+  text = "class-" + text;
+  return text;
+}
+export default {
+  data() {
+    return {
+      elId: makeid(),
+      styleText: "",
+      animateJson: "",
+      animateIndex: 0,
+      animateAll: true,
+      showEle: true // 用来做动画预览，重新渲染
+    };
+  },
+  props: ["eleJson", "activeTempIndex", "showId"],
+  computed: {
+    ...mapGetters(["cdnurl"])
+  },
+  components: {
+    SyncComponent
+  },
+  methods: {
+    // 渲染全部动画
+    renderAllAnimate(animate) {
+      const result = {
+        "-webkit-animation-timing-function": "ease"
       };
-    },
-    props: ["eleJson","activeTempIndex","showId"],
-      computed: {
-      ...mapGetters(["cdnurl"]),
-    },
-    components: {
-      SyncComponent
-    },
-    methods: {
-      // 渲染全部动画
-      renderAllAnimate(animate) {
-        const result = {
-          "-webkit-animation-timing-function": "ease"
-        };
-        const delay = [],
-          duration = [],
-          name = [],
-          mode = [],
-          infinity = [],
-          iterationCount = [],
-          timingFunction = [];
+      const delay = [],
+        duration = [],
+        name = [],
+        mode = [],
+        infinity = [],
+        iterationCount = [],
+        timingFunction = [];
 
-        if (animate && animate.length) {
-          for (let i = 0; i < animate.length; i++) {
-            let delayTime = 0;
-            timingFunction.push(animate[i].animationTimingFunction);
-            name.push(animate[i].animationName);
-            duration.push(animate[i].animationDuration + "s");
-            infinity.push(animate[i].animationIterationCount);
-            iterationCount.push(animate[i].animationIterationCount || 1);
-            mode.push("none");
+      if (animate && animate.length) {
+        for (let i = 0; i < animate.length; i++) {
+          let delayTime = 0;
+          timingFunction.push(animate[i].animationTimingFunction);
+          name.push(animate[i].animationName);
+          duration.push(animate[i].animationDuration + "s");
+          infinity.push(animate[i].animationIterationCount);
+          iterationCount.push(animate[i].animationIterationCount || 1);
+          mode.push("none");
 
-            // 判断延迟是否需要加前面的值
-            if (i === 0) {
-              delayTime = animate[i].animationDelay;
-            } else {
-              for (let j = 0; j < i; j++) {
-                delayTime +=
-                  animate[j].animationDelay +
-                  animate[j].animationDuration *
+          // 判断延迟是否需要加前面的值
+          if (i === 0) {
+            delayTime = animate[i].animationDelay;
+          } else {
+            for (let j = 0; j < i; j++) {
+              delayTime +=
+                animate[j].animationDelay +
+                animate[j].animationDuration *
                   animate[j].animationIterationCount;
-              }
-              delayTime += animate[i].animationDelay;
             }
-            delayTime += "s";
-            delay.push(delayTime);
+            delayTime += animate[i].animationDelay;
           }
-          result.animationName = name.join(",");
-          result.animationDuration = duration.join(",");
-          result.animationFillMode = mode.join(",");
-          result.animationDelay = delay.join(",");
-          result.animationIterationCount = iterationCount.join(",");
-          return `
+          delayTime += "s";
+          delay.push(delayTime);
+        }
+        result.animationName = name.join(",");
+        result.animationDuration = duration.join(",");
+        result.animationFillMode = mode.join(",");
+        result.animationDelay = delay.join(",");
+        result.animationIterationCount = iterationCount.join(",");
+        return `
           animation-timing-function: ${timingFunction.join(",")};
           animation-name: ${name.join(",")};
           animation-duration: ${duration.join(",")};
@@ -112,16 +124,15 @@ i<template>
           animation-delay: ${delay.join(",")};
           animation-iteration-count: ${iterationCount.join(",")};
         `;
-        }
-        return "";
-      },
-      // 渲染样式
-      getStyle(style, hoverStyle, animate, hoverAnimate) {
-        console.log("getStryle");
-        const animateText = this.renderAllAnimate(animate);
-        const animateTextHover = this.renderAllAnimate(hoverAnimate);
-        this.styleText =
-          `
+      }
+      return "";
+    },
+    // 渲染样式
+    getStyle(style, hoverStyle, animate, hoverAnimate) {
+      console.log("getStryle");
+      const animateText = this.renderAllAnimate(animate);
+      const animateTextHover = this.renderAllAnimate(hoverAnimate);
+      this.styleText = `
       .${this.elId} {
         width: ${style.base.width}px;
         height: ${style.base.height}px;
@@ -228,30 +239,37 @@ i<template>
               ${animateTextHover}
              }
         `;
-      }
-    },
-    mounted(){
-      this.$nextTick(()=>{
-        // 渲染样式
-        console.log('mounted')
-        this.getStyle(
-          this.eleJson.style,
-          this.eleJson.hoverStyle,
-          this.eleJson.animate,
-          this.eleJson.hoverAnimate
-        );
-      })
     }
-  };
-
+  },
+  mounted() {
+    this.$nextTick(() => {
+      // 渲染样式
+      console.log("mounted");
+      this.getStyle(
+        this.eleJson.style,
+        this.eleJson.hoverStyle,
+        this.eleJson.animate,
+        this.eleJson.hoverAnimate
+      );
+    });
+  }
+};
 </script>
 <style scoped lang="scss">
-  .i-ele {
-    .img {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-    }
+.i-ele {
+  > div {
+    width: 100%;
+    height: 100%;
   }
-
+  .img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+  .text {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+}
 </style>

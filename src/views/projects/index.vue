@@ -277,6 +277,8 @@ export default {
       setToken("SiteId", row._id);
       setToken("SiteDevice", row.device);
       this.$router.push({ name: "Dashboard" });
+      this.$store.dispatch("setProject",row._id);
+
     },
     // 获取终端名称
     getTypeName(val) {

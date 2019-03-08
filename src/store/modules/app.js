@@ -1,4 +1,7 @@
 import Cookies from 'js-cookie'
+import {
+  getToken
+} from "@/utils/auth";
 
 const app = {
   state: {
@@ -6,7 +9,9 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
-    cdnurl: `http://172.16.22.85:3000`,
+    projectId: getToken('SiteId'),
+    origin: 'http://172.16.22.85:3000',
+    // cdnurl: `http://172.16.22.85:3000`,
     device: 'desktop',
     language: Cookies.get('language') || 'zh',
     size: Cookies.get('size') || 'medium'
@@ -20,6 +25,11 @@ const app = {
       }
       state.sidebar.opened = !state.sidebar.opened
       state.sidebar.withoutAnimation = false
+    },
+    SET_PROJECT_ID: (state, id) => {
+      console.log('SET_PROJECT_ID')
+
+      state.projectId = id
     },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
       Cookies.set('sidebarStatus', 1)
@@ -65,6 +75,12 @@ const app = {
       commit
     }, size) {
       commit('SET_SIZE', size)
+    },
+    setProject({
+      commit
+    }, id) {
+      console.log('setProject')
+      commit('SET_PROJECT_ID', id)
     }
   }
 }

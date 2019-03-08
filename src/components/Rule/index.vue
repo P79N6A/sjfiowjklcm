@@ -45,7 +45,7 @@
     <div
       id="content"
       :style="{left: contentLayout.left + 'px',top: contentLayout.top + 'px'}"
-      style="padding: 18px;width:100%;"
+      style="margin: 18px;width:100%;"
     >
       <slot/>
     </div>

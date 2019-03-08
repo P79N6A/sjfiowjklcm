@@ -27,9 +27,9 @@
           <a
             target="_blank"
             v-if="scope.row.type.includes('image')"
-            :href="`${cdnurl}${scope.row.src}`"
+            :href="`${cdnurl}${scope.row.url}`"
             class="img-view"
-            :style="`background-image:url(${cdnurl}${scope.row.src});`"
+            :style="`background-image:url('${cdnurl}${scope.row.url}');`"
           ></a>
           <a
             v-else
@@ -39,7 +39,7 @@
       </el-table-column>
       <el-table-column label="文件名" prop="fileName">
         <template slot-scope="scope">
-          <a target="_blank" :href="`${cdnurl}${scope.row.src}`">{{scope.row.fileName}}</a>
+          <a target="_blank" :href="`${cdnurl}${scope.row.url}`">{{scope.row.fileName}}</a>
         </template>
       </el-table-column>
       <el-table-column label="描述" prop="description"></el-table-column>
@@ -76,7 +76,7 @@
                 size="mini"
                 type="danger"
                 icon="el-icon-view"
-                @click="handleOpen(`${cdnurl}${scope.row.src}`)"
+                @click="handleOpen(`${cdnurl}${scope.row.url}`)"
               ></el-button>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="复制外链地址" placement="top-start">
@@ -84,7 +84,7 @@
                 size="mini"
                 type="danger"
                 icon="el-icon-printer"
-                v-clipboard:copy="`${cdnurl}${scope.row.src}`"
+                v-clipboard:copy="`${cdnurl}${scope.row.url}`"
                 v-clipboard:success="clipboardSuccess"
               ></el-button>
             </el-tooltip>
@@ -333,7 +333,7 @@ export default {
       const objKeyArr = Object.keys(this.listObj);
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.src;
+          this.listObj[objKeyArr[i]].url = response.url;
           this.listObj[objKeyArr[i]].hasSuccess = true;
           return;
         }
@@ -363,21 +363,6 @@ export default {
         height: this.height
       };
       return;
-      // return new Promise((resolve, reject) => {
-      //   const img = new Image()
-      //   img.src = _URL.createObjectURL(file)
-      //   img.onload = function () {
-      //     console.log('lkasjf')
-      //     _self.listObj[fileName] = {
-      //       hasSuccess: false,
-      //       uid: file.uid,
-      //       width: this.width,
-      //       height: this.height
-      //     }
-      //   }
-      //   console.log(_self.listObj)
-      //   resolve(true)
-      // })
     }
   },
   watch: {
