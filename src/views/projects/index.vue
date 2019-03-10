@@ -276,7 +276,7 @@ export default {
     handleEdit(row) {
       setToken("SiteId", row._id);
       setToken("SiteDevice", row.device);
-      this.$router.push({ name: "Dashboard" });
+      this.$router.push({ name: "page" });
       this.$store.dispatch("setProject",row._id);
 
     },
