@@ -16,7 +16,7 @@
             <i class="el-icon-warning" @click="dialogRuleVisible=true;"></i>
           </div>
           <el-menu
-            default-active="2"
+            default-active="1"
             class="el-menu-vertical-demo"
             @select="handleSelect"
             background-color="#545c64"
@@ -28,10 +28,6 @@
               <span slot="title">我的图片</span>
             </el-menu-item>
             <el-menu-item index="2">
-              <i class="el-icon-star-off"></i>
-              <span slot="title">我的收藏</span>
-            </el-menu-item>
-            <el-menu-item index="3">
               <i class="el-icon-goods"></i>
               <span slot="title">正版图片</span>
             </el-menu-item>
@@ -46,21 +42,22 @@
             </div>
             <div class="search">
               排序：
-              <span v-for="(item,i) in dataSortOption">{{item}}</span>
+              <span v-for="(item,i) in dataSortOption" :key="i">{{item}}</span>
               价格：
-              <span v-for="(item,i) in dataPriceOption">{{item}}</span>
+              <span v-for="(item,i) in dataPriceOption" :key="i">{{item}}</span>
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
                 <div class="img-view" :style="`background-image:url('${cdnurl}${item.url}')`"></div>
                 <div class="img-control">
-                  <el-button @click="select(item)">使用</el-button>
+                  <el-button @click="select(item)" v-if="imgType=='myself'">使用</el-button>
+                  <el-button v-else @click="buyImg(item)">购买</el-button>
                   <div class="icons">
-                    <i class="el-icon-star-off"></i>
+                    <!-- <i class="el-icon-star-off"></i> -->
                     <i class="el-icon-view" @click="preList=imgList;preIndex=i;showPre=true;"></i>
                   </div>
                 </div>
-                <div class="img-price">{{item.price}}元</div>
+                <div class="img-price" v-if="imgType!='myself'">{{item.price}}元</div>
               </div>
             </div>
             <div class="img-pre" v-if="showPre">
@@ -88,7 +85,13 @@
                 <div>
                   <i class="el-icon-star-off"></i>
                   <span>{{preList[preIndex].price}}</span>
-                  <el-button type="primary" @click="select(preList[preIndex])">使用</el-button>
+
+                  <el-button
+                    type="primary"
+                    @click="select(preList[preIndex])"
+                    v-if="imgType=='myself'"
+                  >使用</el-button>
+                  <el-button type="primary" v-else @click="buyImg(preList[preIndex])">购买</el-button>
                 </div>
               </div>
             </div>
@@ -123,7 +126,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getImgs } from "@/api/imgs";
+import { getImgs, buyImgs } from "@/api/imgs";
 export default {
   name: "FileList",
   props: {
@@ -137,6 +140,7 @@ export default {
       dialogFormVisible: false,
       dialogRuleVisible: false,
       emitEvent: null, // 选择图片后，需要触发的函数
+      imgType: "myself", // myself,public
       dataTypeOption: [
         "猪年专题",
         "春节专题",
@@ -153,6 +157,7 @@ export default {
       //搜索条件
       filterData: {
         // 设置
+        isPublic: false,
         price: "",
         type: "",
         festival: "",
@@ -168,6 +173,8 @@ export default {
   created() {
     this.$bus.$on("openImgList", emitEvent => {
       this.dialogFormVisible = true;
+      this.filterData.isPublic = false;
+      this.imgType='myself'
       this.getImgs();
       this.emitEvent = emitEvent;
     });
@@ -178,7 +185,6 @@ export default {
   methods: {
     // 查询用户列表
     getImgs() {
-      console.log("slkfj");
       this.listLoading = true;
       getImgs(this.filterData)
         .then(res => {
@@ -189,15 +195,37 @@ export default {
           this.listLoading = false;
         });
     },
+    // 购买素材
+    buyImg(img) {
+      console.log(img);
+      buyImgs(img)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log("err----");
+          console.log(err);
+        });
+    },
+    // 预览？
     handleChange(index) {
       this.preIndex = index;
     },
+    // 左边大菜单选项
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+      if (key == 1) {
+        console.log("1111");
+        this.imgType = "myself";
+        this.filterData.isPublic = false;
+      } else if (key == 2) {
+        console.log("22222");
+        this.imgType = "pubilc";
+        this.filterData.isPublic = true;
+      }
+      this.getImgs();
     },
-    preview(url) {
-      window.open(url);
-    },
+    // 选中素材
     select(item) {
       this.$bus.$emit(this.emitEvent, item);
       this.dialogFormVisible = false;
@@ -318,7 +346,7 @@ export default {
       left: 0;
       width: 100%;
       height: 610px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.7);
 
       .pre-close {
         font-size: 30px;
