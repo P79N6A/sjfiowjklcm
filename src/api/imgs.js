@@ -8,6 +8,14 @@ export function getImgs(params) {
   })
 }
 
+export function buyImgs(data) {
+  console.log(data)
+  return request({
+    url: '/api/imgs/buy/' + data._id,
+    method: 'get'
+  })
+}
+
 export function addImgs(data) {
   return request({
     url: '/api/imgs',
@@ -30,4 +38,3 @@ export function deleteImgs(data) {
     data
   })
 }
-
