@@ -25,15 +25,15 @@
           >
             <el-menu-item index="1">
               <i class="el-icon-picture-outline"></i>
-              <span slot="title">我的组件</span>
+              <span slot="title">元素模版</span>
             </el-menu-item>
             <el-menu-item index="2">
               <i class="el-icon-star-off"></i>
-              <span slot="title">我的收藏</span>
+              <span slot="title">功能模版</span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-goods"></i>
-              <span slot="title">正版组件</span>
+              <span slot="title">单页模版</span>
             </el-menu-item>
           </el-menu>
         </el-col>

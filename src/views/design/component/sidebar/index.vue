@@ -13,6 +13,10 @@
         <i class="el-icon-document"></i>
         <p>单页模板</p>
       </div>
+      <div class="item" :class="{active:query.type=='func'}" @click="$bus.$emit('openComList')">
+        <i class="el-icon-sold-out" ></i>
+        <p>模版商城</p>
+      </div>
     </div>
     <div class="i-select" v-show="query.type">
       <el-tabs v-model="activeName" v-show="query.type=='view'">
