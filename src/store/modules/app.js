@@ -10,7 +10,7 @@ const app = {
       withoutAnimation: false
     },
     projectId: getToken('SiteId'),
-    origin: 'http://172.16.22.85:3000',
+    origin: 'http://localhost:3000',
     // cdnurl: `http://172.16.22.85:3000`,
     device: 'desktop',
     language: Cookies.get('language') || 'zh',

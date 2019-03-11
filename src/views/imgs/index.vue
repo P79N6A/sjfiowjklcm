@@ -393,7 +393,7 @@ export default {
         }
       ],
       imgTemp: {
-        isPublic: true,
+        isPublic: false,
         url: "",
         desc: "",
         // 文件信息
@@ -550,7 +550,7 @@ export default {
     // 重制游戏
     resetTemp() {
       this.imgTemp = {
-        isPublic: true,
+        isPublic: false,
         url: "",
         desc: "",
         // 文件信息
