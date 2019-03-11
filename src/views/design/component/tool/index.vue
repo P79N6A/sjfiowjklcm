@@ -52,14 +52,11 @@ import pageSet from "./pageSet.vue";
 import layerSet from "./layerSet.vue";
 import setting from "./setting.vue";
 // 媒体资源相关
+import componentList from "@/components/componentList";
 import imgList from "@/components/ImgList";
 import svgList from "@/components/svgList";
-import componentList from "@/components/componentList";
 // 组建数据相关
 import contentEdit from "@/components/Content";
-
-// import dataOne from "@/components/dataOne";
-// import dataList from "@/components/dataList";
 
 export default {
   name: "Iheader",
@@ -94,8 +91,6 @@ export default {
     svgList,
     componentList,
     contentEdit,
-    // dataOne,
-    // dataList
   }
 };
 </script>

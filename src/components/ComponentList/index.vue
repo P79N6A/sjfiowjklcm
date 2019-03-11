@@ -46,9 +46,9 @@
             </div>
             <div class="search">
               排序：
-              <span v-for="(item,i) in dataSortOption">{{item}}</span>
+              <span v-for="(item,i) in dataSortOption" :key="i">{{item}}</span>
               价格：
-              <span v-for="(item,i) in dataPriceOption">{{item}}</span>
+              <span v-for="(item,i) in dataPriceOption" :key="i">{{item}}</span>
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
@@ -147,6 +147,7 @@ export default {
         "促销",
         "邀请函",
         "科技"
+
       ],
       dataSortOption: ["最新", "最热"],
       dataPriceOption: ["", "0", "0-10元", "11-20元"],
@@ -156,11 +157,12 @@ export default {
       //搜索条件
       filterData: {
         // 设置
-        price: "",
-        type: "",
-        festival: "",
-        style: "",
-        color: ""
+        isPublic:true,
+        // price: "",
+        // type: "",
+        // festival: "",
+        // style: "",
+        // color: ""
       },
       imgList: [],
       showPre: false,
@@ -198,6 +200,9 @@ export default {
       this.preIndex = index;
     },
     handleSelect(key, keyPath) {
+
+      console.log(key, keyPath);
+      console.log(key, keyPath);
       console.log(key, keyPath);
     },
     preview(url) {

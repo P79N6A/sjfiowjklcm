@@ -150,7 +150,7 @@
 import { mapGetters } from "vuex";
 import { getSvgs } from "@/api/svgs";
 export default {
-  name: "FileList",
+  name: "SvgList",
   props: {
     value: {
       type: String,

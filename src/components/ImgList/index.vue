@@ -128,7 +128,7 @@
 import { mapGetters } from "vuex";
 import { getImgs, buyImgs } from "@/api/imgs";
 export default {
-  name: "FileList",
+  name: "ImgList",
   props: {
     value: {
       type: String,
