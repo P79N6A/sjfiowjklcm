@@ -40,6 +40,12 @@
         <el-col :span="20">
           <div class="img-list">
             <!-- <div></div> -->
+            <div class="search" v-show="query.type">
+              分类：
+              <span @click="filterData.class='text'">文本模板</span>
+              <span @click="filterData.class='img'">图片模板</span>
+              <span @click="filterData.class='imgtext'">图文模板</span>
+            </div>
             <div class="search">
               分类：
               <span v-for="(item,i) in dataTypeOption" :key="i">{{item}}</span>
@@ -153,15 +159,13 @@ export default {
       picJson: [],
       tempUrl: "",
       isLoading: true,
-      //搜索条件
+
       filterData: {
         // 设置
-        isPublic: true
-        // price: "",
-        // type: "",
-        // festival: "",
-        // style: "",
-        // color: ""
+        isPublic: true,
+        type: "",
+        class: "",
+        key: ""
       },
       imgList: [],
       showPre: false,
@@ -200,7 +204,9 @@ export default {
     },
     handleSelect(key, keyPath) {
       if (key == 1) {
+        this.filterData.type='view'
       } else if (key == 2) {
+        this.filterData.type='func'
       }
     },
     preview(url) {
