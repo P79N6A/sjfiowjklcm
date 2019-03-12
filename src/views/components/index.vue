@@ -2,10 +2,10 @@
   <div class="components-contain">
     <div>
       <span>
-        <el-button type="warning" icon="el-icon-search" @click="getImgs">搜索</el-button>
+        <el-button type="warning" icon="el-icon-search" @click="getComponents">搜索</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加素材</el-button>
+        <el-button type="danger" @click="handleAdd" icon="el-icon-edit">添加素材</el-button>
       </span>
     </div>
     <br>
@@ -138,32 +138,17 @@
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column fixed align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
-          <a
-            target="_blank"
-            :href="`${cdnurl}${scope.row.url}`"
-            class="img-view"
-            :style="`background-image:url('${cdnurl}${scope.row.url}');`"
-          ></a>
+          <a target="_blank" :href="`${cdnurl}${scope.row.url}`" class="img-view"></a>
         </template>
       </el-table-column>
+      <el-table-column label="名称" prop="name"></el-table-column>
+
       <el-table-column label="价格" prop="style">
         <template slot-scope="scope">
           <el-tag>{{scope.row.price}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="类型" prop="type"></el-table-column>
-      <el-table-column label="节日">
-        <template slot-scope="scope">{{getFesName(scope.row.festival)}}</template>
-      </el-table-column>
-      <el-table-column label="风格">
-        <template slot-scope="scope">{{getStyleName(scope.row.style)}}</template>
-      </el-table-column>
-      <el-table-column label="颜色">
-        <template slot-scope="scope">{{getColorName(scope.row.color)}}</template>
-      </el-table-column>
-      <el-table-column label="大小" prop="size">
-        <template slot-scope="scope">{{(scope.row.size/1024).toFixed(2)}}KB</template>
-      </el-table-column>
       <el-table-column label="标签" prop="tags" min-width="150px">
         <template slot-scope="scope">
           <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
@@ -194,7 +179,7 @@
             <el-button
               type="primary"
               size="mini"
-              @click="handleUpdate(scope.row)"
+              @click="handleEdit(scope.row)"
             >{{ $t('table.edit') }}</el-button>
             <el-button
               v-if="scope.row.status!='deleted'"
@@ -209,29 +194,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="ishow-headerWrapper">
-      <header class="header">系统组件库
-        <div class="ishow-headerBtn">
-          <el-button size="small" @click.stop="handleAdd">新建组件</el-button>
-        </div>
-      </header>
-    </div>
-    <div class="ishowList cfx">
-      <div class="frames" v-for="(item,i) in componentList" :key="i">
-        <h4>{{item.name}}</h4>
-        <div class="frames-content">
-          <sync-component :url="`${cdnurl}${item.src}`"></sync-component>
-          <!-- <img :src="item.screenShot" style="display:block;width:100%;"> -->
-          <div class="control">
-            <!-- 操作按钮区域 -->
-            <el-button-group>
-              <el-button type="primary" round @click="handleEdit(item);">编辑</el-button>
-              <el-button type="danger" round @click="handleDelete(item)">删除</el-button>
-            </el-button-group>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- 创建组件 -->
     <el-dialog
       :title="textMap[dialogStatus]+'组件'"
@@ -334,10 +296,10 @@ import { getModels } from "@/api/model";
 export default {
   data() {
     return {
-      filterData:{
-        type:'view',
-        class:'',
-        key:''
+      filterData: {
+        type: "view",
+        class: "",
+        key: ""
       },
       pageSize: 30,
       pageNum: 1,
@@ -534,6 +496,20 @@ export default {
         })
         .catch(err => {});
     },
+    // 设置为上线
+    toOnline(row) {
+      this.componentTemp = Object.assign({}, row); // copy obj
+      this.componentTemp.isPublic = true;
+      row.isPublic = true;
+      this.updateComponent();
+    },
+    // 设置为下架
+    toStop(row) {
+      this.componentTemp = Object.assign({}, row); // copy obj
+      this.componentTemp.isPublic = false;
+      row.isPublic = false;
+      this.updateComponent();
+    },
     // 更新组件
     updateComponent() {
       updateComponents(this.componentTemp)
@@ -562,12 +538,6 @@ export default {
       this.dialogStatus = "update";
       this.resetTemp();
       Object.assign(this.componentTemp, row);
-      console.log(this.componentTemp);
-      console.log(
-        this.componentTemp.type,
-        this.componentTemp.class,
-        this.componentTemp.key
-      );
       this.selectedOptions2 = [
         this.componentTemp.type,
         this.componentTemp.class,

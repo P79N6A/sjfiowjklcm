@@ -67,6 +67,9 @@
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
                 <div class="img-view" :style="`background-image:url('${item.icon}')`"></div>
+                <!-- <div class="img-view">
+                  <IshowPre :ishow-id="item._id"></IshowPre>
+                </div>-->
                 <div class="img-control">
                   <el-button @click="select(item)">购买</el-button>
                   <div class="icons">
@@ -111,7 +114,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getComponents, buyComponents } from "@/api/components";
+import { getIshows, buyIshows } from "@/api/ishow";
+import IshowPre from "@/components/H5Preview";
 
 export default {
   props: {
@@ -125,26 +129,12 @@ export default {
       dialogFormVisible: false,
       dialogRuleVisible: false,
       emitEvent: null, // 选择组件后，需要促发的函数
-      dataTypeOption: [
-        "猪年专题",
-        "春节专题",
-        "精选",
-        "促销",
-        "邀请函",
-        "科技"
-      ],
-      dataSortOption: ["最新", "最热"],
-      dataPriceOption: ["", "0", "0-10元", "11-20元"],
       picJson: [],
       tempUrl: "",
       isLoading: true,
-
       filterData: {
         // 设置
-        isPublic: true,
-        type: "view",
-        class: "",
-        key: ""
+        isPublic: true
       },
       imgList: [],
       showPre: false,
@@ -153,12 +143,10 @@ export default {
     };
   },
   created() {
-    this.$bus.$on("openComList", emitEvent => {
+    this.$bus.$on("openIshowList", emitEvent => {
+      console.log("slk;fjslkdfj");
       this.dialogFormVisible = true;
-      this.filterData.type = "view";
-      this.filterData.class = "text";
-      this.filterData.key = "";
-      this.getComponents();
+      this.getIshows();
       this.emitEvent = emitEvent;
     });
   },
@@ -167,9 +155,10 @@ export default {
   },
   methods: {
     // 查询列表
-    getComponents() {
+    getIshows() {
       this.listLoading = true;
-      getComponents(this.filterData)
+      console.log(this.filterData);
+      getIshows(this.filterData)
         .then(res => {
           this.imgList = res.data.filter(item => {
             item.src = `${this.cdnurl}${item.src}?v=${new Date().getTime()}`;
@@ -182,14 +171,14 @@ export default {
         });
     },
     handleSelect(key, keyPath) {
-      if (key == 1) {
-        this.filterData.type = "view";
-      } else if (key == 2) {
-        this.filterData.type = "func";
-      }
+      // if (key == 1) {
+      //   this.filterData.type = "view";
+      // } else if (key == 2) {
+      //   this.filterData.type = "func";
+      // }
     },
     select(item) {
-      buyComponents(item)
+      buyIshows(item)
         .then(res => {})
         .catch(err => {
           this.listLoading = false;
@@ -200,15 +189,16 @@ export default {
   },
   watch: {
     "filterData.type"(val) {
-      this.getComponents();
+      this.getIshows();
     },
     "filterData.class"(val) {
-      this.getComponents();
+      this.getIshows();
     },
     "filterData.key"(val) {
-      this.getComponents();
+      this.getIshows();
     }
-  }
+  },
+  components: { IshowPre }
 };
 </script>
 

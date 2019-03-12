@@ -123,10 +123,11 @@ export function getPageJson(id) {
   });
 }
 
-export function getIshows() {
+export function getIshows(params) {
   return request({
     url: '/api/ishows',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 export function getIshowOne(data) {
@@ -135,6 +136,13 @@ export function getIshowOne(data) {
     method: 'get'
   })
 }
+export function buyIshows(data) {
+  return request({
+    url: '/api/ishows/buy/' + data._id,
+    method: 'get'
+  })
+}
+
 export function addIshows(data) {
   return request({
     url: '/api/ishows',

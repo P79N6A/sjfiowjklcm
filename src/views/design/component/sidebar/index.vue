@@ -13,7 +13,7 @@
         <i class="el-icon-document"></i>
         <p>单页模板</p>
       </div>-->
-      <div class="item" :class="{active:query.type=='func'}" @click="$bus.$emit('openComList')">
+      <div class="item" @click="$bus.$emit('openComList')">
         <i class="el-icon-sold-out"></i>
         <p>模版商城</p>
       </div>
