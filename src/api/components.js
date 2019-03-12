@@ -15,6 +15,12 @@ export function addComponents(data) {
     data
   })
 }
+export function buyComponents(data) {
+  return request({
+    url: '/api/components/buy/' + data._id,
+    method: 'get'
+  })
+}
 export function updateComponents(data) {
   return request({
     url: '/api/components/' + data._id,

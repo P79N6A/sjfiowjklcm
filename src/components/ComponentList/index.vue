@@ -54,7 +54,7 @@
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
                 <div class="img-view" :style="`background-image:url('${item.icon}')`"></div>
                 <div class="img-control">
-                  <el-button @click="select(item)">使用</el-button>
+                  <el-button @click="select(item)">购买</el-button>
                   <div class="icons">
                     <i class="el-icon-star-off"></i>
                     <i class="el-icon-view" @click="preList=imgList;preIndex=i;showPre=true;"></i>
@@ -63,35 +63,6 @@
                 <div class="img-price">
                   <span v-if="item.price">{{item.price}}元</span>
                   <span v-else>免费</span>
-                </div>
-              </div>
-            </div>
-            <div class="img-pre" v-if="showPre">
-              <i class="el-icon-back pre-close" @click="showPre=false;"></i>
-              <el-carousel
-                :autoplay="false"
-                indicator-position="none"
-                height="562px"
-                :initial-index="preIndex"
-                :change="handleChange"
-              >
-                <el-carousel-item v-for="item in preList" :key="item">
-                  <div
-                    style="display:flex;justify-content:center;align-items:center;height:100%;padding:20px;"
-                  >
-                    <div
-                      style="width:600px;height:100%;background-repeat:no-repeat;background-size:contain;background-position:center center;"
-                      :style="`background-image:url('${item.icon}')`"
-                    ></div>
-                  </div>
-                </el-carousel-item>
-              </el-carousel>
-              <div class="pre-foot">
-                <div>组件预览</div>
-                <div>
-                  <i class="el-icon-star-off"></i>
-                  <span>{{preList[preIndex].price}}</span>
-                  <el-button type="primary" @click="select(preList[preIndex])">使用</el-button>
                 </div>
               </div>
             </div>
@@ -126,7 +97,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getComponents } from "@/api/components";
+import { getComponents, buyComponents } from "@/api/components";
 
 export default {
   props: {
@@ -156,12 +127,10 @@ export default {
       //搜索条件
       filterData: {
         // 设置
-        isPublic: true
-        // price: "",
-        // type: "",
-        // festival: "",
-        // style: "",
-        // color: ""
+        isPublic: true,
+        type: "",
+        class: "",
+        key: ""
       },
       imgList: [],
       showPre: false,
@@ -203,12 +172,17 @@ export default {
       } else if (key == 2) {
       }
     },
-    preview(url) {
-      window.open(url);
-    },
+    // preview(url) {
+    //   window.open(url);
+    // },
     select(item) {
+      buyComponents(item)
+        .then(res => {})
+        .catch(err => {
+          this.listLoading = false;
+        });
       this.$bus.$emit(this.emitEvent, item);
-      this.dialogFormVisible = false;
+      // this.dialogFormVisible = false;
     }
   }
 };
