@@ -129,7 +129,6 @@ export default {
     },
     // 渲染样式
     getStyle(style, hoverStyle, animate, hoverAnimate) {
-      console.log("getStryle");
       const animateText = this.renderAllAnimate(animate);
       const animateTextHover = this.renderAllAnimate(hoverAnimate);
       this.styleText = `

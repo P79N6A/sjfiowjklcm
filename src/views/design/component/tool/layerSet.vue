@@ -1391,7 +1391,9 @@ export default {
           type: "",
           link: "",
           index: "",
-          target: ""
+          target: "",
+          scrollX: 0,
+          scrollY: 0
         },
         hover: {
           animation: ""
@@ -1421,6 +1423,10 @@ export default {
         {
           value: "link",
           label: "超链接"
+        },
+        {
+          value: "scroll",
+          label: "页面滚动"
         }
       ],
       animateTemp: [

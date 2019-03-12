@@ -31,10 +31,10 @@
               <i class="el-icon-star-off"></i>
               <span slot="title">功能模版</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <!-- <el-menu-item index="3">
               <i class="el-icon-goods"></i>
               <span slot="title">单页模版</span>
-            </el-menu-item>
+            </el-menu-item>-->
           </el-menu>
         </el-col>
         <el-col :span="20">
@@ -147,7 +147,6 @@ export default {
         "促销",
         "邀请函",
         "科技"
-
       ],
       dataSortOption: ["最新", "最热"],
       dataPriceOption: ["", "0", "0-10元", "11-20元"],
@@ -157,7 +156,7 @@ export default {
       //搜索条件
       filterData: {
         // 设置
-        isPublic:true,
+        isPublic: true
         // price: "",
         // type: "",
         // festival: "",
@@ -200,10 +199,9 @@ export default {
       this.preIndex = index;
     },
     handleSelect(key, keyPath) {
-
-      console.log(key, keyPath);
-      console.log(key, keyPath);
-      console.log(key, keyPath);
+      if (key == 1) {
+      } else if (key == 2) {
+      }
     },
     preview(url) {
       window.open(url);

@@ -9,12 +9,12 @@
         <i class="el-icon-menu"></i>
         <p>功能模板</p>
       </div>
-      <div class="item" :class="{active:query.type=='page'}" @click="query.type='page'">
+      <!-- <div class="item" :class="{active:query.type=='page'}" @click="query.type='page'">
         <i class="el-icon-document"></i>
         <p>单页模板</p>
-      </div>
+      </div>-->
       <div class="item" :class="{active:query.type=='func'}" @click="$bus.$emit('openComList')">
-        <i class="el-icon-sold-out" ></i>
+        <i class="el-icon-sold-out"></i>
         <p>模版商城</p>
       </div>
     </div>
