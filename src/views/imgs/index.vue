@@ -317,7 +317,7 @@ export default {
       //搜索条件
       filterData: {
         // 设置
-        price: "",
+        price: 0,
         type: "",
         festival: "",
         style: "",

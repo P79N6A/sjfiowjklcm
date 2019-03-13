@@ -203,7 +203,7 @@ export default {
           this.$notify({
             title: "提示",
             message: res.data.message,
-            type: "info",
+            type: "success",
             duration: 2000
           });
           console.log(res);
@@ -211,8 +211,8 @@ export default {
         .catch(err => {
           this.$notify({
             title: "提示",
-            message: res.data.messagemessage,
-            type: "info",
+            message: err.data.message,
+            type: "success",
             duration: 2000
           });
           console.log("err----");

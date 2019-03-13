@@ -190,9 +190,22 @@ export default {
     },
     select(item) {
       buyComponents(item)
-        .then(res => {})
+        .then(res => {
+          this.$notify({
+            title: "提示",
+            message: res.data.message,
+            type: "success",
+            duration: 2000
+          });
+        })
         .catch(err => {
           this.listLoading = false;
+          this.$notify({
+            title: "提示",
+            message: err.data.message,
+            type: "success",
+            duration: 2000
+          });
         });
       this.$bus.$emit(this.emitEvent, item);
       // this.dialogFormVisible = false;

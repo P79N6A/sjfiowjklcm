@@ -180,7 +180,14 @@ export default {
     },
     select(item) {
       buyIshows(item)
-        .then(res => {})
+        .then(res => {
+          this.$notify({
+            title: "提示",
+            message: res.data.message,
+            type: "success",
+            duration: 2000
+          });
+        })
         .catch(err => {
           this.listLoading = false;
         });

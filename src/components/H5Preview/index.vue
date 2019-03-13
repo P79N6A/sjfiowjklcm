@@ -37,6 +37,7 @@
 <script>
 import eleTemp from "./eleTemp.vue";
 import { getIshowOne } from "@/api/ishow";
+import request from "@/utils/request";
 import { mapGetters } from "vuex";
 export default {
   data() {
@@ -53,12 +54,13 @@ export default {
   components: {
     eleTemp
   },
-  props: ["ishowId", "appJson"],
+  props: ["ishowId", "appJson", "ishowUrl"],
   created() {},
   beforeDestroy() {
     window.clearInterval(this.timer);
   },
   mounted() {
+    // 有完整的json传入
     if (this.appJson) {
       this.setVal();
       window.clearInterval(this.timer);
@@ -73,7 +75,26 @@ export default {
           }
         }, this.interval);
       }
-    } else {
+    }
+    // json-url
+    else if (this.ishowUrl) {
+      console.log(`${this.ishowUrl}`);
+      let param = { v: new Date().getTime() };
+      request({
+        url: `${this.cdnurl}${this.ishowUrl}`,
+        method: "get",
+        param
+      })
+        .then(res => {
+          console.log(res);
+          this.appJson = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    // json-ID
+    else if (this.ishowId) {
       this.getIshowOne();
     }
   },
