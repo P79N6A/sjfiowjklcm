@@ -30,7 +30,7 @@
         </div>
         <!-- 图片 -->
         <div v-else-if="eleJson.type===2">
-          <img :src="cdnurl+eleJson.config.content" alt class="img">
+          <img :src="cdnurl+eleJson.config.content"  class="img">
         </div>
         <!-- 视频 -->
         <div v-else-if="eleJson.type===8">
@@ -56,9 +56,10 @@
         <div v-else-if="eleJson.type===10">
           <!-- 异步vue组件 -->
           <sync-component
-            :url="cdnurl+eleJson.config.content"
-            :data-id="eleJson.config.dataId"
-            :category-id="eleJson.config.categoryId"
+            :url="`${cdnurl}/${eleJson.config.content}`"
+            :short-id="eleJson.config.content"
+            :config="eleJson.config.dataId"
+            :category="eleJson.config.categoryId"
           ></sync-component>
         </div>
       </div>
@@ -68,7 +69,7 @@
   </VueDragResize>
 </template>
 <script>
-import SyncComponent from "vue-async-component";
+import SyncComponent from "@/components/AsyncComponent";
 import VueDragResize from "vue-drag-resize";
 import { mapGetters } from "vuex";
 // 生成随机ID

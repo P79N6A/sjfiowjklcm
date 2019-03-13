@@ -9,7 +9,6 @@ export function getImgs(params) {
 }
 
 export function buyImgs(data) {
-  console.log(data)
   return request({
     url: '/api/imgs/buy/' + data._id,
     method: 'get'

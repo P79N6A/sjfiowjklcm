@@ -20,7 +20,7 @@
                 <!-- 格子区域 -->
                 <div v-for="(item,i) in box.components" :key="i" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
                   <!-- 内容组件渲染 -->
-                  <ishow-pre :ishow-id="item._id"></ishow-pre>
+                  <ishow-pre :ishow-id="item._id" :short-id="item.shortId"></ishow-pre>
                 </div>
               </div>
             </el-col>

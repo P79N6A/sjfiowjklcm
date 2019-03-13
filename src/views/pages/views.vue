@@ -1,18 +1,18 @@
 <template>
-  <div class="Layoutshow-container" v-if="selectNode&&selectNode.value">
-    <Layout :layoutTemp="selectNode.value.content" v-if="selectNode.value.content"></Layout>
+  <div class="Layoutshow-container" v-if="contentData">
+    <Layout :layoutTemp="contentData"></Layout>
   </div>
 </template>
 
 <script>
 import Layout from "./components/Layout";
+
+import { getLayoutsShortId } from "@/api/layouts";
 export default {
   name: "Page401",
   data() {
     return {
-      selectNode: {
-        value: "test"
-      }
+      contentData:null,
     };
   },
   mounted() {
@@ -20,8 +20,15 @@ export default {
     window.addEventListener(
       "message",
       event => {
-        this.selectNode = event.data;
-        console.log(event.data.value.content)
+        // this.selectNode = event.data;
+        if(event&&event.data&&event.data.value&&event.data.value.content){
+          getLayoutsShortId({shortId:event.data.value.content}).then(res=>{
+            this.contentData=res.data
+          }).catch(err=>{
+            console.log(err)
+          })
+        }
+
       },
       false
     );

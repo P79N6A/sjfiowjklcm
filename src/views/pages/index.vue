@@ -75,7 +75,7 @@
           <el-select v-model="pagesTemp.content" placeholder="请选择页面内容">
             <el-option
               :label="item.name"
-              :value="item._id"
+              :value="item.shortId"
               v-for="(item,i) in contentList"
               :key="i"
             ></el-option>
@@ -223,6 +223,7 @@ export default {
   methods: {
     // 获取页面列表
     getContents() {
+      console.log('lksafjsladkjflk')
       getLayouts({ type: "page" })
         .then(res => {
           this.contentList = res.data;
@@ -240,14 +241,12 @@ export default {
     handleUpdate() {
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
+      this.resetPageTemp();
+      this.getContents();
       // 复制值
       this.pagesTemp = JSON.parse(JSON.stringify(this.selectNode.value));
-      this.pagesTemp.layout = this.pagesTemp.layout
-        ? this.pagesTemp.layout._id
-        : "";
-      this.pagesTemp.content = this.pagesTemp.content
-        ? this.pagesTemp.content._id
-        : "";
+      this.pagesTemp.layout = this.pagesTemp.layout||''
+      this.pagesTemp.content = this.pagesTemp.content||''
       this.pagesTemp._id = this.selectNode.id;
     },
     // 删除数据
@@ -341,8 +340,9 @@ export default {
     // 点击树节点
     nodeClick($obj, $node, $el) {
       this.selectNode = $obj;
+      console.log($obj)
       this.resetPageTemp();
-      if (this.$iframe) {
+      if (this.$iframe&&this.selectNode.value) {
         this.$iframe.postMessage(this.selectNode, "*");
       }
     }

@@ -111,7 +111,7 @@
                   :class="{'components-col':viewLayoutsClass}"
                 >
                   <!-- 内容组件渲染 -->
-                  <ishow-pre :ishow-id="item._id" :ishow-url="item.url"></ishow-pre>
+                  <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
                   <div class="el-control" v-show="editting">
                     <el-button type="danger" @click="removeEl(box,i)">删除</el-button>
                   </div>
@@ -832,6 +832,7 @@ export default {
         type: "ishow",
         _id: item._id,
         url: item.url,
+        shortId:item.shortId,
         name: item.name
       };
       this.editCol.components.push(Object.assign({}, _ishow));

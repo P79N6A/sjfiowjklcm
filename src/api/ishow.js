@@ -130,6 +130,13 @@ export function getIshows(params) {
     params
   })
 }
+
+export function getIshowShortId(data) {
+  return request({
+    url: '/api/ishows/shortId/' + data.shortId,
+    method: 'get'
+  })
+}
 export function getIshowOne(data) {
   return request({
     url: '/api/ishows/' + data._id,

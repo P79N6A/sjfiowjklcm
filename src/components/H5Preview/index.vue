@@ -36,7 +36,7 @@
 </template>
 <script>
 import eleTemp from "./eleTemp.vue";
-import { getIshowOne } from "@/api/ishow";
+import { getIshowShortId } from "@/api/ishow";
 import request from "@/utils/request";
 import { mapGetters } from "vuex";
 export default {
@@ -54,7 +54,7 @@ export default {
   components: {
     eleTemp
   },
-  props: ["ishowId", "appJson", "ishowUrl"],
+  props: ["shortId", "appJson", "ishowUrl"],
   created() {},
   beforeDestroy() {
     window.clearInterval(this.timer);
@@ -63,6 +63,15 @@ export default {
     // 有完整的json传入
     if (this.appJson) {
       this.setVal();
+      this.startAnimate()
+    }
+    // shortId
+    else if (this.shortId) {
+      this.getIshowOne();
+    }
+  },
+  methods: {
+    startAnimate(){
       window.clearInterval(this.timer);
       if (this.autoAnimation) {
         this.timer = window.setInterval(() => {
@@ -75,30 +84,7 @@ export default {
           }
         }, this.interval);
       }
-    }
-    // json-url
-    else if (this.ishowUrl) {
-      console.log(`${this.ishowUrl}`);
-      let param = { v: new Date().getTime() };
-      request({
-        url: `${this.cdnurl}${this.ishowUrl}`,
-        method: "get",
-        param
-      })
-        .then(res => {
-          console.log(res);
-          this.appJson = res.data;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-    // json-ID
-    else if (this.ishowId) {
-      this.getIshowOne();
-    }
-  },
-  methods: {
+    },
     setVal() {
       this.autoAnimation = this.appJson.value.pageSetting.autoAnimation
         ? true
@@ -110,36 +96,23 @@ export default {
     },
     // 读取数据内容
     getIshowOne() {
-      if (this.ishowId) {
-        console.log("ishowId");
-        getIshowOne({
-          _id: this.ishowId
+      if (this.shortId) {
+        console.log("shortId");
+        getIshowShortId({
+          shortId: this.shortId
         })
           .then(res => {
-            console.log(res);
             this.appJson = res.data;
             this.setVal();
-            window.clearInterval(this.timer);
-            if (this.autoAnimation) {
-              this.timer = window.setInterval(() => {
-                this.activePage =
-                  (this.activePage + 1) % this.appJson.value.pageJson.length;
-                if (this.activePage == this.appJson.value.pageJson.length - 1) {
-                  if (!this.infinite) {
-                    window.clearInterval(this.timer);
-                  }
-                }
-              }, this.interval);
-            }
+            this.startAnimate()
           })
           .catch(err => {});
       } else {
-        console.log("klsfjlkjj");
       }
     }
   },
   watch: {
-    ishowId(val) {
+    shortId(val) {
       if (val) {
         this.getIshowOne();
       }

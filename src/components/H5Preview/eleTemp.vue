@@ -33,6 +33,7 @@ i<template>
       <!-- 异步vue组件 -->
       <sync-component
         :url="`${cdnurl}${eleJson.config.content}`"
+        :short-id="eleJson.config.content"
         :data-id="eleJson.config.dataId"
         :category-id="eleJson.config.categoryId"
       ></sync-component>
@@ -41,7 +42,7 @@ i<template>
   </div>
 </template>
 <script>
-import SyncComponent from "vue-async-component";
+import SyncComponent from "@/components/AsyncComponent";
 import { mapGetters } from "vuex";
 // 生成随机ID
 function makeid() {

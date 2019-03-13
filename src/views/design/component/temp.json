@@ -1172,9 +1172,9 @@
       "isLock": false,
       "content": "",
       "categoryModel": "",
-      "categoryId": "",
+      "category": "",
       "configModel": "",
-      "configId": "",
+      "config": "",
       "styleText": "",
       "class": ""
     },

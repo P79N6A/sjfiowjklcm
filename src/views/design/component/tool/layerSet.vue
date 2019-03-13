@@ -1778,7 +1778,7 @@ export default {
     editCom() {
       this.$bus.$emit("editContent", {
         modelId: this.config.configModel,
-        contentId: this.config.configId,
+        contentId: this.config.config,
         emitEvent: "ChangeVue"
       });
     }
@@ -1815,8 +1815,8 @@ export default {
       if (data._id) {
         this.config.configId = data._id;
       }
-      if (data.url) {
-        this.config.content = data.url;
+      if (data.short) {
+        this.config.content = data.shortId;
       }
       if (data.configModel) {
         this.config.configModel = data.configModel;
@@ -1824,7 +1824,7 @@ export default {
       if (data.categoryModel) {
         this.config.categoryModel = data.categoryModel;
       }
-      if (data.categoryId) {
+      if (data.category) {
         this.config.categoryId = data.categoryId;
       }
     });

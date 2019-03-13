@@ -7,6 +7,18 @@ export function getLayouts(data) {
     params: data
   })
 }
+export function getLayoutsShortId(data) {
+  return request({
+    url: '/api/layouts/ShortId/' + data.shortId,
+    method: 'get'
+  })
+}
+export function buyLayouts(data) {
+  return request({
+    url: '/api/layouts/buy/' + data._id,
+    method: 'get'
+  })
+}
 export function getLayoutsOne(data) {
   return request({
     url: '/api/layouts/' + data._id,
@@ -32,6 +44,6 @@ export function updateLayouts(data) {
 export function deleteLayouts(data) {
   return request({
     url: '/api/layouts/' + data._id,
-    method: 'delete',
+    method: 'delete'
   })
 }

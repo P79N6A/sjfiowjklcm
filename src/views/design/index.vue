@@ -303,10 +303,10 @@ export default {
           this.$bus.$emit("openSvgList", "ChangSvg");
         } else if (key == "vue") {
           if (data.configId) {
-            _newTemp.config.configId = data.configId;
+            _newTemp.config.config = data.configId;
           }
-          if (data.url) {
-            _newTemp.config.content = data.url;
+          if (data.shortId) {
+            _newTemp.config.content = data.shortId;
           }
           if (data.configModel) {
             _newTemp.config.configModel = data.configModel;
@@ -315,7 +315,7 @@ export default {
             _newTemp.config.categoryModel = data.categoryModel;
           }
           if (data.categoryId) {
-            _newTemp.config.categoryId = data.categoryId;
+            _newTemp.config.category = data.categoryId;
           }
         }
         _pageJson.json.splice(this.activeTempIndex + 1, 0, _newTemp);

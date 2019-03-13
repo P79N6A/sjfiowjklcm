@@ -9,6 +9,8 @@
               <div class="control">
                 <!-- 操作按钮区域 -->
                 <el-button-group>
+                  <el-button type="success" round icon="el-icon-edit" @click="toOnline(item)" v-if="!item.isPublic">公开</el-button>
+                  <el-button type="warning" round icon="el-icon-edit" @click="toStop(item)" v-else>私有</el-button>
                   <el-button type="primary" round icon="el-icon-edit" @click="edit(item)">编辑</el-button>
                   <el-button
                     type="danger"
@@ -25,8 +27,8 @@
       </div>
       <div class="bottom cfx">
         <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
+        <el-button icon="el-icon-plus" type="primary" @click="$bus.$emit('openLayoutList')">购买布局</el-button>
       </div>
-
       <!-- 创建布局 -->
       <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="1000px">
         <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
@@ -80,11 +82,12 @@
         </div>
       </el-dialog>
     </el-card>
+    <LayoutList></LayoutList>
   </div>
 </template>
 
 <script>
-import errGif from "@/assets/401_images/401.gif";
+import LayoutList from "@/components/LayoutList";
 import { getFrames } from "@/api/frames";
 import {
   getLayouts,
@@ -153,7 +156,7 @@ export default {
         name: "",
         value: {},
         device: getToken("SiteDevice"),
-        type: "layout"
+        // type: "layout"
       },
       dialogFormVisible: false,
       selectedFrameId: null
@@ -181,6 +184,7 @@ export default {
         });
       }
     },
+
     // 读取框架列表
     getFrames() {
       getFrames()
@@ -192,7 +196,7 @@ export default {
     // 获取布局列表
     getLayouts() {
       getLayouts({
-        type: this.layoutType
+        // type: this.layoutType
       })
         .then(res => {
           this.layoutList = res.data;
@@ -277,7 +281,35 @@ export default {
     selectFrame(data) {
       this.layoutTemp.value = data.value;
       this.selectedFrameId = data._id;
-    }
+    },
+    updateLayout(data){
+                    updateLayouts(data)
+                .then(res => {
+                  this.$notify({
+                    title: "成功",
+                    message: "操作成功",
+                    type: "success",
+                    duration: 2000
+                  });
+                  this.viewLayoutsClass = "layoutEdit";
+                  // this.$router.push({name:'layout'})
+                })
+                .catch(err => {});
+    },
+    // 设置为上线
+    toOnline(row) {
+      this.imgTemp = Object.assign({}, row); // copy obj
+      this.imgTemp.isPublic = true;
+      row.isPublic = true;
+      this.updateLayout(row);
+    },
+    // 设置为下架
+    toStop(row) {
+      this.imgTemp = Object.assign({}, row); // copy obj
+      this.imgTemp.isPublic = false;
+      row.isPublic = false;
+      this.updateLayout(row);
+    },
   },
   watch: {
     layoutType(val) {
@@ -285,7 +317,8 @@ export default {
         this.getLayouts();
       }
     }
-  }
+  },
+  components:{LayoutList}
 };
 </script>
 
