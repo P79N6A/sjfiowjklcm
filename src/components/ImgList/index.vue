@@ -186,7 +186,11 @@ export default {
     // 查询用户列表
     getImgs() {
       this.listLoading = true;
-      getImgs(this.filterData)
+      let query = JSON.parse(JSON.stringify(this.filterData));
+      if (!query.isPublic) {
+        delete query.isPublic;
+      }
+      getImgs(query)
         .then(res => {
           this.imgList = res.data;
           this.listLoading = false;
@@ -206,7 +210,6 @@ export default {
             type: "success",
             duration: 2000
           });
-          console.log(res);
         })
         .catch(err => {
           this.$notify({
@@ -215,8 +218,6 @@ export default {
             type: "success",
             duration: 2000
           });
-          console.log("err----");
-          console.log(err);
         });
     },
     // 预览？
@@ -225,13 +226,10 @@ export default {
     },
     // 左边大菜单选项
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
       if (key == 1) {
-        console.log("1111");
         this.imgType = "myself";
         this.filterData.isPublic = false;
       } else if (key == 2) {
-        console.log("22222");
         this.imgType = "pubilc";
         this.filterData.isPublic = true;
       }
@@ -288,6 +286,7 @@ export default {
       flex-wrap: wrap;
       height: 550px;
       overflow-y: scroll;
+      flex-direction: column;
     }
 
     .img-content {

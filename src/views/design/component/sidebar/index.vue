@@ -16,7 +16,6 @@
       <div class="item" @click="$bus.$emit('openComList')">
         <i class="el-icon-sold-out"></i>
         <p>模版商城</p>
-        {{filterData}}
       </div>
     </div>
     <div class="i-select" v-show="filterData.type">
