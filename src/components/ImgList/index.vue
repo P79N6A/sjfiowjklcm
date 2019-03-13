@@ -48,7 +48,7 @@
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
-                <div class="img-view" :style="`background-image:url('${cdnurl}${item.url}')`"></div>
+                <div class="img-view" :style="`background-image:url('${origin}${item.src}')`"></div>
                 <div class="img-control">
                   <el-button @click="select(item)" v-if="imgType=='myself'">使用</el-button>
                   <el-button v-else @click="buyImg(item)">购买</el-button>
@@ -75,7 +75,7 @@
                   >
                     <div
                       style="width:600px;height:100%;background-repeat:no-repeat;background-size:contain;background-position:center center;"
-                      :style="`background-image:url('${cdnurl}${item.url}')`"
+                      :style="`background-image:url('${origin}${item.src}')`"
                     ></div>
                   </div>
                 </el-carousel-item>
@@ -174,13 +174,13 @@ export default {
     this.$bus.$on("openImgList", emitEvent => {
       this.dialogFormVisible = true;
       this.filterData.isPublic = false;
-      this.imgType='myself'
+      this.imgType = "myself";
       this.getImgs();
       this.emitEvent = emitEvent;
     });
   },
   computed: {
-    ...mapGetters(["cdnurl"])
+    ...mapGetters(["cdnurl", "origin"])
   },
   methods: {
     // 查询用户列表
@@ -200,9 +200,21 @@ export default {
       console.log(img);
       buyImgs(img)
         .then(res => {
+          this.$notify({
+            title: "提示",
+            message: res.data.message,
+            type: "info",
+            duration: 2000
+          });
           console.log(res);
         })
         .catch(err => {
+          this.$notify({
+            title: "提示",
+            message: res.data.messagemessage,
+            type: "info",
+            duration: 2000
+          });
           console.log("err----");
           console.log(err);
         });

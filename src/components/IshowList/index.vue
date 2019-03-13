@@ -66,10 +66,11 @@
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
-                <div class="img-view" :style="`background-image:url('${item.icon}')`"></div>
-                <!-- <div class="img-view">
+                <!-- <div class="img-view" :style="`background-image:url('${item.icon}')`"></div> -->
+                <div class="img-view">
                   <IshowPre :ishow-id="item._id"></IshowPre>
-                </div>-->
+                </div>
+                <p>{{item.name}}</p>
                 <div class="img-control">
                   <el-button @click="select(item)">购买</el-button>
                   <div class="icons">
@@ -271,6 +272,7 @@ export default {
         height: 150px;
         display: inline-block;
         cursor: pointer;
+        overflow: hidden;
       }
 
       .img-control {

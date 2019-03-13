@@ -200,6 +200,8 @@ export default {
   },
   watch: {
     "filterData.type"(val) {
+      this.filterData.class = "";
+      this.filterData.key = "";
       this.getComponents();
     },
     "filterData.class"(val) {

@@ -1,32 +1,33 @@
 <template>
   <div class="sidebar">
     <div class="i-sidebar">
-      <div class="item" :class="{active:query.type=='view'}" @click="query.type='view'">
+      <div class="item" :class="{active:filterData.type=='view'}" @click="filterData.type='view'">
         <i class="el-icon-share"></i>
         <p>元素模板</p>
       </div>
-      <div class="item" :class="{active:query.type=='func'}" @click="query.type='func'">
+      <div class="item" :class="{active:filterData.type=='func'}" @click="filterData.type='func'">
         <i class="el-icon-menu"></i>
         <p>功能模板</p>
       </div>
-      <!-- <div class="item" :class="{active:query.type=='page'}" @click="query.type='page'">
+      <!-- <div class="item" :class="{active:filterData.type=='page'}" @click="filterData.type='page'">
         <i class="el-icon-document"></i>
         <p>单页模板</p>
       </div>-->
       <div class="item" @click="$bus.$emit('openComList')">
         <i class="el-icon-sold-out"></i>
         <p>模版商城</p>
+        {{filterData}}
       </div>
     </div>
-    <div class="i-select" v-show="query.type">
-      <el-tabs v-model="activeName" v-show="query.type=='view'">
+    <div class="i-select" v-show="filterData.type">
+      <el-tabs v-model="filterData.class" v-show="filterData.type=='view'">
         <el-tab-pane label="文本模板" name="text"></el-tab-pane>
         <el-tab-pane label="图片模板" name="img"></el-tab-pane>
         <el-tab-pane label="图文模板" name="imgtext"></el-tab-pane>
       </el-tabs>
-      <div v-show="query.type=='func'">
+      <div v-show="filterData.type=='func'">
         <el-dropdown size="medium" @command="handleCommand">
-          <span class="el-dropdown-link" :class="{active:query.class=='user'}">用户信息</span>
+          <span class="el-dropdown-link" :class="{active:filterData.class=='user'}">用户信息</span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="{class:'user',key:'login'}">登陆模块</el-dropdown-item>
             <el-dropdown-item :command="{class:'user',key:'register'}">注册模块</el-dropdown-item>
@@ -38,7 +39,7 @@
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown size="medium" @command="handleCommand">
-          <span class="el-dropdown-link" :class="{active:query.class=='money'}">金流</span>
+          <span class="el-dropdown-link" :class="{active:filterData.class=='money'}">金流</span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="{class:'money',key:'deposit'}">存款</el-dropdown-item>
             <el-dropdown-item :command="{class:'money',key:'withdraw'}">提款</el-dropdown-item>
@@ -55,7 +56,7 @@
           </el-dropdown-menu>
         </el-dropdown>
         <el-dropdown size="medium">
-          <span class="el-dropdown-link" :class="{active:query.class=='log'}">记录查询</span>
+          <span class="el-dropdown-link" :class="{active:filterData.class=='log'}">记录查询</span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="{class:'log',key:'1'}">首存</el-dropdown-item>
             <el-dropdown-item :command="{class:'log',key:'2'}">体验金</el-dropdown-item>
@@ -89,9 +90,9 @@
         </div>
       </div>
     </div>
-    <div class="i-buttons" v-show="query.type">
+    <div class="i-buttons" v-show="filterData.type">
       <el-tooltip class="item" effect="dark" content="收起菜单" placement="right">
-        <span class="item" @click="query.type=null">
+        <span class="item" @click="filterData.type=null">
           <i class="el-icon-caret-left"></i>
         </span>
       </el-tooltip>
@@ -112,7 +113,7 @@ export default {
       commondType: "",
       commondValue: "",
       componentList: [],
-      query: {
+      filterData: {
         type: "",
         class: "",
         key: ""
@@ -125,13 +126,13 @@ export default {
   },
   methods: {
     handleCommand(data) {
-      this.query.class = data.class;
-      this.query.key = data.key;
+      this.filterData.class = data.class;
+      this.filterData.key = data.key;
       this.getComponents();
     },
     // 获取组件列表
     getComponents() {
-      getComponents(this.query).then(response => {
+      getComponents(this.filterData).then(response => {
         if (response.data) {
           this.componentList = response.data;
         }
@@ -139,6 +140,19 @@ export default {
     },
     selectCom(item) {
       this.$bus.$emit("addTemp", { type: "vue", data: item });
+    }
+  },
+  watch: {
+    "filterData.type"(val) {
+      this.filterData.class = "";
+      this.filterData.key = "";
+      this.getComponents();
+    },
+    "filterData.class"(val) {
+      this.getComponents();
+    },
+    "filterData.key"(val) {
+      this.getComponents();
     }
   }
 };
