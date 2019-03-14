@@ -1783,9 +1783,11 @@ export default {
     // vue
     this.$bus.$on("ChangeVueConfig", data => {
       this.config.config = data;
+      this.$bus.$emit("animate-preview");
     });
     this.$bus.$on("ChangeVueData", data => {
       this.config.category = data;
+      this.$bus.$emit("animate-preview");
     });
   },
   watch: {
