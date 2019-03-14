@@ -5,7 +5,7 @@
     :preset-line="presetLine"
     position="relative"
   >
-    <div style="width:100%;" :id="`${appJson.id}`">
+    <div style="width:100%;" :id="`${appJson.value.id}`">
       <div
         class="i-box"
         :style="[bgCss,borderCss,boxShadow,{width:pageJson.config.fullScreen?'100%':pageJson.style.base.width + 'px'}]"
@@ -19,10 +19,16 @@
         >
           <div class="i-show">
             <!-- 拖拽外框 -->
-              <!-- {{drag.config}} -->
-              <eleTemp :eleJson="drag" :activeTempIndex="activeTempIndex" :showId="i" v-for="(drag,i) in pageJson.json" :key="i">
-                <!-- 组件配置 -->
-              </eleTemp>
+            <!-- {{drag.config}} -->
+            <eleTemp
+              :eleJson="drag"
+              :activeTempIndex="activeTempIndex"
+              :showId="i"
+              v-for="(drag,i) in pageJson.json"
+              :key="i"
+            >
+              <!-- 组件配置 -->
+            </eleTemp>
           </div>
         </div>
       </div>

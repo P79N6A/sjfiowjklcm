@@ -64,6 +64,16 @@
               <el-input v-model="siteInfo.value.error403" placeholder="当用户IP被限制访问时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="网站维护">
+              <el-switch
+                style="display: block"
+                v-model="siteInfo.value.maintain"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                active-text="开启"
+                inactive-text="关闭"
+              ></el-switch>
+            </el-form-item>
+            <el-form-item label="网站维护" v-if="siteInfo.value.maintain">
               <el-input v-model="siteInfo.value.error500" placeholder="当网站维护状态时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="代码(顶部)">
@@ -95,28 +105,6 @@
     </el-tabs>
     <br>
     <br>
-
-    <br>
-    <br>
-    <el-card shadow="hover">
-      <div slot="header" class="clearfix">
-        <span>网站访问状态</span>
-      </div>
-      <div class="text item">
-        <el-form label-position="left" label-width="80px" :model="siteInfo">
-          <el-form-item label="网站维护">
-            <el-switch
-              style="display: block"
-              v-model="siteInfo.value.maintain"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="开启"
-              inactive-text="关闭"
-            ></el-switch>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-card>
     <div class="site-btns">
       <el-button type="primary" @click="saveSiteInfo" icon="el-icon-setting">保存配置</el-button>
     </div>

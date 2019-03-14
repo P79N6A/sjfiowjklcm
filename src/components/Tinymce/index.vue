@@ -114,6 +114,7 @@ export default {
         imagetools_cors_hosts: ["www.tinymce.com", "codepen.io"],
         default_link_target: "_blank",
         link_title: false,
+        document_base_url: "http://localhost:3000",
         nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
         init_instance_callback: editor => {
           if (_this.value) {
@@ -182,7 +183,9 @@ export default {
         window.tinymce
           .get(_this.tinymceId)
           .insertContent(
-            `<img class="wscnph" src="${v.url}" style="max-width:100%;height:auto;"> `
+            `<img class="wscnph" src="${
+              v.url
+            }" style="max-width:100%;height:auto;"> `
           );
       });
     }

@@ -529,9 +529,10 @@ export default {
         })
         .catch(err => {});
     } else {
-      this.appJson.id = makeid();
+      this.appJson.value.id = makeid();
       this.appJson.value.pageJson[0].id = makeid();
       this.appJson.value.pageJson[0].json[0].id = makeid();
+      console.log(this.appJson);
       this.history.push({
         title: "打开组件",
         value: JSON.parse(JSON.stringify(this.appJson))

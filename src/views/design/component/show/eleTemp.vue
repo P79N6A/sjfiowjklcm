@@ -22,15 +22,15 @@
     @activated="$bus.$emit('selectTemp',showId)"
   >
     <div @click.stop class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
-      <div class="cover"></div>
+      <!-- <div class="cover"></div> -->
       <!-- 普通文本 -->
       <div class="animated ele-show">
         <div v-if="eleJson.type===1">
-          <div v-html="eleJson.config.content" class="text"></div>
+          <div v-html="eleJson.config.content" class="text" :id="`tinymce-${eleJson.id}`"></div>
         </div>
         <!-- 图片 -->
         <div v-else-if="eleJson.type===2">
-          <img :src="cdnurl+eleJson.config.content"  class="img">
+          <img :src="cdnurl+eleJson.config.content" class="img">
         </div>
         <!-- 视频 -->
         <div v-else-if="eleJson.type===8">
@@ -90,12 +90,13 @@ export default {
       styleText: "",
       animateJson: "",
       animateIndex: 0,
-      showEle: true // 用来做动画预览，重新渲染
+      showEle: true, // 用来做动画预览，重新渲染
+      tinymceId: null
     };
   },
   props: ["eleJson", "activeTempIndex", "showId"],
   computed: {
-    ...mapGetters(["cdnurl"])
+    ...mapGetters(["cdnurl", "language"])
   },
   created() {
     // 预览动画修播放效果
@@ -341,6 +342,62 @@ export default {
               ${animateTextHover}
              }
         `;
+    },
+    initTinymce() {
+      console.log("inti-tinymce");
+      const _this = this;
+      window.tinymce.init({
+        language: this.language,
+        selector: `#tinymce-${this.eleJson.id}`,
+        menubar: false,
+        inline: true,
+        plugins: [
+          // "link",
+          // "textcolor",
+          // "lists",
+          // "powerpaste",
+          // "linkchecker",
+          // "contextmenu",
+          // "autolink",
+          // "tinymcespellchecker"
+        ],
+        toolbar: [
+          "undo redo | bold italic underline | fontselect fontsizeselect",
+          "forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent"
+        ],
+        valid_elements: "p[style],strong,em,span[style],a[href],ul,ol,li",
+        valid_styles: {
+          "*": "font-size,font-family,color,text-decoration,text-align"
+        },
+        powerpaste_word_import: "clean",
+        powerpaste_html_import: "clean",
+        content_css: [
+          "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i"
+        ]
+      });
+    },
+    destroyTinymce() {
+      if (window.tinymce.get(`#tinymce-${this.eleJson.id}`)) {
+        window.tinymce.get(`#tinymce-${this.eleJson.id}`).destroy();
+      }
+    },
+    setContent(value) {
+      window.tinymce.get(`#tinymce-${this.eleJson.id}`).setContent(value);
+    },
+    getContent() {
+      window.tinymce.get(`#tinymce-${this.eleJson.id}`).getContent();
+    },
+    imageSuccessCBK(arr) {
+      const _this = this;
+      arr.forEach(v => {
+        window.tinymce
+          .get(`#tinymce-${this.eleJson.id}`)
+          .insertContent(
+            `<img class="wscnph" src="${
+              v.url
+            }" style="max-width:100%;height:auto;"> `
+          );
+      });
     }
   },
   watch: {
@@ -358,15 +415,25 @@ export default {
   mounted() {
     this.$nextTick(() => {
       // 渲染样式
-      console.log("mounted");
       this.getStyle(
         this.eleJson.style,
         this.eleJson.hoverStyle,
         this.eleJson.animate,
         this.eleJson.hoverAnimate
       );
+      // this.initTinymce();
     });
   }
+  // activated() {
+  //   this.initTinymce();
+  // },
+
+  // deactivated() {
+  //   this.destroyTinymce();
+  // },
+  // destroyed() {
+  //   this.destroyTinymce();
+  // }
 };
 </script>
 <style scoped lang="scss">

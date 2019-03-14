@@ -92,8 +92,7 @@ export default {
           // 设置链接
           this.listObj[objKeyArr[i]].hasSuccess = true;
           // img.src ='http://localhost:3000'+ response.src
-          this.listObj[objKeyArr[i]].url =
-            "http://localhost:3000" + response.url;
+          this.listObj[objKeyArr[i]].url = response.url;
           return;
         }
       }
