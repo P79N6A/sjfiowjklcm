@@ -2,7 +2,7 @@
   <div v-if="dialogFormVisible">
     <el-dialog
       class="content-edit"
-      title="数据编辑"
+      title="数据编辑vue"
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
       width="900px"
@@ -22,38 +22,38 @@
           <!-- 数字输入框 -->
           <el-input-number
             controls-position="right"
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             :placeholder="`请输入${model.name}`"
             :min="0"
             v-if="model.type=='number'"
           ></el-input-number>
           <!-- 日期-时间输入框 -->
           <el-date-picker
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             :placeholder="`请输入${model.name}`"
             type="datetime"
             v-if="model.type=='date'"
           ></el-date-picker>
           <!-- 富文本域输入框 -->
-          <tinymce :height="400" v-model="contentTemp.value[model.key]" v-if="model.type=='rtf'"></tinymce>
+          <tinymce :height="400" v-model="contentTemp[model.key]" v-if="model.type=='rtf'"></tinymce>
           <!-- 文本域 -->
           <el-input
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 4}"
             :placeholder="`请输入${model.name}`"
             v-if="model.type=='textarea'"
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
           ></el-input>
           <!-- 文本输入框 -->
           <el-input
             :placeholder="`请输入${model.name}`"
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             v-if="model.type=='text'"
           ></el-input>
           <!-- 多选 -->
           <el-select
             v-if="model.type=='checkbox'"
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             multiple
             collapse-tags
             :placeholder="`请选择${model.name}`"
@@ -67,7 +67,7 @@
           </el-select>
           <!-- 下拉选项 -->
           <el-select
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             :placeholder="`请选择${model.name}`"
             v-if="model.type=='select'"
           >
@@ -80,7 +80,7 @@
           </el-select>
           <!-- 颜色选择器 -->
           <el-color-picker
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             v-if="model.type=='color'"
             color-format="rgb"
             :show-alpha="true"
@@ -88,7 +88,7 @@
           <!-- 开关 -->
           <el-switch
             v-if="model.type=='switch'"
-            v-model="contentTemp.value[model.key]"
+            v-model="contentTemp[model.key]"
             active-color="#13ce66"
             inactive-color="#ff4949"
             active-text="是"
@@ -97,7 +97,7 @@
           <!-- 文件上传框 -->
           <div v-if="model.type=='media'">
             <!-- <a
-              v-if="contentTemp.value[model.key]&&contentTemp.value[model.key]"
+              v-if="contentTemp[model.key]&&contentTemp[model.key]"
               @click="editMedia(model.key)"
               class="img-view medias"
               style="width:120px;height:120px;display:block;"
@@ -109,34 +109,24 @@
             <i
               class="el-icon-plus avatar-uploader-icon"
               @click="editMedia(model.key)"
-              :style="`background-image:url('${cdnurl}${contentTemp.value[model.key]}')`"
+              :style="`background-image:url('${cdnurl}${contentTemp[model.key]}')`"
             ></i>
-            <div v-show="contentTemp.value[model.key]">
+            <div v-show="contentTemp[model.key]">
               <el-tag
                 closable
-                @close="contentTemp.value[model.key]=''"
+                @close="contentTemp[model.key]=''"
                 type="success"
-              >{{contentTemp.value[model.key]}}</el-tag>
+              >{{contentTemp[model.key]}}</el-tag>
             </div>
 
             <p></p>
           </div>
           <!-- 图片上传框 -->
         </el-form-item>
-        <el-form-item label="在线状态">
-          <!-- 开关 -->
-          <el-switch
-            v-model="contentTemp.online"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-text="是"
-            inactive-text="否"
-          ></el-switch>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-        <el-button type="primary" @click="contentId?updateContents():addContents()">
+        <el-button type="primary" @click="saveContents()">
           {{ $t('table.confirm')
           }}
         </el-button>
@@ -150,7 +140,6 @@
 import { mapGetters } from "vuex";
 import { getCategoryOne } from "@/api/categories";
 import { getModelOne } from "@/api/model";
-import { addContents, updateContents, getContentOne } from "@/api/contents";
 import Tinymce from "@/components/Tinymce";
 import imgList from "@/components/ImgList";
 
@@ -171,7 +160,6 @@ export default {
       modelTemp: null,
       dialogFormVisible: false,
       modelId: null,
-      categoryId: null,
       contentId: null,
       editMediaKey: null,
       emitEvent: null // 选择图片后，需要触发的函数
@@ -179,30 +167,24 @@ export default {
   },
   created() {
     this.$bus.$on("editContent", eventData => {
-      this.modelId = eventData.modelId || null;
-      this.categoryId = eventData.categoryId || null;
-      this.contentId = eventData.contentId || null;
+      this.modelId = eventData.modelId || null; // 数据模型
+      if (eventData.contentTemp) {
+        _.mergeWith(this.contentTemp, eventData.contentTemp, customizer);
+      } else {
+        this.contentTemp = {};
+      }
       this.emitEvent = eventData.emitEvent || null;
       this.dialogFormVisible = true;
-      this.getDatas();
+      this.getModelOne();
     });
     this.$bus.$on("changeMedia", eventData => {
-      this.contentTemp.value[this.editMediaKey] = eventData.url;
+      this.contentTemp[this.editMediaKey] = eventData.url;
     });
   },
   mounted() {},
   methods: {
-    // 获取数据
-    getDatas() {
-      if (this.modelId) {
-        this.getModelOne();
-      } else if (this.categoryId) {
-        this.getCategoryOne();
-      }
-    },
     // 根据模型读取
     getModelOne() {
-      console.log("model");
       getModelOne({
         _id: this.modelId
       })
@@ -211,81 +193,23 @@ export default {
           this.modelTemp = res.data.value;
           // 保存表单模型
           this.resetContentTemp();
-          console.log(this.contentId);
-          if (this.contentId) {
-            this.getContentOne();
-          }
-        })
-        .catch(err => {});
-    },
-    // 根据集合读取
-    getCategoryOne() {
-      console.log("category");
-      getCategoryOne({
-        _id: this.categoryId
-      })
-        .then(res => {
-          // 保存数据模型
-          this.modelTemp = res.data.model.value;
-          // 保存表单模型
-          this.resetContentTemp();
-          if (this.contentId) {
-            this.getContentOne();
-          }
-        })
-        .catch(err => {});
-    },
-    // 读取表单数据
-    getContentOne() {
-      console.log("get content");
-      getContentOne({ _id: this.contentId })
-        .then(res => {
-          console.log("meger");
-          _.mergeWith(this.contentTemp, res.data, customizer);
         })
         .catch(err => {});
     },
     // 新增数据
-    addContents() {
-      addContents(this.contentTemp)
-        .then(res => {
-          this.dialogFormVisible = false;
-          this.$notify({
-            title: "成功",
-            message: "创建成功",
-            type: "success",
-            duration: 2000
-          });
-          this.$bus.$emit(this.emitEvent, res.data);
-        })
-        .catch(err => {});
-    },
-    // 更新数据
-    updateContents() {
-      updateContents(this.contentTemp)
-        .then(res => {
-          this.dialogFormVisible = false;
-          this.$notify({
-            title: "成功",
-            message: "修改成功",
-            type: "success",
-            duration: 2000
-          });
-          this.$bus.$emit(this.emitEvent, res.data);
-        })
-        .catch(err => {});
+    saveContents() {
+      this.$bus.$emit(this.emitEvent, this.contentTemp);
+      this.dialogFormVisible = false;
     },
     // 重置表单模型
     resetContentTemp() {
       let _obj = {};
-      _obj.category = this.categoryId || "";
-      _obj.online = false;
-      _obj.value = {};
+      // _obj.online = false;
       // 遍历扩展的数据类型
       for (let i = 0; i < this.modelTemp.length; i++) {
         if (this.modelTemp[i].type == "checkbox") {
           // 多选框
-          _obj.value[this.modelTemp[i].key] = [];
+          _obj[this.modelTemp[i].key] = [];
         }
         // else if (
         //   this.modelTemp[i].type == "media" ||
@@ -299,14 +223,14 @@ export default {
         //   };
         // }
         else if (this.modelTemp[i].type == "switch") {
-          _obj.value[this.modelTemp[i].key] = false;
+          _obj[this.modelTemp[i].key] = false;
         } else {
-          _obj.value[this.modelTemp[i].key] = "";
+          _obj[this.modelTemp[i].key] = "";
         }
       }
       // 数据原始模版，处理完毕
+      _.mergeWith(_obj, this.contentTemp, customizer);
       this.contentTemp = _obj;
-      console.log("reset");
     },
     editMedia(key) {
       this.editMediaKey = key;

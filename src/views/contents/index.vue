@@ -125,6 +125,13 @@
       >
         <template slot-scope="scope">
           <el-button-group>
+            <el-button
+              type="danger"
+              size="mini"
+              v-if="scope.row.online"
+              @click="toStop(scope.row)"
+            >下架</el-button>
+            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上线</el-button>
             <el-tooltip class="item" effect="dark" content="编辑该数据" placement="top-start">
               <el-button
                 size="mini"
@@ -190,9 +197,12 @@ import {
   getContents,
   deleteContents,
   updateContents,
-  sortComponents
+  sortComponents,
+  addContents,
+  getContentOne
 } from "@/api/contents";
 import { getCategoryOne } from "@/api/categories";
+
 import waves from "@/directive/waves"; // Waves directive
 import Sortable from "sortablejs";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -213,14 +223,15 @@ export default {
       contentList: null,
       categoryTemp: null,
       modelTemp: null,
+      edittingContent: null,
       total: 0,
       listQuery: {
         _id: this.$route.query.categoryId,
         currentPage: "1",
         pageSize: "20"
       },
+
       listLoading: true,
-      dialogFormVisible: false,
       dialogViewVisible: false,
       tabActive: "",
       viewContent: "内容预览",
@@ -240,8 +251,16 @@ export default {
     this.getContents();
     // 读取数据模型
     this.getCategoryOne();
-    this.$bus.$on("refreshList", eventData => {
-      this.getContents();
+    this.$bus.$on("saveContent", eventData => {
+      this.edittingContent.value = eventData;
+      this.edittingContent.category = this.$route.query.categoryId;
+      console.log(this.edittingContent);
+      // return;
+      if (this.edittingContent._id) {
+        this.updateContents(this.edittingContent);
+      } else {
+        this.addContents(this.edittingContent);
+      }
     });
   },
   methods: {
@@ -273,35 +292,65 @@ export default {
         })
         .catch(err => {});
     },
+    // 新增数据
+    addContents(data) {
+      addContents(data)
+        .then(res => {
+          this.$notify({
+            title: "成功",
+            message: "创建成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getContents();
+        })
+        .catch(err => {});
+    },
+    // 更新数据
+    updateContents(data) {
+      updateContents(data)
+        .then(res => {
+          this.$notify({
+            title: "成功",
+            message: "修改成功",
+            type: "success",
+            duration: 2000
+          });
+          this.getContents();
+        })
+        .catch(err => {});
+    },
+    // 设置为上线
+    toOnline(row) {
+      row.online = true;
+      this.updateContents(row);
+    },
+    // 设置为下架
+    toStop(row) {
+      row.online = false;
+      this.updateContents(row);
+    },
     // 点击创建按钮
     handleCreate() {
-      console.log("crate data");
+      this.edittingContent = {};
       this.$bus.$emit("editContent", {
         modelId: this.modelTemp._id,
-        categoryId: this.categoryTemp._id,
-        contentId: null,
-        emitEvent: "refreshList"
+        contentTemp: null,
+        emitEvent: "saveContent"
       });
     },
     // 点击编辑按钮
     handleUpdate(row) {
-      this.$bus.$emit("editContent", {
-        modelId: this.modelTemp._id,
-        categoryId: this.categoryTemp._id,
-        contentId: row._id,
-        emitEvent: "refreshList"
-      });
-      // this.resetContentTemp();
-      // _.mergeWith(this.contentTemp, row, customizer);
-      // if (this.contentTemp.tags) {
-      //   this.contentTemp.tags = this.contentTemp.tags.join(" ");
-      // }
-      // this.dialogStatus = "update";
-      // this.dialogFormVisible = true;
-      // this.$nextTick(() => {
-      //   this.$refs["dataFormTemp"].clearValidate();
-      //   this.$refs["dataFormTempExtend"].clearValidate();
-      // });
+      getContentOne({ _id: row._id })
+        .then(res => {
+          this.edittingContent = res.data;
+          this.$bus.$emit("editContent", {
+            modelId: this.modelTemp._id,
+            contentTemp: res.data.value,
+            emitEvent: "saveContent"
+          });
+        })
+        .catch(err => {});
     },
     // 删除事件
     handleDelete(data) {

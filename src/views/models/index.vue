@@ -301,10 +301,10 @@ export default {
           name: "下拉选择列表",
           value: "select"
         },
-        // {
-        //   name: "图片上传框",
-        //   value: "image"
-        // },
+        {
+          name: "图片上传框",
+          value: "image"
+        },
         {
           name: "多媒体选项",
           value: "media"

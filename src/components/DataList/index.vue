@@ -1,33 +1,6 @@
 <template>
   <div class="category-list">
     <el-dialog title="数据" :visible.sync="dialogVisible" width="1000px">
-      ssf
-    <div v-if="showList">
-      <div class="list">
-        <div class="item" @click="selectCategory=null" :class="{active:selectCategory==null}">创建新数据集</div>
-        <div
-          class="item"
-          v-for="(item,i) in categoryList"
-          :key="i"
-          @click="selectCategory=item._id"
-          :class="{active:selectCategory==item._id}"
-        >{{item.name}}</div>
-      </div>
-      <el-card class="box-card" v-if="selectCategory==null">
-        <el-form ref="form" :model="categoryTemp" label-width="120px">
-          <el-form-item label="集合名称">
-            <el-input v-model="categoryTemp.name"></el-input>
-          </el-form-item>
-          <el-form-item label="集合说明">
-            <el-input v-model="categoryTemp.description"></el-input>
-          </el-form-item>
-        </el-form>
-      </el-card>
-      <div style="padding:10px;">
-        <el-button type="primary" @click="changeCategory">确认</el-button>
-      </div>
-    </div>
-    <div v-else>
       <div class="filter-container">
         <el-button-group>
           <el-button
@@ -36,17 +9,11 @@
             icon="el-icon-edit"
             @click="handleCreate"
           >添加数据</el-button>
-          <el-button
-            class="filter-item"
-            type="primary"
-            icon="el-icon-edit"
-            @click="showList=true"
-          >更改数据源</el-button>
+          <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleSave">保存修改</el-button>
         </el-button-group>
       </div>
       <el-table
-        v-loading="listLoading"
-        :data="contentList"
+        :data="dataList"
         border
         fit
         highlight-current-row
@@ -54,131 +21,95 @@
         v-if="modelTemp"
       >
         <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
-        <!-- 渲染系统内置数据 -->
+        <!-- 渲染扩展字段 -->
         <el-table-column
+          :label="extend.name"
           align="center"
-          label="封面"
-          prop="thumbnail"
-          v-if="modelTemp.system.thumbnail"
-          width="80"
+          v-for="(extend,i) in modelTemp.value"
+          :key="i"
         >
           <template slot-scope="scope">
-            <a
-              target="_blank"
-              v-if="scope.row.thumbnail&&scope.row.thumbnail.src"
-              :href="`${cdnurl}${scope.row.thumbnail.src}`"
-              class="img-view"
-              :style="`background-image:url('${cdnurl}${scope.row.thumbnail.src}');`"
-            ></a>
-          </template>
-        </el-table-column>
-        <el-table-column label="标题" align="center" prop="title" v-if="modelTemp.system.title"></el-table-column>
-        <el-table-column label="摘要" align="center" prop="abstract" v-if="modelTemp.system.abstract"></el-table-column>
-        <el-table-column label="标签" align="center" prop="tags" v-if="modelTemp.system.tags">
-          <template slot-scope="scope">
-            <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
-          </template>
-        </el-table-column>
-        <!-- 内容太多了，以缩略图展示 -->
-        <el-table-column
-          label="内容"
-          prop="content"
-          v-if="modelTemp.system.content"
-          width="50"
-          align="center;"
-        >
-          <template slot-scope="scope">
-            <el-tooltip class="item" effect="dark" content="点击查看内容" placement="top-start">
+            <!-- 多媒体 -->
+            <el-tooltip
+              v-if="(extend.type=='media'||extend.type=='image')&&scope.row[extend.key]"
+              class="item"
+              effect="dark"
+              content="访问源文件"
+              placement="top-start"
+            >
+              <a
+                target="_blank"
+                :href="`${cdnurl}${scope.row[extend.key]}`"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
+              >
+                <svg-icon icon-class="documentation"/>
+                <!-- {{scope.row[extend.key].fileName}} -->
+              </a>
+            </el-tooltip>
+            <!-- 富文本 -->
+            <el-tooltip
+              v-else-if="extend.type=='rtf'"
+              class="item"
+              effect="dark"
+              content="点击查看内容"
+              placement="top-start"
+            >
               <span
-                @click="hadleView(scope.row.content)"
+                @click="hadleView(scope.row[extend.key])"
                 style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
               >
                 <svg-icon icon-class="documentation"/>
               </span>
             </el-tooltip>
-          </template>
-        </el-table-column>
-        <!-- 渲染扩展字段 -->
-        <el-table-column
-          :label="extend.name"
-          align="center"
-          v-for="(extend,i) in modelTemp.extensions"
-          :key="i"
-        >
-          <template slot-scope="scope">
-            <div
-              v-if="scope.row.extensions[extend.key]&&(extend.type=='media'||extend.type=='image')"
+            <!-- 文本域 -->
+            <el-tooltip
+              v-else-if="extend.type=='textarea'"
+              class="item"
+              effect="dark"
+              content="点击查看内容"
+              placement="top-start"
             >
-              <!-- 普通多媒体 -->
-              <el-tooltip
-                v-if="extend.type=='media'&&scope.row.extensions[extend.key].src"
-                class="item"
-                effect="dark"
-                content="访问源文件"
-                placement="top-start"
+              <span
+                @click="hadleView(scope.row[extend.key])"
+                style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
               >
-                <a
-                  target="_blank"
-                  :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
-                  style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
-                >
-                  <svg-icon icon-class="documentation"/>
-                  <!-- {{scope.row.extensions[extend.key]}} -->
-                  {{scope.row.extensions[extend.key].fileName}}
-                </a>
-              </el-tooltip>
-              <!-- 图片 -->
-              <el-tooltip
-                v-else-if="extend.type=='image'&&scope.row.extensions[extend.key].src"
-                class="item"
-                effect="dark"
-                content="访问源文件"
-                placement="top-start"
-              >
-                <a
-                  target="_blank"
-                  :href="`${cdnurl}${scope.row.extensions[extend.key].src}`"
-                  class="img-view"
-                  :style="`background-image:url('${cdnurl}${scope.row.extensions[extend.key].src}');`"
-                ></a>
-              </el-tooltip>
+                <svg-icon icon-class="documentation"/>
+              </span>
+            </el-tooltip>
+            <!-- 颜色 -->
+            <el-tooltip
+              v-else-if="extend.type=='color'"
+              class="item"
+              effect="dark"
+              :content="scope.row[extend.key]"
+              placement="top-start"
+            >
+              <span
+                style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
+                :style="{background:scope.row[extend.key]}"
+              ></span>
+            </el-tooltip>
+            <!-- 时间 -->
+            <div
+              v-else-if="extend.type=='date'"
+            >{{scope.row[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
+            <!-- 开关 -->
+            <div v-else-if="extend.type=='switch'">
+              <el-tag type="success" v-if="scope.row[extend.key]">是</el-tag>
+              <el-tag type="danger" v-else>否</el-tag>
             </div>
-            <div v-else>
-              <!-- 文本域 -->
-              <el-tooltip
-                v-if="extend.type=='textarea'"
-                class="item"
-                effect="dark"
-                content="点击查看内容"
-                placement="top-start"
-              >
-                <span
-                  @click="hadleView(scope.row.extensions[extend.key])"
-                  style="text-align:center;cursor:pointer;margin:0 auto;display:inline-block;width:100%;"
-                >
-                  <svg-icon icon-class="documentation"/>
-                </span>
-              </el-tooltip>
-              <!-- 颜色 -->
-              <el-tooltip
-                v-else-if="extend.type=='color'"
-                class="item"
-                effect="dark"
-                :content="scope.row.extensions[extend.key]"
-                placement="top-start"
-              >
-                <span
-                  style="display:block;padding:4px;border-radius:6px;width:100%;height:30px;"
-                  :style="{background:scope.row.extensions[extend.key]}"
-                ></span>
-              </el-tooltip>
-              <!-- 时间 -->
-              <div
-                v-else-if="extend.type=='date'"
-              >{{scope.row.extensions[extend.key]| parseTime('{y}-{m}-{d} {h}:{i}')}}</div>
-              <!-- 其他文本 -->
-              <div v-else>{{scope.row.extensions[extend.key]}}</div>
+            <!-- 开关 -->
+            <div v-else-if="extend.type=='checkbox'">
+              <el-tag
+                type="success"
+                v-for="(item,i) in scope.row[extend.key]"
+                :key="i"
+                style="margin-right:4px;"
+              >{{item}}</el-tag>
+              <!-- <el-tag type="danger" v-else>否</el-tag> -->
             </div>
+            <!-- 其他文本 -->
+            <div v-else>{{scope.row[extend.key]}}</div>
           </template>
         </el-table-column>
         <!-- 操作部分 -->
@@ -191,22 +122,21 @@
         >
           <template slot-scope="scope">
             <el-button-group>
+              <!-- <el-button
+                type="danger"
+                size="mini"
+                v-if="scope.row.online"
+                @click="toStop(scope.row)"
+              >下架</el-button>
+              <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上线</el-button>-->
               <el-tooltip class="item" effect="dark" content="编辑该数据" placement="top-start">
                 <el-button
                   size="mini"
                   type="primary"
                   icon="el-icon-edit"
-                  @click="handleUpdate(scope.row)"
+                  @click="handleUpdate(scope.row,scope.$index)"
                 ></el-button>
               </el-tooltip>
-              <!-- <el-tooltip class="item" effect="dark" content="预览该详情" placement="top-start">
-                <el-button
-                  size="mini"
-                  type="danger"
-                  icon="el-icon-view"
-                  @click="handleOpen(`${cdnurl}${scope.row.src}`)"
-                ></el-button>
-              </el-tooltip>-->
               <el-tooltip class="item" effect="dark" content="删除该数据" placement="top-start">
                 <el-button
                   size="mini"
@@ -219,7 +149,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
     </el-dialog>
   </div>
 </template>
@@ -232,6 +161,8 @@ import {
   deleteContents,
   updateContents
 } from "@/api/contents";
+import { getModelOne } from "@/api/model";
+
 import { getCategoryOne, getCategories, addCategories } from "@/api/categories";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -249,126 +180,69 @@ export default {
   },
   data() {
     return {
-      dialogVisible:false,
-      contentList: null,
-      categoryList: null,
-      selectCategory: null,
-      showList: true,
+      dialogVisible: false,
       modelTemp: null,
-      categoryTemp: {
-        type: "content",
-        model: "",
-        name: "",
-        path: "",
-        description: ""
-      },
-      total: 0,
-      // 查询条件
-      listQuery: {
-        _id: "",
-        currentPage: "1",
-        pageSize: "20"
-      },
-      listLoading: true,
-      // =========== //
-      modelId:'',
-      categoryId:''
+      modelId: "",
+      dataList: "",
+      editIndex: ""
     };
   },
-  created(){
-    this.$bus.$on('showDataList',eventData=>{
-      this.dialogVisible=true;
-      this.modelId=eventData.categoryModel;
-      this.categoryId=eventData.categoryId;
-      console.log('show-data-list')
-      if (this.categoryId) {
-        this.showList = false;
-        this.getContents();
-        this.getCategoryOne();
-        this.selectCategory = this.categoryId;
+  created() {
+    this.$bus.$on("showDataList", eventData => {
+      this.dialogVisible = true;
+      this.emitEvent = eventData.emitEvent;
+      this.modelId = eventData.modelId;
+      this.dataList = eventData.dataList || [];
+      this.getModelOne();
+    });
+    this.$bus.$on("saveContent", eventData => {
+      if (this.editIndex.toString()) {
+        this.dataList[this.editIndex] = eventData;
+        let _newList = JSON.parse(JSON.stringify(this.dataList));
+        this.dataList = [];
+        this.$nextTick(() => {
+          this.dataList = _newList;
+        });
       } else {
-        this.getCategories();
+        this.dataList.push(eventData);
       }
     });
   },
   methods: {
-    // 查询数据分类列表
-    getContents() {
-      this.listLoading = true;
-      this.listQuery._id = this.categoryId;
-      getContents(this.listQuery)
-        .then(res => {
-          this.showList = false;
-          this.contentList = res.data.contents;
-          this.listLoading = false;
-        })
-        .catch(err => {
-          this.listLoading = false;
-        });
-    },
-    // 获取数据集列表
-    getCategories() {
-      getCategories({ type: "content", model: this.modelId })
-        .then(res => {
-          this.categoryList = res.data;
-        })
-        .catch(err => {});
-    },
-    // 更改数据集
-    changeCategory() {
-      if (this.selectCategory) {
-        // 选择系统原有的数据集
-        this.categoryId = this.selectCategory;
-        this.$emit("updateCategory", this.categoryId);
-        this.getContents();
-        this.getCategoryOne();
-      } else {
-        // 新建数据集
-        this.addCategories();
-      }
-    },
-    // 获取当前数据集合的数据
-    getCategoryOne() {
-      getCategoryOne({
-        _id: this.categoryId
+    getModelOne() {
+      getModelOne({
+        _id: this.modelId
       })
         .then(res => {
           // 保存数据模型
-          this.modelTemp = res.data.model;
-          // 保存数据集
-        })
-        .catch(err => {});
-    },
-    // 新建数据分类
-    addCategories() {
-      this.categoryTemp.model = this.modelId;
-      this.categoryTemp.path = new Date();
-      addCategories(this.categoryTemp)
-        .then(res => {
-          this.dialogFormVisible = false;
-          this.$notify({
-            title: "成功",
-            message: "创建成功",
-            type: "success",
-            duration: 2000
-          });
-          this.categoryId = res.data._id;
-          this.$emit("updateCategory", this.categoryId);
-          this.getContents();
-          this.getCategoryOne();
+          this.modelTemp = res.data;
+          // 保存表单模型
+          this.resetContentTemp();
         })
         .catch(err => {});
     },
     // 点击创建按钮
     handleCreate() {
-      // this.dialogStatus = "create";
-      // this.dialogFormVisible = true;
-        this.$bus.$emit('editData',row)
+      this.edittingData = null;
+      this.$bus.$emit("editContent", {
+        modelId: this.modelId,
+        contentTemp: null,
+        emitEvent: "saveContent"
+      });
     },
     // 点击编辑按钮
-    handleUpdate(row) {
+    handleUpdate(row, $index) {
       // 传数据
-        this.$bus.$emit('editData',row)
+      this.editIndex = $index;
+      this.$bus.$emit("editContent", {
+        modelId: this.modelId,
+        contentTemp: this.dataList[$index],
+        emitEvent: "saveContent"
+      });
+    },
+    handleSave() {
+      this.$bus.$emit(this.emitEvent, this.dataList);
+      this.dialogVisible = false;
     },
     // 删除事件
     handleDelete(data) {
@@ -376,32 +250,13 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      })
-        .then(() => {
-          deleteContents(data).then(res => {
-            this.getContents();
-            this.$notify({
-              title: "成功",
-              message: "删除成功",
-              type: "success",
-              duration: 2000
-            });
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }).then(() => {
+        console.log("准备删除数据");
+      });
     }
   },
   computed: {
     ...mapGetters(["cdnurl"])
-  },
-  watch: {
-    showList(val) {
-      if (val) {
-        this.getCategories();
-      }
-    }
   }
 };
 </script>

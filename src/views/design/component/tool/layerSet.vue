@@ -93,13 +93,13 @@
                       <!-- vue元素 -->
                       <el-form-item label="组件内容" prop="style" v-if="layerjson.type==10">
                         <el-button-group>
-                          <el-button type="primary" size="mini" @click="editCom">组件属性</el-button>
+                          <el-button type="primary" size="mini" @click="editCom">组件配置</el-button>
                           <el-button
                             type="danger"
                             size="mini"
                             v-show="config.categoryModel"
                             @click="showDataList"
-                          >组件内容</el-button>
+                          >组件数据</el-button>
                         </el-button-group>
                       </el-form-item>
                       <!-- ================ -->
@@ -1736,41 +1736,11 @@ export default {
       });
     },
     showDataList() {
-      console.log(this.config);
-      // this.$bus.$emit("showDataList", this.config);
-      if (this.config.categoryId) {
-        let routeData = this.$router.resolve({
-          name: "contents",
-          query: {
-            categoryId: this.config.categoryId
-          }
-        });
-        window.open(routeData.href, "_blank");
-      } else {
-        addCategories({
-          type: "content",
-          model: this.config.categoryModel,
-          name: "vue组件",
-          description: "vue组件"
-        })
-          .then(res => {
-            this.config.categoryId = res.data._id;
-            this.$notify({
-              title: "成功",
-              message: "创建数据集成功",
-              type: "success",
-              duration: 2000
-            });
-            let routeData = this.$router.resolve({
-              name: "contents",
-              query: {
-                categoryId: this.config.categoryId
-              }
-            });
-            window.open(routeData.href, "_blank");
-          })
-          .catch(err => {});
-      }
+      this.$bus.$emit("showDataList", {
+        modelId: this.config.categoryModel,
+        dataList: this.config.category,
+        emitEvent:'ChangeVueData'
+      });
     },
     preAnimate() {
       this.$bus.$emit("animate-preview");
@@ -1778,8 +1748,8 @@ export default {
     editCom() {
       this.$bus.$emit("editContent", {
         modelId: this.config.configModel,
-        contentId: this.config.config,
-        emitEvent: "ChangeVue"
+        contentTemp: this.config.config,
+        emitEvent: "ChangeVueConfig"
       });
     }
   },
@@ -1811,22 +1781,11 @@ export default {
       this.config.viewBox = ele.viewBox;
     });
     // vue
-    this.$bus.$on("ChangeVue", data => {
-      if (data._id) {
-        this.config.configId = data._id;
-      }
-      if (data.short) {
-        this.config.content = data.shortId;
-      }
-      if (data.configModel) {
-        this.config.configModel = data.configModel;
-      }
-      if (data.categoryModel) {
-        this.config.categoryModel = data.categoryModel;
-      }
-      if (data.category) {
-        this.config.categoryId = data.categoryId;
-      }
+    this.$bus.$on("ChangeVueConfig", data => {
+      this.config.config = data;
+    });
+    this.$bus.$on("ChangeVueData", data => {
+      this.config.category = data;
     });
   },
   watch: {

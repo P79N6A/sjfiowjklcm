@@ -19,7 +19,7 @@
             <el-form-item label="网站ico">
               <el-upload
                 class="avatar-uploader"
-                action="/api/media"
+                action="/api/imgs"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccessFav"
                 :before-upload="beforeAvatarUploadFav"
@@ -132,7 +132,24 @@ export default {
     return {
       siteInfo: {
         value: {
-          maintain: false,
+          maintain: false, // 维护状态
+          seo: {
+            title: "",
+            favicon: "",
+            keywords: "",
+            description: ""
+          },
+          setting: {
+            index: "",
+            error404: "",
+            error500: "",
+            error403: "",
+            codeHeader: "",
+            codeFooter: ""
+          },
+          level: {},
+          platform: {},
+
           title: "",
           favicon: "",
           keywords: "",
@@ -180,23 +197,21 @@ export default {
         .catch(err => {});
     },
     handleAvatarSuccessFav(res, file) {
-      this.siteInfo.value.favicon = res.src;
+      this.siteInfo.value.favicon = res.url;
     },
     beforeAvatarUploadFav(file) {
-      const isIcon =
-        file.type === "image/vnd.microsoft.icon" ||
-        file.type === "image/x-icon";
+      const isImg = file.type.includes("image");
       const isLt100K = file.size / 1024 < 100;
-      if (!isIcon) {
-        this.$message.error("上传图片只能是【.ico】后缀的文件!");
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
       }
       if (!isLt100K) {
-        this.$message.error("上传图片大小不能超过 100kb!");
+        this.$message.error("图片大小不能超过 100 KB!");
       }
-      return isIcon && isLt100K;
+      return isImg && isLt100K;
     },
     handleAvatarSuccessLogo(res, file) {
-      this.siteInfo.value.logo = res.src;
+      this.siteInfo.value.logo = res.url;
     },
     beforeAvatarUploadLogo(file) {
       const isImg = file.type.includes("image");

@@ -302,20 +302,17 @@ export default {
         } else if (key == "svg") {
           this.$bus.$emit("openSvgList", "ChangSvg");
         } else if (key == "vue") {
-          if (data.configId) {
-            _newTemp.config.config = data.configId;
-          }
           if (data.shortId) {
+            // 组件源码
             _newTemp.config.content = data.shortId;
           }
+          // 组件配置模型
           if (data.configModel) {
             _newTemp.config.configModel = data.configModel;
           }
+          // 组件数据集模型
           if (data.categoryModel) {
             _newTemp.config.categoryModel = data.categoryModel;
-          }
-          if (data.categoryId) {
-            _newTemp.config.category = data.categoryId;
           }
         }
         _pageJson.json.splice(this.activeTempIndex + 1, 0, _newTemp);
@@ -359,12 +356,9 @@ export default {
     },
     // 删除元素
     deleteTemp(index) {
-      console.log(index);
-      console.log(this.appJson.value.pageJson[this.activePageIndex].json);
       if (this.appJson.value.pageJson[this.activePageIndex].json.length > 0) {
         const _tempJson = this.appJson.value.pageJson[this.activePageIndex]
           .json;
-        console.log(_tempJson);
         _tempJson.splice(index, 1);
         // 取消元素的选中状态
         if (index > 0) {

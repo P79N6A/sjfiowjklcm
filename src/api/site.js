@@ -23,3 +23,4 @@ export function siteInfoPut(data) {
     data
   })
 }
+// 等级信息
