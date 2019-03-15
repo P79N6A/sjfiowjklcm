@@ -3,7 +3,7 @@
     <el-tabs type="border-card">
       <el-tab-pane label="站点SEO">
         <div class="text item">
-          <el-form label-position="left" label-width="80px" :model="siteInfo.value">
+          <el-form label-position="left" label-width="80px" :model="siteInfo.value.seo">
             <el-form-item label="网站标题">
               <el-input v-model="siteInfo.value.seo.title"></el-input>
             </el-form-item>
@@ -25,8 +25,8 @@
                 :before-upload="beforeAvatarUploadFav"
               >
                 <img
-                  v-if="siteInfo.value.favicon"
-                  :src="cdnurl+siteInfo.value.favicon"
+                  v-if="siteInfo.value.seo.favicon"
+                  :src="cdnurl+siteInfo.value.seo.favicon"
                   class="favicon"
                 >
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -57,8 +57,8 @@
                 inactive-text="关闭"
               ></el-switch>
             </el-form-item>
-            <el-form-item label="网站维护" v-if="siteInfo.value.setting.maintain">
-              <el-input v-model="siteInfo.value.error500" placeholder="当网站维护状态时，重定向到该地址"></el-input>
+            <el-form-item label="网站维护" v-if="siteInfo.value.maintain">
+              <el-input v-model="siteInfo.value.setting.error500" placeholder="当网站维护状态时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="代码(顶部)">
               <el-input
@@ -81,8 +81,9 @@
           </el-form>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="等级信息"></el-tab-pane>
-      <el-tab-pane label="游戏平台"></el-tab-pane>
+      <!-- <el-tab-pane label="游戏平台自定义">
+
+      </el-tab-pane> -->
     </el-tabs>
     <br>
     <br>
@@ -116,23 +117,7 @@ export default {
             codeHeader: "",
             codeFooter: ""
           },
-          level: {},
           platform: {},
-
-          title: "",
-          favicon: "",
-          keywords: "",
-          description: "",
-          logo: "",
-          // 其他
-          index: "",
-          error404: "",
-          error500: "",
-          error403: "",
-          codeHeader: "",
-          codeFooter: "",
-          // 其他配置
-          theme: "default"
         },
         _id: ""
       }
@@ -166,7 +151,8 @@ export default {
         .catch(err => {});
     },
     handleAvatarSuccessFav(res, file) {
-      this.siteInfo.value.favicon = res.url;
+      console.log(res)
+      this.siteInfo.value.seo.favicon = res.url;
     },
     beforeAvatarUploadFav(file) {
       const isImg = file.type.includes("image");
@@ -178,26 +164,12 @@ export default {
         this.$message.error("图片大小不能超过 100 KB!");
       }
       return isImg && isLt100K;
-    },
-    handleAvatarSuccessLogo(res, file) {
-      this.siteInfo.value.logo = res.url;
-    },
-    beforeAvatarUploadLogo(file) {
-      const isImg = file.type.includes("image");
-      const isLt300K = file.size / 1024 < 300;
-      if (!isImg) {
-        this.$message.error("只能上传图片类型文件!");
-      }
-      if (!isLt300K) {
-        this.$message.error("图片大小不能超过 300 KB!");
-      }
-      return isImg && isLt300K;
-    }
+    } 
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .siteSet-container {
   padding: 20px;
 
