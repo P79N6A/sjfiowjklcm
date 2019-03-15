@@ -15,6 +15,13 @@
           <el-form-item label="bucket">
             <el-input v-model="qiniuInfo.value.bucket" placeholder="请输入七牛bucket"></el-input>
           </el-form-item>
+          <el-form-item label="scope">
+            <el-input v-model="qiniuInfo.value.scope" placeholder="请输入七牛scope"></el-input>
+          </el-form-item>
+          <el-form-item label="zone">
+            <el-input v-model="qiniuInfo.value.zone" placeholder="请输入七牛zone"></el-input>
+          </el-form-item>
+          
           <el-form-item>
             <el-button type="primary" @click="saveConfig(qiniuInfo)" icon="el-icon-setting">提交</el-button>
           </el-form-item>
@@ -58,7 +65,9 @@
           value:{
             'accessKey':'',
             'secretKey':'',
-            'bucket':''
+            'bucket':'',
+            'scope':'',
+            'zone':''
           }
         },
         cdnInfo: {

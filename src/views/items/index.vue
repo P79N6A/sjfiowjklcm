@@ -24,7 +24,7 @@
         <el-button type="danger" @click="handleCreate">添加游戏</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleSort">保存排序</el-button>
+        <el-button type="danger" @click="handleSort">保存生效</el-button>
       </span>
 
       <!-- <span>
@@ -48,7 +48,14 @@
         <template slot-scope="scope">
           <a
             target="_blank"
-            v-if="scope.row.game.icon"
+            v-if="scope.row.value.icon"
+            :href="`${cdnurl}${scope.row.value.icon}`"
+            class="img-view"
+            :style="`background-image:url(${cdnurl}${scope.row.value.icon});`"
+          ></a>
+          <a
+            target="_blank"
+            v-else
             :href="`${cdnurl}${scope.row.game.icon}`"
             class="img-view"
             :style="`background-image:url(${cdnurl}${scope.row.game.icon});`"
@@ -57,14 +64,14 @@
       </el-table-column>
       <el-table-column align="center" label="名称" prop="name">
         <template slot-scope="scope">
-          <div>
-            <span v-if="scope.row.name">{{scope.row.name}}</span>
-            <span v-else>{{scope.row.game.name}}</span>
-          </div>
-          <div>
-            <span v-if="scope.row.eName">{{scope.row.eName}}</span>
-            <span v-else>{{scope.row.game.eName}}</span>
-          </div>
+          <span v-if="scope.row.value.name">{{scope.row.value.name}}</span>
+          <span v-else>{{scope.row.game.name}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="英文名称" prop="name">
+        <template slot-scope="scope">
+          <span v-if="scope.row.value.eName">{{scope.row.value.eName}}</span>
+          <span v-else>{{scope.row.game.eName}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="id/code" prop="name">
@@ -88,7 +95,13 @@
           <el-tag v-else>否</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="支持试玩">
+      <el-table-column align="center" label="真钱">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.game.money" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="试玩">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.game.try" type="warning">是</el-tag>
           <el-tag v-else>否</el-tag>
@@ -97,7 +110,7 @@
       <el-table-column align="center" label="游戏类型">
         <template slot-scope="scope">{{getTypesName(scope.row.game.types)}}</template>
       </el-table-column>
-      <el-table-column align="center" label="游戏标签">
+      <el-table-column align="center" label="游戏标签" width="200">
         <template slot-scope="scope">
           <div v-if="scope.row.game.tags.length>0">
             <el-tag
@@ -106,14 +119,18 @@
               :key="i"
             >{{getTagName(item)}}</el-tag>
           </div>
-          <div v-if="scope.row.tags.length>0">
-            <el-tag type="primary" v-for="(item,i) in scope.row.tags" :key="i">{{getTagName(item)}}</el-tag>
+          <div v-if="scope.row.value.tags&&scope.row.value.tags.length>0">
+            <el-tag
+              type="primary"
+              v-for="(item,i) in scope.row.value.tags"
+              :key="i"
+            >{{getTagName(item)}}</el-tag>
           </div>
         </template>
       </el-table-column>
       <el-table-column align="center" label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.game.online" type="success">上线</el-tag>
+          <el-tag v-if="scope.row.game.online" type="success">在线</el-tag>
           <el-tag v-else type="danger">下架</el-tag>
         </template>
       </el-table-column>
@@ -155,26 +172,23 @@
       :close-on-click-modal="false"
       v-if="dialogFormVisible"
     >
+      <div style="text-align:left;">
+        <el-button type="warning" @click="allItems">全选/取消</el-button>
+      </div>
       <div class="game-list">
         <div v-for="game in gameList" :key="game._id" class="games" @click="handleClick(game._id)">
           <div :class="{active:selectGames.includes(game._id)}">
-            <div
-              class="img-view"
-              :style="`background-image:url(${cdnurl}${game.icon});`"
-              v-if="game.icon"
-            ></div>
-            <div v-else class="img-view"></div>
+            <div class="img-view" :style="`background-image:url(${cdnurl}${game.icon});`"></div>
             <div>{{game.name}}</div>
             <div>{{game.eName}}</div>
-            <p>{{game._id}}</p>
           </div>
         </div>
       </div>
       <div style="text-align:right;">
-        <el-button type="warning" @click="allItems">全选/取消</el-button>
         <el-button type="primary" @click="addItems">确认</el-button>
       </div>
     </el-dialog>
+    <!-- 编辑游戏数据 -->
     <el-dialog
       title="编辑游戏"
       :visible.sync="dialogEditVisible"
@@ -185,40 +199,106 @@
       <table class="detail-table">
         <tbody>
           <tr>
-            <td>游戏封面:</td>
-            <td>
+            <td rowspan="6" style="width:180px;text-align:center;">
+              <!-- 自定义的图标 -->
               <a
                 target="_blank"
-                v-if="editItem.game.icon"
+                v-if="editItem.value.icon"
+                :href="`${cdnurl}${editItem.value.icon}`"
+                class="edit-view"
+                :style="`background-image:url('${cdnurl}${editItem.value.icon}');`"
+              ></a>
+              <!-- 系统内置图标 -->
+              <a
+                target="_blank"
+                v-else
                 :href="`${cdnurl}${editItem.game.icon}`"
-                class="img-view"
+                class="edit-view"
                 :style="`background-image:url('${cdnurl}${editItem.game.icon}');`"
               ></a>
+              <el-button-group>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  @click="$bus.$emit('openImgList','changIcon')"
+                >修改</el-button>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  @click="editItem.value.icon=''"
+                  v-if="editItem.value.icon"
+                >还原</el-button>
+              </el-button-group>
             </td>
             <td>游戏名称:</td>
             <td>
-              {{editItem.game.name}}
-              <br>
-              {{editItem.game.eName}}
+              <div v-if="editName">
+                <input :placeholder="editItem.game.name" v-model="editItem.value.name">
+              </div>
+              <div v-else>
+                <span v-if="editItem.value.name">{{editItem.value.name}}</span>
+                <span v-else>{{editItem.game.name}}</span>
+              </div>
+              <el-button-group>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  v-if="!editName"
+                  @click="editName=!editName"
+                >修改</el-button>
+                <el-button type="primary" size="mini" v-if="editName" @click="editName=!editName">完成</el-button>
+                <el-button type="danger" size="mini" @click="editItem.value.name=''">还原</el-button>
+              </el-button-group>
             </td>
             <td>游戏ID/Code:</td>
+            <td>{{editItem.game.id}}</td>
+            <td>{{editItem.game.code}}</td>
+          </tr>
+          <tr>
+            <td>游戏英文名:</td>
             <td>
-              {{editItem.game.id}}
-              <br>
-              {{editItem.game.code}}
+              <div v-if="editeName">
+                <input :placeholder="editItem.game.eName" v-model="editItem.value.eName">
+              </div>
+              <div v-else>
+                <span v-if="editItem.value.eName">{{editItem.value.eName}}</span>
+                <span v-else>{{editItem.game.eName}}</span>
+              </div>
+              <el-button-group>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  v-if="!editeName"
+                  @click="editeName=!editeName"
+                >修改</el-button>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  v-if="editeName"
+                  @click="editeName=!editeName"
+                >完成</el-button>
+                <el-button type="danger" size="mini" @click="editItem.value.eName=''">还原</el-button>
+              </el-button-group>
             </td>
+            <td>游戏gameName/gameType:</td>
+            <td>{{editItem.game.gameName}}</td>
+            <td>{{editItem.game.gameType}}</td>
           </tr>
           <tr>
             <td>游戏类型:</td>
             <td>{{editItem.game.types}}</td>
-            <td>游戏平台:</td>
-            <td>{{editItem.game.platform}}</td>
-            <td>游戏终端</td>
-            <td>{{editItem.game.device}}</td>
+            <td>游戏线注</td>
+            <td>{{editItem.game.line}}</td>
           </tr>
           <tr>
-            <td 游戏标签></td>
-            <td colspan="5">
+            <td>游戏平台:</td>
+            <td>{{editItem.game.platform}}</td>
+            <td>moduleid</td>
+            <td>{{editItem.game.moduleid}}</td>
+          </tr>
+          <tr>
+            <td>游戏标签</td>
+            <td colspan="3">
               <el-checkbox-group v-model="editItem.game.tags" disabled>
                 <el-checkbox
                   :label="tag"
@@ -227,7 +307,7 @@
                   readonly
                 >{{getTagName(tag)}}</el-checkbox>
               </el-checkbox-group>
-              <el-checkbox-group v-model="editItem.tags">
+              <el-checkbox-group v-model="editItem.value.tags">
                 <el-checkbox
                   :label="tag.value"
                   v-for="tag in tagList"
@@ -239,7 +319,7 @@
           </tr>
           <tr>
             <td>游戏备注</td>
-            <td colspan="5">
+            <td colspan="3">
               <el-input type="textarea" v-model="editItem.description"></el-input>
             </td>
           </tr>
@@ -249,12 +329,14 @@
         <el-button @click="updateItem" type="primary">提交</el-button>
       </div>
     </el-dialog>
+    <imgList>图片资源框</imgList>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { fetchList } from "@/api/article";
+import imgList from "@/components/ImgList";
 import { getGames } from "@/api/games";
 import {
   getItems,
@@ -268,16 +350,6 @@ import { getPlatforms } from "@/api/platforms";
 import { getToken, setToken, removeToken } from "@/utils/auth";
 export default {
   name: "DragTable",
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: "success",
-        draft: "info",
-        deleted: "danger"
-      };
-      return statusMap[status];
-    }
-  },
   data() {
     return {
       list: null,
@@ -302,6 +374,8 @@ export default {
       // 从系统库中选中的游戏
       selectGames: [],
       editItem: null,
+      editName: false,
+      editeName: false,
       // 分类
       typeList: [
         {
@@ -357,6 +431,10 @@ export default {
   created() {
     this.getPlatforms();
     this.getList();
+    this.$bus.$on("changIcon", eventData => {
+      console.log(eventData);
+      this.editItem.value.icon = eventData.url;
+    });
   },
   computed: {
     ...mapGetters(["cdnurl"])
@@ -379,6 +457,7 @@ export default {
       this.editItem = JSON.parse(JSON.stringify(data));
       this.dialogEditVisible = true;
     },
+    // 更新游戏
     updateItem() {
       updateItems(this.editItem)
         .then(res => {
@@ -494,12 +573,6 @@ export default {
     // 确认添加至大厅
     addItems(ids) {
       if (this.selectGames.length == 0) {
-        this.$notify({
-          title: "提示",
-          message: "没有要添加的数据",
-          type: "warning",
-          duration: 2000
-        });
         this.dialogFormVisible = false;
         return;
       }
@@ -521,7 +594,6 @@ export default {
         })
         .catch(err => {});
     },
-
     // 读取大厅数据
     getList() {
       this.listLoading = true;
@@ -583,7 +655,8 @@ export default {
       });
       return name;
     }
-  }
+  },
+  components: { imgList }
 };
 </script>
 
@@ -596,6 +669,7 @@ export default {
     background-repeat: no-repeat;
     background-size: contain;
     background-color: #eee;
+    margin-top: 5px;
     width: 60px;
     height: 60px;
     display: inline-block;
@@ -637,13 +711,13 @@ export default {
       > div {
         border: solid 1px #eee;
         border-radius: 6px;
+        background-color: #eee;
         text-align: center;
         cursor: pointer;
         overflow: hidden;
         transition: all 0.7;
         box-shadow: 0 0 3px 3px #eee;
 
-        &:hover,
         &.active {
           box-shadow: 0 0 6px 2px #409eff;
           border: solid 1px #409eff;
@@ -669,6 +743,15 @@ export default {
     td {
       border: solid 1px #eee;
       padding: 8px;
+    }
+    .edit-view {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100%;
+      height: 220px;
+      display: inline-block;
+      line-height: 2;
     }
   }
 }

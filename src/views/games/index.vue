@@ -52,7 +52,7 @@
         </template>
       </el-table-column>
       <!-- :href="`${cdnurl}${scope.row.thumbnail.src}`" -->
-      <el-table-column fixed label="名称">
+      <el-table-column fixed label="中/英名称">
         <template slot-scope="scope">
           <div>{{scope.row.name}}</div>
           <div>{{scope.row.eName}}</div>
@@ -68,6 +68,12 @@
       <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.mgself" type="warning">是</el-tag>
+          <el-tag v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="支持真钱">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.money" type="warning">是</el-tag>
           <el-tag v-else>否</el-tag>
         </template>
       </el-table-column>
@@ -224,9 +230,9 @@
               </tr>
               <tr>
                 <td>
-                  <el-form-item label="在线状态" prop="online">
+                  <el-form-item label="支持真钱" prop="online">
                     <el-switch
-                      v-model="gameTemp.online"
+                      v-model="gameTemp.money"
                       active-color="#13ce66"
                       inactive-color="#ff4949"
                       active-text="是"
@@ -288,6 +294,19 @@
                         </a>
                       </p>
                     </div>-->
+                  </el-form-item>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <el-form-item label="在线状态" prop="online">
+                    <el-switch
+                      v-model="gameTemp.online"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                      active-text="是"
+                      inactive-text="否"
+                    ></el-switch>
                   </el-form-item>
                 </td>
               </tr>
@@ -453,6 +472,7 @@ export default {
         name: "",
         eName: "",
         online: true,
+        money: true,
         try: true,
         line: 0,
         thumbnail: "",
@@ -605,6 +625,7 @@ export default {
             type: "success",
             duration: 2000
           });
+          this.getGames();
           // 有更新封面
           if (this.changeIcon) {
             this.$refs.gameIcon.submit();
@@ -630,6 +651,7 @@ export default {
         name: "",
         eName: "",
         online: true,
+        money: true,
         try: true,
         line: 0,
         thumbnail: "",
