@@ -5,15 +5,15 @@
         <div class="text item">
           <el-form label-position="left" label-width="80px" :model="siteInfo.value">
             <el-form-item label="网站标题">
-              <el-input v-model="siteInfo.value.title"></el-input>
+              <el-input v-model="siteInfo.value.seo.title"></el-input>
             </el-form-item>
 
             <el-form-item label="关键词">
-              <el-input v-model="siteInfo.value.keywords"></el-input>
+              <el-input v-model="siteInfo.value.seo.keywords"></el-input>
             </el-form-item>
 
             <el-form-item label="描述">
-              <el-input v-model="siteInfo.value.description"></el-input>
+              <el-input v-model="siteInfo.value.seo.description"></el-input>
             </el-form-item>
 
             <el-form-item label="网站ico">
@@ -32,22 +32,6 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>只能是图片文件且不超过100KB!
             </el-form-item>
-
-            <!-- <el-form-item label="网站logo">
-              <el-upload
-                class="avatar-uploader"
-                action="/api/media"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccessLogo"
-                :before-upload="beforeAvatarUploadLogo"
-              >
-                <img v-if="siteInfo.value.logo" :src="cdnurl+siteInfo.value.logo" class="logo">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload>只能是【.png】后缀的文件且不超过300KB!
-            </el-form-item>-->
-            <el-form-item>
-              <el-button type="primary" icon="el-icon-setting">保存配置</el-button>
-            </el-form-item>
           </el-form>
         </div>
       </el-tab-pane>
@@ -55,30 +39,30 @@
         <div class="text item">
           <el-form label-position="left" label-width="80px" :model="siteInfo">
             <el-form-item label="默认首页">
-              <el-input v-model="siteInfo.value.index" placeholder="输入网址，默认重定向到该页面"></el-input>
+              <el-input v-model="siteInfo.value.setting.index" placeholder="输入网址，默认重定向到该页面"></el-input>
             </el-form-item>
             <el-form-item label="页面丢失">
-              <el-input v-model="siteInfo.value.error404" placeholder="当输入错误网页地址时，重定向到该地址"></el-input>
+              <el-input v-model="siteInfo.value.setting.error404" placeholder="当输入错误网页地址时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="IP受限">
-              <el-input v-model="siteInfo.value.error403" placeholder="当用户IP被限制访问时，重定向到该地址"></el-input>
+              <el-input v-model="siteInfo.value.setting.error403" placeholder="当用户IP被限制访问时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="网站维护">
               <el-switch
                 style="display: block"
-                v-model="siteInfo.value.maintain"
+                v-model="siteInfo.value.setting.maintain"
                 active-color="#13ce66"
                 inactive-color="#ff4949"
                 active-text="开启"
                 inactive-text="关闭"
               ></el-switch>
             </el-form-item>
-            <el-form-item label="网站维护" v-if="siteInfo.value.maintain">
+            <el-form-item label="网站维护" v-if="siteInfo.value.setting.maintain">
               <el-input v-model="siteInfo.value.error500" placeholder="当网站维护状态时，重定向到该地址"></el-input>
             </el-form-item>
             <el-form-item label="代码(顶部)">
               <el-input
-                v-model="siteInfo.value.codeHeader"
+                v-model="siteInfo.value.setting.codeHeader"
                 type="textarea"
                 :autosize="{ minRows: 5, maxRows: 10}"
                 placeholder="这里的代码将注入到网站每个页面头部"
@@ -87,15 +71,12 @@
             </el-form-item>
             <el-form-item label="代码(脚部)">
               <el-input
-                v-model="siteInfo.value.codeFooter"
+                v-model="siteInfo.value.setting.codeFooter"
                 type="textarea"
                 :autosize="{ minRows: 5, maxRows: 10}"
                 placeholder="这里的代码将注入到网站每个页面底部"
               ></el-input>
               <div style="color:red;">*请谨慎添加，该代码将影响每个页面</div>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="el-icon-setting">保存配置</el-button>
             </el-form-item>
           </el-form>
         </div>
