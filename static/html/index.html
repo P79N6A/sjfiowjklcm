@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>隆腾集团与辉腾集团合并改版，全新高端震撼上线!</title>
+
+    <script>
+        // 检测到mobile端，强制跳转PC页面 
+    if (window.navigator.userAgent.toString().search(/(iPhone|iPod|Android|ios|Windows Phone|mobile|iPad|SymbianOS)/i) !=
+        -1) {
+        // 检测到手机设备，访问手机端
+        window.location.href = "./mobile.html";
+    }
+</script>
+    <style>
+        #cnzz_stat_icon_1276585165,
+        #cnzz_stat_icon_1276585169 {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./css/pc.css">
+</head>
+
+<body>
+    <!-- <a href="https://ltgj444.com/index"> -->
+        <div class="content-bg">
+            <div class="content">
+                <div class="content-top">
+                    <img src="images/logo.png" alt="">
+                    <span>ltgj444.com</span>
+                    <img src="images/text.png" alt="">
+                </div>
+                <div class="content-notice">
+                    <div class="fl content-notice-l">
+                        <div style="padding:10px 28px;">
+
+                        <p>尊敬的辉煌集团会员们，感谢您一路对辉煌的风雨陪伴，大力支持！</p>
+                        <p>为了给广大玩家提供更高端、顶尖的一流博彩网站，我司—辉煌集团将在一个礼拜内</p>
+                        <p>与【隆腾集团】强强联手，合并共同运营！打造全亚洲最具权威的在线娱乐网站！</p>
+                        <p>所有新老客户数据会合并到隆腾集团，将自动为您切换到升级版—隆腾集团官网：</p>
+                        <p><a class="yellow" style="text-decoration: underline;">ltgj444.com</a> ，最新样貌，独家限时限量优惠，不容错过！</p>
+                        <p>请您使用辉煌账号在隆腾官网进行注册激活，届时我们将提供“<span class="yellow">合并红包</span>”，总共送</p>
+                        <p>出“<span class="yellow">10万个限量红包</span>”抢完为止，先到先得！</p>
+                        <p></p>
+                        <p class="yellow">请认准 最新合并升级版官网：<a style="text-decoration: underline;">ltgj444.com</a></p>
+                    </div>
+
+                        <div class="yellow" style="padding:10px 28px;border-top:dashed #ccc 1px;">
+                            <div>限量红包申请方式：</div>
+                            <div>点击【QQ】客服<a href="http://wpa.qq.com/msgrd?v=3&uin=1778513359&site=qq&menu=yes" target="_blank"><img src="./images/qq_pc.png" style="vertical-align: middle;margin:0 5px;"></a>立即申请!</div>
+                            <div>扫一扫右方二维码，添加微信客服：【ltgj800】</div>
+                        </div>
+                    </div>
+                    <div class="fr content-notice-r">
+                        <div class="content-notice-r-box">
+                            <p class="count count1">已经转移人数：</p>
+                            <p id="num-transform" class="red"></p>
+                            <p class="count count2">已领取合并红包人数：</p>
+                            <p id="num-get" class="red"></p>
+                            <p class="count count3">已发放合并红包人数：</p>
+                            <p id="num-merge" class="red"></p>
+
+                        </div>
+                        <div class="content-notice-r-img">
+                            <p class="p-img">微信客服：<span>ltgj800</span></p>
+                            <img src="images/code.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="content-bottom">
+                    <div class="fl content-bottom-l">
+                        <ul id="express">
+                            <li>恭喜QW***1已激活账号，成功转移，获得彩金: <span class="red">520</span>元</li>
+                            <li>恭喜XI***52已激活账号，成功转移，获得彩金: <span class="red">88</span>元</li>
+                            <li>恭喜45***bb已激活账号，成功转移，获得彩金: <span class="red">300</span>元</li>
+                            <li>恭喜yf***21已激活账号，成功转移，获得彩金: <span class="red">688</span>元</li>
+                            <li>恭喜yu***330已激活账号，成功转移，获得彩金: <span class="red">128</span>元</li>
+                            <li>恭喜lcs***12已激活账号，成功转移，获得彩金: <span class="red">1100</span>元</li>
+                            <li>恭喜AS***08已激活账号，成功转移，获得彩金: <span class="red">288</span>元</li>
+                            <li>恭喜80***OL已激活账号，成功转移，获得彩金: <span class="red">150</span>元</li>
+                            <li>恭喜JI***6已激活账号，成功转移，获得彩金: <span class="red">908</span>元</li>
+                            <li>恭喜YI***50已激活账号，成功转移，获得彩金: <span class="red">78</span>元</li>
+                            <li>恭喜lpk***17已激活账号，成功转移，获得彩金: <span class="red">610</span>元</li>
+                        </ul>
+                    </div>
+                    <div class="fr content-bottom-r">
+                        <img src="images/pc-bottom-code.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </a> -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("body").click(function () {
+                window.location.href = 'https://ltgj444.com/mobile/index'
+            })
+            //书讯快递循环垂直向上滚动
+            function movedome() {
+                var margintop = 0; //上边距的偏移量
+                var stop = false;
+                setInterval(function () {
+                        if (stop == true) {
+                            return;
+                        }
+                        $("#express").children("li").first().animate({
+                                "margin-top": margintop--
+                            },
+                            0,
+                            function () {
+                                var $li = $(this);
+                                if (!$li.is(":animated")) { //第一个li的动画结束时
+                                    if (-margintop > $li.height()) {
+                                        $li.css("margin-top", "0px").appendTo($("#express"));
+                                        margintop = 0;
+                                    }
+                                }
+                            });
+                    },
+                    50);
+                //鼠标放到快递信息(ul)上时
+                $("#express").hover(function () {
+                        $(this).css("cursor", "pointer");
+                        stop = true; //停止动画
+                    },
+                    function () {
+                        stop = false; //开始动画
+                    });
+            }
+            movedome();
+            // 数字递增
+            var oldnum1 = parseInt($.cookie('oldnum1')) || 7900
+            var oldnum2 = parseInt($.cookie('oldnum2')) || 4754
+            var oldnum3 = parseInt($.cookie('oldnum3')) || 6630
+            var num = 53;
+            var start = 0;
+            var step = 1;
+
+            var timer1 = setInterval(function () {
+                start = start + step;
+                if (start >= num) {
+                    $.cookie('oldnum1', oldnum1 + num)
+                    clearInterval(timer1);
+                    return false;
+                }
+                document.getElementById('num-transform').innerHTML = oldnum1 + start;
+            }, 20)
+
+            var timer2 = setInterval(function () {
+                start = start + step;
+                if (start >= num + 20) {
+                    $.cookie('oldnum2', oldnum2 + num)
+                    clearInterval(timer2);
+                    return false;
+                }
+                document.getElementById('num-get').innerHTML = oldnum2 + start;
+            }, 20)
+
+            var timer2 = setInterval(function () {
+                start = start + step;
+                if (start >= num + 20) {
+                    $.cookie('oldnum3', oldnum3 + num)
+                    clearInterval(timer2);
+                    return false;
+                }
+                document.getElementById('num-merge').innerHTML = oldnum3 + start;
+            }, 20)
+        });
+    </script>
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1276585169'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol +
+            "s5.cnzz.com/z_stat.php%3Fid%3D1276585169' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</body>
+
+</html>
