@@ -61,6 +61,7 @@
         <template slot-scope="scope">
           <el-button-group>
             <el-button type="primary" @click="handleUpdate(scope.row)" icon="el-icon-edit">信息</el-button>
+            <el-button type="primary" @click="handlePush(scope.row)" icon="el-icon-edit">上线</el-button>
             <el-button type="warning" @click="handleEdit(scope.row)" icon="el-icon-setting">管理</el-button>
             <el-button
               v-if="scope.row.status!='deleted'"
@@ -136,7 +137,8 @@ import {
   getProjects,
   updateProjects,
   deleteProjects,
-  rememberProjects
+  rememberProjects,
+  pushProjects
 } from "@/api/projects";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -191,6 +193,24 @@ export default {
         .catch(err => {
           this.listLoading = false;
         });
+    },
+    // 上线
+    handlePush(data){
+      pushProjects(data).then(res=>{
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+      }).catch(err=>{
+          this.$notify({
+            title: "成功",
+            message: err.message,
+            type: "success",
+            duration: 2000
+          });
+      })
     },
     // 创建项目
     createProjects() {

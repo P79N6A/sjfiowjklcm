@@ -21,6 +21,12 @@ export function updateProjects(data) {
     data
   })
 }
+export function pushProjects(data) {
+  return request({
+    url: '/api/projects/push/' + data._id,
+    method: 'get'
+  })
+}
 
 export function deleteProjects(data) {
   return request({
