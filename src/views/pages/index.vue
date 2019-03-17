@@ -223,8 +223,7 @@ export default {
   methods: {
     // 获取页面列表
     getContents() {
-      console.log('lksafjsladkjflk')
-      getLayouts({ type: "page" })
+      getLayouts()
         .then(res => {
           this.contentList = res.data;
         })
