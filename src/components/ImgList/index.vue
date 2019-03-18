@@ -286,7 +286,6 @@ export default {
       flex-wrap: wrap;
       height: 550px;
       overflow-y: scroll;
-      flex-direction: column;
     }
 
     .img-content {

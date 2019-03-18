@@ -234,7 +234,7 @@ export default {
       },
       layoutTemp: {
         _id: "",
-        name: "",
+        name: "new frame",
         device: getToken("SiteDevice"),
         screenShot: "",
         type: "",
@@ -832,7 +832,7 @@ export default {
         type: "ishow",
         _id: item._id,
         url: item.url,
-        shortId:item.shortId,
+        shortId: item.shortId,
         name: item.name
       };
       this.editCol.components.push(Object.assign({}, _ishow));

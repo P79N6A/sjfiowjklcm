@@ -20,6 +20,7 @@
                 v-if="drag.config.isShow"
                 :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
                 :key="i"
+                @click="elClick(drag.event)"
               >
                 <eleTemp :eleJson="drag" :showId="i">
                   <!-- 组件配置 -->
@@ -48,6 +49,7 @@ export default {
       infinite: true, // 是否循环播放
       interval: 3000, //动画时间间隔,单位ms
       timer: "",
+      scrollTimer: null,
       showPage: true
     };
   },
@@ -63,7 +65,7 @@ export default {
     // 有完整的json传入
     if (this.appJson) {
       this.setVal();
-      this.startAnimate()
+      this.startAnimate();
     }
     // shortId
     else if (this.shortId) {
@@ -71,7 +73,7 @@ export default {
     }
   },
   methods: {
-    startAnimate(){
+    startAnimate() {
       window.clearInterval(this.timer);
       if (this.autoAnimation) {
         this.timer = window.setInterval(() => {
@@ -104,11 +106,58 @@ export default {
           .then(res => {
             this.appJson = res.data;
             this.setVal();
-            this.startAnimate()
+            this.startAnimate();
           })
           .catch(err => {});
       } else {
       }
+    },
+    elClick(eventJson) {
+      console.log(eventJson);
+      if (eventJson.onClick.type == "next") {
+        // 下一场景
+        this.activePage = (this.activePage + 1) % this.pageJson.length;
+      } else if (eventJson.onClick.type == "pre") {
+        // 上一场景
+        this.activePage =
+          (this.activePage - 1 + this.pageJson.length) % this.pageJson.length;
+      } else if (eventJson.onClick.type == "index") {
+        this.activePage = eventJson.onClick.index;
+        // 到任意场景
+      } else if (eventJson.onClick.type == "link" && eventJson.link) {
+        if (eventJson.onClick.target == "_blank") {
+          window.open(eventJson.onClick.link);
+        } else {
+          window.location.href = eventJson.onClick.link;
+        }
+      } else if (eventJson.onClick.type == "close") {
+        this.showPage = false;
+      } else if (eventJson.onClick.type == "scroll") {
+        this.showPage = false;
+        this.scrollTo(eventJson.onClick.scrollY);
+      }
+    },
+    //垂直滚动
+    scrollTo(iTarget) {
+      window.clearInterval(this.scrollTimer);
+      let scrollElm = null;
+      // 兼容性处理
+      if (document.documentElement && document.documentElement.scrollTop) {
+        scrollElm = document.documentElement.scrollTop;
+      } else if (document.body) {
+        scrollElm = document.body.scrollTop;
+      }
+      const that = this;
+      // 缓冲滚动
+      this.scrollTimer = window.setInterval(function() {
+        that.iSpeed = (iTarget - scrollElm) / 4;
+        if (that.iSpeed > -1 && that.iSpeed < 1) {
+          window.clearInterval(that.scrollTimer);
+        } else {
+          scrollElm += that.iSpeed;
+          window.scroll(0, scrollElm);
+        }
+      }, 60);
     }
   },
   watch: {

@@ -1,45 +1,45 @@
-i<template>
-  <div @click.stop class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
-    <!-- 普通文本 -->
-    <div v-if="eleJson.type===1" class="animated">
-      <div class="text" v-html="eleJson.config.content"></div>
+<template>
+    <div class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
+      <!-- 普通文本 -->
+      <div v-if="eleJson.type===1" class="animated">
+        <div class="text" v-html="eleJson.config.content"></div>
+      </div>
+      <!-- 图片 -->
+      <div v-else-if="eleJson.type===2" class="animated">
+        <img :src="`${cdnurl}${eleJson.config.content}`" alt class="img">
+      </div>
+      <!-- 视频 -->
+      <div v-else-if="eleJson.type===8" class="animated">
+        <video :src="`${cdnurl}${eleJson.config.content}`" controls="controls">您的浏览器不支持 video 标签。</video>
+      </div>
+      <!-- svg-->
+      <div v-else-if="eleJson.type===9" class="animated">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          x="0px"
+          y="0px"
+          width="100%"
+          height="100%"
+          :viewBox="eleJson.config.viewBox"
+          xml:space="preserve"
+          preserveAspectRatio="none"
+        >
+          <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
+        </svg>
+      </div>
+      <div v-else-if="eleJson.type===10" class="animated">
+        <!-- 异步vue组件 -->
+        <sync-component
+          :url="`${cdnurl}${eleJson.config.content}`"
+          :short-id="eleJson.config.content"
+          :data-id="eleJson.config.dataId"
+          :category-id="eleJson.config.categoryId"
+        ></sync-component>
+      </div>
+      <div v-html="`<style>${styleText}</style>`"></div>
     </div>
-    <!-- 图片 -->
-    <div v-else-if="eleJson.type===2" class="animated">
-      <img :src="`${cdnurl}${eleJson.config.content}`" alt class="img">
-    </div>
-    <!-- 视频 -->
-    <div v-else-if="eleJson.type===8" class="animated">
-      <video :src="`${cdnurl}${eleJson.config.content}`" controls="controls">您的浏览器不支持 video 标签。</video>
-    </div>
-    <!-- svg-->
-    <div v-else-if="eleJson.type===9" class="animated">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        version="1.1"
-        x="0px"
-        y="0px"
-        width="100%"
-        height="100%"
-        :viewBox="eleJson.config.viewBox"
-        xml:space="preserve"
-        preserveAspectRatio="none"
-      >
-        <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
-      </svg>
-    </div>
-    <div v-else-if="eleJson.type===10" class="animated">
-      <!-- 异步vue组件 -->
-      <sync-component
-        :url="`${cdnurl}${eleJson.config.content}`"
-        :short-id="eleJson.config.content"
-        :data-id="eleJson.config.dataId"
-        :category-id="eleJson.config.categoryId"
-      ></sync-component>
-    </div>
-    <div v-html="`<style>${styleText}</style>`"></div>
-  </div>
 </template>
 <script>
 import SyncComponent from "@/components/AsyncComponent";
@@ -244,7 +244,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       // 渲染样式
-      console.log("mounted");
       this.getStyle(
         this.eleJson.style,
         this.eleJson.hoverStyle,
@@ -252,7 +251,8 @@ export default {
         this.eleJson.hoverAnimate
       );
     });
-  }
+  },
+
 };
 </script>
 <style scoped lang="scss">

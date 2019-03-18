@@ -600,7 +600,7 @@
                         <el-slider
                           v-model="styleForm.transition.duration"
                           :min="0"
-                          :max="10"
+                          :max="5"
                           :step="0.1"
                           @change="$bus.$emit('saveHistory','更改过渡时间[hover]');$bus.$emit('renderStyle')"
                         ></el-slider>
@@ -1245,6 +1245,12 @@
                     inactive-value="self"
                   ></el-switch>
                 </div>
+                <div v-show="event.onClick.type=='scroll'">垂直滚动到指定位置
+                  <br>
+                  <el-input v-model="event.onClick.scrollY" placeholder="垂直滚动到指定位置">
+                    <template slot="append">PX</template>
+                  </el-input>
+                </div>
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
@@ -1739,7 +1745,7 @@ export default {
       this.$bus.$emit("showDataList", {
         modelId: this.config.categoryModel,
         dataList: this.config.category,
-        emitEvent:'ChangeVueData'
+        emitEvent: "ChangeVueData"
       });
     },
     preAnimate() {
