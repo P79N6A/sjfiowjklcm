@@ -1260,7 +1260,8 @@ export default {
 
           .view {
             overflow: hidden;
-
+            display: flex;
+            flex-wrap: wrap;
             .text-input {
               position: absolute;
               left: 50%;
@@ -1291,6 +1292,7 @@ export default {
                 justify-content: center;
                 align-content: center;
                 flex-direction: column;
+                    align-items: center;
                 // justify-items: center;
               }
             }

@@ -215,7 +215,7 @@ export const asyncRouterMap = [
     path: '/requirement',
     component: Layout,
     meta: {
-      authorities: [120301]
+      authorities: [120300, 120301]
     },
     children: [{
       path: 'index',
@@ -224,7 +224,7 @@ export const asyncRouterMap = [
       meta: {
         title: '需求列表',
         icon: 'tree',
-        authorities: [120301]
+        authorities: [120301, 120300]
       }
     }]
   },
@@ -232,7 +232,7 @@ export const asyncRouterMap = [
     path: '/project',
     component: Layout,
     meta: {
-      authorities: [120301]
+      authorities: [110700, 110701]
     },
     children: [{
       path: 'index',
@@ -241,7 +241,7 @@ export const asyncRouterMap = [
       meta: {
         title: '项目列表',
         icon: 'tree',
-        authorities: [120301]
+        authorities: [110700, 110701]
       }
     }]
   },
