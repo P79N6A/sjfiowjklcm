@@ -22,7 +22,7 @@
     @activated="$bus.$emit('selectTemp',showId)"
   >
     <div @click.stop class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
-      <!-- <div class="cover"></div> -->
+      <div class="cover"></div>
       <!-- 普通文本 -->
       <div class="animated ele-show">
         <div v-if="eleJson.type===1">
@@ -58,8 +58,8 @@
           <sync-component
             :url="`${cdnurl}/${eleJson.config.content}`"
             :short-id="eleJson.config.content"
-            :config="eleJson.config.dataId"
-            :category="eleJson.config.categoryId"
+            :config="eleJson.config.config"
+            :category="eleJson.config.category"
           ></sync-component>
         </div>
       </div>
