@@ -193,7 +193,8 @@ export default {
           this.appJson.value.pageJson[this.activePage].style.base.rotate
         }deg)`,
         opacity:
-          this.appJson.value.pageJson[this.activePage].style.base.opacity / 100
+          this.appJson.value.pageJson[this.activePage].style.base.opacity / 100,
+        cursor: this.appJson.value.pageJson[this.activePage].style.base.cursor
       };
     },
     bgCss() {

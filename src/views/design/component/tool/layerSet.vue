@@ -121,6 +121,17 @@
                           <template slot="append">PX</template>
                         </el-input>
                       </el-form-item>
+                      <el-form-item label="指针样式" prop="bg">
+                        <el-select
+                          v-model="styleForm.text.cursor"
+                          placeholder="请选择"
+                          @change="$bus.$emit('saveHistory','更改指针样式');$bus.$emit('renderStyle')"
+                        >
+                          <el-option label="左对齐" value="left">左对齐</el-option>
+                          <el-option label="居中" value="center">居中</el-option>
+                          <el-option label="右对齐" value="right">右对齐</el-option>
+                        </el-select>
+                      </el-form-item>
                       <el-form-item label="透明程度" prop="style">
                         <el-slider
                           v-model="styleForm.base.opacity"
@@ -1227,13 +1238,15 @@
                     :key="i"
                   ></el-option>
                 </el-select>
-                <div v-show="event.onClick.type=='index'">页面下标
+                <div v-show="event.onClick.type=='index'">
+                  页面下标
                   <br>
                   <el-select v-model="event.onClick.index" placeholder="页面下标">
                     <el-option v-for="(item, i) in pages" :label="`第${i+1}页`" :value="i" :key="i"></el-option>
                   </el-select>
                 </div>
-                <div v-show="event.onClick.type=='link'">链接地址
+                <div v-show="event.onClick.type=='link'">
+                  链接地址
                   <br>
                   <el-input v-model="event.onClick.link" v-show="event.onClick.type=='link'"></el-input>在新窗口打开
                   <el-switch
@@ -1245,7 +1258,8 @@
                     inactive-value="self"
                   ></el-switch>
                 </div>
-                <div v-show="event.onClick.type=='scroll'">垂直滚动到指定位置
+                <div v-show="event.onClick.type=='scroll'">
+                  垂直滚动到指定位置
                   <br>
                   <el-input v-model="event.onClick.scrollY" placeholder="垂直滚动到指定位置">
                     <template slot="append">PX</template>
@@ -1694,6 +1708,44 @@ export default {
         {
           value: "Verdana",
           label: "无衬线字体3"
+        }
+      ],
+      cursorOptions: [
+        {
+          value: "",
+          label: "系统默认"
+        },
+        {
+          value: "none",
+          label: "隐藏鼠标"
+        },
+        {
+          value: "not-allowed",
+          label: "不能执行"
+        },
+        {
+          value: "zoom-in",
+          label: "放大"
+        },
+        {
+          value: "zoom-out",
+          label: "缩小"
+        },
+        {
+          value: "help",
+          label: "指示帮助"
+        },
+        {
+          value: "pointer",
+          label: "可点击[手]"
+        },
+        {
+          value: "progress",
+          label: "繁忙"
+        },
+        {
+          value: "wait",
+          label: "繁忙"
         }
       ]
     };

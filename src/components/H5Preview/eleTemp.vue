@@ -140,7 +140,7 @@ export default {
         transition:all ${style.transition.duration}s ${
         style.transition.timingFunction
       };
-
+        cursor:${style.base.cursor}px;
         border-width: ${style.border.borderWidth}px;
         border-radius: ${style.border.borderRadius}px;
         border-color: ${style.border.borderColor};
