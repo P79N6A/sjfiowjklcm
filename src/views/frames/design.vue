@@ -35,7 +35,7 @@
           </div>
           <el-row class="cols">
             <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
-              <el-tag type="success" class="ico-width">{{frameTemp.value.contentWidth*box.width/24}}PX</el-tag>
+              <el-tag type="success" class="ico-width">{{(frameTemp.value.contentWidth*box.width/24).toFixed(0)}}PX</el-tag>
               <div class="btns-box">
                 <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
                 <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>

@@ -1,26 +1,22 @@
 <template>
   <div class="Layout-view">
-    <div v-html="`<style>${layoutTemp.styleText}</style>`"></div>
-
-    <div v-html="`<style>${layoutTemp.value.styleText}</style>`"></div>
     <!-- 页面操作区域 -->
-    <div class="drag-box" id="drag" ref="imageWrapper" :style="getStyle(layoutTemp.value.style)">
+    <div class="drag-box" id="drag" ref="imageWrapper">
       <div class="rows" v-for="(row,i) in layoutTemp.value.rows" 
       :key="i" 
-        :style="getStyle(row.style)"
         >
         <div class="contents" v-for="
         (content,j) in row.contents" :key="j" 
-          :style="[getStyle(content.style),{width:content.fullWidth?'100%':layoutTemp.value.contentWidth+'px'}]"
+          :style="{width:content.fullWidth?'100%':'90%'}"
           >
-
           <el-row class="cols">
             <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
               <div class="view">
                 <!-- 格子区域 -->
                 <div v-for="(item,i) in box.components" :key="i" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
                   <!-- 内容组件渲染 -->
-                  <ishow-pre :ishow-id="item._id" :short-id="item.shortId"></ishow-pre>
+                  {{item.name}}
+                  <!-- <ishow-pre :ishow-id="item._id" :short-id="item.shortId"></ishow-pre> -->
                 </div>
               </div>
             </el-col>
@@ -143,19 +139,40 @@
     position: relative;
     overflow: hidden;
    .drag-box {
-      min-height: calc(100vh - 60px);
+      // min-height: calc(100vh - 60px);
       .rows {
         position: relative;
         display: flex;
         flex-flow: column;
         align-items: center;
-
+        background:#fff;
+        // margin-bottom:10px;
+        padding:10px;
+        &:nth-child(2n-1){
+          background:#f7f8fb;
+        }
         .contents {
           position: relative;
+          margin:4px;
+        border:solid 1px #bbb;
+        box-shadow: 1px 1px 10px 2px #eee;
+        min-height:50px;
+        padding:6px;
+        border-radius:3px;
           .box {
             position: relative;
+            border:dashed 1px #eee;
+            min-height:30px;
             .view {
               overflow: hidden;
+              .components-col{
+                border:solid 1px #eee;
+                border-left:2px #409EFF solid;
+                padding:4px;
+                padding-left:10px;
+                margin:4px;
+              }
+              // background:red;
             }
           }
         }

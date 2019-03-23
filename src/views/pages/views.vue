@@ -1,41 +1,50 @@
 <template>
-  <div class="Layoutshow-container" v-if="contentData">
-    <Layout :layoutTemp="contentData"></Layout>
+  <div class="Layoutshow-container">
+    <Layout :layoutTemp="contentData" v-if="contentData"></Layout>
   </div>
 </template>
 
 <script>
-import Layout from "./components/Layout";
+  import Layout from "./components/Layout";
 
-import { getLayoutsShortId } from "@/api/layouts";
-export default {
-  name: "Page401",
-  data() {
-    return {
-      contentData:null,
-    };
-  },
-  mounted() {
-    //监听消息反馈
-    window.addEventListener(
-      "message",
-      event => {
-        // this.selectNode = event.data;
-        if(event&&event.data&&event.data.value&&event.data.value.content){
-          getLayoutsShortId({shortId:event.data.value.content}).then(res=>{
-            this.contentData=res.data
-          }).catch(err=>{
-            console.log(err)
-          })
+  import {
+    getLayoutsShortId
+  } from "@/api/layouts";
+  export default {
+    name: "Page401",
+    data() {
+      return {
+        contentData: null,
+      };
+    },
+    props: ['shortId'],
+    methods: {
+      getDataByShortId(id) {
+        getLayoutsShortId({
+          shortId: id
+        }).then(res => {
+          this.contentData = res.data
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    },
+    mounted() {
+      if (this.shortId) {
+        this.getDataByShortId(this.shortId)
+      }
+    },
+    watch: {
+      shortId(val) {
+        console.log(val);
+        if (val) {
+          this.getDataByShortId(val)
         }
+      }
+    },
+    components: {
+      Layout
+    }
+  };
 
-      },
-      false
-    );
-  },
-  methods: {},
-  components: {
-    Layout
-  }
-};
 </script>

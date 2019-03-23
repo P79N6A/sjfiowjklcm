@@ -95,6 +95,11 @@
           <el-tag v-for="(item,key,i) in scope.row.tags" :key="i">{{getTagName(item)}}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="专属项目" min-width="150px">
+        <template slot-scope="scope">
+          <el-tag v-for="(item,key,i) in scope.row.project" :key="i" type="warning">{{getProjectName(item)}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" prop="description"></el-table-column>
       <el-table-column label="状态">
         <template slot-scope="scope">
@@ -350,11 +355,27 @@
               </tr>
               <tr>
                 <td>
+                  <el-form-item label="备注" prop="device">
                   <el-input
                     type="textarea"
                     :autosize="{ minRows: 4, maxRows: 8}"
                     v-model="gameTemp.description"
                   ></el-input>
+                  </el-form-item>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{gameTemp}}
+                  <el-form-item label="专属项目" prop="project">
+                    <el-checkbox-group v-model="gameTemp.project">
+                      <el-checkbox
+                        :label="item._id"
+                        v-for="item in projectsList"
+                        :key="item._id"
+                      >{{item.name}}</el-checkbox>
+                    </el-checkbox-group>
+                  </el-form-item>
                 </td>
               </tr>
             </tbody>
@@ -417,6 +438,7 @@
 <script>
 import { mapGetters } from "vuex";
 import XLSX from "xlsx";
+import {getProjects} from "@/api/projects";
 import { getGames, addGames, updateGames, deleteGames } from "@/api/games";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -431,6 +453,8 @@ export default {
   },
   data() {
     return {
+      // 项目列表
+      projectsList: [],
       changeIcon: false,
       //搜索条件
       filterData: {
@@ -478,6 +502,7 @@ export default {
         thumbnail: "",
         types: "", // 类型
         tags: [],
+        project:[],
         description: "" // 备注
       },
       listLoading: true,
@@ -504,8 +529,21 @@ export default {
   created() {
     this.getPlatforms();
     this.getGames({});
+    this.getProjects();
   },
   methods: {
+        // 查询用户列表
+    getProjects() {
+      this.listLoading = true;
+      getProjects()
+        .then(res => {
+          this.projectsList = res.data;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          this.listLoading = false;
+        });
+    },
     // 查询平台列表
     getPlatforms() {
       getPlatforms()
@@ -553,7 +591,8 @@ export default {
     },
     // 点击编辑游戏按钮
     handleUpdate(row) {
-      this.gameTemp = Object.assign({}, row); // copy obj
+      this.resetTemp();
+      this.gameTemp = Object.assign(this.gameTemp, row); // copy obj
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -657,6 +696,7 @@ export default {
         thumbnail: "",
         types: "", // 类型
         tags: [],
+        project:[],
         description: "" // 备注
       };
     },
@@ -680,6 +720,17 @@ export default {
           name = item.name;
         }
         return item.value == key;
+      });
+      return name;
+    },
+    // 项目
+    getProjectName(key){
+      let name = key;
+      this.projectsList.some(item => {
+        if (item._id == key) {
+          name = item.name;
+        }
+        return item._id == key;
       });
       return name;
     },
@@ -768,6 +819,13 @@ export default {
   },
   computed: {
     ...mapGetters(["cdnurl"])
+  },
+  watch:{
+    dialogFormVisible(val){
+      if(val){
+        this.getProjects();
+      }
+    }
   }
 };
 </script>

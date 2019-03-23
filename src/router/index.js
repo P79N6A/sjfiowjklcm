@@ -770,7 +770,7 @@ export const asyncRouterMap = [
   // componentsRouter,
   // chartsRouter,
   // nestedRouter,
-  // tableRouter,
+  tableRouter,
   // {
   //   path: '/example',
   //   component: Layout,
