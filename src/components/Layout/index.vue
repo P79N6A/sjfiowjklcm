@@ -1,27 +1,23 @@
 <template>
-  <div class="Layouts-container" v-if="layoutTemp">
-    <div id="drag-box" ref="imageWrapper" :class="viewLayoutsClass" class="page">
-      <div class="show" v-for="(block,i) in layoutTemp.value" :key="i" >
-        <!-- 块区域 -->
-        <div v-if="block.isPageView">
-          <slot>
-            <div>页面内容展示区域</div>
-          </slot>
-        </div>
-        <!-- {{block}} -->
-        <div v-else :class="[block.styleSetting.class,block.styleSetting.enterAnimation,'animated']" :id="block.styleSetting.id" :style="[block.styleBg,block.styleStyle,block.styleBorder,block.styleShadow]">
-          <!-- 块区域 -->
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows" :class="[row.styleSetting.class,row.styleSetting.enterAnimation,'animated']" :id="row.styleSetting.id"
-            :style="[row.styleBg,row.styleStyle,row.styleBorder,row.styleShadow]">
-            <!-- 区块操作按钮 -->
-            <!-- 行区域 -->
-            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
-              <!-- 格子区域 -->
-              <!-- 内容-{{col.text}} -->
-              <div v-for="(item,i) in col.components" :key="i" style="position:relative;">
-                <!-- 异步vue组件 -->
-                <sync-component :url="`${cdnurl}${item.src}`" v-if="item.type=='component'" :data-id="item.dataId" :data-type="item.dataType"></sync-component>
-                <ishow-component :ishow-id="item._id" v-if="item.type=='ishow'"></ishow-component>
+  <div class="Layout-view">
+    <!-- 页面操作区域 -->
+    <div class="drag-box" id="drag" ref="imageWrapper">
+      <div class="rows" v-for="(row,i) in layoutTemp.value.rows" 
+      :key="i" 
+        >
+        <div class="contents" v-for="
+        (content,j) in row.contents" :key="j" 
+          :style="{width:content.fullWidth?'100%':'90%'}"
+          >
+          <el-row class="cols">
+            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
+              <div class="view">
+                <!-- 格子区域 -->
+                <div v-for="(item,i) in box.components" :key="i" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
+                  <!-- 内容组件渲染 -->
+                  {{item.name}}
+                  <!-- <ishow-pre :ishow-id="item._id" :short-id="item.shortId"></ishow-pre> -->
+                </div>
               </div>
             </el-col>
           </el-row>
@@ -38,8 +34,7 @@
   import {
     mapGetters
   } from "vuex";
-  import IshowComponent from "./Ishow";
-  import SyncComponent from "vue-async-component";
+  import IshowPre from "@/components/H5Preview";
   export default {
     data() {
       return {
@@ -87,31 +82,101 @@
           })
           .catch(err => {});
       },
+            getStyle(style){
+
+        return {
+            // 基础
+            // width: style.base.width + "px",
+            height: style.base.height?style.base.height + "px":'auto',
+            transform: `rotate(${style.base.rotate}deg)`,
+            opacity: style.base.opacity / 100,
+            overflow:style.base.overflow,
+            zIndex:style.base.zIndex,
+            // 定位
+            position:style.position.position,
+            left:style.position.left+'px',
+            right:style.position.right+'px',
+            top:style.position.top+'px',
+            bottom:style.position.bottom+'px',
+            // 边框
+            borderWidth: style.border.borderWidth + "px",
+            borderRadius: style.border.borderRadius + "px",
+            borderColor: style.border.borderColor,
+            borderStyle: style.border.borderStyle,
+            // 背景
+            "backgroundImage": `url('${this.cdnurl}${style.bg.backgroundImage}')`,
+            "backgroundColor":style.bg.backgroundColor,
+            "backgroundSize": style.bg.backgroundSize,
+            "backgroundRepeat": style.bg.backgroundRepeat,
+            "backgroundPosition": style.bg.backgroundPosition,
+            "backgroundAttachment":style.bg.backgroundAttachment,
+            // 阴影
+            boxShadow: `${style.shadow.shadowColor} ${
+              style.shadow.shadowX
+            }px ${style.shadow.shadowY}px ${
+              style.shadow.shadowFuzzy
+            }px ${style.shadow.shadowDire}px ${
+              style.shadow.shadowinSet ? "inset" : ""
+            }`
+        }
+
+        return `background:blue;`
+      }
     },
-    props: ['layoutTemp'],
+    props: ["layoutTemp"],
     computed: {
       ...mapGetters(["cdnurl"])
     },
     components: {
-      SyncComponent,
-      IshowComponent
+      IshowPre
     }
   };
 
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-  .Layouts-container {
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .Layout-view {
     position: relative;
     overflow: hidden;
-    // min-height: calc(100vh - 84px);
-
-    .rows {
-      min-height: 1px;
-    }
-
-    .cols {
-      min-height: 1px;
+   .drag-box {
+      // min-height: calc(100vh - 60px);
+      .rows {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        background:#fff;
+        // margin-bottom:10px;
+        padding:10px;
+        &:nth-child(2n-1){
+          background:#f7f8fb;
+        }
+        .contents {
+          position: relative;
+          margin:4px;
+        border:solid 1px #bbb;
+        box-shadow: 1px 1px 10px 2px #eee;
+        min-height:50px;
+        padding:6px;
+        border-radius:3px;
+          .box {
+            position: relative;
+            border:dashed 1px #eee;
+            min-height:30px;
+            .view {
+              overflow: hidden;
+              .components-col{
+                border:solid 1px #eee;
+                border-left:2px #409EFF solid;
+                padding:4px;
+                padding-left:10px;
+                margin:4px;
+              }
+              // background:red;
+            }
+          }
+        }
+      }
     }
   }
 

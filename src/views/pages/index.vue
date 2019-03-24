@@ -19,7 +19,7 @@
             <div class="layout-view" :class="device">
               <div class="title">页面概览</div>
               <div class="content">
-                <Layout :short-id="selectNode.value.content" v-if="selectNode.value&&selectNode.value.content"></Layout>
+                <Layout :short-id="selectNode.value.content"  v-if="selectNode.value&&selectNode.value.content"></Layout>
               </div>
               <div class="footer">
                 <el-button-group>

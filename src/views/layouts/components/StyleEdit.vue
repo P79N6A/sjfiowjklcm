@@ -19,6 +19,24 @@
                       <template slot="append">PX</template>
                     </el-input>
                   </el-form-item>
+                  <el-form-item label="水平排列" prop="base">
+                    <el-select v-model="settingForm.base.justify" placeholder="水平排列">
+                      <el-option label="左对齐" value="flex-start"></el-option>
+                      <el-option label="右对齐" value="flex-end"></el-option>
+                      <el-option label="居中" value="center"></el-option>
+                      <el-option label="靠两边" value="space-between"></el-option>
+                      <el-option label="分散对齐" value="space-around"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="垂直排列" prop="base">
+                    <el-select v-model="settingForm.base.align" placeholder="垂直排列">
+                      <el-option label="顶部对齐" value="flex-start"></el-option>
+                      <el-option label="底部对齐" value="flex-end"></el-option>
+                      <el-option label="居中" value="center"></el-option>
+                      <el-option label="靠顶/底" value="space-between"></el-option>
+                      <el-option label="分散对齐" value="space-around"></el-option>
+                    </el-select>
+                  </el-form-item>
                   <el-form-item label="层级" prop="style">
                     <el-input v-model="settingForm.base.zIndex" placeholder="层级顺序"></el-input>
                   </el-form-item>
@@ -393,7 +411,9 @@ export default {
           width: 0,
           height: 0,
           opacity: 100,
-          rotate: 0
+          rotate: 0,
+          align:'start',
+          justify:'start'
         },
         padding: {
           top: "",
