@@ -38,7 +38,7 @@
         :category="eleJson.config.category"
       ></sync-component>
     </div>
-    <div v-html="`<style>${styleText}</style>`"></div>
+    <div v-html="`<style>${styleText}</style>`" v-show="false"></div>
   </div>
 </template>
 <script>

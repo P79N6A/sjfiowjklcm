@@ -15,18 +15,20 @@
         <div class="animated">
           <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
             <!-- 拖拽外框 -->
-            <div v-for="(drag,i) in pageJson.json" :key="i" :id="drag.id">
-              <div
-                v-if="drag.config.isShow"
-                :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
-                :key="i"
-                @click="elClick(drag.event)"
-              >
-                <eleTemp :eleJson="drag" :showId="i">
-                  <!-- 组件配置 -->
-                </eleTemp>
-              </div>
+            <!-- <div v-for="(drag,i) in pageJson.json" :key="i" :id="drag.id"> -->
+            <div
+              v-for="(drag,i) in pageJson.json"
+              :key="i"
+              :id="drag.id"
+              v-if="drag.config.isShow"
+              :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
+              @click="elClick(drag.event)"
+            >
+              <eleTemp :eleJson="drag" :showId="i">
+                <!-- 组件配置 -->
+              </eleTemp>
             </div>
+            <!-- </div> -->
           </div>
         </div>
         <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>

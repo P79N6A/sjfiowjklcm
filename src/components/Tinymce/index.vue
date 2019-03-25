@@ -2,13 +2,15 @@
   <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
     <textarea :id="tinymceId" class="tinymce-textarea"/>
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"/>
+      <el-button type="primary" @click="$bus.$emit('openImgList','insertImg')">素材库</el-button>
     </div>
+    <!-- <imgList>图片资源框</imgList> -->
   </div>
 </template>
 
 <script>
 import editorImage from "./components/editorImage";
+// import ImgList from "@/components/ImgList";
 import plugins from "./plugins";
 import toolbar from "./toolbar";
 
@@ -62,6 +64,9 @@ export default {
   computed: {
     language() {
       return this.languageTypeList[this.$store.getters.language];
+    },
+    cdnurl() {
+      return this.$store.getters.cdnurl;
     }
   },
   watch: {
@@ -79,6 +84,12 @@ export default {
       this.destroyTinymce();
       this.$nextTick(() => this.initTinymce());
     }
+  },
+  created() {
+    console.log("slkafdj");
+    this.$bus.$on("insertImg", eventData => {
+      this.insertImg(eventData);
+    });
   },
   mounted() {
     this.initTinymce();
@@ -111,10 +122,14 @@ export default {
         code_dialog_width: 1000,
         advlist_bullet_styles: "square",
         advlist_number_styles: "default",
-        imagetools_cors_hosts: ["www.tinymce.com", "codepen.io"],
+        imagetools_cors_hosts: [
+          "www.tinymce.com",
+          "codepen.io"
+          // "http://localhost:3000"
+        ],
         default_link_target: "_blank",
         link_title: false,
-        document_base_url: "http://localhost:3000",
+        document_base_url: this.cdnurl,
         nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
         init_instance_callback: editor => {
           if (_this.value) {
@@ -188,6 +203,16 @@ export default {
             }" style="max-width:100%;height:auto;"> `
           );
       });
+    },
+    insertImg(data) {
+      const _this = this;
+      window.tinymce
+        .get(_this.tinymceId)
+        .insertContent(
+          `<img class="wscnph" src="${
+            data.url
+          }" style="max-width:100%;height:auto;" test="${data.url}"> `
+        );
     }
   }
 };

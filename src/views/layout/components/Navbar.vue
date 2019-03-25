@@ -10,11 +10,11 @@
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
+        <div class="international right-menu-item">{{projectName}}</div>
         <!-- <error-log class="errLog-container right-menu-item"/> -->
         <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item"/>
         </el-tooltip>
-
         <!-- <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
           <size-select class="international right-menu-item"/>
         </el-tooltip>-->
@@ -67,7 +67,14 @@ export default {
     ThemePicker
   },
   computed: {
-    ...mapGetters(["sidebar", "name", "avatar", "device", "authorities"])
+    ...mapGetters([
+      "sidebar",
+      "name",
+      "avatar",
+      "device",
+      "authorities",
+      "projectName"
+    ])
   },
   methods: {
     toggleSideBar() {

@@ -376,6 +376,7 @@ export default {
     },
     // 预览
     hadleView(content) {
+      return
       this.dialogViewVisible = true;
       this.viewContent = `<link href="/static/css/scroll.css" rel="stylesheet"></link>${content}`;
       this.tabActive = "device_pc";

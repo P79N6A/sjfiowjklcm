@@ -195,22 +195,24 @@ export default {
         });
     },
     // 上线
-    handlePush(data){
-      pushProjects(data).then(res=>{
+    handlePush(data) {
+      pushProjects(data)
+        .then(res => {
           this.$notify({
             title: "成功",
             message: "操作成功",
             type: "success",
             duration: 2000
           });
-      }).catch(err=>{
+        })
+        .catch(err => {
           this.$notify({
             title: "成功",
             message: err.message,
             type: "success",
             duration: 2000
           });
-      })
+        });
     },
     // 创建项目
     createProjects() {
@@ -296,9 +298,10 @@ export default {
     handleEdit(row) {
       setToken("SiteId", row._id);
       setToken("SiteDevice", row.device);
+      setToken("SiteName", row.name);
       this.$router.push({ name: "page" });
-      this.$store.dispatch("setProject",row._id);
-
+      this.$store.dispatch("setProject", row._id);
+      this.$store.dispatch("setProjectName", row.name);
     },
     // 获取终端名称
     getTypeName(val) {

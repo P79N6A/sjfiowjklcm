@@ -9,6 +9,7 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
+    projectName: getToken('SiteName'),
     projectId: getToken('SiteId'),
     origin: 'http://localhost:3000',
     // cdnurl: `http://172.16.22.85:3000`,
@@ -26,9 +27,10 @@ const app = {
       state.sidebar.opened = !state.sidebar.opened
       state.sidebar.withoutAnimation = false
     },
+    SET_PROJECT_NAME: (state, name) => {
+      state.projectName = name
+    },
     SET_PROJECT_ID: (state, id) => {
-      console.log('SET_PROJECT_ID')
-
       state.projectId = id
     },
     CLOSE_SIDEBAR: (state, withoutAnimation) => {
@@ -79,8 +81,12 @@ const app = {
     setProject({
       commit
     }, id) {
-      console.log('setProject')
       commit('SET_PROJECT_ID', id)
+    },
+    setProjectName({
+      commit
+    }, name) {
+      commit('SET_PROJECT_NAME', name)
     }
   }
 }

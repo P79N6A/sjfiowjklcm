@@ -2,7 +2,7 @@
   <div v-if="dialogFormVisible">
     <el-dialog
       class="content-edit"
-      title="数据编辑vue"
+      title="数据编辑"
       :visible.sync="dialogFormVisible"
       :close-on-click-modal="false"
       width="900px"
