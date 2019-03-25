@@ -70,9 +70,9 @@
                     <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
                     <div class="el-control">
                       <el-button-group>
-                        <el-button type="danger" @click="indexEl(box,l,-1)" icon="el-icon-upload2"></el-button>
-                        <el-button type="danger" @click="indexEl(box,l,1)" icon="el-icon-download"></el-button>
-                        <el-button type="danger" @click="removeEl(box,l)" icon="el-icon-delete"></el-button>
+                        <el-button type="danger" @click="indexEl(box.components,l,-1)" icon="el-icon-upload2"></el-button>
+                        <el-button type="danger" @click="indexEl(box.components,l,1)" icon="el-icon-download"></el-button>
+                        <el-button type="danger" @click="removeEl(box.components,l)" icon="el-icon-delete"></el-button>
                       </el-button-group>
                     </div>
                   </div>
@@ -92,8 +92,8 @@
         <div class="rows" v-for="(row,i) in layoutTemp.value.rows" :key="i" :class="{active:i==moveEndData.from.rowIndex}"
           @click="moveEndData.from.rowIndex=i">
           <div class="btns-row btn-group">
-            <i class="el-icon-upload2"></i>
-            <i class="el-icon-download"></i>
+            <i class="el-icon-upload2" @click="indexEl(layoutTemp.value.rows,i,-1)"></i>
+            <i class="el-icon-download" @click="indexEl(layoutTemp.value.rows,i,1)"></i>
             <i class="el-icon-plus"></i>
             <i class="el-icon-circle-close-outline" @click="removeRow(i)" v-show="status=='layoutEdit'"></i>
             <!-- <input v-model="row.name" v-show="status=='layoutEdit'"> -->
@@ -102,8 +102,8 @@
             (content,j) in row.contents" :key="j" :style="{width:content.fullWidth?'100%':'90%'}"
             :class="{active:moveEndData.from.rowIndex==i&&j==moveEndData.from.contentIndex}" @click="moveEndData.from.contentIndex=j">
             <div class="btns-content btn-group">
-              <i class="el-icon-upload2"></i>
-              <i class="el-icon-download"></i>
+              <i class="el-icon-upload2" @click="indexEl(row.contents,j,-1)"></i>
+              <i class="el-icon-download" @click="indexEl(row.contents,j,1)"></i>
               <i class="iconfont icon-smaller" @click="content.fullWidth=false" v-show="status=='layoutEdit'&&content.fullWidth==true"></i>
               <i class="iconfont icon-bigger" @click="content.fullWidth=true" v-show="status=='layoutEdit'&&content.fullWidth==false"></i>
               <i class="el-icon-plus"></i>
@@ -113,10 +113,10 @@
               <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
                 <el-tag type="success" class="ico-width">{{(layoutTemp.value.contentWidth*box.width/24).toFixed(0)}}PX</el-tag>
                 <div class="btns-box btn-group">
-                  <i class="el-icon-upload2"></i>
-                  <i class="el-icon-download"></i>
-                  <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
-                  <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>
+                  <i class="el-icon-upload2" @click="indexEl(content.boxs,k,-1)"></i>
+                  <i class="el-icon-download" @click="indexEl(content.boxs,k,1)"></i>
+                  <i class="el-icon-d-arrow-left" @click="box.width--" v-show="box.width>5"></i>
+                  <i class="el-icon-d-arrow-right" @click="box.width++" v-show="box.width<24"></i>
                   <i class="el-icon-plus"></i>
                   <i class="el-icon-circle-close-outline" @click="removeCol(content,k)"></i>
                 </div>
@@ -856,27 +856,28 @@
         this.dialogComVisible = false;
       },
       // 调整组件顺序
-      indexEl(col, index, type) {
+      indexEl(arr, index, type) {
+        console.log(arr)
+        console.log(index)
+        console.log(type)
         if (
           (index == 0 && type == -1) ||
-          (index == col.components.length - 1 && type == 1)
+          (index == arr.length - 1 && type == 1)
         ) {
           // 数组边界
         } else {
-          const targetCol = col.components.splice(index, 1)[0];
-          col.components.splice(index + type, 0, targetCol);
-          const newCol = col.components;
-          col.components = [];
+          const targetCol = arr.splice(index, 1)[0];
+          arr.splice(index + type, 0, targetCol);
+          const newCol = arr;
+          arr = [];
           this.$nextTick(() => {
-            col.components = newCol;
+            arr = newCol;
           });
         }
       },
       // 删除组件
-      removeEl(col, index) {
-        console.log(col);
-        console.log(index);
-        col.components.splice(index, 1)[0];
+      s(arr, index) {
+        arr.splice(index, 1)[0];
       },
       // 更新当前布局
       updateLayouts() {
