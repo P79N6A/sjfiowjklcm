@@ -152,52 +152,100 @@
         </div>
       </div>
     </div>
-    <!-- 页面操作区域 -->
-    <!-- <div class="drag-box" :class="status" id="drag" ref="imageWrapper" :style="getStyle(layoutTemp.value.style)" v-if="layoutTemp._id">
-      <div class="rows" v-for="(row,i) in layoutTemp.value.rows" :key="i" :class="{active:i==moveEndData.from.rowIndex,preview:!editting,editting:editting}"
-        @click="moveEndData.from.rowIndex=i" :style="getStyle(row.style)">
-        <div class="btns-row btn-group" v-show="status=!'preview'">
-          <i class="el-icon-setting" @click="editStyle(row.style)" v-show="status=='layoutEdit'"></i>
-          <i class="el-icon-rank row-move" v-show="status=='layoutEdit'"></i>
-          <i class="el-icon-circle-close-outline" @click="removeRow(i)" v-show="status=='layoutEdit'"></i>
-          <input v-model="row.name" v-show="status=='layoutEdit'">
-        </div>
-        <div class="contents" v-for="
-        (content,j) in row.contents" :key="j" :class="{active:moveEndData.from.rowIndex==i&&j==moveEndData.from.contentIndex,preview:!editting,editting:editting}"
-          @click="moveEndData.from.contentIndex=j" :style="[getStyle(content.style),{width:content.fullWidth?'100%':layoutTemp.value.contentWidth+'px'}]">
-          <div class="btns-content btn-group" v-show="status=!'preview'">
-            <input v-model="content.name">
-            <i class="el-icon-setting" @click="editStyle(content.style)"></i>
-            <i class="iconfont icon-smaller" @click="content.fullWidth=false" v-show="status=='layoutEdit'&&content.fullWidth==true"></i>
-            <i class="iconfont icon-bigger" @click="content.fullWidth=true" v-show="status=='layoutEdit'&&content.fullWidth==false"></i>
-            <i class="el-icon-rank content-move" v-show="status=='layoutEdit'"></i>
-            <i class="el-icon-circle-close-outline" @click="removeContent(row,r)" v-show="status=='layoutEdit'"></i>
-          </div>
-          <el-row class="cols">
-            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width" :class="{preview:!editting,editting:editting}"
-              :style="getStyle(box.style)">
-              <el-tag type="success" class="ico-width" v-show="status=!'preview'">{{(layoutTemp.value.contentWidth*box.width/24).toFixed(0)}}PX</el-tag>
-              <div class="btns-box btn-group" v-show="status=!'preview'">
-                <i class="el-icon-setting" @click="editStyle(box.style)"></i>
-                <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
-                <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>
-                <i class="el-icon-rank box-move"></i>
-                <i class="el-icon-circle-close-outline" @click="removeCol(content,k)"></i>
-                <i class="el-icon-circle-plus" @click="handleAddComponent(box)"></i>
-              </div>
-              <div class="view">
-                <div v-for="(item,l) in box.components" :key="l" style="position:relative;" :class="{'components-col':viewLayoutsClass}">
-                  <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
-                  <div class="el-control" v-show="status=!'preview'">
-                    <el-button type="danger" @click="removeEl(box,i)">删除</el-button>
+    <div v-if="status=='layoutEdit'">
+      fyhjkll
+      <div
+        class="drag-box"
+        :class="status"
+        id="drag"
+        ref="imageWrapper"
+        :style="getStyle(layoutTemp.value.style)"
+      >
+        <div
+          class="rows"
+          v-for="(row,i) in layoutTemp.value.rows"
+          :key="i"
+          :class="{active:i==moveEndData.from.rowIndex,preview:!editting,editting:editting}"
+          @click="moveEndData.from.rowIndex=i"
+          :style="getStyle(row.style)"
+        >
+          <!-- <div class="btns-row btn-group" v-show="status=!'preview'">
+            <i class="el-icon-setting" @click="editStyle(row.style)" v-show="status=='layoutEdit'"></i>
+            <i class="el-icon-rank row-move" v-show="status=='layoutEdit'"></i>
+            <i
+              class="el-icon-circle-close-outline"
+              @click="removeRow(i)"
+              v-show="status=='layoutEdit'"
+            ></i>
+            <input v-model="row.name" v-show="status=='layoutEdit'">
+          </div>-->
+          <div
+            class="contents"
+            v-for="
+        (content,j) in row.contents"
+            :key="j"
+            :class="{active:moveEndData.from.rowIndex==i&&j==moveEndData.from.contentIndex,preview:!editting,editting:editting}"
+            @click="moveEndData.from.contentIndex=j"
+            :style="[getStyle(content.style),{width:content.fullWidth?'100%':'90%'}]"
+          >
+            <!-- <div class="btns-content btn-group" v-show="status=!'preview'">
+              <input v-model="content.name">
+              <i class="el-icon-setting" @click="editStyle(content.style)"></i>
+              <i
+                class="iconfont icon-smaller"
+                @click="content.fullWidth=false"
+                v-show="status=='layoutEdit'&&content.fullWidth==true"
+              ></i>
+              <i
+                class="iconfont icon-bigger"
+                @click="content.fullWidth=true"
+                v-show="status=='layoutEdit'&&content.fullWidth==false"
+              ></i>
+              <i class="el-icon-rank content-move" v-show="status=='layoutEdit'"></i>
+              <i
+                class="el-icon-circle-close-outline"
+                @click="removeContent(row,r)"
+                v-show="status=='layoutEdit'"
+              ></i>
+            </div>-->
+            <el-row class="cols">
+              <el-col
+                class="box"
+                v-for="(box,k) in content.boxs"
+                :key="k"
+                :span="box.width"
+                :class="{preview:!editting,editting:editting}"
+                :style="getStyle(box.style)"
+              >
+                <!-- <el-tag
+                  type="success"
+                  class="ico-width"
+                  v-show="status=!'preview'"
+                >{{(layoutTemp.value.contentWidth*box.width/24).toFixed(0)}}PX</el-tag>-->
+                <!-- <div class="btns-box btn-group" v-show="status=!'preview'">
+                  <i class="el-icon-setting" @click="editStyle(box.style)"></i>
+                  <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
+                  <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>
+                  <i class="el-icon-rank box-move"></i>
+                  <i class="el-icon-circle-close-outline" @click="removeCol(content,k)"></i>
+                  <i class="el-icon-circle-plus" @click="handleAddComponent(box)"></i>
+                </div>-->
+                <div class="view">
+                  <div
+                    v-for="(item,l) in box.components"
+                    :key="l"
+                    style="position:relative;"
+                    :class="{'components-col':viewLayoutsClass}"
+                  >
+                    <div style="border:solid 1px red;">{{item.name}}</div>
                   </div>
                 </div>
-              </div>
-            </el-col>
-          </el-row>
+              </el-col>
+            </el-row>
+          </div>
         </div>
       </div>
-    </div>-->
+    </div>
     <!-- 样式编辑 -->
     <StyleEdit class="active" :styleTemp="styleTemp" v-if="layoutTemp._id"></StyleEdit>
     <!-- 组件添加器 -->
@@ -1349,11 +1397,7 @@ export default {
 
           .box {
             position: relative;
-            margin-top: 10px;
-            padding-bottom: 5px;
             min-height: 90px;
-            margin-top: 10px;
-            padding-bottom: 5px;
             transition: all 0.1s;
             box-shadow: 0 0 2px 2px #ccc inset !important;
 
