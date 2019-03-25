@@ -97,7 +97,11 @@
       </el-table-column>
       <el-table-column label="专属项目" min-width="150px">
         <template slot-scope="scope">
-          <el-tag v-for="(item,key,i) in scope.row.project" :key="i" type="warning">{{getProjectName(item)}}</el-tag>
+          <el-tag
+            v-for="(item,key,i) in scope.row.project"
+            :key="i"
+            type="warning"
+          >{{getProjectName(item)}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="备注" prop="description"></el-table-column>
@@ -356,17 +360,16 @@
               <tr>
                 <td>
                   <el-form-item label="备注" prop="device">
-                  <el-input
-                    type="textarea"
-                    :autosize="{ minRows: 4, maxRows: 8}"
-                    v-model="gameTemp.description"
-                  ></el-input>
+                    <el-input
+                      type="textarea"
+                      :autosize="{ minRows: 4, maxRows: 8}"
+                      v-model="gameTemp.description"
+                    ></el-input>
                   </el-form-item>
                 </td>
               </tr>
               <tr>
                 <td>
-                  {{gameTemp}}
                   <el-form-item label="专属项目" prop="project">
                     <el-checkbox-group v-model="gameTemp.project">
                       <el-checkbox
@@ -438,7 +441,7 @@
 <script>
 import { mapGetters } from "vuex";
 import XLSX from "xlsx";
-import {getProjects} from "@/api/projects";
+import { getProjects } from "@/api/projects";
 import { getGames, addGames, updateGames, deleteGames } from "@/api/games";
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
@@ -502,7 +505,7 @@ export default {
         thumbnail: "",
         types: "", // 类型
         tags: [],
-        project:[],
+        project: [],
         description: "" // 备注
       },
       listLoading: true,
@@ -532,7 +535,7 @@ export default {
     this.getProjects();
   },
   methods: {
-        // 查询用户列表
+    // 查询用户列表
     getProjects() {
       this.listLoading = true;
       getProjects()
@@ -696,7 +699,7 @@ export default {
         thumbnail: "",
         types: "", // 类型
         tags: [],
-        project:[],
+        project: [],
         description: "" // 备注
       };
     },
@@ -724,7 +727,7 @@ export default {
       return name;
     },
     // 项目
-    getProjectName(key){
+    getProjectName(key) {
       let name = key;
       this.projectsList.some(item => {
         if (item._id == key) {
@@ -764,7 +767,7 @@ export default {
             item.online = true;
           });
           this.dialogInsertTable = true;
-          this.insertList = tabJson[0].sheet;
+          this.insertList = tabJson[0].sheet.slice(1);
           // xlsxJson就是解析出来的json数据,数据格式如下
           // [
           //   {
@@ -776,9 +779,11 @@ export default {
       });
     },
     insertGame() {
-      addGames({ gameList: tabJson[0].sheet })
+      addGames({ gameList: this.insertList })
         .then(res => {
           this.dialogFormVisible = false;
+          this.dialogInsertVisible = false;
+          this.dialogInsertTable = false;
           this.getGames();
           this.$notify({
             title: "成功",
@@ -820,9 +825,9 @@ export default {
   computed: {
     ...mapGetters(["cdnurl"])
   },
-  watch:{
-    dialogFormVisible(val){
-      if(val){
+  watch: {
+    dialogFormVisible(val) {
+      if (val) {
         this.getProjects();
       }
     }

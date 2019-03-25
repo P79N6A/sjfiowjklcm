@@ -3,7 +3,7 @@ const getters = {
   language: state => state.app.language,
   size: state => state.app.size,
   device: state => state.app.device,
-  cdnurl: state => `${state.app.origin}`,
+  cdnurl: state => state.app.cdnurl,
   projectName: state => state.app.projectName,
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,
@@ -18,21 +18,6 @@ const getters = {
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
   errorLogs: state => state.errorLog.logs,
-  origin: state => {
-    if (state.unread == null) {
-      // 异步的一种获取
-      getMessageByUser({
-        size: 1,
-        pageIndex: 1
-      }).then(res => {
-        if (res.success) {
-          state.unread = res.data.unreadCount ? res.data.unreadCount : 0
-        }
-      })
-    }
-    return state.unread
-  }
-  // `${state.app.origin}`,
-
+  origin: state => state.origin
 }
 export default getters

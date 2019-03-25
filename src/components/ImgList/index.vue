@@ -48,7 +48,8 @@
             </div>
             <div class="img-box">
               <div class="img-content" v-for="(item,i) in imgList" :key="i">
-                <div class="img-view" :style="`background-image:url('${origin}${item.url}')`"></div>
+                <div class="img-view" :style="`background-image:url('${cdnurl}${item.url}')`"></div>
+                <div>{{item.desc}}</div>
                 <div class="img-control">
                   <el-button @click="select(item)" v-if="imgType=='myself'">使用</el-button>
                   <el-button v-else @click="buyImg(item)">购买</el-button>
@@ -75,7 +76,7 @@
                   >
                     <div
                       style="width:600px;height:100%;background-repeat:no-repeat;background-size:contain;background-position:center center;"
-                      :style="`background-image:url('${origin}${item.url}')`"
+                      :style="`background-image:url('${cdnurl}${item.url}')`"
                     ></div>
                   </div>
                 </el-carousel-item>

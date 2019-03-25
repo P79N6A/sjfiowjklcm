@@ -1,12 +1,12 @@
 <template>
   <div class="item-container">
     <div>
-      <span>
+      <!-- <span>
         <el-select v-model="filterData.device" placeholder="请选择终端类型">
           <el-option label="PC" value="PC"></el-option>
           <el-option label="MOBILE" value="MOBILE"></el-option>
         </el-select>
-      </span>
+      </span>-->
       <span>
         <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
           <el-option
@@ -17,9 +17,9 @@
           ></el-option>
         </el-select>
       </span>
-      <span>
+      <!-- <span>
         <el-button type="warning" icon="el-icon-search" @click="getList">搜索</el-button>
-      </span>
+      </span>-->
       <span>
         <el-button type="danger" @click="handleCreate">添加游戏</el-button>
       </span>
@@ -438,6 +438,13 @@ export default {
   },
   computed: {
     ...mapGetters(["cdnurl"])
+  },
+  watch: {
+    "filterData.platform"(val) {
+      if (val) {
+        this.getList();
+      }
+    }
   },
   methods: {
     // 查询平台列表
