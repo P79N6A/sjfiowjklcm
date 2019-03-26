@@ -133,6 +133,7 @@
                     <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
                     <div class="el-control">
                       <el-button-group>
+                        <el-button type="danger" @click="handleEdit(item)" icon="el-icon-setting"></el-button>
                         <el-button
                           type="danger"
                           @click="indexEl(box.components,l,-1)"
@@ -585,9 +586,6 @@ export default {
     },
     // 调整组件顺序
     indexEl(arr, index, type) {
-      console.log(arr);
-      console.log(index);
-      console.log(type);
       if (
         (index == 0 && type == -1) ||
         (index == arr.length - 1 && type == 1)
@@ -863,6 +861,25 @@ export default {
       this.$nextTick(() => {
         // this.colMoveSet();
       });
+    },
+    handleEdit(item) {
+      if (getToken("SiteDevice").toUpperCase() == "PC") {
+        let routeData = this.$router.resolve({
+          name: "design",
+          query: {
+            ishowsId: item._id
+          }
+        });
+        window.open(routeData.href, "_blank");
+      } else {
+        let routeData = this.$router.resolve({
+          name: "designMobile",
+          query: {
+            ishowsId: item._id
+          }
+        });
+        window.open(routeData.href, "_blank");
+      }
     },
     editStyle(style) {
       this.styleTemp = style;

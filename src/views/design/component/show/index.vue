@@ -1,40 +1,40 @@
 <template>
-  <vue-ruler-tool
+  <!-- <vue-ruler-tool
     :content-layout="{left:0,top:0}"
     :is-scale-revise="true"
     :preset-line="presetLine"
     position="relative"
-  >
-    <div style="width:100%;" :id="`${appJson.value.id}`">
+  >-->
+  <div style="width:100%;" :id="`${appJson.value.id}`">
+    <div
+      class="i-box"
+      :style="[bgCss,borderCss,boxShadow,{width:pageJson.config.fullScreen?'100%':pageJson.style.base.width + 'px'}]"
+      :id="pageJson.id"
+    >
       <div
-        class="i-box"
-        :style="[bgCss,borderCss,boxShadow,{width:pageJson.config.fullScreen?'100%':pageJson.style.base.width + 'px'}]"
-        :id="pageJson.id"
+        :class="[pageJson.animate.enterAnimation,pageJson.animate.leaveAnimation]"
+        class="animated"
+        style="border:dashed 1px #ccc;"
+        :style="[baseCss]"
       >
-        <div
-          :class="[pageJson.animate.enterAnimation,pageJson.animate.leaveAnimation]"
-          class="animated"
-          style="border:dashed 1px #ccc;"
-          :style="[baseCss]"
-        >
-          <div class="i-show">
-            <!-- 拖拽外框 -->
-            <!-- {{drag.config}} -->
-            <eleTemp
-              :eleJson="drag"
-              :activeTempIndex="activeTempIndex"
-              :showId="i"
-              v-for="(drag,i) in pageJson.json"
-              :key="i"
-            >
-              <!-- 组件配置 -->
-            </eleTemp>
-          </div>
+        <div class="i-show">
+          <!-- 拖拽外框 -->
+          <!-- {{drag.config}} -->
+          <eleTemp
+            :eleJson="drag"
+            :activeTempIndex="activeTempIndex"
+            :showId="i"
+            v-for="(drag,i) in pageJson.json"
+            :key="i"
+          >
+            <!-- 组件配置 -->
+          </eleTemp>
         </div>
       </div>
-      <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
     </div>
-  </vue-ruler-tool>
+    <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
+  </div>
+  <!-- </vue-ruler-tool> -->
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";

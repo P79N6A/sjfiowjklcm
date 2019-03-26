@@ -121,31 +121,12 @@
           class-name="small-padding fixed-width"
         >
           <template slot-scope="scope">
-            <el-button-group>
-              <!-- <el-button
-                type="danger"
-                size="mini"
-                v-if="scope.row.online"
-                @click="toStop(scope.row)"
-              >下架</el-button>
-              <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">上线</el-button>-->
-              <el-tooltip class="item" effect="dark" content="编辑该数据" placement="top-start">
-                <el-button
-                  size="mini"
-                  type="primary"
-                  icon="el-icon-edit"
-                  @click="handleUpdate(scope.row,scope.$index)"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="删除该数据" placement="top-start">
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.row)"
-                  icon="el-icon-delete"
-                ></el-button>
-              </el-tooltip>
-            </el-button-group>
+            <div class="btns-row btn-group">
+              <i class="el-icon-upload2" @click="indexEl(dataList,scope.$index,-1)"></i>
+              <i class="el-icon-download" @click="indexEl(dataList,scope.$index,1)"></i>
+              <i class="el-icon-edit" @click="handleUpdate(scope.row,scope.$index)"></i>
+              <i class="el-icon-delete" @click="handleDelete(dataList,scope.$index)"></i>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -204,6 +185,7 @@ export default {
           this.dataList = _newList;
         });
       } else {
+        console.log("push---");
         this.dataList.push(eventData);
       }
     });
@@ -223,12 +205,30 @@ export default {
     },
     // 点击创建按钮
     handleCreate() {
-      this.edittingData = null;
+      // this.edittingData = null;
+      this.editIndex = "";
       this.$bus.$emit("editContent", {
         modelId: this.modelId,
         contentTemp: null,
         emitEvent: "saveContent"
       });
+    },
+    // 调整组件顺序
+    indexEl(arr, index, type) {
+      if (
+        (index == 0 && type == -1) ||
+        (index == arr.length - 1 && type == 1)
+      ) {
+        // 数组边界
+      } else {
+        const targetCol = arr.splice(index, 1)[0];
+        arr.splice(index + type, 0, targetCol);
+        const newCol = arr;
+        arr = [];
+        this.$nextTick(() => {
+          arr = newCol;
+        });
+      }
     },
     // 点击编辑按钮
     handleUpdate(row, $index) {
@@ -245,13 +245,14 @@ export default {
       this.dialogVisible = false;
     },
     // 删除事件
-    handleDelete(data) {
+    handleDelete(data, index) {
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
         console.log("准备删除数据");
+        data.splice(index, 1);
       });
     }
   },
@@ -263,6 +264,7 @@ export default {
 <style lang="scss">
 .category-list {
   padding: 20px;
+
   .img-view {
     background-position: center center;
     background-repeat: no-repeat;
@@ -273,9 +275,24 @@ export default {
     display: inline-block;
     line-height: 2;
   }
+
+  .btn-group {
+    background: #337ab7;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-block;
+
+    i {
+      padding: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+  }
+
   .list {
     display: flex;
     justify-content: start;
+
     .item {
       width: 25%;
       padding: 10px;
@@ -283,6 +300,7 @@ export default {
       margin: 10px;
       transition: all 0.3s;
       cursor: pointer;
+
       &:hover,
       &.active {
         border: dashed 2px #66b1ff;

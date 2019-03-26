@@ -39,8 +39,6 @@ export default {
             method: "get"
           })
             .then(res => {
-              console.log("got component!");
-              console.log(res.data.dist);
               let Fn = Function;
               this.mode = new Fn(`return ${res.data.dist}`)();
             })
