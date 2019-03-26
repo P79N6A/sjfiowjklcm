@@ -249,7 +249,7 @@ export const asyncRouterMap = [
     path: '/datas',
     component: Layout,
     meta: {
-      title: '数据管理',
+      title: '表单管理',
       icon: 'nested',
       authorities: [110301, 110201, 100201]
     },
@@ -258,7 +258,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/models/index'),
         name: 'models',
         meta: {
-          title: '数据模型',
+          title: '表单模型',
           icon: 'nested',
           authorities: [110301]
         }

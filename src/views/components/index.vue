@@ -232,21 +232,24 @@
         <hr>
         <el-form-item label="配置数据模型" prop="configModel">
           <el-select v-model="componentTemp.configModel" placeholder="请选择数据模型">
+            <el-option label="无配置模型" value></el-option>
             <el-option
               :label="item.name"
               :value="item._id"
               v-for="item in modelList"
               :key="item._id"
+              v-if="item.type=='config'"
             ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="数据集模型" prop="categoryModel">
           <el-select v-model="componentTemp.categoryModel" placeholder="请选择数据模型">
-            <el-option label="无数据集" value></el-option>
+            <el-option label="无数据集模型" value></el-option>
             <el-option
               :label="item.name"
               :value="item._id"
               v-for="item in modelList"
+              v-if="item.type=='content'"
               :key="item._id"
             ></el-option>
           </el-select>
@@ -439,9 +442,7 @@ export default {
     // 查询数据模型列表
     getModels() {
       this.listLoading = true;
-      getModels({
-        type: "content"
-      })
+      getModels()
         .then(res => {
           this.modelList = res.data;
           this.listLoading = false;

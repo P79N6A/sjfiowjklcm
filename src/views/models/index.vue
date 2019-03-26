@@ -23,13 +23,24 @@
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
-      <el-table-column label="字段" min-width="150px" prop="role.authorities">
+
+      <el-table-column label="使用范围" width="80px">
+        <template slot-scope="scope">
+          <el-tag type="warning">{{ scope.row.type }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否公开" width="70px">
+        <template slot-scope="scope">
+          <el-tag type="success" v-if="scope.row.isPublic">是</el-tag>
+          <el-tag type="primary" v-else>否</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="字段" min-width="150px">
         <template slot-scope="scope">
           <el-tag v-for="(item,i) in scope.row.value" :key="i" type="warning">{{ item.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="备注" prop="description"></el-table-column>
-
       <el-table-column
         :label="$t('table.actions')"
         align="center"
@@ -76,6 +87,24 @@
             </el-form-item>
             <el-form-item label="*模型备注" prop="description">
               <el-input v-model="modelTemp.description"/>
+            </el-form-item>
+            <el-form-item label="使用范围" prop="type">
+              <el-radio-group v-model="modelTemp.type">
+                <el-radio
+                  :label="type.value"
+                  v-for="type in typeList"
+                  :key="type.value"
+                >{{type.name}}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="是否公开" prop="isPublic">
+              <el-switch
+                v-model="modelTemp.isPublic"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                active-text="是"
+                inactive-text="否"
+              ></el-switch>
             </el-form-item>
           </div>
         </el-card>
@@ -220,10 +249,15 @@ export default {
   data() {
     return {
       modelList: null,
+      typeList: [
+        { name: "组件配置", value: "config" },
+        { name: "组件数据", value: "content" }
+      ],
       modelTemp: {
         type: "content", // 模型类型
         name: "", // 模型名称
         description: "", // 模型备注
+        isPublic: false,
         // 字段数据
         value: [
           {
@@ -350,7 +384,7 @@ export default {
     // 查询用户列表
     getModels() {
       this.listLoading = true;
-      getModels({ type: "content" })
+      getModels()
         .then(res => {
           this.modelList = res.data;
           this.listLoading = false;
@@ -401,8 +435,6 @@ export default {
     },
     // 创建模型
     createModel() {
-      console.log(this.modelTemp);
-      // return;
       addModels(this.modelTemp)
         .then(res => {
           this.dialogFormVisible = false;
@@ -417,8 +449,6 @@ export default {
         .catch(err => {});
     },
     updateModel() {
-      console.log(this.modelTemp);
-      // return;
       updateModels(this.modelTemp)
         .then(res => {
           this.dialogFormVisible = false;
@@ -438,6 +468,7 @@ export default {
         type: "content", // 模型类型
         name: "", // 模型名称
         description: "", // 模型备注
+        isPublic: false,
         value: [
           {
             name: "数据封面",

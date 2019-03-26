@@ -95,7 +95,7 @@
             inactive-text="否"
           ></el-switch>
           <!-- 文件上传框 -->
-          <div v-if="model.type=='media'">
+          <div v-if="model.type=='media'||model.type=='image'">
             <!-- <a
               v-if="contentTemp[model.key]&&contentTemp[model.key]"
               @click="editMedia(model.key)"
@@ -132,7 +132,7 @@
         </el-button>
       </div>
     </el-dialog>
-    <imgList></imgList>
+    <!-- <imgList></imgList> -->
   </div>
 </template>
 
@@ -141,7 +141,7 @@ import { mapGetters } from "vuex";
 import { getCategoryOne } from "@/api/categories";
 import { getModelOne } from "@/api/model";
 import Tinymce from "@/components/Tinymce";
-import imgList from "@/components/ImgList";
+// import imgList from "@/components/ImgList";
 
 function customizer(objValue, srcValue) {
   if (_.isArray(objValue)) {
@@ -150,8 +150,8 @@ function customizer(objValue, srcValue) {
 }
 export default {
   components: {
-    Tinymce,
-    imgList
+    Tinymce
+    // imgList
   },
 
   data() {
