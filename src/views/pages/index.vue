@@ -23,7 +23,7 @@
               </div>
               <div class="footer">
                 <el-button-group>
-                  <el-button type="success" @click="handleUpdate">编辑</el-button>
+                  <el-button type="success" @click="editLayout(selectNode.value.content)">编辑</el-button>
                   <el-button type="success" @click="handleUpdate">属性</el-button>
                   <el-button type="danger" @click="handleDelete">删除</el-button>
                 </el-button-group>
@@ -177,6 +177,24 @@
             this.contentList = res.data;
           })
           .catch(err => {});
+      },
+      editLayout(shortId) {
+        console.log(shortId)
+        if (getToken("SiteDevice").toUpperCase() == "PC") {
+          this.$router.push({
+            name: "layoutDesign",
+            query: {
+              shortId: shortId
+            }
+          });
+        } else {
+          this.$router.push({
+            name: "layoutDesignMobile",
+            query: {
+              shortId: shortId
+            }
+          });
+        }
       },
       // 点击创建操作
       handleCreate() {

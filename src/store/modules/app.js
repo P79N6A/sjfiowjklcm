@@ -12,7 +12,7 @@ const app = {
     projectName: getToken('SiteName'),
     projectId: getToken('SiteId'),
     origin: 'http://localhost:3000',
-    cdnurl: `http://172.16.22.85:3000`,
+    cdnurl: `http://localhost:3000`,
     device: 'desktop',
     language: Cookies.get('language') || 'zh',
     size: Cookies.get('size') || 'medium'

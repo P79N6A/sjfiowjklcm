@@ -303,7 +303,7 @@ import { addContents, deleteContents } from "@/api/contents";
 // 获取自定义组件
 import { getIshows } from "@/api/ishow";
 // 布局操作
-import { getLayoutsOne, updateLayouts } from "@/api/layouts";
+import { getLayoutsOne, updateLayouts,getLayoutsShortId } from "@/api/layouts";
 // 组件
 import StyleEdit from "./components/StyleEdit";
 import IshowPre from "@/components/H5Preview";
@@ -388,7 +388,18 @@ export default {
           });
         })
         .catch(err => {});
-    } else {
+    } else if (this.$route.query.shortId) {
+      getLayoutsShortId({
+        shortId: this.$route.query.shortId
+      })
+        .then(res => {
+          this.layoutTemp = res.data;
+          this.$nextTick(() => {
+            // this.colMoveSet();
+          });
+        })
+        .catch(err => {});
+    }else {
       this.$route.go(-1);
     }
   },
