@@ -16,6 +16,19 @@
       </div>
       <div class="form" v-show="menuShow">
         <el-form ref="dataForm" label-position="right" label-width="120px" :model="appJson">
+          <!-- 图片元素 -->
+          <el-form-item label="模块封面">
+            <el-upload
+              class="avatar-uploader"
+              action="/api/media"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccessFav"
+              :before-upload="beforeAvatarUploadFav"
+            >
+              <img v-if="appJson.thumbnail" :src="`${cdnurl}${appJson.thumbnail}`" class="favicon">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
           <el-form-item label="*组件名称">
             <el-input v-model="appJson.name" placeholder="组件名"/>
           </el-form-item>
@@ -49,7 +62,7 @@
               inactive-text="否"
             ></el-switch>
           </el-form-item>
-          <el-form-item label="页面指示器">
+          <el-form-item label="页面指示器" v-if="false">
             <el-switch
               v-model="appJson.value.indicator.show"
               active-color="#13ce66"
@@ -191,13 +204,30 @@ export default {
       this.dialogFormVisible = true;
     });
   },
+  methods: {
+    handleAvatarSuccessFav(res, file) {
+      console.log(res);
+      this.appJson.thumbnail = res.url;
+    },
+    beforeAvatarUploadFav(file) {
+      const isImg = file.type.includes("image");
+      const isLt500K = file.size / 1024 < 500;
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
+      }
+      if (!isLt500K) {
+        this.$message.error("图片大小不能超过 500 KB!");
+      }
+      return isImg && isLt500K;
+    }
+  },
   props: ["appJson"],
   components: {
     Ipreview
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .view {
   display: flex;
   justify-content: space-between;
@@ -260,6 +290,27 @@ export default {
     width: 300px;
     height: 100%;
     border-left: solid 1px #ccc;
+  }
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
   }
 }
 </style>

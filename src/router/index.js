@@ -342,6 +342,7 @@ export const asyncRouterMap = [
           authorities: [110801]
         }
       },
+
       {
         path: 'layout',
         component: () => import('@/views/layouts/index.vue'),
@@ -350,6 +351,15 @@ export const asyncRouterMap = [
           title: '页面内容',
           noCache: true,
           authorities: [110901]
+        }
+      },
+      {
+        path: 'ishow',
+        component: () => import('@/views/ishow/index'),
+        name: 'ishows',
+        meta: {
+          title: '页面模块',
+          authorities: [120301]
         }
       },
       {
@@ -442,23 +452,23 @@ export const asyncRouterMap = [
       }
     }]
   },
-  {
-    path: '/ishows',
-    component: Layout,
-    meta: {
-      authorities: [120301]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/ishow/index'),
-      name: 'ishows',
-      meta: {
-        title: 'H5组件',
-        icon: 'tree',
-        authorities: [120301]
-      }
-    }]
-  },
+  // {
+  //   path: '/ishows',
+  //   component: Layout,
+  //   meta: {
+  //     authorities: [120301]
+  //   },
+  //   children: [{
+  //     path: 'index',
+  //     component: () => import('@/views/ishow/index'),
+  //     name: 'ishows',
+  //     meta: {
+  //       title: 'H5组件',
+  //       icon: 'tree',
+  //       authorities: [120301]
+  //     }
+  //   }]
+  // },
   // {
   //   path: '/ishowsDesign',
   //   component: {
