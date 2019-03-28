@@ -2,7 +2,8 @@
 <template>
   <div class="ishow-contain">
     <div class="ishow-headerWrapper">
-      <header class="header">自定义模块
+      <header class="header">
+        自定义模块
         <div class="ishow-headerBtn">
           <el-button
             size="small"
@@ -32,7 +33,6 @@
         <template slot-scope="scope">
           <div class="pre-content">
             <img :src="`${cdnurl}/${scope.row.thumbnail}`" style="width:100%;">
-            <!-- <ishow-pre :ishow-id="scope.row._id"></ishow-pre> -->
           </div>
         </template>
       </el-table-column>

@@ -253,7 +253,7 @@
           :key="item._id"
           class="card"
         >
-          <img src="/favicon.ico" class="image">
+          <img :src="`${cdnurl}/${item.thumbnail}`" class="image">
           <div style="padding: 14px;">
             <span>{{item.name}}</span>
             <div class="bottom cfx">
@@ -262,7 +262,7 @@
           </div>
         </el-card>
       </div>
-      <!-- <el-input placeholder="请输入新增组件地址" v-model="componentTemp.src"></el-input> -->
+      <!-- <el-input placeholder="请输入新增组件地址" v-model="layoutTemp.src"></el-input> -->
       <!-- <div slot="footer" class="dialog-footer">
         <el-button @click="dialogComVisible = false">{{ $t('table.cancel') }}</el-button>
         <el-button type="primary" @click="addCom">{{ $t('table.confirm') }}</el-button>
@@ -271,6 +271,23 @@
     <!-- 高级样式 -->
     <el-dialog title="设置" width="800px" :visible.sync="dialogFormVisible">
       <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
+        <el-form-item label="封面">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/media"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccessFav"
+            :before-upload="beforeAvatarUploadFav"
+          >
+            <img
+              v-if="layoutTemp.thumbnail"
+              :src="`${cdnurl}${layoutTemp.thumbnail}`"
+              class="favicon"
+              style="width:180px;height:auto;"
+            >
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item label="*名称" prop="name">
           <el-input v-model="layoutTemp.name"/>
         </el-form-item>
@@ -303,7 +320,7 @@ import { addContents, deleteContents } from "@/api/contents";
 // 获取自定义组件
 import { getIshows } from "@/api/ishow";
 // 布局操作
-import { getLayoutsOne, updateLayouts,getLayoutsShortId } from "@/api/layouts";
+import { getLayoutsOne, updateLayouts, getLayoutsShortId } from "@/api/layouts";
 // 组件
 import StyleEdit from "./components/StyleEdit";
 import IshowPre from "@/components/H5Preview";
@@ -358,7 +375,8 @@ export default {
         device: getToken("SiteDevice"),
         screenShot: "",
         type: "",
-        value: []
+        value: [],
+        thumbnail: ""
       },
       editCol: null,
       leftActive: false,
@@ -382,7 +400,8 @@ export default {
         _id: this.$route.query.layoutId
       })
         .then(res => {
-          this.layoutTemp = res.data;
+          // this.layoutTemp = res.data;
+          Object.assign(this.layoutTemp, res.data);
           this.$nextTick(() => {
             // this.colMoveSet();
           });
@@ -399,11 +418,25 @@ export default {
           });
         })
         .catch(err => {});
-    }else {
+    } else {
       this.$route.go(-1);
     }
   },
   methods: {
+    handleAvatarSuccessFav(res, file) {
+      this.layoutTemp.thumbnail = res.url;
+    },
+    beforeAvatarUploadFav(file) {
+      const isImg = file.type.includes("image");
+      const isLt500K = file.size / 1024 < 500;
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
+      }
+      if (!isLt500K) {
+        this.$message.error("图片大小不能超过 500 KB!");
+      }
+      return isImg && isLt500K;
+    },
     // 新建数据分类
     addCategories() {
       addCategories(this.categoryTemp)
@@ -957,7 +990,7 @@ export default {
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss">
 .iconfont {
   font-size: 12px !important;
 }
@@ -1296,28 +1329,51 @@ export default {
       }
     }
   }
-}
-
-// 选取组件模块
-.component-list {
-  .card {
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
     width: 180px;
-    float: left;
-    margin: 6px;
+    height: 180px;
   }
 
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
   }
 
-  .button {
-    float: right;
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
   }
 
-  .image {
-    width: 100%;
-    display: block;
+  // 选取组件模块
+  .component-list {
+    .card {
+      width: 180px;
+      float: left;
+      margin: 6px;
+    }
+
+    .bottom {
+      margin-top: 13px;
+      line-height: 12px;
+    }
+
+    .button {
+      float: right;
+    }
+
+    .image {
+      width: 100%;
+      display: block;
+    }
   }
 }
 </style>

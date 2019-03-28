@@ -1,87 +1,71 @@
 <template>
   <div class="layoutsList-container">
-    <el-card class="box-card">
-      <div class="layoutList cfx">
-        <div v-for="(item,i) in layoutList" :key="i">
-          <div class="title">{{item.name}}</div>
-          <div class="layouts">
-            <div class="layouts-content">
-              <div class="control">
-                <!-- 操作按钮区域 -->
-                <el-button-group>
-                  <el-button type="success" round icon="el-icon-edit" @click="toOnline(item)" v-if="!item.isPublic">公开</el-button>
-                  <el-button type="warning" round icon="el-icon-edit" @click="toStop(item)" v-else>私有</el-button>
-                  <el-button type="primary" round icon="el-icon-edit" @click="edit(item)">编辑</el-button>
-                  <el-button
-                    type="danger"
-                    round
-                    icon="el-icon-delete"
-                    @click="handleDelete(item)"
-                  >删除</el-button>
-                </el-button-group>
-              </div>
-              <img :src="item.screenShot" style="display:block;width:100%;">
-            </div>
+    <el-table
+      v-loading="listLoading"
+      :data="layoutList"
+      border
+      fit
+      highlight-current-row
+      style="width: 100%;"
+    >
+      <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
+      <el-table-column fixed align="center" label="封面" prop="thumbnail" width="220">
+        <template slot-scope="scope">
+          <div class="pre-content">
+            <img :src="`${cdnurl}/${scope.row.thumbnail}`" style="width:100%;">
           </div>
-        </div>
-      </div>
-      <div class="bottom cfx">
-        <el-button icon="el-icon-plus" type="primary" @click="handleCreate">添加布局</el-button>
-        <el-button icon="el-icon-plus" type="primary" @click="$bus.$emit('openLayoutList')">购买布局</el-button>
-      </div>
-      <!-- 创建布局 -->
-      <el-dialog title="创建布局" :visible.sync="dialogFormVisible" width="1000px">
-        <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
-          <el-form-item label="*布局名称" prop="name">
-            <el-input v-model="layoutTemp.name"/>
-          </el-form-item>
-          <el-form-item label="*布局终端" prop="device">
-            <el-select v-model="layoutTemp.device" placeholder="请选择框架适用终端" disabled>
-              <el-option label="PC端" value="pc"></el-option>
-              <el-option label="MOBILE端" value="MOBILE"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="*选择框架" prop="value">
-            <div class="framesList cfx">
-              <div
-                class="frames"
-                v-for="(item,i) in framesList"
-                :key="i"
-                :class="{active:selectedFrameId==item._id}"
-                @click="selectFrame(item)"
-              >
-                <div class="frames-content">
-                  <h3>{{item.name}}</h3>
-                  <div class="rows" v-for="(row,i) in item.value.rows" :key="i">
-                    <el-row
-                      v-for="(content,r) in row.contents"
-                      :key="i+'-'+r"
-                      class="contents"
-                      :style="{width:content.fullWidth?'100%':'90%',margin:'0 auto'}"
-                    >
-                      <el-col
-                        v-for="(box,j) in content.boxs"
-                        :span="box.width"
-                        :key="i+'-'+r+'-'+j"
-                        class="cols"
-                      >
-                        <div>
-                          <span type="success" class="ico-width">{{box.name}}</span>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">{{ $t('table.cancel') }}</el-button>
-          <el-button type="primary" @click="createLayout">{{ $t('table.confirm')}}</el-button>
-        </div>
-      </el-dialog>
-    </el-card>
+        </template>
+      </el-table-column>
+      <el-table-column label="名称" prop="name"></el-table-column>
+
+      <el-table-column label="价格" prop="style">
+        <template slot-scope="scope">
+          <el-tag>{{scope.row.price}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="类型" prop="type"></el-table-column>
+      <el-table-column label="标签" prop="tags" min-width="150px">
+        <template slot-scope="scope">
+          <el-tag v-for="(tag,i) in scope.row.tags" :key="i">{{tag}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="备注" prop="desc" min-width="150px"></el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.isPublic">公开</el-tag>
+          <el-tag v-else type="danger">私有</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        :label="$t('table.actions')"
+        align="center"
+        width="230"
+        class-name="small-padding fixed-width"
+      >
+        <template slot-scope="scope">
+          <el-button-group>
+            <el-button
+              type="danger"
+              size="mini"
+              v-if="scope.row.isPublic"
+              @click="toStop(scope.row)"
+            >私有</el-button>
+            <el-button type="success" size="mini" v-else @click="toOnline(scope.row)">公开</el-button>
+            <el-button type="primary" size="mini" @click="edit(scope.row)">{{ $t('table.edit') }}</el-button>
+            <el-button
+              v-if="scope.row.status!='deleted'"
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.row)"
+            >
+              {{
+              $t('table.delete') }}
+            </el-button>
+          </el-button-group>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 选择布布局框架 -->
     <LayoutList></LayoutList>
   </div>
 </template>
@@ -89,6 +73,8 @@
 <script>
 import LayoutList from "@/components/LayoutList";
 import { getFrames } from "@/api/frames";
+import { mapGetters } from "vuex";
+
 import {
   getLayouts,
   addLayouts,
@@ -155,7 +141,7 @@ export default {
       layoutTemp: {
         name: "",
         value: {},
-        device: getToken("SiteDevice"),
+        device: getToken("SiteDevice")
         // type: "layout"
       },
       dialogFormVisible: false,
@@ -164,6 +150,9 @@ export default {
   },
   created() {
     this.getLayouts();
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
   },
   methods: {
     // 编辑内容
@@ -282,19 +271,19 @@ export default {
       this.layoutTemp.value = data.value;
       this.selectedFrameId = data._id;
     },
-    updateLayout(data){
-                    updateLayouts(data)
-                .then(res => {
-                  this.$notify({
-                    title: "成功",
-                    message: "操作成功",
-                    type: "success",
-                    duration: 2000
-                  });
-                  this.viewLayoutsClass = "layoutEdit";
-                  // this.$router.push({name:'layout'})
-                })
-                .catch(err => {});
+    updateLayout(data) {
+      updateLayouts(data)
+        .then(res => {
+          this.$notify({
+            title: "成功",
+            message: "操作成功",
+            type: "success",
+            duration: 2000
+          });
+          this.viewLayoutsClass = "layoutEdit";
+          // this.$router.push({name:'layout'})
+        })
+        .catch(err => {});
     },
     // 设置为上线
     toOnline(row) {
@@ -309,7 +298,7 @@ export default {
       this.imgTemp.isPublic = false;
       row.isPublic = false;
       this.updateLayout(row);
-    },
+    }
   },
   watch: {
     layoutType(val) {
@@ -318,171 +307,22 @@ export default {
       }
     }
   },
-  components:{LayoutList}
+  components: { LayoutList }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .layoutsList-container {
   padding: 20px;
-
-  .layoutList {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-
-    .show {
-      background: #eee;
-    }
-
-    .title {
-      text-align: center;
-    }
-
-    .layouts {
-      width: 300px;
-      text-align: center;
-      cursor: pointer;
-      margin: 10px;
-      overflow: hidden;
-      border: solid 1px #ccc;
-      border-radius: 6px;
-      height: 350px;
-
-      &:hover {
-        overflow-y: scroll;
-      }
-
-      .rows {
-        // background: #eee;
-        margin-bottom: 2px;
-      }
-
-      .layouts-content {
-        padding: 6px;
-        display: block;
-        position: relative;
-        font-size: 12px;
-        transition: all 0.6s;
-        min-height: 100%;
-
-        &:hover {
-          .control {
-            display: block;
-          }
-        }
-
-        .control {
-          z-index: 9;
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.2);
-          display: none;
-          padding-top: 100px;
-        }
-      }
-
-      // .cols {
-      //   padding: 2px;
-      //   box-sizing: border-box;
-
-      //   div {
-      //     border: dashed 1px #ccc;
-      //     padding: 2px 0;
-
-      //     .ico-width {
-      //       font-size: 12px;
-      //     }
-      //   }
-      // }
-    }
-  }
-
-  .framesList {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-
-    .show {
-      background: #eee;
-    }
-
-    .frames {
-      width: 270px;
-      margin: 10px;
-      text-align: center;
-      height: 350px;
-      overflow: hidden;
-      border: solid 1px #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-
-      &.active {
-        border-color: #409eff;
-        box-shadow: 0 0 4px 2px #ccc;
-      }
-
-      &:hover {
-        overflow-y: scroll;
-      }
-
-      .frames-content {
-        padding: 6px;
-        display: block;
-        position: relative;
-      }
-
-      .rows {
-        margin-bottom: 2px;
-        border: dotted 1px #ccc;
-        padding: 2px;
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-
-        .contents {
-          padding: 2px;
-          margin-bottom: 2px;
-          box-sizing: border-box;
-          border: 1px solid #337ab7;
-
-          .cols {
-            padding: 2px;
-
-            div {
-              border: dashed 1px #ccc;
-              padding: 10px 0;
-              border: dashed 1px #5cb85c;
-              font-size: 12px;
-
-              .ico-width {
-                font-size: 12px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .bottom {
-    border-top: solid 1px #ebeef5;
-    margin-top: 20px;
-    padding-top: 20px;
-  }
-
-  .page-view {
-    background: #e4e7ed;
-    font-size: 14px;
-    flex-direction: column;
-    // height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
+  .img-view {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #eee;
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    line-height: 2;
   }
 }
 </style>

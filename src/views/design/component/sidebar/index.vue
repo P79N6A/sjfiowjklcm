@@ -83,9 +83,7 @@
       </div>
       <div class="com-list">
         <div class="com-item" v-for="(com,i) in componentList" :key="i" @click="selectCom(com)">
-          <div class="com-view">
-            <p>{{com.name}}</p>
-          </div>
+          <div class="com-view" :style="`background-image:url('${cdnurl}${com.thumbnail}')`"></div>
         </div>
       </div>
     </div>
@@ -215,16 +213,16 @@ export default {
       .com-item {
         height: 94px;
         cursor: pointer;
+        margin-bottom: 10px;
         &:hover {
-          box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.16);
+          box-shadow: 1px 1px 8px 0 rgba(0, 0, 0, 0.6);
         }
         .com-view {
           height: 100%;
           width: 100%;
           background-size: contain;
           background-repeat: no-repeat;
-          background-color: #fff;
-          background-image: url(http://localhost:3000/imgs/20190226/20190122_1548140888278.jpg?v=1551168808157);
+          // background-color: #fff;
           background-position: center center;
         }
       }

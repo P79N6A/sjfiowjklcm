@@ -138,7 +138,11 @@
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column fixed align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
-          <a target="_blank" :style="`background-image:url('${cdnurl}${scope.row.thumbnail}')`" class="img-view" ></a>
+          <a
+            target="_blank"
+            :style="`background-image:url('${cdnurl}${scope.row.thumbnail}')`"
+            class="img-view"
+          ></a>
         </template>
       </el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
@@ -229,18 +233,22 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-                      <el-upload
-              class="avatar-uploader"
-              action="/api/media"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccessFav"
-              :before-upload="beforeAvatarUploadFav"
+          <el-upload
+            class="avatar-uploader"
+            action="/api/media"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccessFav"
+            :before-upload="beforeAvatarUploadFav"
+          >
+            <img
+              v-if="componentTemp.thumbnail"
+              :src="`${cdnurl}${componentTemp.thumbnail}`"
+              class="favicon"
+              style="width:180px;height:auto;"
             >
-              <img v-if="componentTemp.thumbnail" :src="`${cdnurl}${componentTemp.thumbnail}`" class="favicon" style="width:180px;height:auto;">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
-        {{componentTemp}}
         <hr>
         <el-form-item label="配置数据模型" prop="configModel">
           <el-select v-model="componentTemp.configModel" placeholder="请选择数据模型">
@@ -333,7 +341,7 @@ export default {
         type: "",
         class: "",
         key: "",
-        thumbnail:'',
+        thumbnail: "",
         name: "",
         description: "",
         // 源码
@@ -492,7 +500,7 @@ export default {
         type: "",
         class: "",
         key: "",
-        thumbnail: '',
+        thumbnail: "",
         name: "",
         description: "",
         // 源码
@@ -728,12 +736,14 @@ export default {
       flex: 1;
     }
   }
-    .avatar-uploader .el-upload {
+  .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    width: 180px;
+    height: 180px;
   }
 
   .avatar-uploader .el-upload:hover {
