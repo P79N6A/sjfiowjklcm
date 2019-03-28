@@ -25,7 +25,7 @@
               :on-success="handleAvatarSuccessFav"
               :before-upload="beforeAvatarUploadFav"
             >
-              <img v-if="appJson.thumbnail" :src="`${cdnurl}${appJson.thumbnail}`" class="favicon">
+              <img v-if="appJson.thumbnail" :src="`${cdnurl}${appJson.thumbnail}`" class="favicon" style="width:180px;height:auto;">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -181,6 +181,7 @@
 
 <script>
 import Ipreview from "@/components/H5Preview";
+import { mapGetters } from "vuex";
 export default {
   name: "Setting",
 
@@ -220,6 +221,9 @@ export default {
       }
       return isImg && isLt500K;
     }
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
   },
   props: ["appJson"],
   components: {

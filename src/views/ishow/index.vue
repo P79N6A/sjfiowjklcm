@@ -31,7 +31,8 @@
       <el-table-column fixed align="center" label="封面" prop="thumbnail" width="220">
         <template slot-scope="scope">
           <div class="pre-content">
-            <ishow-pre :ishow-id="scope.row._id"></ishow-pre>
+            <img :src="`${cdnurl}/${scope.row.thumbnail}`" style="width:100%;">
+            <!-- <ishow-pre :ishow-id="scope.row._id"></ishow-pre> -->
           </div>
         </template>
       </el-table-column>
@@ -96,6 +97,7 @@ import { getIshows, deleteIshows, updateIshows } from "@/api/ishow";
 import IshowPre from "@/components/H5Preview";
 import IshowList from "@/components/IshowList";
 import { getToken, setToken, removeToken } from "@/utils/auth";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -109,6 +111,9 @@ export default {
   components: {
     IshowPre,
     IshowList
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
   },
   created() {
     this.getIshows();

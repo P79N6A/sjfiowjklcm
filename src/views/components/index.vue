@@ -5,7 +5,7 @@
         <el-button type="warning" icon="el-icon-search" @click="getComponents">搜索</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleAdd" icon="el-icon-edit">添加素材</el-button>
+        <el-button type="danger" @click="handleAdd" icon="el-icon-edit">添加组件</el-button>
       </span>
     </div>
     <br>
@@ -138,7 +138,7 @@
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column fixed align="center" label="封面" prop="thumbnail" width="80">
         <template slot-scope="scope">
-          <a target="_blank" :href="`${cdnurl}${scope.row.url}`" class="img-view"></a>
+          <a target="_blank" :style="`background-image:url('${cdnurl}${scope.row.thumbnail}')`" class="img-view" ></a>
         </template>
       </el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
@@ -228,7 +228,19 @@
             :autosize="{ minRows: 2, maxRows: 4}"
           ></el-input>
         </el-form-item>
-
+        <el-form-item>
+                      <el-upload
+              class="avatar-uploader"
+              action="/api/media"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccessFav"
+              :before-upload="beforeAvatarUploadFav"
+            >
+              <img v-if="componentTemp.thumbnail" :src="`${cdnurl}${componentTemp.thumbnail}`" class="favicon" style="width:180px;height:auto;">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+        </el-form-item>
+        {{componentTemp}}
         <hr>
         <el-form-item label="配置数据模型" prop="configModel">
           <el-select v-model="componentTemp.configModel" placeholder="请选择数据模型">
@@ -321,10 +333,7 @@ export default {
         type: "",
         class: "",
         key: "",
-        thumbnail: {
-          src: "",
-          _id: ""
-        },
+        thumbnail:'',
         name: "",
         description: "",
         // 源码
@@ -434,6 +443,21 @@ export default {
     // }.bind(this));
   },
   methods: {
+    handleAvatarSuccessFav(res, file) {
+      console.log(res);
+      this.componentTemp.thumbnail = res.url;
+    },
+    beforeAvatarUploadFav(file) {
+      const isImg = file.type.includes("image");
+      const isLt500K = file.size / 1024 < 500;
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
+      }
+      if (!isLt500K) {
+        this.$message.error("图片大小不能超过 500 KB!");
+      }
+      return isImg && isLt500K;
+    },
     handleChange(value) {
       this.componentTemp.type = value[0] || "";
       this.componentTemp.class = value[1] || "";
@@ -468,10 +492,7 @@ export default {
         type: "",
         class: "",
         key: "",
-        thumbnail: {
-          src: "",
-          _id: ""
-        },
+        thumbnail: '',
         name: "",
         description: "",
         // 源码
@@ -577,7 +598,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .components-contain {
   .ishowList {
     display: flex;
@@ -706,6 +727,27 @@ export default {
     > div {
       flex: 1;
     }
+  }
+    .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
   }
 }
 </style>
