@@ -375,6 +375,43 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/other',
+    component: Layout,
+    meta: {
+      title: '素材管理',
+      icon: 'table',
+      authorities: [110801, 110901, 120101]
+    },
+    children: [{
+      path: 'component',
+      component: () => import('@/views/components/index'),
+      name: 'components',
+      meta: {
+        title: '功能组件',
+        icon: 'documentation',
+        authorities: [100401]
+      }
+    },{
+      path: 'imgs',
+      component: () => import('@/views/imgs/index'),
+      name: 'imgs',
+      meta: {
+        title: '图片素材',
+        icon: 'documentation',
+        authorities: [100401]
+      }
+    },{
+      path: 'svgs',
+      component: () => import('@/views/svgs/index'),
+      name: 'svgs',
+      meta: {
+        title: '形状库',
+        icon: 'documentation',
+        authorities: [100401]
+      }
+    }]
+  },
+  {
     path: '/games',
     component: Layout,
     meta: {
@@ -435,23 +472,6 @@ export const asyncRouterMap = [
   //     }
   //   }]
   // },
-  {
-    path: '/components',
-    component: Layout,
-    meta: {
-      authorities: [100401]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/components/index'),
-      name: 'components',
-      meta: {
-        title: '功能组件',
-        icon: 'documentation',
-        authorities: [100401]
-      }
-    }]
-  },
   // {
   //   path: '/ishows',
   //   component: Layout,
@@ -561,41 +581,6 @@ export const asyncRouterMap = [
         }
       },
     ]
-  },
-
-  {
-    path: '/imgs',
-    component: Layout,
-    meta: {
-      authorities: [100401]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/imgs/index'),
-      name: 'imgs',
-      meta: {
-        title: '素材库',
-        icon: 'documentation',
-        authorities: [100401]
-      }
-    }]
-  },
-  {
-    path: '/svgs',
-    component: Layout,
-    meta: {
-      authorities: [100401]
-    },
-    children: [{
-      path: 'index',
-      component: () => import('@/views/svgs/index'),
-      name: 'svgs',
-      meta: {
-        title: '形状库',
-        icon: 'documentation',
-        authorities: [100401]
-      }
-    }]
   },
   {
     path: '/medias',

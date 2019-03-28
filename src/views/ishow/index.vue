@@ -3,7 +3,6 @@
   <div class="ishow-contain">
     <div class="ishow-headerWrapper">
       <header class="header">
-        自定义模块
         <div class="ishow-headerBtn">
           <el-button
             size="small"
@@ -13,7 +12,7 @@
           >模块市场</el-button>
           <el-button
             size="small"
-            @click.stop="linkNewSence"
+            @click="linkNewSence"
             type="warning"
             icon="el-icon-circle-plus-outline"
           >新建模块</el-button>
@@ -226,10 +225,10 @@ export default {
     border-radius: 6px;
     font-size: 12px;
     transition: all 0.6s;
-    height: 200px;
     width: 200px;
     overflow: hidden;
     position: relative;
+    background: #eee;
   }
 }
 </style>
