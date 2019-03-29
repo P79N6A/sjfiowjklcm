@@ -184,12 +184,14 @@ export default {
             type: "success",
             duration: 2000
           });
+          this.$bus.$emit(this.emitEvent, item);
+      this.dialogFormVisible = false;
+
         })
         .catch(err => {
+      this.dialogFormVisible = false;
           this.listLoading = false;
         });
-      this.$bus.$emit(this.emitEvent, item);
-      // this.dialogFormVisible = false;
     }
   },
   watch: {

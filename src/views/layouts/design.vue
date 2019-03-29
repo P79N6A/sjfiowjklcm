@@ -268,7 +268,7 @@
         <el-button type="primary" @click="addCom">{{ $t('table.confirm') }}</el-button>
       </div>-->
     </el-dialog>
-    <!-- 高级样式 -->
+    <!-- 高级设置 -->
     <el-dialog title="设置" width="800px" :visible.sync="dialogFormVisible">
       <el-form ref="dataFormKey" :model="layoutTemp" label-position="right" label-width="80px">
         <el-form-item label="封面">
@@ -283,7 +283,7 @@
               v-if="layoutTemp.thumbnail"
               :src="`${cdnurl}${layoutTemp.thumbnail}`"
               class="favicon"
-              style="width:180px;height:auto;"
+              style="width:100%;height:auto;"
             >
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -1337,6 +1337,7 @@ export default {
     overflow: hidden;
     width: 180px;
     height: 180px;
+    line-height:180px;
   }
 
   .avatar-uploader .el-upload:hover {
