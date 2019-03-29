@@ -1,9 +1,8 @@
 <template>
-  <div class="app-container">
+  <div class="project-container">
     <div class="filter-container">
       <el-button
         class="filter-item"
-        style="margin-left: 10px;"
         type="primary"
         icon="el-icon-edit"
         @click="handleCreate"
@@ -19,9 +18,16 @@
       style="width: 100%;"
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
+
+      <el-table-column label="项目封面" prop="thumbnail" width="200">
+        <template slot-scope="scope">
+          <img v-if="scope.row.thumbnail" :src="cdnurl+scope.row.thumbnail" style="width:100%;">
+        </template>
+      </el-table-column>
       <el-table-column label="终端类型" prop="url">
         <template slot-scope="scope">
-          <el-tag>{{getTypeName(scope.row.device)}}</el-tag>
+          <el-tag v-if="scope.row.device=='PC'" type="danger">电脑桌面端</el-tag>
+          <el-tag v-if="scope.row.device=='MOBILE'" type="warning">手机H5端</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="网站名称" prop="name"></el-table-column>
@@ -60,15 +66,19 @@
       >
         <template slot-scope="scope">
           <el-button-group>
-            <el-button type="primary" @click="handleUpdate(scope.row)" icon="el-icon-edit">信息</el-button>
-            <el-button type="primary" @click="handlePush(scope.row)" icon="el-icon-edit">上线</el-button>
-            <el-button type="warning" @click="handleEdit(scope.row)" icon="el-icon-setting">管理</el-button>
+            <el-button type="primary" @click="handleUpdate(scope.row)" icon="el-icon-edit">编辑</el-button>
+            <el-button type="primary" @click="handleEdit(scope.row)" icon="el-icon-setting">管理</el-button>
+          </el-button-group>
+          <br>
+          <br>
+          <el-button-group>
+            <el-button type="success" @click="handlePush(scope.row)" icon="el-icon-upload">发布</el-button>
             <el-button
               v-if="scope.row.status!='deleted'"
               type="danger"
               @click="handleDelete(scope.row)"
               icon="el-icon-delete"
-            >{{ $t('table.delete') }}</el-button>
+            >删除</el-button>
           </el-button-group>
         </template>
       </el-table-column>
@@ -78,7 +88,7 @@
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
-      width="500px"
+      width="600px"
       v-if="dialogFormVisible"
     >
       <el-form
@@ -86,7 +96,7 @@
         :rules="rules"
         :model="projectsTemp"
         label-position="right"
-        label-width="80px"
+        label-width="90px"
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="*项目名称" prop="name">
@@ -108,16 +118,36 @@
             >{{item.name}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="页面模板" prop="templateId">
-          <el-select v-model="projectsTemp.templateId">
-            <el-option label="空白模板" value></el-option>
-            <el-option
-              v-for="(item,i) in projectsList"
-              :key="i"
-              :label="item.name"
-              :value="item._id"
-            ></el-option>
-          </el-select>
+        <el-form-item label="公开为模板" prop="isTemplate">
+          <el-switch
+            v-model="projectsTemp.isTemplate"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="是"
+            inactive-text="否"
+          ></el-switch>
+        </el-form-item>
+        <el-form-item label="项目模板" prop="templateId" v-if="dialogStatus=='create'">
+          <el-button @click="dialogTempVisible=true">选择模板</el-button>
+          <div>
+            <el-tag
+              v-if="projectsTemp.templateId&&dialogStatus=='create'"
+              closable
+              @close="resetTemp"
+            >{{projectsTemp.name}}</el-tag>
+          </div>
+        </el-form-item>
+        <el-form-item label="项目封面">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/imgs"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccessFav"
+            :before-upload="beforeAvatarUploadFav"
+          >
+            <img v-if="projectsTemp.thumbnail" :src="cdnurl+projectsTemp.thumbnail" class="favicon">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>只能是图片文件且不超过100KB!
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -126,6 +156,26 @@
           type="primary"
           @click="dialogStatus==='create'?createProjects():updateProjects()"
         >{{ $t('table.confirm') }}</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="选择模板"
+      :visible.sync="dialogTempVisible"
+      width="1000px"
+      v-if="dialogTempVisible"
+    >
+      <div class="project-list">
+        <div
+          v-for="project in publiceProjectList"
+          :key="project._id"
+          class="projects"
+          @click="setProject(project)"
+        >
+          <div :class="{active:projectsTemp.templateId==project._id}">
+            <div class="img-view" :style="`background-image:url(${cdnurl}${project.thumbnail});`"></div>
+            <div>{{project.name}}</div>
+          </div>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -143,31 +193,46 @@ import {
 import waves from "@/directive/waves"; // Waves directive
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import { getToken, setToken, removeToken } from "@/utils/auth";
+import { mapGetters } from "vuex";
 export default {
   name: "ComplexTable",
-  components: { Pagination },
-  directives: { waves },
+  components: {
+    Pagination
+  },
+  directives: {
+    waves
+  },
   data() {
     return {
       // 项目列表
       projectsList: null,
+      // 项目市场
+      publiceProjectList: null,
       // 项目数据模型
       projectsTemp: {
+        thumbnail: "",
         name: "",
-        devide: "",
+        device: "",
         url: "",
         description: "",
         templateId: ""
       },
       // 终端列表
       deviceTypeList: [
-        { name: "电脑桌面端", value: "PC" },
-        { name: "手机端", value: "MOBILE" }
+        {
+          name: "电脑桌面端",
+          value: "PC"
+        },
+        {
+          name: "手机H5端",
+          value: "MOBILE"
+        }
       ],
       // loading状态
       listLoading: true,
       // 弹窗
       dialogFormVisible: false,
+      dialogTempVisible: false,
       // 弹窗状态
       dialogStatus: "",
       // 标题列表
@@ -176,6 +241,9 @@ export default {
         create: "创建项目"
       }
     };
+  },
+  computed: {
+    ...mapGetters(["cdnurl"])
   },
   created() {
     // 读取项目列表
@@ -188,6 +256,18 @@ export default {
       getProjects()
         .then(res => {
           this.projectsList = res.data;
+          this.listLoading = false;
+        })
+        .catch(err => {
+          this.listLoading = false;
+        });
+    },
+    getPbulicProjects() {
+      getProjects({
+        isTemplate: true
+      })
+        .then(res => {
+          this.publiceProjectList = res.data;
           this.listLoading = false;
         })
         .catch(err => {
@@ -214,6 +294,12 @@ export default {
           });
         });
     },
+    setProject(data) {
+      this.projectsTemp.templateId = data._id;
+      this.projectsTemp.thumbnail = data.thumbnail;
+      (this.projectsTemp.name = data.name),
+        (this.projectsTemp.device = data.device);
+    },
     // 创建项目
     createProjects() {
       addProjects(this.projectsTemp)
@@ -232,8 +318,9 @@ export default {
     // 重置数据
     resetTemp() {
       this.projectsTemp = {
+        thumbnail: "",
         name: "",
-        devide: "",
+        device: "",
         url: "",
         description: "",
         templateId: ""
@@ -244,6 +331,7 @@ export default {
       this.resetTemp();
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
+      this.getPbulicProjects();
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
       });
@@ -299,7 +387,9 @@ export default {
       setToken("SiteId", row._id);
       setToken("SiteDevice", row.device);
       setToken("SiteName", row.name);
-      this.$router.push({ name: "page" });
+      this.$router.push({
+        name: "page"
+      });
       this.$store.dispatch("setProject", row._id);
       this.$store.dispatch("setProjectName", row.name);
     },
@@ -314,7 +404,92 @@ export default {
       } else {
         return val;
       }
+    },
+
+    handleAvatarSuccessFav(res, file) {
+      this.projectsTemp.thumbnail = res.url;
+    },
+    beforeAvatarUploadFav(file) {
+      const isImg = file.type.includes("image");
+      const isLt500K = file.size / 1024 < 500;
+      if (!isImg) {
+        this.$message.error("只能上传图片类型文件!");
+      }
+      if (!isLt500K) {
+        this.$message.error("图片大小不能超过 500 KB!");
+      }
+      return isImg && isLt500K;
     }
   }
 };
 </script>
+<style lang="scss">
+.project-container {
+  padding: 15px;
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+
+    img {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #409eff;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+  }
+  .project-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .projects {
+      width: 20%;
+      padding: 10px;
+
+      > div {
+        border: solid 1px #eee;
+        border-radius: 6px;
+        background-color: #eee;
+        text-align: center;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.7;
+        box-shadow: 0 0 3px 3px #eee;
+
+        &.active {
+          box-shadow: 0 0 6px 2px #409eff;
+          border: solid 1px #409eff;
+        }
+      }
+
+      .img-view {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-color: #eee;
+        width: 100%;
+        height: 130px;
+        display: inline-block;
+        line-height: 2;
+      }
+    }
+  }
+}
+</style>

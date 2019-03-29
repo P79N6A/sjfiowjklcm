@@ -646,7 +646,7 @@ export default {
       }
     },
     // 删除组件
-    s(arr, index) {
+    removeEl(arr, index) {
       arr.splice(index, 1)[0];
     },
     // 更新当前布局

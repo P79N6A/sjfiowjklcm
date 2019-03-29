@@ -107,6 +107,8 @@ export default {
           this.$store
             .dispatch("LoginByUsername", this.loginForm)
             .then(res => {
+              console.log("=-=-=-=-=-=-=");
+              console.log(res);
               this.loading = false;
               this.$router.push({ name: "entry" });
             })

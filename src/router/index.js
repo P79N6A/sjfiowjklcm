@@ -391,7 +391,7 @@ export const asyncRouterMap = [
         icon: 'documentation',
         authorities: [100401]
       }
-    },{
+    }, {
       path: 'imgs',
       component: () => import('@/views/imgs/index'),
       name: 'imgs',
@@ -400,7 +400,7 @@ export const asyncRouterMap = [
         icon: 'documentation',
         authorities: [100401]
       }
-    },{
+    }, {
       path: 'svgs',
       component: () => import('@/views/svgs/index'),
       name: 'svgs',
@@ -447,7 +447,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'index',
       component: () => import('@/views/items/index'),
-      name: 'messages',
+      name: 'items',
       meta: {
         title: '游戏大厅',
         icon: 'email',
@@ -516,7 +516,7 @@ export const asyncRouterMap = [
     },
     hidden: true,
     meta: {
-      authorities: [120301]
+      authorities: [110901]
     },
     children: [{
         path: 'compc',
@@ -525,7 +525,7 @@ export const asyncRouterMap = [
         meta: {
           title: '自定义组件库编辑',
           icon: 'documentation',
-          authorities: [120301]
+          authorities: [110901]
         }
       },
       {
@@ -535,7 +535,7 @@ export const asyncRouterMap = [
         meta: {
           title: '自定义组件库编辑',
           icon: 'documentation',
-          authorities: [120301]
+          authorities: [110901]
         }
       },
       {

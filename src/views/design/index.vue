@@ -10,11 +10,18 @@
       <br>
       <div class="center">
         <!-- 传入当前页的json -->
-        <Ishow
-          :pageJson="appJson.value.pageJson[activePageIndex]"
-          :activeTempIndex="activeTempIndex"
-          :appJson="appJson"
-        ></Ishow>
+        <vue-ruler-tool
+          :content-layout="{left:0,top:0}"
+          :is-scale-revise="true"
+          :preset-line="presetLine"
+          position="relative"
+        >
+          <Ishow
+            :pageJson="appJson.value.pageJson[activePageIndex]"
+            :activeTempIndex="activeTempIndex"
+            :appJson="appJson"
+          ></Ishow>
+        </vue-ruler-tool>
       </div>
       <div class="right">
         <Itool
@@ -38,6 +45,7 @@ import Ishow from "./component/show";
 import eleTemp from "./component/temp.json";
 import pageTemp from "./component/page.json";
 import { getIshowOne, addIshows, updateIshows } from "@/api/ishow";
+import VueRulerTool from "@/components/Rule";
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -51,6 +59,7 @@ function makeid() {
 export default {
   data() {
     return {
+      presetLine: [],
       appId: null,
       // 场景json
       appJson: {
@@ -510,7 +519,8 @@ export default {
     Iheader,
     Itool,
     Isidebar,
-    Ishow
+    Ishow,
+    VueRulerTool
   },
   created() {
     // 设置活动id,编辑状态

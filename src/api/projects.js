@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 
-export function getProjects() {
+export function getProjects(params) {
   return request({
     url: '/api/projects',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 

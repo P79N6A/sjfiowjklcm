@@ -2,7 +2,7 @@
   <div
     v-if="rulerToggle"
     id="rulerTool"
-    :style="{width : windowWidth + 'px',height : windowHeight + 'px',position:position,}"
+    :style="{width : '100%',height :'100%',position:position,}"
     class="ScaleBox"
     onselectstart="return false;"
   >
@@ -184,12 +184,12 @@ export default {
       ).offsetParent.offsetLeft;
     }, // 获取窗口宽与高
     scaleCalc() {
-      for (let i = 0; i < this.windowWidth; i += 1) {
+      for (let i = 0; i < 1920; i += 1) {
         if (i % 50 === 0) {
           this.xScale.push({ id: i });
         }
       }
-      for (let i = 0; i < this.windowHeight; i += 1) {
+      for (let i = 0; i < 5000; i += 1) {
         if (i % 50 === 0) {
           this.yScale.push({ id: i });
         }
@@ -465,6 +465,6 @@ export default {
   left: -10px;
 }
 #content {
-  position: absolute;
+  /* position: absolute; */
 }
 </style>
