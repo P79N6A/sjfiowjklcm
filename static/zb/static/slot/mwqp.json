@@ -1,0 +1,628 @@
+[{
+    "name": "百人牛牛",
+    "eName": "百人牛牛",
+    "nameList": {
+        "zh-CN": "百人牛牛",
+        "en": "百人牛牛"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "930",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "930",
+    "pic": "930.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "森林舞会",
+    "eName": "森林舞会",
+    "nameList": {
+        "zh-CN": "森林舞会",
+        "en": "森林舞会"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "920",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "920",
+    "pic": "920.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "百家乐",
+    "eName": "百家乐",
+    "nameList": {
+        "zh-CN": "百家乐",
+        "en": "百家乐"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "910",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "910",
+    "pic": "910.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "斗地主",
+    "eName": "斗地主",
+    "nameList": {
+        "zh-CN": "斗地主",
+        "en": "斗地主"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "610",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "610",
+    "pic": "610.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "十三水",
+    "eName": "十三水",
+    "nameList": {
+        "zh-CN": "十三水",
+        "en": "十三水"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "630",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "630",
+    "pic": "630.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "抢庄牌九",
+    "eName": "抢庄牌九",
+    "nameList": {
+        "zh-CN": "抢庄牌九",
+        "en": "抢庄牌九"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "730",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "730",
+    "pic": "730.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "极速炸金花",
+    "eName": "极速炸金花",
+    "nameList": {
+        "zh-CN": "极速炸金花",
+        "en": "极速炸金花"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "230",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "230",
+    "pic": "230.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "通比牛牛",
+    "eName": "通比牛牛",
+    "nameList": {
+        "zh-CN": "通比牛牛",
+        "en": "通比牛牛"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "870",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "870",
+    "pic": "870.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "21点",
+    "eName": "21点",
+    "nameList": {
+        "zh-CN": "21点",
+        "en": "21点"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "600",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "600",
+    "pic": "600.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "押庄龙虎",
+    "eName": "押庄龙虎",
+    "nameList": {
+        "zh-CN": "押庄龙虎",
+        "en": "押庄龙虎"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "900",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "900",
+    "pic": "900.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "三公",
+    "eName": "三公",
+    "nameList": {
+        "zh-CN": "三公",
+        "en": "三公"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "860",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "860",
+    "pic": "860.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "炸金花",
+    "eName": "炸金花",
+    "nameList": {
+        "zh-CN": "炸金花",
+        "en": "炸金花"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "220",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "220",
+    "pic": "220.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "抢庄牛牛",
+    "eName": "抢庄牛牛",
+    "nameList": {
+        "zh-CN": "抢庄牛牛",
+        "en": "抢庄牛牛"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "830",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "830",
+    "pic": "830.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "二八杠",
+    "eName": "二八杠",
+    "nameList": {
+        "zh-CN": "二八杠",
+        "en": "二八杠"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "720",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "720",
+    "pic": "720.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "德州扑克",
+    "eName": "620",
+    "nameList": {
+        "zh-CN": "德州扑克",
+        "en": "620"
+    },
+    "category": "KYQP",
+    "subType": "",
+    "id": "620",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "620",
+    "pic": "620.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "港式五张",
+    "eName": "Luke Game",
+    "nameList": {
+        "zh-CN": "港式五张",
+        "en": "Luke Game"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "fivecards",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "fivecards",
+    "pic": "fivecards.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "28杠",
+    "eName": "28 Kong",
+    "nameList": {
+        "zh-CN": "28杠",
+        "en": "28 Kong"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "g28",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "g28",
+    "pic": "g28.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "奔驰宝马",
+    "eName": "Bens & BMW",
+    "nameList": {
+        "zh-CN": "奔驰宝马",
+        "en": "Bens & BMW"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "carbrand",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "carbrand",
+    "pic": "carbrand.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "炸金花",
+    "eName": "Golden Flower",
+    "nameList": {
+        "zh-CN": "炸金花",
+        "en": "Golden Flower"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "zjh",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "zjh",
+    "pic": "zjh.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "飞禽走兽",
+    "eName": "Glod Shark",
+    "nameList": {
+        "zh-CN": "飞禽走兽",
+        "en": "Glod Shark"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "animal",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "animal",
+    "pic": "animal.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "龙虎",
+    "eName": "Longhudou",
+    "nameList": {
+        "zh-CN": "龙虎",
+        "en": "Longhudou"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "doratora",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "doratora",
+    "pic": "doratora.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "欢乐30秒",
+    "eName": "Happy 30 Sec",
+    "nameList": {
+        "zh-CN": "欢乐30秒",
+        "en": "Happy 30 Sec"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "baccarat",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "baccarat",
+    "pic": "baccarat.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "百人牛牛",
+    "eName": "Bairen Niuniu",
+    "nameList": {
+        "zh-CN": "百人牛牛",
+        "en": "Bairen Niuniu"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "hundredbull",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "hundredbull",
+    "pic": "hundredbull.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "看牌抢庄牛牛",
+    "eName": "Kanpai Grab Niuniu",
+    "nameList": {
+        "zh-CN": "看牌抢庄牛牛",
+        "en": "Kanpai Grab Niuniu"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "bull/mrob",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "bull/mrob",
+    "pic": "mrob.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "通比牛牛",
+    "eName": "Tongbi Niuniu",
+    "nameList": {
+        "zh-CN": "通比牛牛",
+        "en": "Tongbi Niuniu"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "bull/fair",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "bull/fair",
+    "pic": "fair.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "抢庄牛牛",
+    "eName": "Grap Niuniu",
+    "nameList": {
+        "zh-CN": "抢庄牛牛",
+        "en": "Grap Niuniu"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "bull/rob",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "bull/rob",
+    "pic": "rob.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "经典牛牛",
+    "eName": "Niuniu",
+    "nameList": {
+        "zh-CN": "经典牛牛",
+        "en": "Niuniu"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "bull/rand",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "bull/rand",
+    "pic": "rand.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "德州扑克",
+    "eName": "Texas Holden",
+    "nameList": {
+        "zh-CN": "德州扑克",
+        "en": "Texas Holden"
+    },
+    "category": "CITY761",
+    "subType": "",
+    "id": "texas",
+    "moduleid": "",
+    "state": "1",
+    "line": 0,
+    "language": "",
+    "code": "texas",
+    "pic": "texas.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "百家乐",
+    "eName": "百家乐",
+    "nameList": {
+        "zh-CN": "百家乐",
+        "en": "百家乐"
+    },
+    "category": "MWQP",
+    "subType": "",
+    "id": "1141",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "1141",
+    "pic": "1141.jpg",
+    "tag": ["NEW", "HOT"],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "楚汉德州",
+    "eName": "楚汉德州",
+    "nameList": {
+        "zh-CN": "楚汉德州",
+        "en": "楚汉德州"
+    },
+    "category": "MWQP",
+    "subType": "",
+    "id": "1146",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "1146",
+    "pic": "1146.jpg",
+    "tag": ["NEW", "HOT"],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "皇家轮盘",
+    "eName": "皇家轮盘",
+    "nameList": {
+        "zh-CN": "皇家轮盘",
+        "en": "皇家轮盘"
+    },
+    "category": "MWQP",
+    "subType": "",
+    "id": "1138",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "1138",
+    "pic": "1138.jpg",
+    "tag": [],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "百乐牛牛",
+    "eName": "百乐牛牛",
+    "nameList": {
+        "zh-CN": "百乐牛牛",
+        "en": "百乐牛牛"
+    },
+    "category": "MWQP",
+    "subType": "",
+    "id": "1139",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "1139",
+    "pic": "1139.jpg",
+    "tag": ["NEW"],
+    "type": "",
+    "isJackpot": "0"
+}, {
+    "name": "超级斗地主",
+    "eName": "Super Doudizhu",
+    "nameList": {
+        "zh-CN": "超级斗地主",
+        "en": "Super Doudizhu"
+    },
+    "category": "MWQP",
+    "subType": "",
+    "id": "1023",
+    "moduleid": "",
+    "state": "PLA",
+    "line": 0,
+    "language": "",
+    "code": "1023",
+    "pic": "1023.jpg",
+    "tag": ["NEW", "HOT"],
+    "type": "",
+    "isJackpot": "0"
+}]

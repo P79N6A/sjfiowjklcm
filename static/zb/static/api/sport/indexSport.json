@@ -1,0 +1,41 @@
+{"message":"操作成功",
+    "data":[
+        {   
+            "title":"体育竞猜",
+            "HTeamName":{
+                "name":"水晶宫",
+                "ico":"/static/api/sport/images/1.jpg"
+            },
+            "ATeamName":{
+                "name":"利物浦",
+                "ico":"/static/api/sport/images/2.jpg"
+            },
+            "GameDate":"2018年08月21日 03:00"
+        },
+        {
+            "title":"体育竞猜",
+            "HTeamName":{
+                "name":"瓦伦西亚",
+                "ico":"/static/api/sport/images/3.jpg"
+            },
+            "ATeamName":{
+                "name":"马德里竞技俱乐部",
+                "ico":"/static/api/sport/images/4.jpg"
+            },
+            "GameDate":"2018年08月21日 02:00"
+        },
+        {
+            "title":"体育竞猜",
+            "HTeamName":{
+                "name":"曼城",
+                "ico":"/static/api/sport/images/5.jpg"
+            },
+            "ATeamName":{
+                "name":"哈德斯菲尔德",
+                "ico":"/static/api/sport/images/6.jpg"
+            },
+            "GameDate":"2018年08月19日 08:30"
+        }
+    ],
+    "code":"10000"
+    }

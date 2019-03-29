@@ -1,0 +1,40 @@
+{
+  "message": "操作成功",
+  "code": "10000",
+  "data": [{
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=13",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180727_1532672746566.jpg",
+    "title": "首存"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=16",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180726_1532589149348.jpg",
+    "title": "次存优惠"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=11",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180730_1532930813948.jpg",
+    "title": "王者VIP"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=15",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180711_1531292757087.jpg",
+    "title": "秒存返赠"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "javascript:;",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180711_1531272060597.jpg",
+    "title": "MG热门游戏"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=14",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180727_1532672595454.jpg",
+    "title": "救援金"
+  }, {
+    "describe": "",
+    "hyperlinkUrl": "/promo?latestPreferential.id=12",
+    "showUrl": "https://bjh.shdunjiusy.com/common/banner/20180728_1532764046830.jpg",
+    "title": "超高反水"
+  }]
+}

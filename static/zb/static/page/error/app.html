@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <title>APP下载</title>
+  <link rel="stylesheet" href="css/error.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_831418_yabjlifl8kd.css" />
+  <!--[if IE 6]>
+		<script src="js/png.js"></script>
+		<script>DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="tips" id="isWx" style="display:none;">
+      <p>微信中无法直接下载，请点击右上角<i class="iconfont icon-share"></i></p>
+      <p>选择<span>在浏览器中打开</span>即可下载</p>
+    </div>
+    <div class="sky">
+      <img class="animate-cloud cloud1" style="left:0%;top:00%;height:35px;" src="./img/cloud.png">
+      <img class="animate-cloud cloud2" style="left:35%;top:35%;" src="./img/cloud.png">
+      <img class="animate-cloud cloud3" style="left:10%;top:60%;" src="./img/cloud.png">
+      <img class="animate-cloud bird" style="left:25%;top:30%;" src="./img/bird.png">
+      <img class="animate-cloud bullet" style="right:10%;top:25%;height:50px;" src="./img/bullet.png">
+      <img class="animate-cloud cloud3" style="right:0%;top:40%;" src="./img/cloud.png">
+    </div>
+    <div id="text">
+      <!-- APP的icon -->
+      <img src="./img/icon.png">
+      <div class="">
+        <a href="" id="link_iphone"><i class="iconfont icon-iphone"></i>苹果客户端下载</a>
+        <a href="" id="link_android"><i class="iconfont icon-android"></i>安卓客户端下载</a>
+        <p id="times"></p>
+      </div>
+    </div>
+  </div>
+  <div class="tech" id="iphoneTech">
+    <p>苹果客户端安装教程</p>
+    <p>^</p>
+    <p>^</p>
+  </div>
+  <div class="animate below"></div>
+  <div class="animate above"></div>
+  <!-- <script src="/static/lib/zepto/index.js"></script> -->
+
+  <script>
+      // 在这里配置APP下载链接
+      var link_iphone="itms-services:///?action=download-manifest&url=https://www.staticsources.com/app/bjh/bjh.plist"
+      var link_android="https://www.staticsources.com/app/bjh/bjh.apk"
+      // 判断设备
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      var isWeixin = u.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+      var isQQ = u.toLowerCase().match(/qq\//i) == "qq/";
+      // 标签变量
+      var WeixinDiv = document.getElementById('isWx');
+      var btn_iphone=document.getElementById('link_iphone');
+      var btn_android=document.getElementById('link_android');
+      var TimeDiv=document.getElementById('times');
+      var TechDiv=document.getElementById('iphoneTech');
+      iphoneTech
+      // 先判断是否是微信或qq，显示在浏览器中打开的提示
+      if(isWeixin || isQQ){
+        WeixinDiv.style.display='block';
+      }else{
+        WeixinDiv.style.display='none';
+      }
+      // 设置下载步骤和下载链接配置
+      if(isiOS){
+        TechDiv.style.display='block'
+        btn_iphone.href=link_iphone
+        timeToDownload(link_iphone,5)
+      }else{
+        TechDiv.style.display='none'
+        btn_android.href=link_android
+        timeToDownload(link_android,555)
+      }
+      // 倒计时开始下载
+      function timeToDownload(url,sec){
+        var timer=window.setInterval(function(){
+          if(sec<=0){
+            window.clearInterval(timer)
+            TimeDiv.innerHTML=''
+            window.location.href=url
+          }else{
+            TimeDiv.innerHTML=sec+'秒后开始下载...'
+            sec--
+          }
+        },999)
+      }
+    </script>
+</body>
+
+</html>

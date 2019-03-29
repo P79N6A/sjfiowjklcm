@@ -1,0 +1,177 @@
+{
+    "main": [
+        {
+            "name": "主账户",
+            "value": "MAIN"
+        },
+        {
+            "name": "副账户",
+            "value": "DEPUTY"
+        }
+    ],
+    "agent": [
+        {
+            "name": "老虎机佣金",
+            "value": "SLOT"
+        },
+        {
+            "name": "其他佣金",
+            "value": "LIVEALL"
+        }
+    ],
+    "slot": [
+        {
+            "name": "PT电子",
+            "value": "PT2TIGER",
+            "title": "PT"
+        },
+        {
+            "name": "SW电子",
+            "value": "SW",
+            "title": "SW"
+        },
+        {
+            "name": "MG电子",
+            "value": "MG",
+            "title": "MG"
+        },
+        {
+            "name": "DT电子",
+            "value": "DT",
+            "title": "DT"
+        },
+        {
+            "name": "PNG电子",
+            "value": "PNG",
+            "title": "PNG"
+        },
+        {
+            "name": "NT电子",
+            "value": "NT",
+            "title": "NT"
+        },
+        {
+            "name": "CQ9电子",
+            "value": "CQ9",
+            "title": "CQ9"
+        },
+        {
+            "name": "MW电子",
+            "value": "MWSLOT",
+            "title": "MW"
+        },
+        {
+            "name": "BBIN电子",
+            "value": "BBSLOT",
+            "title": "BBIN"
+        },
+        {
+            "name": "TGP电子",
+            "value": "TGP",
+            "title": "TGP"
+        },
+        {
+            "name": "LG电子",
+            "value": "LG",
+            "title": "LG"
+        },
+        {
+            "name": "PG电子",
+            "value": "PG",
+            "title": "PG"
+        },
+        {
+          "name": "JDB电子",
+          "value": "JDBSLOT",
+          "title": "JDB"
+        }
+    ],
+    "live": [
+        {
+            "name": "AG账户",
+            "value": "AGIN"
+        },
+        {
+            "name": "OG真人",
+            "value": "OG"
+        },
+        {
+            "name": "BBIN真人",
+            "value": "BBIN"
+        },
+        {
+            "name": "申博真人",
+            "value": "SUNBET"
+        },
+        {
+            "name": "DG真人",
+            "value": "DGLIVE"
+        },
+        {
+            "name": "BG真人",
+            "value": "BGLIVE"
+        }
+    ],
+    "fish": [
+        {
+            "name": "大满贯捕鱼",
+            "value": "MW"
+        },
+        {
+          "name": "JDB捕鱼",
+          "value": "JDBFISH"
+        }
+    ],
+    "sport": [
+        {
+            "name": "沙巴体育",
+            "value": "SB"
+        },
+        {
+            "name": "新皇冠体育",
+            "value": "UG"
+        }
+    ],
+    "lottery": [
+        {
+            "name": "IG彩票",
+            "value": "IG"
+        },
+        {
+            "name": "BBIN彩票",
+            "value": "BBCP"
+        },
+        {
+            "name": "VR彩票",
+            "value": "VR"
+        },
+        {
+            "name": "彩播彩票",
+            "value": "CB"
+        }
+    ],
+    "chess": [
+        {
+            "name": "761棋牌",
+            "value": "City761"
+        },
+        {
+            "name": "开元棋牌",
+            "value": "KYQP"
+        },
+        {
+            "name": "大满贯棋牌",
+            "value": "MWQP"
+        },
+        {
+            "name": "BY棋牌",
+            "value": "BY"
+        }
+    ],
+    "competition": [
+        {
+            "name": "泛亚电竞",
+            "value": "AVIA"
+        }
+    ]
+}

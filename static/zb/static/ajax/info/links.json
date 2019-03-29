@@ -1,0 +1,69 @@
+{
+  "Download": {
+    "app": "https://www.staticsources.com/app/zhongbo/zhongbo.html",
+
+    "dtIos": "http://down.dreamtech.asia/PB_1/ios.html",
+    "dtAndroid": "http://down.dreamtech.asia/PB_1/android.html",
+
+    "ptpc": "https://www.staticsources.com/app/pt/setupglx.exe",
+    "ptMobile": "https://www.staticsources.com/app/pt/ptapp.html",
+    "lg": "/static/page/lg/index.html",
+    "ebetMobile": "http://www.ebetapp.com/****",
+    "agMobile": "http://agmbet.com",
+    "ag": "http://hunter2.agmjs.com/ "
+  },
+  "Games": {
+    "href_ag": "/gameAginReal.php",
+    "href_bbin": "/game/loginBBIN.php?gameType=live",
+    "href_sunbet": "/game/gameSUNBET.php",
+    "href_sunbetH5": "/game/gameSUNBET.php?type=1",
+    "href_og": "/game/gameOG.php",
+    "href_ebet": "/gameEBET.php",
+    "href_dg_pc": "/game/gameDGLIVE.php?deviceType=PC",
+    "href_dg_mobile": "/game/gameDGLIVE.php?deviceType=mobile",
+    "href_bg": "/game/gameBGLIVE.php",
+
+    "href_bbslot": "/game/gameBBSLOT.php?deviceType=PC",
+    "href_bbslot_h5": "/game/gameBBSLOT.php?deviceType=MOBILE",
+
+    "href_pbsport": "/game/gamePBSPORT.php",
+    "href_sb_pc": "/game/loginSB.php",
+    "href_sb_mobile": "/game/loginSBH5.php",
+    "href_ug_pc": "/game/gameUG.php?deviceType=PC",
+    "href_ug_mobile": "/game/gameUG.php?deviceType=MB",
+
+    "href_fish_pt": "/game/v2/gamePT.php?gameId=cashfi&isfun=0&deviceType=pc",
+    "href_fish_pt_try": "/game/v2/gamePT.php?gameId=cashfi&isfun=1&deviceType=pc",
+
+    "href_fish_ttg": "/game/v2/gameTTG.php?gameId=14900&gameName=EGIGAme&gameType=0&deviceType=pc&isfun=0",
+    "href_fish_ttg_try": "/game/v2/gameTTG.php?gameId=14900&gameName=EGIGAme&gameType=0&deviceType=pc&isfun=1",
+
+    "href_fish_ttg_mobile": "/game/v2/gameTTG.php?gameId=14900&gameName=EGIGAme&gameType=0&deviceType=mobile&isfun=0",
+    "href_fish_ttg_try_mobile": "/game/v2/gameTTG.php?gameId=14900&gameName=EGIGAme&gameType=0&deviceType=mobile&isfun=1",
+
+    "href_fish": "/gameAgFish.php",
+    "href_fish_ag": "/gameAgFish.php",
+
+    "href_fish_mw": "/game/gameMW.php?gameId=1051&isfun=0&deviceType=pc",
+    "href_fish_mw_mobile": "/game/gameMW.php?gameId=1051&deviceType=mobile&isfun=0",
+
+    "href_fish_jdb": "/game/gameJDBFISH.php?gameId=7-7003&isfun=0",
+
+    "href_city761": "/game/gameCity761.php",
+    "href_kyqp": "/game/gameKYQP.php",
+    "href_by": "/game/gameBY.php",
+    "href_mw": "/game/gameMWQP.php",
+
+    "href_vr": "/game/gameVR.php",
+    "href_ig_ssc": "/game/gameIG.php?gameId=1&deviceType=pc",
+    "href_ig_hk": "/game/gameIG.php?gameId=-1&deviceType=pc",
+    "href_ig_ssc_mobile": "/game/gameIG.php?gameId=1&deviceType=mobile",
+    "href_ig_hk_mobile": "/game/gameIG.php?gameId=-1&deviceType=mobile",
+    "href_bbcp": "/game/gameBBCP.php",
+    "href_cb": "/game/gameCB.php?deviceType=pc",
+    "href_cb_mobile": "/game/gameCB.php?deviceType=mobile",
+
+    "href_avia": "/game/gameAVIA.php"
+
+  }
+}

@@ -1,0 +1,143 @@
+body{
+  margin:0;
+  padding:0;
+}
+#first-load {
+  position: fixed;
+  height: 100%;
+  width: 100vw;
+  top:0;
+  left:0;
+  z-index: 9999999;
+  text-align:center;
+  background:rgba(0,0,0,0.9);
+  color:#fff;
+}
+#first-load .top{
+  padding-top:30vh;
+  line-height:3;
+}
+#first-load .mui-progressbar {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 70%;
+  margin:0 auto;
+  height: 2px;
+  -webkit-transform-origin: center top;
+  transform-origin: center top;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: #b6b6b6;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+#first-load .mui-progressbar span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: 150ms;
+    transition: 150ms;
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
+    background: #007aff;
+}
+#first-load .mui-progressbar-infinite:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+    -webkit-animation: mui-progressbar-infinite 1s linear infinite;
+    animation: mui-progressbar-infinite 1s linear infinite;
+    background: #007aff;
+}
+#first-load .lds-circle {
+  display: inline-block;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  background: url(/favicon.ico) center center no-repeat;;
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+#first-load .center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+#first-load .btn_index{
+  display:inline-block;
+  font-size:100%;
+  color:#fff;
+  background:#ccc;
+  line-height:2;
+  padding:0 20px;
+  border:solid 1px #fff;
+  border-radius:4px;
+  word-break: keep-all;
+}
+#first-load .foot{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  line-height:3;
+}
+@-webkit-keyframes mui-progressbar-infinite {
+    0% {
+        -webkit-transform: translate3d(-50%,0,0) scaleX(.5)
+    }
+
+    100% {
+        -webkit-transform: translate3d(100%,0,0) scaleX(.5)
+    }
+}
+
+@keyframes mui-progressbar-infinite {
+    0% {
+        transform: translate3d(-50%,0,0) scaleX(.5)
+    }
+
+    100% {
+        transform: translate3d(100%,0,0) scaleX(.5)
+    }
+}
+@-webkit-keyframes lds-circle {
+  0%,
+  100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
+@keyframes lds-circle {
+  0%,
+  100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
+}
