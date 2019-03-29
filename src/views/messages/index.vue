@@ -130,7 +130,8 @@
           <!-- <el-button style="float: right;" type="danger">回复</el-button> -->
           <div>发件人：{{messageTemp.author.nickname}}</div>
           <div>时间：{{messageTemp.createDate}}</div>
-          <div>类型：
+          <div>
+            类型：
             <el-tag type="primary">{{messageTemp.type}}</el-tag>
           </div>
         </div>
@@ -187,7 +188,9 @@ export default {
           nickname: ""
         },
         title: "",
-        content: "",
+        content: `以下为游戏上新通知，请产品商户按需及时上新游戏，感谢配合\n
+                  xxx----xxx\n
+                  游戏可以同时支持web和mobile版本的游戏类别。`,
         type: "",
         recId: []
       },
