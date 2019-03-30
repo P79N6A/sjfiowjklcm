@@ -12,194 +12,206 @@
         <el-form :label-position="'left'" label-width="70px" :model="settingForm">
           <el-tabs type="border-card">
             <el-tab-pane label="样式">
-          <el-collapse v-model="activeNames" @change="handleChange">
-            <!-- 基本样式 -->
-            <el-collapse-item title="基础" name="2">
-              <el-form-item label="页面宽度" prop="width">
-                <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
-                  <template slot="append">PX</template>
-                </el-input>
-              </el-form-item>
+              <el-collapse v-model="activeNames" @change="handleChange">
+                <!-- 基本样式 -->
+                <el-collapse-item title="基础" name="2">
+                  <el-form-item label="页面宽度" prop="width">
+                    <el-input v-model="settingForm.base.width" placeholder="请输入组件长度">
+                      <template slot="append">PX</template>
+                    </el-input>
+                  </el-form-item>
 
-              <el-form-item label="页面高度" prop="height">
-                <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
-                  <template slot="append">PX</template>
-                </el-input>
-              </el-form-item>
+                  <el-form-item label="页面高度" prop="height">
+                    <el-input v-model="settingForm.base.height" placeholder="请输入组件宽度">
+                      <template slot="append">PX</template>
+                    </el-input>
+                  </el-form-item>
 
-              <el-form-item label="透明程度" prop="opacity">
-                <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
-              </el-form-item>
+                  <el-form-item label="透明程度" prop="opacity">
+                    <el-slider v-model="settingForm.base.opacity" :min="0" :max="100"></el-slider>
+                  </el-form-item>
 
-              <el-form-item label="旋转角度" prop="rotate">
-                <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
-              </el-form-item>
-            </el-collapse-item>
-            <!-- 背景配置 -->
-            <el-collapse-item title="背景" name="1">
-              <el-form-item label="背景图" prop="bg">
-                <div
-                  class="img-view"
-                  :style="`background-image:url('${cdnurl}${settingForm.bg.backgroundImage}')`"
-                  @click="$bus.$emit('openImgList','ChangePageBg')"
-                >
-                  <i class="el-icon-plus"></i>
-                </div>
-                <div class="mt10 tc">
-                  <el-button-group>
-                    <el-button
-                      type="primary"
-                      size="mini"
-                      @click="settingForm.bg.backgroundImage=''"
-                    >删除</el-button>
-                    <el-button
-                      type="danger"
-                      size="mini"
+                  <el-form-item label="旋转角度" prop="rotate">
+                    <el-slider v-model="settingForm.base.rotate" :min="-180" :max="180"></el-slider>
+                  </el-form-item>
+                </el-collapse-item>
+                <!-- 背景配置 -->
+                <el-collapse-item title="背景" name="1">
+                  <el-form-item label="背景图" prop="bg">
+                    <div
+                      class="img-view"
+                      :style="`background-image:url('${cdnurl}${settingForm.bg.backgroundImage}')`"
                       @click="$bus.$emit('openImgList','ChangePageBg')"
-                    >修改</el-button>
-                  </el-button-group>
-                </div>
-              </el-form-item>
-              <el-form-item label="通屏背景">
-                <el-switch
-                  v-model="settingForm.config.fullScreen"
-                  active-text="是"
-                  inactive-text="否"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                ></el-switch>
-              </el-form-item>
-              <el-form-item label="背景对齐" prop="bg">
-                <div style="width:150px;text-align:left;">
-                  <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left top">
-                      <i class="el-icon-arrow-up" style="transform: rotate(-45deg)"></i>
-                    </el-radio-button>
-                    <el-radio-button label="center top">
-                      <i class="el-icon-arrow-up"></i>
-                    </el-radio-button>
-                    <el-radio-button label="right top">
-                      <i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i>
-                    </el-radio-button>
-                  </el-radio-group>
+                    >
+                      <i class="el-icon-plus"></i>
+                    </div>
+                    <div class="mt10 tc">
+                      <el-button-group>
+                        <el-button
+                          type="primary"
+                          size="mini"
+                          @click="settingForm.bg.backgroundImage=''"
+                        >删除</el-button>
+                        <el-button
+                          type="danger"
+                          size="mini"
+                          @click="$bus.$emit('openImgList','ChangePageBg')"
+                        >修改</el-button>
+                      </el-button-group>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="通屏背景">
+                    <el-switch
+                      v-model="settingForm.config.fullScreen"
+                      active-text="是"
+                      inactive-text="否"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                    ></el-switch>
+                  </el-form-item>
+                  <el-form-item label="背景对齐" prop="bg">
+                    <div style="width:150px;text-align:left;">
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left top">
+                          <i class="el-icon-arrow-up" style="transform: rotate(-45deg)"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center top">
+                          <i class="el-icon-arrow-up"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right top">
+                          <i class="el-icon-arrow-up" style="transform: rotate(45deg)"></i>
+                        </el-radio-button>
+                      </el-radio-group>
 
-                  <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left center">
-                      <i class="el-icon-arrow-left"></i>
-                    </el-radio-button>
-                    <el-radio-button label="center center">
-                      <i class="el-icon-loading"></i>
-                    </el-radio-button>
-                    <el-radio-button label="right center">
-                      <i class="el-icon-arrow-right"></i>
-                    </el-radio-button>
-                  </el-radio-group>
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left center">
+                          <i class="el-icon-arrow-left"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center center">
+                          <i class="el-icon-loading"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right center">
+                          <i class="el-icon-arrow-right"></i>
+                        </el-radio-button>
+                      </el-radio-group>
 
-                  <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
-                    <el-radio-button label="left bottom">
-                      <i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i>
-                    </el-radio-button>
-                    <el-radio-button label="center bottom">
-                      <i class="el-icon-arrow-down"></i>
-                    </el-radio-button>
-                    <el-radio-button label="right bottom">
-                      <i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i>
-                    </el-radio-button>
-                  </el-radio-group>
-                </div>
-              </el-form-item>
-              <el-form-item label="背景覆盖" prop="bg">
-                <el-select v-model="settingForm.bg.backgroundSize" placeholder="请选择">
-                  <el-option label="原始" value>原始</el-option>
-                  <el-option label="平铺" value="cover">平铺</el-option>
-                  <el-option label="适配" value="contain">适配</el-option>
-                  <el-option label="拉伸" value="100% 100%">拉伸</el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="背景重复" prop="bg">
-                <el-select v-model="settingForm.bg.backgroundRepeat" placeholder="请选择">
-                  <el-option label="水平方向重复" value="repeat-x">水平方向重复</el-option>
-                  <el-option label="垂直方向重复" value="repeat-y">垂直方向重复</el-option>
-                  <el-option label="水平和垂直重复" value="repeat">水平和垂直重复</el-option>
-                  <el-option label="不重复" value="no-repeat">不重复</el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="背景颜色" prop="bg">
-                <el-input v-model="settingForm.bg.backgroundColor" placeholder="纯色背景" size="medium">
-                  <el-color-picker
-                    slot="prepend"
-                    v-model="settingForm.bg.backgroundColor"
-                    show-alpha
-                  ></el-color-picker>
-                </el-input>
-              </el-form-item>
-            </el-collapse-item>
-            <!-- 边框 -->
-            <el-collapse-item title="边框" name="3">
-              <el-form-item label="边框类型" prop="border">
-                <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
-                  <el-option
-                    v-for="(item, i) in borderStyleOptions"
-                    :label="item.label"
-                    :value="item.value"
-                    :key="i"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="边框宽度" prop="border">
-                <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
-              </el-form-item>
-              <el-form-item label="边框圆角" prop="border">
-                <el-slider v-model="settingForm.border.borderRadius" :max="200" :min="0"></el-slider>
-              </el-form-item>
-              <el-form-item label="边框颜色" prop="border">
-                <el-input v-model="settingForm.border.borderColor" placeholder="边框颜色" size="medium">
-                  <el-color-picker
-                    slot="prepend"
-                    v-model="settingForm.border.borderColor"
-                    show-alpha
-                  ></el-color-picker>
-                </el-input>
-              </el-form-item>
-            </el-collapse-item>
-            <!-- 阴影 -->
-            <el-collapse-item title="阴影" name="4">
-              <el-form-item label="阴影颜色" prop="shadow">
-                <el-input v-model="settingForm.shadow.shadowColor" placeholder="阴影颜色" size="medium">
-                  <el-color-picker
-                    slot="prepend"
-                    v-model="settingForm.shadow.shadowColor"
-                    show-alpha
-                  ></el-color-picker>
-                </el-input>
-              </el-form-item>
-              <el-form-item label="水平偏移" prop="shadow">
-                <el-slider v-model="settingForm.shadow.shadowX" :max="100" :min="-100"></el-slider>
-              </el-form-item>
-              <el-form-item label="垂直偏移" prop="shadow">
-                <el-slider v-model="settingForm.shadow.shadowY" :max="100" :min="-100"></el-slider>
-              </el-form-item>
-              <el-form-item label="模糊半径" prop="shadow">
-                <el-slider v-model="settingForm.shadow.shadowFuzzy" :max="100"></el-slider>
-              </el-form-item>
-              <el-form-item label="扩散半径" prop="shadow">
-                <el-slider v-model="settingForm.shadow.shadowDire" :max="100"></el-slider>
-              </el-form-item>
-              <el-form-item label="阴影方向">
-                <el-switch
-                  v-model="settingForm.shadow.shadowinSet"
-                  active-text="朝内"
-                  inactive-text="朝外"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                ></el-switch>
-              </el-form-item>
-            </el-collapse-item>
-          </el-collapse>
+                      <el-radio-group v-model="settingForm.bg.backgroundPosition" size="small">
+                        <el-radio-button label="left bottom">
+                          <i class="el-icon-arrow-down" style="transform: rotate(45deg)"></i>
+                        </el-radio-button>
+                        <el-radio-button label="center bottom">
+                          <i class="el-icon-arrow-down"></i>
+                        </el-radio-button>
+                        <el-radio-button label="right bottom">
+                          <i class="el-icon-arrow-down" style="transform: rotate(-45deg)"></i>
+                        </el-radio-button>
+                      </el-radio-group>
+                    </div>
+                  </el-form-item>
+                  <el-form-item label="背景覆盖" prop="bg">
+                    <el-select v-model="settingForm.bg.backgroundSize" placeholder="请选择">
+                      <el-option label="原始" value>原始</el-option>
+                      <el-option label="平铺" value="cover">平铺</el-option>
+                      <el-option label="适配" value="contain">适配</el-option>
+                      <el-option label="拉伸" value="100% 100%">拉伸</el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="背景重复" prop="bg">
+                    <el-select v-model="settingForm.bg.backgroundRepeat" placeholder="请选择">
+                      <el-option label="水平方向重复" value="repeat-x">水平方向重复</el-option>
+                      <el-option label="垂直方向重复" value="repeat-y">垂直方向重复</el-option>
+                      <el-option label="水平和垂直重复" value="repeat">水平和垂直重复</el-option>
+                      <el-option label="不重复" value="no-repeat">不重复</el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="背景颜色" prop="bg">
+                    <el-input
+                      v-model="settingForm.bg.backgroundColor"
+                      placeholder="纯色背景"
+                      size="medium"
+                    >
+                      <el-color-picker
+                        slot="prepend"
+                        v-model="settingForm.bg.backgroundColor"
+                        show-alpha
+                      ></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                </el-collapse-item>
+                <!-- 边框 -->
+                <el-collapse-item title="边框" name="3">
+                  <el-form-item label="边框类型" prop="border">
+                    <el-select v-model="settingForm.border.borderStyle" placeholder="边框类型">
+                      <el-option
+                        v-for="(item, i) in borderStyleOptions"
+                        :label="item.label"
+                        :value="item.value"
+                        :key="i"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="边框宽度" prop="border">
+                    <el-slider v-model="settingForm.border.borderWidth" :max="100" :min="0"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="边框圆角" prop="border">
+                    <el-slider v-model="settingForm.border.borderRadius" :max="200" :min="0"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="边框颜色" prop="border">
+                    <el-input
+                      v-model="settingForm.border.borderColor"
+                      placeholder="边框颜色"
+                      size="medium"
+                    >
+                      <el-color-picker
+                        slot="prepend"
+                        v-model="settingForm.border.borderColor"
+                        show-alpha
+                      ></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                </el-collapse-item>
+                <!-- 阴影 -->
+                <el-collapse-item title="阴影" name="4">
+                  <el-form-item label="阴影颜色" prop="shadow">
+                    <el-input
+                      v-model="settingForm.shadow.shadowColor"
+                      placeholder="阴影颜色"
+                      size="medium"
+                    >
+                      <el-color-picker
+                        slot="prepend"
+                        v-model="settingForm.shadow.shadowColor"
+                        show-alpha
+                      ></el-color-picker>
+                    </el-input>
+                  </el-form-item>
+                  <el-form-item label="水平偏移" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowX" :max="100" :min="-100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="垂直偏移" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowY" :max="100" :min="-100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="模糊半径" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowFuzzy" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="扩散半径" prop="shadow">
+                    <el-slider v-model="settingForm.shadow.shadowDire" :max="100"></el-slider>
+                  </el-form-item>
+                  <el-form-item label="阴影方向">
+                    <el-switch
+                      v-model="settingForm.shadow.shadowinSet"
+                      active-text="朝内"
+                      inactive-text="朝外"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                    ></el-switch>
+                  </el-form-item>
+                </el-collapse-item>
+              </el-collapse>
             </el-tab-pane>
             <el-tab-pane label="动画">
-            <!-- 入场动画 -->
-            <!-- <el-collapse-item title="入场动画" name="5"> -->
+              <!-- 入场动画 -->
+              <!-- <el-collapse-item title="入场动画" name="5"> -->
               <el-form-item label="入场动画" prop="name">
                 <el-select v-model="settingForm.animate.enterAnimation" placeholder="请选择">
                   <el-option-group>
@@ -224,24 +236,31 @@
                   <el-option-group>
                     <el-option label="无" value></el-option>
                   </el-option-group>
-                  <el-option-group v-for="(group, i) in animateOptions" :label="group.label" :key="i">
-                    <el-option v-for="(item, j) in group.options" :label="item.label" :value="item.value" :key="j"></el-option>
+                  <el-option-group
+                    v-for="(group, i) in animateOptions"
+                    :label="group.label"
+                    :key="i"
+                  >
+                    <el-option
+                      v-for="(item, j) in group.options"
+                      :label="item.label"
+                      :value="item.value"
+                      :key="j"
+                    ></el-option>
                   </el-option-group>
                 </el-select>
               </el-form-item>
-            <!-- </el-collapse-item> -->
+              <!-- </el-collapse-item> -->
             </el-tab-pane>
             <el-tab-pane label="高级">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 20, maxRows: 40}"
-              placeholder="输入自定义样式"
-              v-model="settingForm.config.styleText"
-            ></el-input>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 20, maxRows: 40}"
+                placeholder="输入自定义样式"
+                v-model="settingForm.config.styleText"
+              ></el-input>
             </el-tab-pane>
-
           </el-tabs>
-
         </el-form>
       </el-scrollbar>
     </el-dialog>

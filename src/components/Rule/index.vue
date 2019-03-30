@@ -70,7 +70,7 @@ export default {
     }, // 规定元素的定位类型
     isHotKey: {
       type: Boolean,
-      default: true
+      default: false
     }, // 热键开关
     isScaleRevise: {
       type: Boolean,
