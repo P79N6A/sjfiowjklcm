@@ -1,128 +1,50 @@
 <template>
   <div class="FrameDesigh-container">
-    <el-header>
-      <el-row :gutter="20">
-        <el-col :span="6">
-          <el-input v-model="frameTemp.name" placeholder="请输入框架名称">
-            <template slot="prepend">{{textMap[frameTemp.type]}}</template>
-          </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="frameTemp._id?updateFrame():addFrames()" type="warning">保存</el-button>
-          <el-button @click="$router.push({name:'frames'})">取消</el-button>
-        </el-col>
-      </el-row>
-    </el-header>
-    <!-- 操作部分 -->
-    <div id="drag-box" ref="imageWrapper">
-      <div class="show" v-for="(block,i) in frameTemp.value" :key="i">
-        <!-- 块区域 -->
-        <el-button-group class="block-controls">
-          <el-button>
-            <input v-model="block.text">
-          </el-button>
-          <el-tooltip class="item" effect="dark" content="向上移动" placement="top-start" v-if="i!=0">
-            <el-button circle type="danger" icon="el-icon-upload2" @click="moveBlock(i,-1)"></el-button>
-          </el-tooltip>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            content="向下移动"
-            placement="top-start"
-            v-if="i!=frameTemp.value.length-1"
-          >
-            <el-button circle type="danger" icon="el-icon-download" @click="moveBlock(i,1)"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="在后面追加一个容器" placement="top-start">
-            <el-button circle type="danger" icon="el-icon-plus" @click="addBlock(i)"></el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除当前容器" placement="top-start">
-            <el-button circle type="danger" icon="el-icon-close" @click="removeBlock(i)"></el-button>
-          </el-tooltip>
-        </el-button-group>
-        <div v-if="block.isPageView" style="text-align:center;height:300px;">
-          <img src="./img/ico-page-view.png" style="height:100%;">
-          页面展示区域
+    <div class="i-header">
+      <div class="content">
+        <div id="clone">
+          <el-button type="danger" class="clone-row" @click="addRow(moveEndData.from.rowIndex)">添加区块</el-button>
+          <el-button type="warning" @click="addContent(moveEndData.from.rowIndex,moveEndData.from.contentIndex)">添加行</el-button>
+              <el-button type="primary" @click="addCol(moveEndData.from.rowIndex,moveEndData.from.contentIndex)">
+              添加内容块
+            </el-button>
+          <i class="el-icon-question"></i>
         </div>
-        <div v-else>
-          <el-row v-for="(row,r) in block.rows" :key="i+'-'+r" class="rows">
-            <!-- 区块操作按钮 -->
-            <el-button-group class="row-controls">
-              <el-button>
-                <input v-model="row.text">
-              </el-button>
-              <el-tooltip
-                class="item"
-                effect="dark"
-                content="向上移动"
-                placement="top-start"
-                v-if="r!=0"
-              >
-                <el-button
-                  circle
-                  type="warning"
-                  icon="el-icon-upload2"
-                  @click="moveRow(block,r,-1)"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="向下移动" placement="top-start">
-                <el-button
-                  circle
-                  type="warning"
-                  icon="el-icon-download"
-                  @click="moveRow(block,r,1)"
-                  v-if="r!=block.rows.length-1"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="在后面追加内容区块" placement="top-start">
-                <el-button circle type="warning" icon="el-icon-plus" @click="addRow(block,r)"></el-button>
-              </el-tooltip>
-              <el-tooltip class="item" effect="dark" content="删除当前内容区块" placement="top-start">
-                <el-button circle type="warning" icon="el-icon-close" @click="removeRow(block,r)"></el-button>
-              </el-tooltip>
-            </el-button-group>
-            <!-- 行区域 -->
-            <el-col v-for="(col,j) in row.cols" :span="col.width" :key="i+'-'+r+'-'+j" class="cols">
-              <!-- 格子区域 -->
-              <div>
-                <div>
-                  <input v-model="col.text" placeholder="内容区域">
-                </div>
-                <!-- <el-tag type="success" class="ico-width">{{ (col.width/24*540).toFixed(0) }}PX</el-tag> -->
-                <!-- 内容-{{col.text}} -->
-                <div>
-                  <!-- 内容区域操作按钮 -->
-                  <el-button-group class="col-controls">
-                    <el-tooltip class="item" effect="dark" content="减小格子宽度" placement="top-start">
-                      <el-button
-                        circle
-                        type="primary"
-                        icon="el-icon-zoom-out"
-                        @click="smaller(col)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="增加格子宽度" placement="top-start">
-                      <el-button circle type="primary" icon="el-icon-zoom-in" @click="bigger(col)"></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="在后面追加格子" placement="top-start">
-                      <el-button
-                        circle
-                        type="warning"
-                        icon="el-icon-circle-plus"
-                        @click="addCol(row,j)"
-                      ></el-button>
-                    </el-tooltip>
-                    <el-tooltip class="item" effect="dark" content="删除当前格子" placement="top-start">
-                      <el-button
-                        circle
-                        type="danger"
-                        icon="el-icon-circle-close"
-                        v-if="row.cols.length>1"
-                        @click="removeCol(row,j)"
-                      ></el-button>
-                    </el-tooltip>
-                  </el-button-group>
-                </div>
+        <div>
+          <el-button @click="dialogFormVisible=true;" type="primary">设置</el-button>
+          <el-button @click="frameTemp._id?updateFrame():addFrames()" type="primary">保存</el-button>
+          <el-button @click="$router.push({name:'frames'})" type="warning">退出</el-button>
+        </div>
+      </div>
+    </div>
+    <!-- 操作部分 -->
+    <div class="drag-box" id="drag">
+      <div class="rows" v-for="(row,i) in frameTemp.value.rows" :key="i" :class="{active:i==moveEndData.from.rowIndex}" @click="moveEndData.from.rowIndex=i">
+        <div class="btns-row">
+          <i class="el-icon-rank row-move"></i>
+          <i class="el-icon-circle-close-outline" @click="removeRow(i)"></i>
+          <input v-model="row.name">
+        </div>
+        <div class="contents" v-for="(content,j) in row.contents" :key="j" :class="{active:moveEndData.from.rowIndex==i&&j==moveEndData.from.contentIndex}" @click="moveEndData.from.contentIndex=j">
+          <div class="btns-content">
+            <input v-model="content.name">
+            <!-- <i class="iconfont icon-smaller" @click="content.fullWidth=false" v-show="content.fullWidth==true"></i> -->
+            <!-- <i class="iconfont icon-bigger" @click="content.fullWidth=true" v-show="content.fullWidth==false"></i> -->
+            <i class="el-icon-rank content-move"></i>
+            <i class="el-icon-circle-close-outline" @click="removeContent(row,r)"></i>
+          </div>
+          <el-row class="cols">
+            <el-col class="box" v-for="(box,k) in content.boxs" :key="k" :span="box.width">
+              <!-- <el-tag type="success" class="ico-width">{{(640*box.width/24).toFixed(0)}}PX</el-tag> -->
+              <div class="btns-box">
+                <i class="el-icon-d-arrow-left" @click="box.width>2?box.width--:null"></i>
+                <i class="el-icon-d-arrow-right" @click="box.width<24?box.width++:null"></i>
+                <i class="el-icon-rank box-move"></i>
+                <i class="el-icon-circle-close-outline" @click="removeCol(content,k)"></i>
+              </div>
+              <div class="view">
+                <input v-model="box.name" class="text-input">
+
               </div>
             </el-col>
           </el-row>
@@ -131,118 +53,135 @@
     </div>
 
     <!-- 工具栏 -->
+    <el-dialog :visible.sync="dialogFormVisible" width="800px" title="属性设置">
+      <el-form ref="dataFormKey" :model="frameTemp" label-position="right" label-width="80px">
+        <el-form-item label="*布局名称" prop="name">
+          <el-input v-model="frameTemp.name" />
+        </el-form-item>
+        <el-form-item label="*主体宽度">
+          <el-input v-model="frameTemp.value.contentWidth" disabled/>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import {
-  getFramesOne,
-  getFrames,
-  addFrames,
-  deleteFrames,
-  updateFrames
-} from "@/api/frames";
+  import {
+    getFramesOne,
+    updateFrames,
+    addFrames
+  } from "@/api/frames";
 
-import Sortable from "sortablejs";
-import { getToken, setToken, removeToken } from "@/utils/auth";
+  import Sortable from "sortablejs";
+  import {
+    getToken,
+    setToken,
+    removeToken
+  } from "@/utils/auth";
 
-var byId = function(id) {
-  return document.getElementById(id);
-};
-export default {
-  data() {
-    return {
-      textMap: {
-        layout: "整站框架",
-        page: "页面框架"
-      },
-      frameTemp: {
-        _id: "",
-        name: "",
-        device: getToken("SiteDevice"),
-        type: "",
-        value: []
-      },
-      // 页面布局模型
-      pageData: [
-        {
-          text: "A",
-          rows: [
-            {
-              text: "内容区块1",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 24
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
+  var byId = function (id) {
+    return document.getElementById(id);
+  };
+  export default {
+    data() {
+      return {
+        dialogFormVisible: false,
+        moveEndFunc:false,
+        activeRow:0,
+        activeContent:0,
+        moveEndData:{
+          from:{
+            rowIndex:0,
+            contentIndex:0,
+            elIndex:0
+          },
+          to:{
+            rowIndex:0,
+            contentIndex:0,
+            elIndex:0
+          }
         },
-        {
-          text: "B",
-          rows: [
-            {
-              text: "内容区块2",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 12
-                },
-                {
-                  text: "格子",
-                  width: 12
-                }
-              ]
-            }
-          ]
+        textMap: {
+          layout: "整站框架",
+          page: "页面框架"
         },
-        {
-          text: "c",
-          rows: [
-            {
-              text: "内容区块3",
-              fullWidth: true,
-              cols: [
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 6
-                },
-                {
-                  text: "格子",
-                  width: 24
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      leftActive: false,
-      rightActive: false,
-      dialogVisible: false,
-      newList: []
-    };
-  },
-  mounted() {
-    if (this.$route.query.frameType) {
+        frameTemp: {
+          _id: "",
+          name: "",
+          device: getToken("SiteDevice"),
+          type: "",
+          value: {
+            rows: [{
+              name: '区块1',
+              contents: [{
+                name: '行块1',
+                fullWidth: true,
+                boxs: [{
+                  name: '内容块1',
+                  width: 4
+                }, {
+                  name: '内容块2',
+                  width: 4
+                }, {
+                  name: '内容块3',
+                  width: 4
+                }]
+              }, {
+                name: '行块1',
+                fullWidth: true,
+                boxs: [{
+                  name: '内容块1',
+                  width: 4
+                }, {
+                  name: '内容块2',
+                  width: 4
+                }, {
+                  name: '内容块3',
+                  width: 4
+                }]
+              }]
+            }, {
+              name: '区块1',
+              contents: [{
+                name: '行块1',
+                fullWidth: true,
+                boxs: [{
+                  name: '内容块1',
+                  width: 4
+                }, {
+                  name: '内容块2',
+                  width: 4
+                }, {
+                  name: '内容块3',
+                  width: 4
+                }]
+              }, {
+                name: '行块1',
+                fullWidth: true,
+                boxs: [{
+                  name: '内容块1',
+                  width: 4
+                }, {
+                  name: '内容块2',
+                  width: 4
+                }, {
+                  name: '内容块3',
+                  width: 4
+                }]
+              }]
+            }],
+            contentWidth: 320
+          }
+        },
+        leftActive: false,
+        rightActive: false,
+        dialogVisible: false,
+        newList: []
+      };
+    },
+    mounted() {
+      // if (this.$route.query.frameType) {
       // 判断是否有frameType
       // this.frameTemp.type = this.$route.query.frameType;
       if (this.$route.query.frameId) {
@@ -255,437 +194,639 @@ export default {
         // if (this.$route.query.frameType == "layout") {
         //   this.frameTemp.value = this.layoutData;
         // } else if (this.$route.query.frameType == "page") {
-        this.frameTemp.value = this.pageData;
+        // this.frameTemp.value = this.pageData;
         // }
       }
-    } else {
-      this.$router.go(-1);
-    }
-    // 渲染
-    this.$nextTick(() => {
-      this.colMoveSet();
-    });
-  },
-  methods: {
-    // 添加框架
-    addFrames() {
-      addFrames(this.frameTemp)
-        .then(res => {
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
-          });
-          this.$router.push({
-            name: "frames"
-          });
-        })
-        .catch(err => {});
-    },
-    // 更新框架数据
-    updateFrame() {
-      updateFrames(this.frameTemp)
-        .then(res => {
-          this.$notify({
-            title: "成功",
-            message: "操作成功",
-            type: "success",
-            duration: 2000
-          });
-        })
-        .catch(err => {});
-    },
-    //读取框架数据
-    getFrame(data) {
-      getFramesOne(data)
-        .then(res => {
-          this.frameTemp = res.data;
-          // this.layoutData = res.data.value;
-          this.$nextTick(() => {
-            this.colMoveSet();
-          });
-        })
-        .catch(err => {});
-    },
-    /**
-     * 内容区块移动
-     * index，当前区块位置
-     * type，移动类型
-     * 1,向后移动一位
-     * -1，向前移动一位
-     */
-    colMoveSet() {
-      // 拖拽cols
-      console.log("col-set");
-      const $this = this;
-      [].forEach.call(byId("drag-box").getElementsByClassName("show"), function(
-        block,
-        i
-      ) {
-        [].forEach.call(block.getElementsByClassName("rows"), function(el, j) {
-          console.log("col-set");
-          Sortable.create(el, {
-            group: "cols" + i,
-            draggable: ".cols",
-            handle: ".cols",
-            animation: 150,
-            setData: function(dataTransfer) {
-              dataTransfer.setData("Text", "");
-              // to avoid Firefox bug
-              // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-            },
-            onEnd: evt => {
-              // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
-              // 把数组根据dom的拖拽，做出新的排序
-              const targetCol = $this.frameTemp.value[i].rows[j].cols.splice(
-                evt.oldIndex,
-                1
-              )[0];
-              $this.frameTemp.value[i].rows[j].cols.splice(
-                evt.newIndex,
-                0,
-                targetCol
-              );
-              // 更高数据，强制渲染当前列表
-              const newArray = $this.frameTemp.value[i].rows[j].cols.slice(0);
-              $this.frameTemp.value[i].rows[j].cols = [];
-              // 数据变化后再次刷新
-              $this.$nextTick(() => {
-                $this.frameTemp.value[i].rows[j].cols = newArray;
-              });
-            },
-            // Element is chosen
-            onChoose: function(/**Event*/ evt) {
-              console.log("onChoose");
-              // evt.oldIndex;  // element index within parent
-            },
-
-            // Element dragging started
-            onStart: function(/**Event*/ evt) {
-              console.log("onStart");
-              evt.oldIndex; // element index within parent
-            },
-
-            // Element dragging ended
-            // onEnd: function (/**Event*/evt) {
-            //   console.log('onEnd')
-            //   // var itemEl = evt.item;  // dragged HTMLElement
-            //   // evt.to;    // target list
-            //   // evt.from;  // previous list
-            //   // evt.oldIndex;  // element's old index within old parent
-            //   // evt.newIndex;  // element's new index within new parent
-            // },
-
-            // Element is dropped into the list from another list
-            onAdd: function(/**Event*/ evt) {
-              console.log("onAdd");
-              // same properties as onEnd
-            },
-
-            // Changed sorting within list
-            // onUpdate: function (/**Event*/evt) {
-            //   console.log("onUpdate")
-            //   // same properties as onEnd
-            // },
-
-            // Called by any change to the list (add / update / remove)
-            onSort: function(/**Event*/ evt) {
-              console.log("onSort");
-              // same properties as onEnd
-            },
-
-            // Element is removed from the list into another list
-            onRemove: function(/**Event*/ evt) {
-              console.log("onRemove");
-              // same properties as onEnd
-            },
-
-            // Attempt to drag a filtered element
-            onFilter: function(/**Event*/ evt) {
-              console.log("onFilter");
-              // var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
-            },
-
-            // Event when you move an item in the list or between lists
-            onMove: function(/**Event*/ evt, /**Event*/ originalEvent) {
-              console.log("onMove");
-              // Example: http://jsbin.com/tuyafe/1/edit?js,output
-              // evt.dragged; // dragged HTMLElement
-              // evt.draggedRect; // TextRectangle {left, top, right и bottom}
-              // evt.related; // HTMLElement on which have guided
-              // evt.relatedRect; // TextRectangle
-              // originalEvent.clientY; // mouse position
-              // return false; — for cancel
-            },
-
-            // Called when creating a clone of element
-            onClone: function(/**Event*/ evt) {
-              console.log("onClone");
-              // var origEl = evt.item;
-              // var cloneEl = evt.clone;
-            }
-          });
-        });
-      });
-    },
-    rowMoveSet() {
-      // 拖拽row
-      [].forEach.call(byId("drag-box").getElementsByClassName("show"), function(
-        el,
-        i
-      ) {
-        Sortable.create(el, {
-          group: "rows" + i,
-          animation: 150,
-          draggable: ".rows",
-          handle: ".rows",
-          onEnd: evt => {
-            console.log(evt);
-          }
-        });
-      });
-    },
-    addBlock(index) {
-      const newBlock = {
-        text: "内容区块",
-        rows: [
-          {
-            fullWidth: false,
-            text: "新内容区块",
-            cols: [
-              {
-                text: "格子",
-                width: 24
-              }
-            ]
-          }
-        ]
-      };
-      this.frameTemp.value.splice(index + 1, 0, newBlock);
+      // } else {
+      //   this.$router.go(-1);
+      // }
+      // 渲染
       this.$nextTick(() => {
-        // this.rowMoveSet();
         this.colMoveSet();
       });
     },
-    moveBlock(index, type) {
-      if (Math.abs(type)) {
-        console.log("move-block");
-        const targetBlock = this.frameTemp.value.splice(index, 1)[0];
-        this.frameTemp.value.splice(index + type, 0, targetBlock);
+    methods: {
+      //读取框架数据
+      getFrame(data) {
+        getFramesOne(data)
+          .then(res => {
+            this.frameTemp = res.data;
+            // this.layoutData = res.data.value;
+            this.$nextTick(() => {
+              this.colMoveSet();
+            });
+          })
+          .catch(err => {});
+      },
+      // 添加框架
+      addFrames() {
+        addFrames(this.frameTemp)
+          .then(res => {
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000
+            });
+            this.$router.push({
+              name: "frames"
+            });
+          })
+          .catch(err => {});
+      },
+      // 更新框架数据
+      updateFrame() {
+        updateFrames(this.frameTemp)
+          .then(res => {
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000
+            });
+          })
+          .catch(err => {});
+      },
+      /**
+       * 内容区块移动
+       * index，当前区块位置
+       * type，移动类型
+       * 1,向后移动一位
+       * -1，向前移动一位
+       */
+      colMoveSet() {
+        // 拖拽cols
+        const $this = this;
+        new Sortable(byId("clone"), {
+            group: {
+                name: 'rows',
+                pull: 'clone',
+                put: false // Do not allow items to be put into this list
+            },
+            draggable: ".clone-row",
+            handle: ".clone-row",
+            animation: 150,
+            sort: false // To disable sorting: set sort to false
+        });
+             Sortable.create(byId("drag"), {
+              group: "rows",
+              draggable: ".rows",
+              handle: ".row-move",
+              animation: 150,
+              setData: function (dataTransfer) {
+                dataTransfer.setData("Text", "");
+                // to avoid Firefox bug
+                // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+              },
+              onEnd: evt => {
+                console.log(evt);
+                                  // 筛出数据
+                  const targetCol = 
+                  $this.frameTemp.value.rows.splice(
+                    evt.oldIndex,
+                    1
+                  )[0];
+                  // 插入数据
+                  $this.frameTemp.value.rows.splice(
+                    evt.newIndex,
+                    0,
+                    targetCol
+                  );
+                  // 更改数据，强制渲染当前列表
+                  const newArray = $this.frameTemp.value.rows.slice(0);
+                  $this.frameTemp.value.rows= [];
+                  // 数据变化后再次刷新
+                  $this.$nextTick(() => {
+                    $this.frameTemp.value.rows= newArray;
+                    $this.$nextTick(() => {
+                      $this.colMoveSet()
+                    });
+                  });
+              },
+              // Element is chosen
+              onChoose: function ( /**Event*/ evt) {
+                console.log("onChoose");
+                $this.moveEndFunc=true;
+
+                // evt.oldIndex;  // element index within parent
+              },
+
+              // Element dragging started
+              onStart: function ( /**Event*/ evt) {
+                console.log("onStart");
+              },
+
+              // Element dragging ended
+              // onEnd: function (/**Event*/evt) {
+              //   console.log('onEnd')
+              //   // var itemEl = evt.item;  // dragged HTMLElement
+              //   // evt.to;    // target list
+              //   // evt.from;  // previous list
+              //   // evt.oldIndex;  // element's old index within old parent
+              //   // evt.newIndex;  // element's new index within new parent
+              // },
+
+              // Element is dropped into the list from another list
+              onAdd: function ( /**Event*/ evt) {
+                console.log("onAdd");
+                console.log(evt);
+                // same properties as onEnd
+              },
+
+              // Changed sorting within list
+              // onUpdate: function (/**Event*/evt) {
+              //   console.log("onUpdate")
+              //   // same properties as onEnd
+              // },
+
+              // Called by any change to the list (add / update / remove)
+              onSort: function ( /**Event*/ evt) {
+                console.log("onSort");
+                // same properties as onEnd
+              },
+
+              // Element is removed from the list into another list
+              onRemove: function ( /**Event*/ evt) {
+                console.log("onRemove");
+                // same properties as onEnd
+              },
+
+              // Attempt to drag a filtered element
+              onFilter: function ( /**Event*/ evt) {
+                console.log("onFilter");
+                // var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
+              },
+
+              // Event when you move an item in the list or between lists
+              onMove: function ( /**Event*/ evt, /**Event*/ originalEvent) {
+                console.log("onMove");
+                // Example: http://jsbin.com/tuyafe/1/edit?js,output
+                // evt.dragged; // dragged HTMLElement
+                // evt.draggedRect; // TextRectangle {left, top, right и bottom}
+                // evt.related; // HTMLElement on which have guided
+                // evt.relatedRect; // TextRectangle
+                // originalEvent.clientY; // mouse position
+                // return false; — for cancel
+              },
+
+              // Called when creating a clone of element
+              onClone: function ( /**Event*/ evt) {
+                console.log("onClone");
+                // var origEl = evt.item;
+                // var cloneEl = evt.clone;
+              }
+            });
+        [].forEach.call(byId("drag").getElementsByClassName("rows"), function (
+          block,
+          i
+        ) {
+             Sortable.create(block, {
+              group: "content",
+              draggable: ".contents",
+              handle: ".content-move",
+              animation: 150,
+              setData: function (dataTransfer) {
+                dataTransfer.setData("Text", "");
+                // to avoid Firefox bug
+                // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+              },
+              onEnd: evt => {
+                // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
+                // 把数组根据dom的拖拽，做出新的排序
+                console.log(i)
+                  if($this.moveEndFunc){
+                    $this.moveEndData.from.rowIndex=i;
+                    $this.moveEndData.from.elIndex=evt.oldIndex;
+                    $this.moveEndData.to.rowIndex=i;
+                    $this.moveEndData.to.elIndex=evt.newIndex;
+                  }
+                  // 筛出数据
+                  const targetCol = 
+                  $this.frameTemp.value.rows[$this.moveEndData.from.rowIndex].contents.splice(
+                    $this.moveEndData.from.elIndex,
+                    1
+                  )[0];
+                  // 插入数据
+                  $this.frameTemp.value.rows[$this.moveEndData.to.rowIndex].contents.splice(
+                    $this.moveEndData.to.elIndex,
+                    0,
+                    targetCol
+                  );
+                  // 更改数据，强制渲染当前列表
+                  const newArray = $this.frameTemp.value.rows.slice(0);
+                  $this.frameTemp.value.rows= [];
+                  // 数据变化后再次刷新
+                  $this.$nextTick(() => {
+                    $this.frameTemp.value.rows= newArray;
+                    $this.$nextTick(() => {
+                      $this.colMoveSet()
+                    });
+                  });
+              },
+              // Element is chosen
+              onChoose: function ( /**Event*/ evt) {
+                console.log("onChoose",i);
+                $this.moveEndData.from.rowIndex=i;
+                $this.moveEndFunc=true;
+                // evt.oldIndex;  // element index within parent
+              },
+
+              // Element dragging started
+              onStart: function ( /**Event*/ evt) {
+                console.log("onStart");
+                evt.oldIndex; // element index within parent
+              },
+
+              // Element dragging ended
+              // onEnd: function (/**Event*/evt) {
+              //   console.log('onEnd')
+              //   // var itemEl = evt.item;  // dragged HTMLElement
+              //   // evt.to;    // target list
+              //   // evt.from;  // previous list
+              //   // evt.oldIndex;  // element's old index within old parent
+              //   // evt.newIndex;  // element's new index within new parent
+              // },
+
+              // Element is dropped into the list from another list
+              onAdd: function ( /**Event*/ evt) {
+                console.log("onAdd");
+                $this.moveEndData.to.rowIndex=i;
+
+                // same properties as onEnd
+              },
+
+              // Changed sorting within list
+              // onUpdate: function (/**Event*/evt) {
+              //   console.log("onUpdate")
+              //   // same properties as onEnd
+              // },
+
+              // Called by any change to the list (add / update / remove)
+              onSort: function ( /**Event*/ evt) {
+                console.log("onSort");
+                // same properties as onEnd
+              },
+
+              // Element is removed from the list into another list
+              onRemove: function ( /**Event*/ evt) {
+                console.log("onRemove");
+                $this.moveEndData.from.rowIndex=i;
+                $this.moveEndFunc=false;
+                // same properties as onEnd
+              },
+
+              // Attempt to drag a filtered element
+              onFilter: function ( /**Event*/ evt) {
+                console.log("onFilter");
+                // var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
+              },
+
+              // Event when you move an item in the list or between lists
+              onMove: function ( /**Event*/ evt, /**Event*/ originalEvent) {
+                console.log("onMove");
+                // Example: http://jsbin.com/tuyafe/1/edit?js,output
+                // evt.dragged; // dragged HTMLElement
+                // evt.draggedRect; // TextRectangle {left, top, right и bottom}
+                // evt.related; // HTMLElement on which have guided
+                // evt.relatedRect; // TextRectangle
+                // originalEvent.clientY; // mouse position
+                // return false; — for cancel
+              },
+
+              // Called when creating a clone of element
+              onClone: function ( /**Event*/ evt) {
+                console.log("onClone");
+                // var origEl = evt.item;
+                // var cloneEl = evt.clone;
+              }
+            });
+          [].forEach.call(block.getElementsByClassName("cols"), function (el, j) {
+            Sortable.create(el, {
+              group: "box",
+              draggable: ".box",
+              handle: ".box-move",
+              animation: 150,
+              setData: function (dataTransfer) {
+                dataTransfer.setData("Text", "");
+                // to avoid Firefox bug
+                // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+              },
+              onEnd: evt => {
+                // 这里特殊处理，真实dom和虚拟dom，否则无法拖拽成功【有待优化】
+                // 把数组根据dom的拖拽，做出新的排序
+                  if($this.moveEndFunc){
+                    $this.moveEndData.from.rowIndex=i;
+                    $this.moveEndData.from.contentIndex=j;
+                    $this.moveEndData.from.elIndex=evt.oldIndex;
+                    $this.moveEndData.to.rowIndex=i;
+                    $this.moveEndData.to.contentIndex=j;
+                    $this.moveEndData.to.elIndex=evt.newIndex;
+                  }
+                  // 筛出数据
+                  const targetCol = $this.frameTemp.value.rows[$this.moveEndData.from.rowIndex].contents[$this.moveEndData.from.contentIndex].boxs.splice(
+                    $this.moveEndData.from.elIndex,
+                    1
+                  )[0];
+                  // 插入数据
+                  $this.frameTemp.value.rows[$this.moveEndData.to.rowIndex].contents[$this.moveEndData.to.contentIndex].boxs.splice(
+                    $this.moveEndData.to.elIndex,
+                    0,
+                    targetCol
+                  );
+                  // 更改数据，强制渲染当前列表
+                  const newArray = $this.frameTemp.value.rows.slice(0);
+                  $this.frameTemp.value.rows= [];
+                  // 数据变化后再次刷新
+                  $this.$nextTick(() => {
+                    $this.frameTemp.value.rows= newArray;
+                    $this.$nextTick(() => {
+                      $this.colMoveSet()
+                    });
+                  });
+
+              },
+              // Element is chosen
+              onChoose: function ( /**Event*/ evt) {
+                console.log("onChoose",i,j);
+                $this.moveEndData.from.rowIndex=i;
+                $this.moveEndData.from.contentIndex=j;
+                $this.moveEndFunc=true;
+
+                // evt.oldIndex;  // element index within parent
+              },
+
+              // Element dragging started
+              onStart: function ( /**Event*/ evt) {
+                console.log("onStart");
+                // evt.oldIndex; // element index within parent
+              },
+
+              // Element dragging ended
+              // onEnd: function (/**Event*/evt) {
+              //   console.log('onEnd')
+              //   // var itemEl = evt.item;  // dragged HTMLElement
+              //   // evt.to;    // target list
+              //   // evt.from;  // previous list
+              //   // evt.oldIndex;  // element's old index within old parent
+              //   // evt.newIndex;  // element's new index within new parent
+              // },
+
+              // Element is dropped into the list from another list
+              onAdd: function ( /**Event*/ evt) {
+                console.log("onAdd",i,j);
+                console.log(`第${i}块，第${j}行，插入元素`)
+                console.log(evt)
+                $this.moveEndData.to.rowIndex=i;
+                $this.moveEndData.to.contentIndex=j;
+                $this.moveEndData.to.elIndex=evt.newIndex;
+                $this.moveEndFunc=false;
+                // same properties as onEnd
+              },
+
+              // Changed sorting within list
+              // onUpdate: function (/**Event*/evt) {
+              //   console.log("onUpdate")
+              //   // same properties as onEnd
+              // },
+
+              // Called by any change to the list (add / update / remove)
+              onSort: function ( /**Event*/ evt) {
+                // console.log("onSort");
+                // same properties as onEnd
+              },
+
+              // Element is removed from the list into another list
+              onRemove: function ( /**Event*/ evt) {
+                console.log("onRemove",i,j);
+                console.log(`第${i+1}块，第${j+1}行，删除元素`)
+                $this.moveEndFunc=false;
+                $this.moveEndData.from.rowIndex=i;
+                $this.moveEndData.from.contentIndex=j;
+                $this.moveEndData.from.elIndex=evt.oldIndex;
+                $this.moveEndFunc=false;
+                // same properties as onEnd
+              },
+
+              // Attempt to drag a filtered element
+              onFilter: function ( /**Event*/ evt) {
+                // console.log("onFilter");
+                // var itemEl = evt.item;  // HTMLElement receiving the `mousedown|tapstart` event.
+              },
+
+              // Event when you move an item in the list or between lists
+              onMove: function ( /**Event*/ evt, /**Event*/ originalEvent) {
+                // console.log("onMove");
+                // Example: http://jsbin.com/tuyafe/1/edit?js,output
+                // evt.dragged; // dragged HTMLElement
+                // evt.draggedRect; // TextRectangle {left, top, right и bottom}
+                // evt.related; // HTMLElement on which have guided
+                // evt.relatedRect; // TextRectangle
+                // originalEvent.clientY; // mouse position
+                // return false; — for cancel
+              },
+
+              // Called when creating a clone of element
+              onClone: function ( /**Event*/ evt) {
+                console.log("onClone",i,j);
+                console.log(evt)
+                // var origEl = evt.item;
+                // var cloneEl = evt.clone;
+              }
+            });
+          });
+        });
+      },
+      addRow(rowIndex) {
+        const newBlock = {
+          name: "区块new",
+          contents: []
+        };
+        this.frameTemp.value.rows.splice(rowIndex + 1, 0, newBlock);
+        if(this.frameTemp.value.rows.length>1){
+          this.moveEndData.from.rowIndex=rowIndex+1;
+        }else{
+          this.moveEndData.from.rowIndex=0;
+        }
+        this.$nextTick(() => {
+          // this.rowMoveSet();
+          this.colMoveSet();
+        });
+      },
+      /**
+       * index，当前区块位置
+       * 删除当前区块
+       *  */
+      removeRow(index) {
+        this.frameTemp.value.rows.splice(index, 1)[0];
+      },
+      /**
+       * 删除行
+       * block，block数组
+       * i，当前行在block里的序号
+       *  */
+      removeContent(block, index) {
+        block.contents.splice(index, 1);
+      },
+      /** 添加 */
+      addContent(rowIndex, contentIndex) {
+        const newRow = {
+          fullWidth: true,
+          name: "新内容区块",
+          boxs: []
+        };
+        this.frameTemp.value.rows[rowIndex].contents.splice(contentIndex + 1, 0, newRow);
+        if(this.frameTemp.value.rows[rowIndex].contents.length>1){
+          this.moveEndData.from.contentIndex=contentIndex+1
+        }else{
+          this.moveEndData.from.contentIndex=0
+        }
         this.$nextTick(() => {
           this.colMoveSet();
         });
-      } else {
-        return;
-      }
-    },
-    /**
-     * index，当前区块位置
-     * 删除当前区块
-     *  */
-    removeBlock(index) {
-      this.frameTemp.value.splice(index, 1)[0];
-    },
-    /**
-     * col，当前栅栏object
-     * 栅栏缩小
-     * */
-    smaller(col) {
-      if (col.width > 3) {
-        col.width--;
-      }
-    },
-    /**
-     * col，当前栅栏object
-     * 栅栏加宽
-     */
-    bigger(col) {
-      if (col.width < 24) {
-        col.width++;
-      }
-    },
-    /** move row
-     *
-     */
-    moveRow(block, index, type) {
-      if (Math.abs(type)) {
-        const targetBlock = block.rows.splice(index, 1)[0];
-        block.rows.splice(index + type, 0, targetBlock);
-      } else {
-        return;
-      }
-    },
-    /**
-     * 删除行
-     * block，block数组
-     * i，当前行在block里的序号
-     *  */
-    removeRow(block, index) {
-      block.rows.splice(index, 1);
-    },
-    /** 添加 */
-    addRow(block, index) {
-      const newRow = {
-        fullWidth: false,
-        text: "新内容区块",
-        cols: [
-          {
-            text: "格子",
-            width: 24
-          }
-        ]
-      };
-      block.rows.splice(index + 1, 0, newRow);
-      this.$nextTick(() => {
-        this.colMoveSet();
-      });
-    },
-    /**
-     * 删除栅栏
-     * row，row数组
-     * i，当前栅栏的序号
-     *  */
-    removeCol(row, index) {
-      row.cols.splice(index, 1);
-      // this.layout.splice(evt.newIndex, 0, targetRow)
-    },
-    /** 添加 */
-    addCol(row, index) {
-      const newCol = {
-        text: "新格子",
-        width: 24
-      };
-      row.cols.splice(index + 1, 0, newCol);
-      this.$nextTick(() => {
-        // this.rowMoveSet();
-        this.colMoveSet();
-      });
-    },
-    setSort(el, group) {
-      // const el = document.querySelectorAll('.show')
-      Sortable.create(el, {
-        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
-          dataTransfer.setData("Text", "");
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-        },
-        group: group,
-        onEnd: evt => {
-          // const targetRow = this.layout.splice(evt.oldIndex, 1)[0]
-          // this.layout.splice(evt.newIndex, 0, targetRow)
-          // for show the changes, you can delete in you code
-          // const tempIndex = this.layout.splice(evt.oldIndex, 1)[0]
-          // this.newList.splice(evt.newIndex, 0, tempIndex)
-        }
-      });
-    },
-    getEl() {
-      const els = document.querySelectorAll(".show");
-      for (var i = 0; i < els.length; i++) {
-        this.setSort(els[i], "rows");
-      }
-      // const
+      },
+      /** 添加 */
+      addCol(rowIndex, contentIndex) {
+        let newCol = {
+          name: "新内容",
+          width: 24
+        };
+        // console.log(this.frameTemp.value.rows[rowIndex].contents[contentIndex])
+        this.frameTemp.value.rows[rowIndex].contents[contentIndex].boxs.push(newCol);
+        this.$nextTick(() => {
+          this.colMoveSet();
+        });
+      },
+      removeCol(col, index) {
+        col.boxs.splice(index, 1);
+      },
     }
-  }
-};
+  };
+
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
-.iconfont {
-  font-size: 12px !important;
-}
-.FrameDesigh-container {
-  position: relative;
-  overflow: hidden;
-  min-height: calc(100vh - 84px);
-  padding: 20px;
-  #drag-box {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: #f7f8fb;
-    width: 540px;
-    margin: 0 auto;
-    padding: 4px;
+  @import url("//at.alicdn.com/t/font_957526_lqqst93s3j.css");
+
+  .iconfont {
+    font-size: 12px !important;
   }
 
-  .show {
-    border: dotted 1px #ccc;
-    background: #fff;
-    padding: 20px 0;
-    margin-top: 30px !important;
+  .FrameDesigh-container {
     position: relative;
+    overflow: hidden;
+    min-height: calc(100vh - 84px);
 
-    .block-controls {
-      position: absolute;
-      top: -20px;
-      left: -1px;
-    }
+    .i-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fafafa;
+      border-bottom: solid 1px #ccc;
+      height: 60px;
 
-    input {
-      border: none;
-      background: none;
-      color: #343434;
-      text-align: center;
-      outline: none;
-    }
-
-    .rows {
-      box-shadow: 0 0 0 1px #343434;
-      margin-bottom: 5px !important;
-      padding: 5px;
-      margin: 10px auto;
-      position: relative;
-      min-height: 100px;
-      width: 100%;
-      padding: 2px;
-      .row-controls {
-        position: absolute;
-        top: -21px;
-        right: -1px;
+      .content {
+        width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .cols {
-        padding: 5px;
-        > div {
-          position: relative;
-          border: dashed 1px #409eff;
-          padding: 10px;
-          text-align: center;
-          height: 70px;
-          cursor: move;
+      input {
+        border: none;
+        border-bottom: solid 1px #eee;
+        margin-right: 20px;
+        background: none;
+        outline: none;
+        padding: 4px;
+      }
+    }
 
-          .col-controls {
+    .drag-box {
+      background: #fff;
+      min-height: calc(100vh - 60px);
+      padding: 50px;
+      width:540px;
+      margin:0 auto;
+      .rows {
+        min-height: 100px;
+        padding: 10px;
+        border: dotted 1px #ccc;
+        position: relative;
+        margin-bottom: 50px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        &.active{
+          border: dotted 1px red;
+        }
+        >.btns-row {
+          position: absolute;
+          top: -25px;
+          left: 5px;
+        }
+
+        .contents {
+          width:100%;
+          min-height: 100px;
+          border: 1px solid #337ab7;
+          padding: 10px;
+          position: relative;
+          margin-top: 10px;
+          &.active{
+            border: solid 1px red;
+          }
+          &:first-child {
+            margin-top: none;
+          }
+
+          >.btns-content {
+            right: 5px;
+            top: 1px;
             position: absolute;
-            left: 10px;
-            bottom: 10px;
+          }
+
+          .box {
+            position: relative;
+            margin-top: 10px;
+            padding: 5px;
+
+            &:first-child {
+              margin-top: none;
+            }
+
+            >.btns-box {
+              left: 5px;
+              bottom: -10px;
+              position: absolute;
+            }
+
+            .ico-width {
+              left: 12px;
+              top: 12px;
+              position: absolute;
+            }
+
+            .view {
+              border: dashed 1px #5cb85c;
+              min-height: 90px;
+
+              .text-input {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 14 px;
+                width: 80%;
+                height: 40px;
+                text-align: center;
+
+              }
+            }
+
           }
         }
-
-        .ico-width {
-          position: absolute;
-          top: 5px;
-          right: 5px;
-        }
       }
     }
   }
-  .page-view {
-    font-size: 36px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
-  }
-  .el-button-group .el-button {
-    padding: 3px;
-    input {
-      height: 12px;
-    }
-  }
-}
+
 </style>

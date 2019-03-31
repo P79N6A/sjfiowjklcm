@@ -10,10 +10,18 @@
       <br>
       <div class="center">
         <!-- 传入当前页的json -->
-        <Ishow
-          :pageJson="appJson.value.pageJson[activePageIndex]"
-          :activeTempIndex="activeTempIndex"
-        ></Ishow>
+        <vue-ruler-tool
+          :content-layout="{left:0,top:0}"
+          :is-scale-revise="true"
+          :preset-line="presetLine"
+          position="relative"
+        >
+          <Ishow
+            :pageJson="appJson.value.pageJson[activePageIndex]"
+            :activeTempIndex="activeTempIndex"
+            :appJson="appJson"
+          ></Ishow>
+        </vue-ruler-tool>
       </div>
       <div class="right">
         <Itool
@@ -37,12 +45,25 @@ import Ishow from "./component/show";
 import eleTemp from "./component/temp.json";
 import pageTemp from "./component/page.json";
 import { getIshowOne, addIshows, updateIshows } from "@/api/ishow";
+import VueRulerTool from "@/components/Rule";
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+  for (var i = 0; i < 5; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  text = "ele-" + text;
+  return text;
+}
 export default {
   data() {
     return {
+      presetLine: [],
+      appId: null,
       // 场景json
       appJson: {
+        id: "",
         description: "新组件",
         device: "",
         name: "新组件",
@@ -52,103 +73,194 @@ export default {
           pageJson: [
             {
               page: 1,
+              id: "",
               title: "第1页",
               json: [
                 {
                   type: 1,
-                  title: "文字1",
+                  id: "",
+                  title: "文字",
                   position: {
-                    top: 10,
+                    top: 0,
                     left: 10
                   },
                   config: {
                     isShow: true,
                     isLock: false,
-                    content: "你要编辑的文字"
+                    content: "你要编辑的文字",
+                    styleText: "",
+                    class: ""
                   },
                   style: {
                     bg: {
-                      backgroundImage: "url('/favicon.ico')",
-                      backgroundColor: "#eee",
-                      backgroundSize: "100% 100%",
-                      backgroundRepeat: "repeat-x",
-                      backgroundPosition: "center center"
+                      backgroundImage: "",
+                      backgroundColor: "",
+                      backgroundSize: "",
+                      backgroundRepeat: "",
+                      backgroundPosition: "",
+                      backgroundAttachment: ""
                     },
                     border: {
                       borderWidth: 0,
                       borderRadius: 0,
-                      borderColor: "#564563",
-                      borderStyle: "solid"
+                      borderColor: "",
+                      borderStyle: ""
                     },
                     shadow: {
-                      shadowColor: "#ccc",
-                      shadowWidth: 2,
-                      shadowRadius: 3,
+                      shadowColor: "",
+                      shadowWidth: 0,
+                      shadowRadius: 0,
                       shadowDire: 0
                     },
                     text: {
-                      color: "#ddd",
-                      textAlign: "center",
-                      fontFamily: "simon",
-                      lineHeight: "1.5",
+                      color: "",
+                      textAlign: "",
+                      fontFamily: "",
+                      lineHeight: "",
                       letterSpacing: "",
-                      fontWeight: "",
                       fontSize: 14,
-                      fontStyle: "italic",
+                      fontWeight: "",
+                      fontStyle: "",
                       textDecoration: ""
                     },
                     base: {
                       width: 100,
-                      height: 100,
+                      height: 50,
                       opacity: 100,
                       rotate: 0
+                    },
+                    transition: {
+                      duration: 0,
+                      timingFunction: "ease"
+                    },
+                    transform: {
+                      translateX: 0,
+                      translateY: 0,
+                      scaleX: 1,
+                      scaleY: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                      rotateZ: 0,
+                      skewX: 0,
+                      skewY: 0
                     }
                   },
-                  animate: [],
+                  hoverStyle: {
+                    bg: {
+                      backgroundImage: "",
+                      backgroundColor: "",
+                      backgroundSize: "",
+                      backgroundRepeat: "",
+                      backgroundPosition: ""
+                    },
+                    border: {
+                      borderWidth: 0,
+                      borderRadius: 0,
+                      borderColor: "",
+                      borderStyle: ""
+                    },
+                    shadow: {
+                      shadowColor: "",
+                      shadowWidth: 0,
+                      shadowRadius: 0,
+                      shadowDire: 0
+                    },
+                    text: {
+                      color: "",
+                      textAlign: "",
+                      fontFamily: "",
+                      lineHeight: "",
+                      letterSpacing: "",
+                      fontSize: 14,
+                      fontWeight: "",
+                      fontStyle: "",
+                      textDecoration: ""
+                    },
+                    base: {
+                      width: 100,
+                      height: 50,
+                      opacity: 100,
+                      rotate: 0
+                    },
+                    transform: {
+                      translateX: 0,
+                      translateY: 0,
+                      scaleX: 1,
+                      scaleY: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                      rotateZ: 0,
+                      skewX: 0,
+                      skewY: 0
+                    }
+                  },
+                  animate: [
+                    {
+                      animationDelay: 0,
+                      animationDuration: 1,
+                      animationFillMode: "both",
+                      animationIterationCount: 1,
+                      animationName: "",
+                      animationPlayState: "initial",
+                      animationTimingFunction: "ease"
+                    }
+                  ],
+                  hoverAnimate: [
+                    {
+                      animationDelay: 0,
+                      animationDuration: 1,
+                      animationFillMode: "both",
+                      animationIterationCount: 1,
+                      animationName: "",
+                      animationPlayState: "initial",
+                      animationTimingFunction: "ease"
+                    }
+                  ],
                   event: {
                     onClick: {
                       type: "",
                       link: "",
                       index: "",
-                      target: "_blank"
-                    },
-                    hover: {
-                      animation: ""
+                      target: "_blank",
+                      elSet: []
                     }
                   }
                 }
               ],
-              bg: {
-                backgroundImage: "",
-                backgroundColor: "#eee",
-                backgroundSize: "100% 100%",
-                backgroundRepeat: "repeat-x",
-                backgroundPosition: "center center"
-              },
-              border: {
-                borderWidth: 0,
-                borderRadius: 0,
-                borderColor: "#564563",
-                borderStyle: "solid"
-              },
-              shadow: {
-                shadowColor: "#ccc",
-                shadowWidth: 0,
-                shadowRadius: 0,
-                shadowDire: 0
-              },
-              base: {
-                width: 320,
-                height: 400,
-                opacity: 100,
-                rotate: 0
+              style: {
+                bg: {
+                  backgroundImage: "",
+                  backgroundColor: "#eee",
+                  backgroundSize: "100% 100%",
+                  backgroundRepeat: "repeat-x",
+                  backgroundPosition: "center center"
+                },
+                border: {
+                  borderWidth: 0,
+                  borderRadius: 0,
+                  borderColor: "#564563",
+                  borderStyle: "solid"
+                },
+                shadow: {
+                  shadowColor: "#ccc",
+                  shadowWidth: 0,
+                  shadowRadius: 0,
+                  shadowDire: 0
+                },
+                base: {
+                  width: 320,
+                  height: 540,
+                  opacity: 100,
+                  rotate: 0
+                }
               },
               animate: {
                 enterAnimation: "",
                 leaveAnimation: ""
               },
               config: {
-                fullScreen: false
+                fullScreen: false,
+                styleText: ""
               },
               timer: null
             }
@@ -186,18 +298,32 @@ export default {
   methods: {
     /**========元素操作========**/
     // 添加元素
-    addTemp(key) {
+    addTemp(obj) {
+      let key = obj.type;
+      let data = obj.data;
+
       if (key && eleTemp && eleTemp[key]) {
         let _pageJson = this.appJson.value.pageJson[this.activePageIndex];
-
+        const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));
+        _newTemp.id = makeid();
         if (key == "img") {
           this.$bus.$emit("openImgList", "ChangeImgUrl");
         } else if (key == "svg") {
           this.$bus.$emit("openSvgList", "ChangSvg");
         } else if (key == "vue") {
+          if (data.shortId) {
+            // 组件源码
+            _newTemp.config.content = data.shortId;
+          }
+          // 组件配置模型
+          if (data.configModel) {
+            _newTemp.config.configModel = data.configModel;
+          }
+          // 组件数据集模型
+          if (data.categoryModel) {
+            _newTemp.config.categoryModel = data.categoryModel;
+          }
         }
-
-        const _newTemp = JSON.parse(JSON.stringify(eleTemp[key]));
         _pageJson.json.splice(this.activeTempIndex + 1, 0, _newTemp);
         this.activeTempIndex++;
       }
@@ -206,11 +332,13 @@ export default {
     copyTemp(index) {
       const _tempJson = this.appJson.value.pageJson[this.activePageIndex].json;
       let new_tempJson = JSON.parse(JSON.stringify(_tempJson[index]));
+      new_tempJson.id = makeid();
       new_tempJson.title = new_tempJson.title + "[复制]";
       _tempJson.splice(index + 1, 0, new_tempJson);
     },
     // 选定元素
     selectTemp(index) {
+      console.log(index);
       this.activeTempIndex = index;
     },
     // 切换元素锁定状态
@@ -237,12 +365,9 @@ export default {
     },
     // 删除元素
     deleteTemp(index) {
-      console.log(index);
-      console.log(this.appJson.value.pageJson[this.activePageIndex].json);
       if (this.appJson.value.pageJson[this.activePageIndex].json.length > 0) {
         const _tempJson = this.appJson.value.pageJson[this.activePageIndex]
           .json;
-        console.log(_tempJson);
         _tempJson.splice(index, 1);
         // 取消元素的选中状态
         if (index > 0) {
@@ -256,6 +381,7 @@ export default {
     // 添加页面
     addPage(index) {
       let _pageJson = this.appJson.value.pageJson;
+      _pagejson.id = makeid();
       _pageJson.splice(index + 1, 0, JSON.parse(JSON.stringify(pageTemp)));
       this.activePageIndex = index + 1;
     },
@@ -269,6 +395,7 @@ export default {
         JSON.stringify(this.appJson.value.pageJson[index])
       );
       new_pageJson.title = new_pageJson.title + "[复制]";
+      new_pageJson.id = makeid();
       this.appJson.value.pageJson.splice(index + 1, 0, new_pageJson);
     },
     // 删除页面
@@ -371,11 +498,6 @@ export default {
       this.$bus.$on("saveJson", eventData => {
         this.saveJson();
       });
-      // 历史纪录
-      this.history.push({
-        title: "打开组件",
-        value: JSON.parse(JSON.stringify(this.appJson))
-      });
       this.$bus.$on("saveHistory", eventData => {
         this.history.push({
           title: eventData,
@@ -397,18 +519,34 @@ export default {
     Iheader,
     Itool,
     Isidebar,
-    Ishow
+    Ishow,
+    VueRulerTool
   },
   created() {
     // 设置活动id,编辑状态
     const _id = this.$route.query.ishowsId || "";
     if (_id) {
-      getIshowOne({ _id: _id })
+      getIshowOne({
+        _id: _id
+      })
         .then(res => {
           this.appJson = res.data;
+          // 历史纪录
+          this.history.push({
+            title: "打开组件",
+            value: JSON.parse(JSON.stringify(this.appJson))
+          });
         })
         .catch(err => {});
     } else {
+      this.appJson.value.id = makeid();
+      this.appJson.value.pageJson[0].id = makeid();
+      this.appJson.value.pageJson[0].json[0].id = makeid();
+      console.log(this.appJson);
+      this.history.push({
+        title: "打开组件",
+        value: JSON.parse(JSON.stringify(this.appJson))
+      });
     }
     this.initEvent();
   },
@@ -422,7 +560,6 @@ export default {
       ].config.isLock;
 
       if (val.toString() && !_isLock) {
-        console.log("openLayerSet");
         this.$bus.$emit("openLayerSet");
       }
     }
@@ -446,8 +583,8 @@ export default {
   .center {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: top;
+    align-items: flex-start;
     background: #fff;
     background-image: linear-gradient(
         45deg,
