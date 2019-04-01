@@ -66,8 +66,6 @@
           ></sync-component>
         </div>
       </div>
-
-      <div v-html="`<style>${styleText}</style>`"></div>
     </div>
   </VueDragResize>
 </template>

@@ -79,7 +79,12 @@
                     style="position:relative;"
                     class="components-col"
                   >
-                    <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
+                    <ishow-pre
+                      :isMobile="true"
+                      :ishow-id="item._id"
+                      :ishow-url="item.url"
+                      :short-id="item.shortId"
+                    ></ishow-pre>
                   </div>
                 </div>
               </el-col>
@@ -130,7 +135,12 @@
                     style="position:relative;"
                     class="components-col"
                   >
-                    <ishow-pre :ishow-id="item._id" :ishow-url="item.url" :short-id="item.shortId"></ishow-pre>
+                    <ishow-pre
+                      :isMobile="true"
+                      :ishow-id="item._id"
+                      :ishow-url="item.url"
+                      :short-id="item.shortId"
+                    ></ishow-pre>
                     <div class="el-control">
                       <el-button-group>
                         <el-button type="danger" @click="handleEdit(item)" icon="el-icon-setting"></el-button>

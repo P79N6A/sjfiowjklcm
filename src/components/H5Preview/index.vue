@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;" :id="`${appJson.id}`" v-if="showPage">
+  <div style="width:100%;" :id="`${appJson.value.id}`" v-if="showPage">
     <div
       v-for="(pageJson,i) in appJson.value.pageJson"
       :key="i"
@@ -42,7 +42,11 @@
             </div>
           </div>
         </div>
-        <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
+        <div
+          v-html="`<style>${pageJson.config.styleText}</style>`"
+          v-if="pageJson.config.styleText"
+          style="display:none!important;"
+        ></div>
       </div>
       <!-- </transition> -->
     </div>

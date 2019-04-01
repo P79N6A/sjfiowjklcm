@@ -58,7 +58,6 @@
         :category="eleJson.config.category"
       ></sync-component>
     </div>
-    <div v-html="`<style>${styleText}</style>`" v-show="false"></div>
   </div>
 </template>
 <script>
@@ -79,7 +78,6 @@ export default {
   data() {
     return {
       elId: makeid(),
-      styleText: "",
       animateJson: "",
       animateIndex: 0,
       animateAll: true,
