@@ -27,8 +27,9 @@
       </span>
     </el-tooltip>
     <el-tooltip class="item warning" effect="dark" placement="left">
-      <div slot="content">除了背影，超出虚线框部分的元素将不会展示
-        <br>注:手机端最大宽度320px
+      <div slot="content">
+        除了背影，超出虚线框部分的元素将不会展示
+        <br>注:手机端最大宽度375px
       </div>
       <span class="item">
         <i class="el-icon-warning"></i>

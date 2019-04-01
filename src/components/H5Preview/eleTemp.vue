@@ -1,7 +1,7 @@
 <template>
   <div class="i-ele" v-if="showEle" :class="elId" :id="eleJson.id">
     <!-- 普通文本 -->
-    <div v-if="eleJson.type===1" class="animated">
+    <div v-if="eleJson.type===1||eleJson.type===3" class="animated">
       <div class="text" v-html="eleJson.config.content"></div>
     </div>
     <!-- 图片 -->

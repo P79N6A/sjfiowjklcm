@@ -29,11 +29,17 @@
       </div>
     </div>
     <layerSet
+      v-if="!isMobile"
       :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]"
       :pages="appJson.value.pageJson"
     >元素设置</layerSet>
+    <layerSetMobile
+      v-if="isMobile"
+      :layerjson="appJson.value.pageJson[activePageIndex].json[activeTempIndex]"
+      :pages="appJson.value.pageJson"
+    >元素设置</layerSetMobile>
     <pageSet :pageSet="appJson.value.pageJson[activePageIndex]">页面设置</pageSet>
-    <setting :appJson="appJson">全局场景设置</setting>
+    <setting :appJson="appJson" :isMobile="true">全局场景设置</setting>
     <imgList>图片资源框</imgList>
     <svgList>图片资源框</svgList>
     <componentList>系统组件资源框</componentList>
@@ -49,6 +55,7 @@ import pages from "./pages.vue";
 // 其他菜单
 import pageSet from "./pageSet.vue";
 import layerSet from "./layerSet.vue";
+import layerSetMobile from "./layerSetMobile.vue";
 import setting from "./setting.vue";
 // 媒体资源相关
 import componentList from "@/components/componentList";
@@ -72,7 +79,8 @@ export default {
     "activePageIndex",
     "activeTempIndex",
     "historyIndex",
-    "history"
+    "history",
+    "isMobile"
   ],
   methods: {},
   created() {
@@ -87,6 +95,7 @@ export default {
     pageSet,
     setting,
     layerSet,
+    layerSetMobile,
     imgList,
     svgList,
     componentList,

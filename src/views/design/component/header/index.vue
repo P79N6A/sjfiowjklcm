@@ -4,9 +4,13 @@
       <img src="/favicon.ico">
     </div>
     <div class="control">
+      <div class="item" @click="$bus.$emit('addTemp',{type:'textarea',data:{}})">
+        <i class="el-icon-tickets"></i>
+        <p>多行文本</p>
+      </div>
       <div class="item" @click="$bus.$emit('addTemp',{type:'text',data:{}})">
         <i class="el-icon-edit"></i>
-        <p>文本</p>
+        <p>单行文本</p>
       </div>
       <div class="item" @click="$bus.$emit('addTemp',{type:'img',data:{}})">
         <i class="el-icon-picture-outline"></i>
@@ -19,7 +23,7 @@
       <!-- <div class="item" @click="$bus.$emit('addTemp',{type:'svg',data:{}})">
         <i class="el-icon-news"></i>
         <p>形状</p>
-      </div> -->
+      </div>-->
       <!-- <div class="item" @click="$bus.$emit('addTemp','vue')">
         <i class="el-icon-menu"></i>
         <p>组件</p>

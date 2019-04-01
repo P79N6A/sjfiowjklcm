@@ -3,7 +3,7 @@
     <div class="view">
       <div class="preview">
         <el-scrollbar>
-          <Ipreview :app-json="appJson" v-if="dialogFormVisible"></Ipreview>
+          <Ipreview :app-json="appJson" v-if="dialogFormVisible" :isMobile="isMobile"></Ipreview>
         </el-scrollbar>
       </div>
       <div class="icons">
@@ -25,7 +25,12 @@
               :on-success="handleAvatarSuccessFav"
               :before-upload="beforeAvatarUploadFav"
             >
-              <img v-if="appJson.thumbnail" :src="`${cdnurl}${appJson.thumbnail}`" class="favicon" style="width:180px;height:auto;">
+              <img
+                v-if="appJson.thumbnail"
+                :src="`${cdnurl}${appJson.thumbnail}`"
+                class="favicon"
+                style="width:180px;height:auto;"
+              >
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -225,7 +230,7 @@ export default {
   computed: {
     ...mapGetters(["cdnurl"])
   },
-  props: ["appJson"],
+  props: ["appJson", "isMobile"],
   components: {
     Ipreview
   }

@@ -204,7 +204,7 @@
                 class="iconfont icon-bigger"
                 @click="content.fullWidth=true"
                 v-show="status=='layoutEdit'&&content.fullWidth==false"
-              ></i> -->
+              ></i>-->
               <!-- <i class="el-icon-plus"></i> -->
               <i
                 class="el-icon-circle-close-outline"
@@ -1032,9 +1032,9 @@ export default {
 
   .drag-box {
     min-height: calc(100vh - 60px);
-    width:320px;
-    margin:0 auto;
-    border:dashed 1px #eee;
+    width: 375px;
+    margin: 0 auto;
+    border: dashed 1px #eee;
     .btn-group {
       background: #337ab7;
       color: #fff;
@@ -1058,7 +1058,7 @@ export default {
 
         .contents {
           position: relative;
-          width:100%;
+          width: 100%;
           .box {
             position: relative;
 
@@ -1338,7 +1338,7 @@ export default {
     overflow: hidden;
     width: 180px;
     height: 180px;
-    line-height:180px;
+    line-height: 180px;
   }
 
   .avatar-uploader .el-upload:hover {

@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;" :id="`${appJson.id}`">
+  <div style="width:100%;" :id="`${appJson.id}`" v-if="showPage">
     <div
       v-for="(pageJson,i) in appJson.value.pageJson"
       :key="i"
@@ -13,22 +13,33 @@
         v-if="i==activePage"
       >
         <div class="animated">
-          <div class="i-show" :style="[baseCss,borderCss,boxShadow]">
-            <!-- 拖拽外框 -->
-            <!-- <div v-for="(drag,i) in pageJson.json" :key="i" :id="drag.id"> -->
+          <div class="i-show" :style="[baseCss,borderCss,boxShadow]" v-if="!isMobile">
             <div
               v-for="(drag,i) in pageJson.json"
               :key="i"
               :id="drag.id"
               v-if="drag.config.isShow"
-              :style="{position:'absolute',transform: `rotate(${drag.style.base.rotate}deg)`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
+              :style="{position:'absolute',cursor:`${drag.event.onClick.type?'pointer':'default'}`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
               @click="elClick(drag.event)"
             >
               <eleTemp :eleJson="drag" :showId="i">
                 <!-- 组件配置 -->
               </eleTemp>
             </div>
-            <!-- </div> -->
+          </div>
+          <div class="i-show" :style="[baseCss,borderCss,boxShadow]" v-if="isMobile">
+            <div
+              v-for="(drag,i) in pageJson.json"
+              :key="i"
+              :id="drag.id"
+              v-if="drag.config.isShow"
+              :style="{position:'absolute',cursor:`${drag.event.onClick.type?'pointer':'default'}`,zIndex:`${1000-i}`,width:`${drag.style.base.width}px`,height:`${drag.style.base.height}`,left:`${drag.position.left}px`,top:`${drag.position.top}px`,}"
+              @click="elClick(drag.event)"
+            >
+              <eleTempMobile :eleJson="drag" :showId="i">
+                <!-- 组件配置 -->
+              </eleTempMobile>
+            </div>
           </div>
         </div>
         <div v-html="`<style>${pageJson.config.styleText}</style>`"></div>
@@ -39,6 +50,7 @@
 </template>
 <script>
 import eleTemp from "./eleTemp.vue";
+import eleTempMobile from "./eleTempMobile.vue";
 import { getIshowShortId } from "@/api/ishow";
 import request from "@/utils/request";
 import { mapGetters } from "vuex";
@@ -56,9 +68,10 @@ export default {
     };
   },
   components: {
-    eleTemp
+    eleTemp,
+    eleTempMobile
   },
-  props: ["shortId", "appJson", "ishowUrl"],
+  props: ["shortId", "appJson", "ishowUrl", "isMobile"],
   created() {},
   beforeDestroy() {
     window.clearInterval(this.timer);
@@ -126,7 +139,7 @@ export default {
       } else if (eventJson.onClick.type == "index") {
         this.activePage = eventJson.onClick.index;
         // 到任意场景
-      } else if (eventJson.onClick.type == "link" && eventJson.link) {
+      } else if (eventJson.onClick.type == "link" && eventJson.onClick.link) {
         if (eventJson.onClick.target == "_blank") {
           window.open(eventJson.onClick.link);
         } else {
@@ -135,7 +148,6 @@ export default {
       } else if (eventJson.onClick.type == "close") {
         this.showPage = false;
       } else if (eventJson.onClick.type == "scroll") {
-        this.showPage = false;
         this.scrollTo(eventJson.onClick.scrollY);
       }
     },

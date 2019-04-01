@@ -25,7 +25,7 @@
       <div class="cover"></div>
       <!-- 普通文本 -->
       <div class="animated ele-show">
-        <div v-if="eleJson.type===1">
+        <div v-if="eleJson.type===1||eleJson.type===3">
           <div v-html="eleJson.config.content" class="text" :id="`tinymce-${eleJson.id}`"></div>
         </div>
         <!-- 图片 -->
@@ -49,6 +49,7 @@
             :viewBox="eleJson.config.viewBox"
             xml:space="preserve"
             preserveAspectRatio="none"
+
           >
             <path :d="eleJson.config.content" :fill="eleJson.style.text.color"></path>
           </svg>

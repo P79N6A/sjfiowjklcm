@@ -298,7 +298,11 @@
   "textarea": {
     "id": "",
     "type": 3,
-    "title": "多行的文本输入框",
+    "title": "多行的文本",
+    "position": {
+      "top": 0,
+      "left": 10
+    },
     "config": {
       "isShow": true,
       "isLock": false,
@@ -349,15 +353,15 @@
         "timingFunction": "ease"
       },
       "transform": {
-        "translateX": "0",
-        "translateY": "0",
-        "scaleX": "1",
-        "scaleY": "1",
-        "rotateX": "0",
-        "rotateY": "0",
-        "rotateZ": "0",
-        "skewX": "0",
-        "skewY": "0"
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "hoverStyle": {
@@ -398,15 +402,15 @@
         "textDecoration": ""
       },
       "transform": {
-        "translateX": "",
-        "translateY": "",
-        "scaleX": "",
-        "scaleY": "",
-        "rotateX": "",
-        "rotateY": "",
-        "rotateZ": "",
-        "skewX": "",
-        "skewY": ""
+        "translateX": 0,
+        "translateY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotateX": 0,
+        "rotateY": 0,
+        "rotateZ": 0,
+        "skewX": 0,
+        "skewY": 0
       }
     },
     "animate": [{

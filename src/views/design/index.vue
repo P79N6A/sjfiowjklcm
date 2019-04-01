@@ -69,6 +69,8 @@ export default {
         name: "新组件",
         type: "",
         tag: "",
+        _id: "",
+        thumbnail: "",
         value: {
           pageJson: [
             {
@@ -248,8 +250,8 @@ export default {
                   shadowDire: 0
                 },
                 base: {
-                  width: 320,
-                  height: 400,
+                  width: 1200,
+                  height: 600,
                   opacity: 100,
                   rotate: 0
                 }

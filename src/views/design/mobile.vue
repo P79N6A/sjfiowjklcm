@@ -1,7 +1,7 @@
 <template>
   <div class="design-container">
     <header>
-      <Iheader :appJson="appJson"></Iheader>
+      <Iheader :appJson="appJson" :isMobile="true"></Iheader>
     </header>
     <div class="contain">
       <div class="left">
@@ -20,6 +20,7 @@
             :pageJson="appJson.value.pageJson[activePageIndex]"
             :activeTempIndex="activeTempIndex"
             :appJson="appJson"
+            :isMobile="true"
           ></Ishow>
         </vue-ruler-tool>
       </div>
@@ -30,6 +31,7 @@
           :activeTempIndex="activeTempIndex"
           :history="history"
           :historyIndex="historyIndex"
+          :isMobile="true"
         ></Itool>
       </div>
     </div>
@@ -69,6 +71,8 @@ export default {
         name: "新组件",
         type: "",
         tag: "",
+        _id: "",
+        thumbnail: "",
         value: {
           pageJson: [
             {
@@ -248,8 +252,8 @@ export default {
                   shadowDire: 0
                 },
                 base: {
-                  width: 320,
-                  height: 540,
+                  width: 375,
+                  height: 670,
                   opacity: 100,
                   rotate: 0
                 }

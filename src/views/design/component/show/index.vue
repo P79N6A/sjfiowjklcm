@@ -17,9 +17,8 @@
         style="border:dashed 1px #ccc;"
         :style="[baseCss]"
       >
-        <div class="i-show">
-          <!-- 拖拽外框 -->
-          <!-- {{drag.config}} -->
+        <!-- pc端控件 -->
+        <div class="i-show" v-if="!isMobile">
           <eleTemp
             :eleJson="drag"
             :activeTempIndex="activeTempIndex"
@@ -29,6 +28,18 @@
           >
             <!-- 组件配置 -->
           </eleTemp>
+        </div>
+        <!-- 手机端控件 -->
+        <div class="i-show" v-if="isMobile">
+          <eleTempMobile
+            :eleJson="drag"
+            :activeTempIndex="activeTempIndex"
+            :showId="i"
+            v-for="(drag,i) in pageJson.json"
+            :key="i"
+          >
+            <!-- 组件配置 -->
+          </eleTempMobile>
         </div>
       </div>
     </div>
@@ -40,6 +51,8 @@
 import VueDragResize from "vue-drag-resize";
 import VueRulerTool from "@/components/Rule";
 import eleTemp from "./eleTemp.vue";
+import eleTempMobile from "./eleTempMobile.vue";
+
 import { mapGetters } from "vuex";
 export default {
   data() {
@@ -50,9 +63,10 @@ export default {
   components: {
     VueDragResize,
     VueRulerTool,
-    eleTemp
+    eleTemp,
+    eleTempMobile
   },
-  props: ["appJson", "pageJson", "activeTempIndex"],
+  props: ["appJson", "pageJson", "activeTempIndex", "isMobile"],
   methods: {
     resize(newRect) {
       this.activeDrag.style.base.width = newRect.width;
