@@ -138,6 +138,18 @@
                       @change="$bus.$emit('saveHistory','更改元素透明度');"
                     ></el-slider>
                   </el-form-item>
+                  <el-form-item label="超出部分" prop="overflow">
+                    <el-select
+                      v-model="styleForm.base.overflow"
+                      placeholder="请选择"
+                      @change="$bus.$emit('saveHistory','更改超出显示方式');"
+                    >
+                      <el-option label="可视" value="visible">可视</el-option>
+                      <el-option label="隐藏" value="hidden">隐藏</el-option>
+                      <el-option label="水平滚动" value="scroll-x">水平滚动</el-option>
+                      <el-option label="垂直滚动" value="scroll-y">垂直滚动</el-option>
+                    </el-select>
+                  </el-form-item>
                 </el-collapse-item>
                 <!-- 文本 -->
 
@@ -684,7 +696,8 @@ export default {
           width: 0,
           height: 0,
           opacity: 100,
-          rotate: 0
+          rotate: 0,
+          overflow: "visible"
         },
         bg: {
           backgroundImage: "",

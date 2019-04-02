@@ -19,13 +19,14 @@ import './errorLog' // error log
 import './permission' // permission control
 // import './mock' // simulation data
 import lodash from 'lodash'
+import VueLazyload from 'vue-lazyload' // 图片懒加载
 
 import * as filters from './filters' // global filters
 import {
   install
 } from '@/components/ishows.js'
 import '@/assets/sass/style.scss'
-Vue.use(install);
+Vue.use(install)
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'mini', // set element-ui default size
@@ -34,6 +35,10 @@ Vue.use(Element, {
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
+})
+Vue.use(VueLazyload, {
+  preLoad: 1, // 预加载图片宽高比例
+  attempt: 2 // 失败尝试次数
 })
 // 注册事件总线
 Vue.prototype.$bus = new Vue()

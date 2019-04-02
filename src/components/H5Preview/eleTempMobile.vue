@@ -55,7 +55,7 @@
         :url="`${cdnurl}/${eleJson.config.content}`"
         :short-id="eleJson.config.content"
         :config="eleJson.config.config"
-        :category="eleJson.config.category"
+        :dataList="eleJson.config.category"
       ></sync-component>
     </div>
   </div>
@@ -93,6 +93,7 @@ export default {
         height: this.eleJson.style.base.height + "px",
         transform: `rotate(${this.eleJson.style.base.rotate}deg)`,
         opacity: this.eleJson.style.base.opacity / 100,
+        overflow:this.eleJson.style.base.overflow,
         transform: `translateX(${this.eleJson.style.transform.translateX ||
           0}%) translateY(${this.eleJson.style.transform.translateY ||
           0}%) scaleX(${this.eleJson.style.transform.scaleX || 1}) scaleY(${this

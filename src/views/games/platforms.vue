@@ -22,6 +22,11 @@
       style="width: 100%;"
     >
       <el-table-column :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
+      <el-table-column label="平台类型" prop="platformType">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.platformType">{{getTypeByKey(scope.row.platformType)}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
       <el-table-column label="字段" prop="value"></el-table-column>
       <el-table-column label="描述" prop="description"></el-table-column>
@@ -65,6 +70,16 @@
         <el-form-item label="平台字段" prop="value">
           <el-input v-model="PlatformTemp.value"/>
         </el-form-item>
+        <el-form-item label="平台类型" prop="platformType">
+          <el-radio-group v-model="PlatformTemp.platformType">
+            <el-radio-button
+              v-for="(item,key,i) in typeOption"
+              :key="i"
+              :label="key"
+            >{{typeOption[key]}}</el-radio-button>
+            <!-- <el-radio v-for="(item,i) in typeOption" :key="i" :label="item.value">{{item.name}}</el-radio> -->
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="平台描述" prop="value">
           <el-input
             v-model="PlatformTemp.description"
@@ -101,6 +116,7 @@ export default {
       PlatformTemp: {
         name: "",
         value: "",
+        platformType: "",
         description: ""
       },
       listLoading: true,
@@ -109,18 +125,63 @@ export default {
       textMap: {
         update: "Edit",
         create: "Create"
+      },
+      typeOption: {
+        SLOT: "老虎机",
+        LIVE: "真人",
+        SPORT: "体育",
+        CHESS: "棋牌",
+        LOTTERY: "彩票",
+        FISH: "捕鱼",
+        ESPORT: "电竞"
       }
+      // [
+      //   {
+      //     name: "老虎机",
+      //     value: "SLOT"
+      //   },
+      //   {
+      //     name: "真人",
+      //     value: "LIVE)"
+      //   },
+      //   {
+      //     name: "体育",
+      //     value: "SPORT"
+      //   },
+      //   {
+      //     name: "棋牌",
+      //     value: "CHESS"
+      //   },
+      //   {
+      //     name: "彩票",
+      //     value: "LOTTERY"
+      //   },
+      //   {
+      //     name: "捕鱼",
+      //     value: "FISH"
+      //   },
+      //   {
+      //     name: "电竞",
+      //     value: "ESPORT"
+      //   }
+      // ]
     };
   },
   created() {
-    // this.getList()
     this.getPlatforms();
   },
   methods: {
+    getTypeByKey(key) {
+      if (key && this.typeOption[key]) {
+        return this.typeOption[key];
+      } else {
+        return key;
+      }
+    },
     // 查询数据分类列表
     getPlatforms() {
       this.listLoading = true;
-      getPlatforms({ type: "content" })
+      getPlatforms()
         .then(res => {
           this.platformList = res.data;
           this.listLoading = false;
@@ -149,6 +210,7 @@ export default {
       this.PlatformTemp = {
         name: "",
         value: "",
+        platformType: "",
         description: ""
       };
     },
@@ -163,9 +225,9 @@ export default {
       this.PlatformTemp = Object.assign({}, row); // copy obj
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
-      this.$nextTick(() => {
-        this.$refs["dataForm"].clearValidate();
-      });
+      // this.$nextTick(() => {
+      //   this.$refs["dataForm"].clearValidate();
+      // });
     },
     // g更新操作
     updatePlatforms() {

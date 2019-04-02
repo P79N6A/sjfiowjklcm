@@ -4,6 +4,7 @@ const getters = {
   size: state => state.app.size,
   device: state => state.app.device,
   cdnurl: state => state.app.cdnurl,
+  cdnUrl: state => state.app.cdnurl,
   projectName: state => state.app.projectName,
   visitedViews: state => state.tagsView.visitedViews,
   cachedViews: state => state.tagsView.cachedViews,

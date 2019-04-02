@@ -35,7 +35,7 @@
         :url="`${cdnurl}/${eleJson.config.content}`"
         :short-id="eleJson.config.content"
         :config="eleJson.config.config"
-        :category="eleJson.config.category"
+        :dataList="eleJson.config.category"
       ></sync-component>
     </div>
     <div v-html="`<style>${styleText}</style>`" v-show="false"></div>
@@ -137,6 +137,7 @@ export default {
         width: ${style.base.width}px;
         height: ${style.base.height}px;
         opacity: ${style.base.opacity / 100};
+        overflow:${style.base.overflow};
         transition:all ${style.transition.duration}s ${
         style.transition.timingFunction
       };

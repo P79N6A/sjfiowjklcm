@@ -131,7 +131,8 @@ export default {
                       width: 100,
                       height: 50,
                       opacity: 100,
-                      rotate: 0
+                      rotate: 0,
+                      overflow: "visible"
                     },
                     transition: {
                       duration: 0,
@@ -184,7 +185,8 @@ export default {
                       width: 100,
                       height: 50,
                       opacity: 100,
-                      rotate: 0
+                      rotate: 0,
+                      overflow: "visible"
                     },
                     transform: {
                       translateX: 0,

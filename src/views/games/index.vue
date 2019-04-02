@@ -1,37 +1,67 @@
 <template>
   <div class="games-container">
-    <div>
-      <span>
-        <el-select v-model="filterData.device" placeholder="请选择终端类型">
-          <el-option label="PC" value="PC"></el-option>
-          <el-option label="MOBILE" value="MOBILE"></el-option>
-        </el-select>
-      </span>
-      <span>
-        <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
-          <el-option
-            :label="item.name"
-            :value="item.value"
-            v-for="item in platformList"
-            :key="item.value"
-          ></el-option>
-        </el-select>
-      </span>
-      <span>
+    <div style="padding:20px 10px;background:#eee;">
+      <!-- <span>
         <el-button type="warning" icon="el-icon-search" @click="getGames">搜索</el-button>
+      </span>-->
+      <span>
+        <el-button
+          type="danger"
+          @click="handleCreate"
+          icon="el-icon-edit"
+          v-show="filterData.platform"
+        >添加游戏</el-button>
       </span>
       <span>
-        <el-button type="danger" @click="handleCreate" icon="el-icon-edit">添加游戏</el-button>
+        <el-button
+          type="danger"
+          @click="dialogInsertVisible=true"
+          icon="el-icon-edit"
+          v-show="filterData.platform"
+        >导入</el-button>
       </span>
-      <span>
-        <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导入</el-button>
-      </span>
-      <router-link :to="{name: 'platform'}" style="float:right;">
+      <router-link :to="{name: 'platform'}">
         <el-button type="danger" @click="handlePlatform" icon="el-icon-edit">平台管理</el-button>
       </router-link>
     </div>
+    <el-form
+      label-position="right"
+      label-width="80px"
+      :model="filterData"
+      style="background:#eee;padding:10px;"
+    >
+      <el-form-item label="终端：" prop="platform">
+        <el-radio-group v-model="filterData.device" size="mini">
+          <el-radio-button label="PC">桌面端</el-radio-button>
+          <el-radio-button label="MOBILE">手机端</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="类型：" prop="platform">
+        <el-radio-group v-model="filterData.platformType" size="mini">
+          <el-radio-button label="SLOT">老虎机</el-radio-button>
+          <el-radio-button label="LIVE">真人</el-radio-button>
+          <el-radio-button label="CHESS">棋牌</el-radio-button>
+          <el-radio-button label="LOTTERY">彩票</el-radio-button>
+          <el-radio-button label="FISH">捕鱼</el-radio-button>
+          <el-radio-button label="SPORT">体育</el-radio-button>
+          <el-radio-button label="ESPORT">电竞</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="平台：" prop="platform">
+        <el-radio-group v-model="filterData.platform" size="mini">
+          <el-radio-button
+            :label="item.value"
+            v-for="item in platformList"
+            :key="item.value"
+            v-show="item.platformType==filterData.platformType"
+          >{{item.name}}</el-radio-button>
+        </el-radio-group>
+      </el-form-item>
+    </el-form>
+
     <br>
     <br>
+
     <el-table
       v-loading="listLoading"
       :data="modelList"
@@ -39,20 +69,17 @@
       fit
       highlight-current-row
       style="width: 100%;"
+      max-height="800"
     >
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
-      <el-table-column fixed align="center" label="封面" prop="thumbnail" width="80">
+      <el-table-column fixed align="center" label="封面" prop="thumbnail" width="100">
         <template slot-scope="scope">
-          <a
-            target="_blank"
-            :href="`${scope.row.icon}`"
-            class="img-view"
-            :style="`background-image:url(${scope.row.icon});`"
-          ></a>
+          <a target="_blank" :href="`${scope.row.icon}`" class="icom-view">
+            <img v-lazy="cdnurl+scope.row.icon" :key="scope.row._id">
+          </a>
         </template>
       </el-table-column>
-      <!-- :href="`${cdnurl}${scope.row.thumbnail.src}`" -->
-      <el-table-column fixed label="中/英名称">
+      <el-table-column fixed label="中/英名称" width="200">
         <template slot-scope="scope">
           <div>{{scope.row.name}}</div>
           <div>{{scope.row.eName}}</div>
@@ -65,6 +92,7 @@
         </template>
       </el-table-column>
       <el-table-column label="线注" prop="line"></el-table-column>
+      <el-table-column label="moduleid" prop="moduleid" v-if="filterData.platform=='MG'"></el-table-column>
       <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.mgself" type="warning">是</el-tag>
@@ -85,12 +113,12 @@
       </el-table-column>
       <el-table-column label="gameName" prop="gameName" v-if="filterData.platform=='TTG'"></el-table-column>
       <el-table-column label="gameType" prop="gameType" v-if="filterData.platform=='TTG'"></el-table-column>
-      <el-table-column label="分类" min-width="150px" prop="role.authorities">
+      <el-table-column label="分类" min-width="150px">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.types">{{getTypesName(scope.row.types)}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="风格" min-width="150px" prop="role.authorities">
+      <el-table-column label="风格" min-width="150px">
         <template slot-scope="scope">
           <el-tag v-for="(item,key,i) in scope.row.tags" :key="i">{{getTagName(item)}}</el-tag>
         </template>
@@ -263,8 +291,14 @@
               </tr>
               <tr>
                 <td>
-                  <el-form-item label="赔付线注" prop="online">
-                    <el-input-number v-model="gameTemp.line" :min="0"></el-input-number>
+                  <el-form-item label="在线状态" prop="online">
+                    <el-switch
+                      v-model="gameTemp.online"
+                      active-color="#13ce66"
+                      inactive-color="#ff4949"
+                      active-text="是"
+                      inactive-text="否"
+                    ></el-switch>
                   </el-form-item>
                 </td>
                 <td>
@@ -306,19 +340,6 @@
                   </el-form-item>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <el-form-item label="在线状态" prop="online">
-                    <el-switch
-                      v-model="gameTemp.online"
-                      active-color="#13ce66"
-                      inactive-color="#ff4949"
-                      active-text="是"
-                      inactive-text="否"
-                    ></el-switch>
-                  </el-form-item>
-                </td>
-              </tr>
             </tbody>
           </table>
         </el-card>
@@ -331,6 +352,13 @@
           </div>
           <table style="width:100%;">
             <tbody>
+              <tr>
+                <td>
+                  <el-form-item label="赔付线注" prop="online">
+                    <el-input-number v-model="gameTemp.line" :min="0"></el-input-number>
+                  </el-form-item>
+                </td>
+              </tr>
               <tr>
                 <td>
                   <el-form-item label="游戏类型" prop="platform">
@@ -346,7 +374,7 @@
               </tr>
               <tr>
                 <td>
-                  <el-form-item label="终端类型" prop="device">
+                  <el-form-item label="风格" prop="device">
                     <el-checkbox-group v-model="gameTemp.tags">
                       <el-checkbox
                         :label="tag.value"
@@ -403,14 +431,24 @@
       <el-upload
         ref="upload"
         action="/"
-        list-type="picture-card"
         :show-file-list="false"
         :on-change="importExcel"
         :auto-upload="false"
+        drag
+        multiple
       >
-        <i class="el-icon-plus"></i>
+        <!-- <i class="el-icon-plus"></i> -->
+        <div>
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+        </div>
+
+        <div class="el-upload__tip" slot="tip">只能上传csv/xlsx文件</div>
       </el-upload>
-      <p>
+      <p style="padding:10px;background:#eee;margin-top:10px;">
         <a href="/static/导入模板.xlsx" target="_blank">下载模板文件</a>
       </p>
     </el-dialog>
@@ -418,21 +456,91 @@
       title="导入列表"
       :visible.sync="dialogInsertTable"
       v-if="insertList.length>0"
-      width="900px"
+      :fullscreen="true"
       :close-on-click-modal="false"
     >
-      <el-table :data="insertList" border fit highlight-current-row style="width: 100%;">
-        <el-table-column type="index" align="center" width="50"></el-table-column>
-        <el-table-column align="center" prop="name" label="name"></el-table-column>
-        <el-table-column align="center" prop="eName" label="eName"></el-table-column>
-        <el-table-column align="center" prop="id" label="id"></el-table-column>
-        <el-table-column align="center" prop="code" label="code"></el-table-column>
-        <el-table-column align="center" prop="line" width="70" label="line"></el-table-column>
-        <el-table-column align="center" prop="device" width="50" label="终端"></el-table-column>
-        <el-table-column align="center" prop="platform" width="100" label="平台"></el-table-column>
+      <el-table
+        :data="insertList"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
+        max-height="800"
+      >
+        <el-table-column type="index" align="center" width="50" label="序号"></el-table-column>
+        <el-table-column align="center" prop="name" label="name">
+          <template slot="header">
+            <p>name</p>
+            <p>中文名</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="eName" label="eName">
+          <template slot="header">
+            <p>eName</p>
+            <p>英文名</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="id" label="id">
+          <template slot="header">
+            <p>id</p>
+            <p>游戏ID</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="code" label="code">
+          <template slot="header">
+            <p>code</p>
+            <p>游戏CODE</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="line" width="70" label="line">
+          <template slot="header">
+            <p>line</p>
+            <p>线注</p>
+          </template>
+        </el-table-column>
+        <el-table-column label="MG品牌" v-if="filterData.platform=='MG'">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.mgself" type="warning">是</el-tag>
+            <el-tag v-else>否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="moduleid" prop="moduleid" v-if="filterData.platform=='MG'"></el-table-column>
+
+        <el-table-column label="gameName" prop="gameName" v-if="filterData.platform=='TTG'"></el-table-column>
+        <el-table-column label="gameType" prop="gameType" v-if="filterData.platform=='TTG'"></el-table-column>
+        <el-table-column label="支持真钱">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.money" type="warning">是</el-tag>
+            <el-tag v-else>否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="支持试玩">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.try" type="warning">是</el-tag>
+            <el-tag v-else>否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="device" width="90" label="device">
+          <template slot="header">
+            <p>device</p>
+            <p>终端</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="platformType" width="110" label="platformType">
+          <template slot="header">
+            <p>platformType</p>
+            <p>平台类型</p>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="platform" width="100" label="platform">
+          <template slot="header">
+            <p>platform</p>
+            <p>游戏平台</p>
+          </template>
+        </el-table-column>
       </el-table>
       <div style="padding:20px;text-align:right;">
-        <el-button @click="insertGame">导入</el-button>
+        <el-button @click="insertGame" type="primary">确认导入</el-button>
       </div>
     </el-dialog>
   </div>
@@ -462,27 +570,69 @@ export default {
       //搜索条件
       filterData: {
         device: "PC",
-        platform: "DT"
+        platformType: "SLOT",
+        platform: ""
       },
       // 游戏平台类型
       platformList: [],
       insertList: [],
       // 分类
       typeList: [
-        { name: "奖池", value: "AMA" },
-        { name: "经典", value: "CLA" },
-        { name: "迷你", value: "MIN" },
-        { name: "其他", value: "OTH" },
-        { name: "电子", value: "ELE" },
-        { name: "街机", value: "STR" }
+        {
+          name: "奖池",
+          value: "AMA"
+        },
+        {
+          name: "经典",
+          value: "CLA"
+        },
+        {
+          name: "迷你",
+          value: "MIN"
+        },
+        {
+          name: "电子",
+          value: "ELE"
+        },
+        {
+          name: "街机",
+          value: "STR"
+        },
+        {
+          name: "其他",
+          value: "OTH"
+        }
       ],
       // 标签
       tagList: [
-        { name: "消消乐", value: "ETL" },
-        { name: "多旋转", value: "CIR" },
-        { name: "电影", value: "MOV" },
-        { name: "卡通", value: "CAR" },
-        { name: "少女", value: "GIR" }
+        {
+          name: "最新",
+          value: "NEW"
+        },
+        {
+          name: "热门",
+          value: "HOT"
+        },
+        {
+          name: "消消乐",
+          value: "ETL"
+        },
+        {
+          name: "多旋转",
+          value: "CIR"
+        },
+        {
+          name: "电影",
+          value: "MOV"
+        },
+        {
+          name: "卡通",
+          value: "CAR"
+        },
+        {
+          name: "少女",
+          value: "GIR"
+        }
       ],
       gameTemp: {
         platform: "",
@@ -530,9 +680,10 @@ export default {
     };
   },
   created() {
-    this.getPlatforms();
-    this.getGames({});
-    this.getProjects();
+    this.$nextTick(() => {
+      this.getPlatforms();
+      this.getProjects();
+    });
   },
   methods: {
     // 查询用户列表
@@ -560,11 +711,9 @@ export default {
       this.listLoading = true;
       getGames(this.filterData)
         .then(res => {
-          this.modelList = res.data.filter(item => {
-            item.icon = `${this.cdnurl}${item.icon}?v=${new Date().getTime()}`;
-            return item;
-          });
+          this.modelList = res.data;
           this.listLoading = false;
+          console.log(this.modelList);
         })
         .catch(err => {
           this.listLoading = false;
@@ -628,7 +777,9 @@ export default {
     // 创建游戏
     createGame() {
       // return;
-      addGames({ gameList: [this.gameTemp] })
+      addGames({
+        gameList: [this.gameTemp]
+      })
         .then(res => {
           this.dialogFormVisible = false;
           this.getGames();
@@ -680,6 +831,7 @@ export default {
     resetTemp() {
       this.gameTemp = {
         platform: this.filterData.platform,
+        platformType: this.filterData.platformType,
         device: this.filterData.device,
         id: "",
         code: "",
@@ -762,9 +914,17 @@ export default {
       this.file2Xce(file).then(tabJson => {
         if (tabJson && tabJson.length > 0) {
           this.xlsxJson = tabJson;
+
           tabJson[0].sheet.forEach(item => {
+            console.log(item.mgself, item.try);
             item.tags = [];
             item.online = true;
+            item.platformType = this.filterData.platformType;
+            item.platform = this.filterData.platform;
+            item.device = this.filterData.device;
+            item.mgself = item.mgself == "1" || item.mgself == 1 ? true : false;
+            item.money = true;
+            item.try = item.try == "0" || item.try == "0" ? false : true;
           });
           this.dialogInsertTable = true;
           this.insertList = tabJson[0].sheet.slice(1);
@@ -779,7 +939,9 @@ export default {
       });
     },
     insertGame() {
-      addGames({ gameList: this.insertList })
+      addGames({
+        gameList: this.insertList.reverse()
+      })
         .then(res => {
           this.dialogFormVisible = false;
           this.dialogInsertVisible = false;
@@ -830,6 +992,21 @@ export default {
       if (val) {
         this.getProjects();
       }
+    },
+    "filterData.device"(val) {
+      if (val) {
+        this.getGames();
+      }
+    },
+    "filterData.platformType"(val) {
+      if (val) {
+        this.getGames();
+      }
+    },
+    "filterData.platform"(val) {
+      if (val) {
+        this.getGames();
+      }
     }
   }
 };
@@ -837,6 +1014,7 @@ export default {
 <style lang="scss" scoped>
 .games-container {
   padding: 30px;
+
   .model-table {
     width: 100%;
     table-layout: fixed;
@@ -850,6 +1028,16 @@ export default {
     background: #eee;
     padding: 20px 10px 10px;
   }
+
+  .icom-view {
+    display: block;
+    width: 100%;
+    img {
+      display: inline-block;
+      width: 100%;
+      height: auto;
+    }
+  }
   .img-view {
     background-position: center center;
     background-repeat: no-repeat;
@@ -859,11 +1047,13 @@ export default {
     height: 60px;
     display: inline-block;
     line-height: 2;
+
     &:hover {
       .upload-icon {
         background: none;
       }
     }
+
     .upload-icon {
       background: rgba(0, 0, 0, 0.1);
       transition: all 0.4s;
@@ -873,6 +1063,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       .el-icon-plus {
         font-size: 50px;
         font-weight: bold;
@@ -881,28 +1072,6 @@ export default {
         line-height: 120px;
       }
     }
-  }
-
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #409eff;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: auto;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
   }
 
   .favicon {
