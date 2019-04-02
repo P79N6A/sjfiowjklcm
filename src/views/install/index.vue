@@ -179,12 +179,12 @@
 <style lang="scss" scoped>
   .install-container {
     min-height: 100vh;
-    background: url(./imgs/bg.jpg) center center #000/cover;
+    background: url(~@/assets/bg.jpg) center center #000/cover;
   }
 
   .logo {
     text-align: center;
-    padding: 30px 0;
+    padding: 20px 0;
   }
 
   .box-card {
