@@ -45,6 +45,11 @@ export const constantRouterMap = [{
     hidden: true
   },
   {
+    path: '/install',
+    component: () => import('@/views/install'),
+    hidden: true
+  },
+  {
     path: '/auth-redirect',
     component: () => import('@/views/login/authredirect'),
     hidden: true
@@ -765,7 +770,7 @@ export const asyncRouterMap = [
   // componentsRouter,
   // chartsRouter,
   // nestedRouter,
-  tableRouter,
+  // tableRouter,
   // {
   //   path: '/example',
   //   component: Layout,
