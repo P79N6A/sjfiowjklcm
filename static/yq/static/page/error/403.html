@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <title>禁止访问页面-403</title>
+  <link rel="stylesheet" href="css/error.css" />
+  <!--[if IE 6]>
+		<script src="js/png.js"></script>
+		<script>DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+</head>
+
+<body>
+  <div id="wrap">
+    <div>
+      <img src="img/403.png" alt="404" />
+    </div>
+    <div id="text">
+      <div class="text" id="showText">
+        <p>The requested page could not be found</p>
+        <p>抱歉,该地区无法访问本网站</p>
+      </div>
+      <p id="city"></p>
+      <p id="ip"></p>
+      <div>
+        <a href="" id="cs">联系客服</a>
+      </div>
+    </div>
+  </div>
+  <div class="logo">
+    <img src="/static/images/base/logo.png">
+  </div>
+  <div class="animate below"></div>
+  <div class="animate above"></div>
+  <script src="/static/lib/zepto/index.js"></script>
+  <script>
+    // 读取当前ip
+    $.get('https://ipapi.co/json/', function(response){
+      $("#city").text(response.country_name+'-'+response.city)
+      $("#ip").text(response.ip+'-'+response.org)
+    })
+    // 错误信息
+    $.get('/static/ajax/error/403.json?v=' + new Date().getTime(), function (response) {
+      console.log(response)
+      $("#showText").html(response.data.html)
+    })
+    // 客服联系方式
+    $.get('/static/ajax/info/contact.json?v=' + new Date().getTime(), function (response) {
+      $("#cs").attr('href', response.live800)
+    })
+
+  </script>
+</body>
+
+</html>

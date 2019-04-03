@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="./files/reset.css">
+    <link rel="stylesheet" type="text/css" href="./files/common.css">
+    <link rel="stylesheet" type="text/css" href="./files/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./files/carousel.css">
+    <link rel="stylesheet" type="text/css" href="./files/jplayer.css">
+    <link rel="stylesheet" type="text/css" href="./files/style.css">
+    <script type="text/javascript" src="./files/jquery-1.12.4.min.js "></script>
+    <script type="text/javascript" src="./files/items.js "></script>
+    <script type="text/javascript" src="./files/carousel.js "></script>
+    <script type="text/javascript" src="./files/jquery.jplayer.min.js "></script>
+    <script type="text/javascript" src="./files/jplayer.config.js "></script>
+    <script type="text/javascript" src="./files/jplayer.playlist.min.js "></script>
+    <script type="text/javascript" src="./files/music.js "></script>
+
+    <script type="text/javascript">
+        $(function(){
+            if(/AppleWebKit.*Mobile/i.test(navigator.userAgent)
+                    || /Android/i.test(navigator.userAgent)
+                    || /BlackBerry/i.test(navigator.userAgent)
+                    || /IEMobile/i.test(navigator.userAgent)
+                    || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))
+            {
+
+            } else {
+                audio();
+                setTimeout("PlaySound()", 2000);
+            }
+
+
+            $(".explain-2 li").click(function(){
+                var target = "#"+$(this).data('target');
+                $("html,body").animate({scrollTop: $(target).offset().top}, 1000);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    
+    <div class="audio" style="position:fixed; bottom:55px;right:75px;z-index: 1000">
+        <!-- Focus Audio Player -->
+        <div class="focus-container focus-audio boxed">
+            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://dn-qiniucdn.qbox.me/star/a2.mp3"></audio></div>
+            <div id="jp_container_1" class="jp-audio jp-audio1" style="display: block;">
+                <div class="inner">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-controls-wrap">
+                            <div class="song_title"><div class="item-song">醜八怪</div><div class="item-artist">薛之谦</div></div>
+                            <div class="jp-current-time">00:00</div>
+                            <div class="jp-duration">00:00</div>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar" style="width: 100%;">
+                                    <div class="jp-play-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <ul class="jp-controls clearfix">
+                                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute" style="display: none;"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-previous disabled" tabindex="1"><i class="icon iconfont">
+                                </i></a></li>
+                                <li><a href="javascript:;" class="jp-play" tabindex="1" style="display: block;"><i class="icon iconfont"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-pause" tabindex="1" style="display: none;"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-next" tabindex="1"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-stop" tabindex="1"></a></li>
+                                <li>
+                                    <a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat" style="display: none;">
+                                        <i class="icon iconfont"></i>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off" style="display: block;"><i class="icon iconfont" style="color:#ffc886"></i></a></li>
+                                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle"></a></li>
+                                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off" style="display: none;"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-playlist-toggle" tabindex="1" title="Toggle PlayList">
+                                    <i class="icon iconfont"></i></a></li>
+                            </ul>
+                            <div class="jp-volume-bar">
+                                <div class="jp-volume-bar-value" style="width: 80%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-playlist">
+                        <ul class="jp-playlist-inner" style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1"><div class="item-song">醜八怪</div><div class="item-artist">薛之谦</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170101/news.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">你还要我怎样</div><div class="item-artist">薛之谦</div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170101/news.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">手掌心</div><div class="item-artist">丁噹</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">拯救</div><div class="item-artist">丁噹</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">浮誇</div><div class="item-artist">梁君諾</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170101/news.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">心虚</div><div class="item-artist">梁君諾</div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170101/news.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">我是一只小小烏</div><div class="item-artist">趙露</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">放過我</div><div class="item-artist">趙露</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/news.html" class="buy"></a></span></div></li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./files/mobile(1).css">
+<link rel="stylesheet" type="text/css" href="./files/allInOneModal.css">
+<script type="text/javascript" src="./files/login.js "></script>
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+
+
+    <header class="slide hidden-lg hidden-md">
+        <ul id="navToggle" class="burger slide">
+            <li></li><li></li><li></li>
+        </ul>
+        <div id="logomobilebox">
+            <img id="logomobile" src="/static/images/base/mlogo2.png">
+        </div>
+    </header>
+
+    <nav class="slide hidden-lg hidden-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="./files/trunk.css">
+<script type="text/javascript" language="javascript" src="./files/trunk.js "></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+
+
+
+
+
+    </nav>
+
+    <div class="content slide">
+        <ul class="responsive">
+            <!-- header -->
+            <li class="header-section hidden-xs">
+                <header>
+                    <div class="top">
+                        <div class="cont clearfix">
+                            <ul class="fr login">
+                             
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <nav>
+                        <div class="cont clearfix">
+                            <h1><a href="/"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_pc"><img src="/static/images/base/mlogo2.png" alt="" class="logo_mobile"></a></h1>
+                            <ul class="fr">
+                                
+                                
+                                
+                                
+                                <li class="active"><a href="/static/page/history/20170101/ticket.html" target="_blank">群星演唱会</a></li>
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </li>
+
+            <!-- body -->
+            <li class="body-section">
+                <div class="explain-1">
+                    <div class="cont show-banner">
+                        <div id="img2" class="ani-delay">
+                            <img src="./files/title5-1.png" alt="">
+                        </div>
+                    </div>
+                    <img src="./files/phone4.jpg" alt="" class="phonesize" width="100%">
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>奇幻城国际-媒体报导</title>
+
+
+                <div class="explain-2">
+                    <div class="cont clear">
+                        <ul>
+                            <li><a href="/static/page/history/20170101/introduce.html">“潮”玩赞音乐</a></li>
+                            <li><a href="/static/page/history/20170101/ticket.html">
+                                <div>
+                                    <img src="./files/icon-get.png">
+                                    抢票活动<i class="hearder-sprite sprite-HOT floating-hot HOT"></i>
+                                </div>
+                                </a>
+                            </li>
+                            <li><a href="/static/page/history/20170101/index.html">演唱会花絮</a></li>
+                            <li class="active">媒体报导</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="explain-3">
+                    <div class="cont">
+                        <div class="content-box">
+                            <div class="content-title">
+                                <h1 class="sc">媒体报道</h1><span class="sc2">MEDIA REPORTS</span>
+                            </div>
+
+                           <div class="news-list clear">
+                              <div class="col-xs-12 news-box">
+                                  <div class="col-xs-12 col-lg-3">
+                                      <img src="./files/icon1.png">
+                                  </div>
+                                  <div class="col-xs-12 col-lg-9">
+                                      <h3 class="news-title">年度最全能的全能王 薛之谦现身汕头</h3>
+                                      <p>近两年多次在各大综艺节目中露脸，大家应该不陌生，就是薛之谦。据悉，2017年1月13日要在汕头举办群星演唱会了，在这一年里特火的薛之谦已经参加了大大小小的演唱会，甫一出场，便引发观众阵阵尖叫，现场反响热烈非凡 ... <a href="http://kuaibao.qq.com/s/20170118A01YO700" target="_blank">[查看更多]</a></p>
+                                  </div>
+                              </div>
+                           </div>
+
+                            <div class="news-list clear">
+                                <div class="col-xs-12 news-box">
+                                    <div class="col-xs-12 col-lg-3">
+                                        <img src="./files/icon2.png">
+                                    </div>
+                                    <div class="col-xs-12 col-lg-9">
+                                        <h3 class="news-title">汕头群星演唱会奇幻城国际再推音乐狂想活动</h3>
+                                        <p>还记得因段子走红的薛之谦吗？还记得蒙面歌王高音咆哮震撼人心的丁当吗？2017春晚前最不容错过的一场演唱会，就在汕头，
+                                            狂欢盛典，震撼来袭，打造顶级视听盛宴。群星演唱会以嘉年华的形式开展，由奇幻城国际倾力打造，耀眼四射，唱响汕头 ... <a href="http://www.toutiao.com/i6376527622137971201/" target="_blank">[查看更多]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-list clear">
+                                <div class="col-xs-12 news-box">
+                                    <div class="col-xs-12 col-lg-3">
+                                        <img src="./files/icon3.png">
+                                    </div>
+                                    <div class="col-xs-12 col-lg-9">
+                                        <h3 class="news-title">汕头群星演唱会奇幻城国际再推音乐狂想活动</h3>
+                                        <p>还记得因段子走红的薛之谦吗？还记得蒙面歌王高音咆哮震撼人心的丁当吗？2017春晚前最不容错过的一场演唱会，就在汕头，
+                                            　　狂欢盛典，震撼来袭，打造顶级视听盛宴。群星演唱会以嘉年华的形式开展，由奇幻城国际倾力打造，耀眼四射，唱响汕头 ... <a href="http://mt.sohu.com/20170117/n478974285.shtml?qq-pf-to=pcqq.c2c" target="_blank">[查看更多]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-list clear">
+                                <div class="col-xs-12 news-box">
+                                    <div class="col-xs-12 col-lg-3">
+                                        <img src="./files/icon4.png">
+                                    </div>
+                                    <div class="col-xs-12 col-lg-9">
+                                        <h3 class="news-title">薛之谦现身汕头再开唱 生病入院谦谦却这么说</h3>
+                                        <p>薛之谦提到2016年爆红的人，薛之谦绝对算其中一个，因为搞笑的段子手身份，薛之谦获得了很多人的光出，出道十年沉寂了许久的他再次出现在大众视野，并且人气暴涨，收获了无数迷妹 ... <a href="http://news.vdfly.com/dujia/201701/574561.html" target="_blank">[查看更多]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-list clear">
+                                <div class="col-xs-12 news-box">
+                                    <div class="col-xs-12 col-lg-3">
+                                        <img src="./files/icon5.png">
+                                    </div>
+                                    <div class="col-xs-12 col-lg-9">
+                                        <h3 class="news-title">薛之谦大病初愈 亮相汕头群星演唱会</h3>
+                                        <p>近日，薛之谦在录制《我们的挑战》时,在现场突发意外状况,因为急性肠胃炎、高烧不退而临时暂停录像,前往医院治疗，引发粉丝关心。刚从医院康复出来，就来到汕头参加群星演唱会，现场会汕头方言说“我爱你”更是让全场沸腾 ... <a href="http://news.jxntv.cn/2017/0114/8365962.shtml" target="_blank">[查看更多]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="explain-5">
+                    <div class="cont">
+                        <div class="content-box">
+                            <div class="content-title">
+                                <h1 class="sc">抢票规则</h1><span class="sc2">GRAB VOTES RULES</span>
+                            </div>
+                            <ul>
+                                <li class="sc">1.每个会员只能申请一张门票。</li>
+                                <li>2.至尊会员，钻石会员，无需任何要求，可以直接申请门票，其它会员需存款达到5888元才可以申请门票</li>
+                                <li>3.达到要求申请门票的会员请根据要求填写您的相关信息以及有效电话，并保挂电话畅通，将会有专员为您致电。</li>
+                                <li class="sc">4.门票数量为100张，如门票提前被抢完，则抢票活动提前结束！</li>
+                                <li>5.去现场领票的玩家，在演唱会结束后，我们奖补贴您388元住宿费，将以幸运抽奖的方式派发到您的账户上。</li>
+                                <li>6.奇幻城国际享有最终解释权。</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- footer -->
+            <li class="footer-section">
+                <div id="footer">
+                    <div class="cont clearfix">
+                        <p class="fl"><img src="./files/flogo.png" alt=""></p>
+                        <p class="fr" style="position:absolute;top:50%;right:0;transform:translateY(-50%);">
+                            <span>2018 版权所有奇幻城国际 www.qhc118.com</span>
+                            <span>奇幻城国际由PAGCOR所授权和监管</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+</body></html>

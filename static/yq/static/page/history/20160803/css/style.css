@@ -1,0 +1,107 @@
+﻿@charset "utf-8";
+/* reset
+========================================== */
+*{margin:0; padding:0; font-family: "Microsoft YaHei",Verdana, Arial !important;}
+body{font-size:14px; color:#fff; line-height:24px;padding:0px; background-color:rgb(15,39,17); overflow-x:hidden;}
+ul, li{list-style: none outside none;}
+a{text-decoration:none; border:none;}
+img{border:none;}
+input{vertical-align:middle;}
+/* div table * ========================================== */
+div.div_table{display: table;}
+div.div_title{display: table-caption; text-align: center;}
+div.div_heading{display: table-row; font-weight: bold;text-align: center;}
+div.div_row{display: table-row;}
+div.div_cell{display: table-cell; vertical-align: middle;}
+/* common
+========================================== */
+.fl{float:left !important;}
+.fr{float:right !important;}
+.tc{text-align:center !important;}
+.pt45{padding-top:45px !important;}
+.pt50{padding-top:50px !important;}
+.mt40{margin-top:40px !important;}
+.mb50{margin-bottom:50px !important;}
+.mb100{margin-bottom:100px !important;}
+.mb150{margin-bottom:150px !important;}
+.mb200{margin-bottom:200px !important;}
+.clear{zoom:1; clear:both;}
+.clear:after{content:""; display:block; clear:both;}
+.container{width: 965px; margin:0 auto; height: 100%;}
+/* color primary */
+.cop{color:yellow;}
+/* color secondary */
+.cos{}
+strong{color:yellow;}
+/* body
+========================================== */
+#header{width:100%; margin:0 auto; height:60px; background-color:rgba(0,0,0,0.2);}
+#header .fr ul{margin-top: 16px;}
+#header .fr ul li{display:inline-block; color:yellow; font-size:16px;}
+#header .fr ul li a{color:yellow;}
+#header .fr ul li a:hover{color:#fff;}
+#footer{position: absolute; left: 0px; top: 2550px; width: 100%; height: 140px; text-align: center; background-color: rgb(10,26,23);}
+#footer .container > *{font-size:16px; letter-spacing:3px; margin:5px 0px;}
+#nav{width: 100%; height: 60px; background-color: rgba(0,0,0,0.2); margin-top: 550px;}
+#nav ul{position:relative;}
+#nav ul li{display: inline-block; width: 19%; text-align: center; line-height: 60px;}
+#nav ul li i{width: 0; height: 0; border-style: solid; border-width: 15px 10px 0 10px;border-color: red transparent transparent transparent; visibility:hidden;}
+#nav ul li a{color: #fff; font-size: 18px; font-weight: 600;position: relative; left: 10px;}
+#nav ul li:hover a, #nav ul li.active a{color:yellow;}
+#nav ul li:hover, #nav ul li.active{background: #7d0000; /* Old browsers */
+background: -moz-linear-gradient(top, #7d0000 0%, #f82f0f 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #7d0000 0%,#f82f0f 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #7d0000 0%,#f82f0f 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d0000', endColorstr='#f82f0f',GradientType=0 ); /* IE6-9 */
+border-radius: 10px;}
+#nav ul li:hover i, #nav ul li.active i{visibility:visible; position: relative; top: 55px; left: -38px;}
+#nav h1{color: yellow; font-size: 22px; margin-bottom: 10px;}
+.profile .fl:nth-child(2){width: 500px; margin-left: 30px; font-size: 16px; line-height: 1.9;background-color: rgba(0, 128, 0,0.2);}
+.profile .fl:nth-child(2) p{margin:6px; padding:6px;}
+#wp-box{margin-top: 80px;}
+#wp-box .container .block{font-size:16px; height:250px;}
+#wp-box .container .block2{height: 240px; width: 700px; overflow: hidden; margin: 20px 20px 0px;}
+#wp-box .container .block .table_title{border-bottom: 1px solid green; height: 25px; margin: 20px; width: 700px;}
+#wp-box .container .block .table_title .fl{background-color: green; color: yellow; padding: 10px; position: relative; top: -18px;}
+#wp-box .container .block .table_title .fr{color:yellow;}
+#wp-box .container .block .table_title2{border-bottom: 1px solid yellow; height: 25px; margin: 20px; margin-left: 120px; width: 700px;}
+#wp-box .container .block .table_title2 .fl{background-color: yellow; color: green; padding: 10px; position: relative; top: -18px;}
+#wp-box .container .block .table_title2 .fr{color:yellow;}
+.rule{line-height: 1.9; font-size: 16px;margin-top: 40px;}
+.people > div{width:50%;}
+.people .clear .fl:nth-child(1){width:30%;}
+.people .clear .fl:nth-child(2){width:65%;}
+.people .clear{height:230px;}
+.people h1{color:yellow; font-size:22px; margin-bottom:10px;}
+.people span{padding:10px 0px; line-height:1.9; font-size:16px;}
+.people p{margin-top:10px;}
+.content{font-size:14px;line-height:2.1;}
+.content img{position: relative; top: 15px; margin-left: 10px; word-break: break-all; text-align: justify;}
+.page{position:absolute;}
+.page > div{width:25px; height:25px; line-height:25px; font-size:16px; text-align:center; cursor:pointer; display:inline-block; margin-right:10px; margin-top:20px; margin-left:10px;}
+.page .next{background-color:rgb(63,159,23); color:#fff;}
+.page .last{background-color:yellow; color:rgb(63,159,23);}
+.page .display{width:50px;}
+.more{position: absolute; top: 62px; left: 800px;}
+.hot{position:absolute; top: -13px; left: 300px; -webkit-animation: bounce-down 1.6s linear infinite; animation: bounce-down 1.6s linear infinite;}
+@-webkit-keyframes bounce-down{25%{-webkit-transform:translateY(-5px)}50%,100%{-webkit-transform:translateY(0)}75%{-webkit-transform:translateY(5px)}}
+@keyframes bounce-down{25%{transform:translateY(-5px)}50%,100%{transform:translateY(0)}75%{transform:translateY(5px)}}
+.animate-bounce-down{-webkit-animation:bounce-down 1.5s linear infinite;animation:bounce-down 1.5s linear infinite}
+@-webkit-keyframes bounce-up{25%{-webkit-transform:translateY(10px)}50%,100%{-webkit-transform:translateY(0)}75%{-webkit-transform:translateY(-10px)}}
+@keyframes bounce-up{25%{transform:translateY(10px)}50%,100%{transform:translateY(0)}75%{transform:translateY(-10px)}}
+.animate-bounce-up{-webkit-animation:bounce-up 1.4s linear infinite;animation:bounce-up 1.4s linear infinite}
+.fade{opacity: 0; filter: alpha(opacity=0); -webkit-transition: opacity .15s linear; transition: opacity .15s linear}
+.fade.in{filter: alpha(opacity=100); opacity: 1} .btn-yellow{color: rgb(59,108,19); padding: 10px 40px; font-size: 18px; border-radius: 20px; cursor:pointer; /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+1,fbfb00+16,faf601+60,fdcf00+100 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 1%, #fbfb00 16%, #faf601 60%, #fdcf00 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 1%,#fbfb00 16%,#faf601 60%,#fdcf00 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 1%,#fbfb00 16%,#faf601 60%,#fdcf00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fdcf00',GradientType=0 ); /* IE6-9 */}
+.btn-yellow:hover, .btn-yellow.active{color: #fbfb00; /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+1,71c423+16,458417+60,3b6c13+100 */
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 1%, #71c423 16%, #458417 60%, #3b6c13 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #ffffff 1%,#71c423 16%,#458417 60%,#3b6c13 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #ffffff 1%,#71c423 16%,#458417 60%,#3b6c13 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#3b6c13',GradientType=0 ); /* IE6-9 */}
+.item{display:none;}
+.item.active{display:block;}

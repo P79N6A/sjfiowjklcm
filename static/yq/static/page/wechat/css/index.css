@@ -1,0 +1,293 @@
+/* html{overflow: hidden;} */
+/* #滚动条
+=========*/
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+::-webkit-scrollbar-track-piece {
+  margin: -2px;
+  background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 10px;
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: #555;
+}
+
+body {
+  margin: 0;
+  font-family: "\5FAE\8F6F\96C5\9ED1";
+  color: #fff;
+  padding-bottom: 30px;
+  background: url('../img/bg.jpg') center top 79px no-repeat #fff;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+::selection {
+  background: none;
+}
+
+::-moz-selection {
+  background: none;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.cfx {
+  clear: both;
+  zoom: 1;
+}
+
+.cfx:after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  content: '.';
+}
+
+
+.topHead {
+  background: #000000;
+}
+
+.topHead .logo {
+  display: inline-block;
+  height: 70px;
+}
+
+.topHead .logo img {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.topHead .headCont {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.topHead .rightPart {
+  padding: 18px 0;
+}
+
+.topHead .rightPart .spanTitle {
+  margin-right: 20px;
+}
+
+.topHead .rightPart .backBtn {
+  display: inline-block;
+  background: #2f2f2f;
+  border: 1px solid #666666;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+  margin-left: 10px;
+}
+
+
+.ad {
+  padding-top: 540px;
+  text-align: center;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.ad img {
+  display: block;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  width: 980px;
+  height: 70px;
+  line-height: 56px;
+  margin: 120px auto 60px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  background: url('../img/title1.jpg') center center no-repeat/100% 100%;
+}
+
+.des {
+  font-size: 25px;
+  color: #41260a;
+  width: 1100px;
+  margin: 0 auto;
+  line-height: 2;
+  text-align: justify;
+}
+
+.btn {
+  display: block;
+  max-width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  animation: start 0.6s;
+  animation-iteration-count: infinite;
+}
+
+.btn img {
+  max-width: 100%;
+}
+
+.cs {
+  display: inline-block;
+  position: fixed;
+  top: 250px;
+  right: 50px;
+  animation: start 1s;
+  animation-iteration-count: infinite;
+}
+
+.cs img {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width:1366px) {
+  .cs {
+    width: 210px;
+  }
+}
+
+@media (max-width:768px) {
+  body {
+    margin: 0;
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    color: #fff;
+    padding-bottom: 30px;
+    background: url('../img/bg.jpg') center top 45px no-repeat #fff/150%;
+  }
+
+
+  .headCont {
+    display: none;
+  }
+
+  .headCont-H5 {
+    display: block !important;
+    position: relative;
+    text-align: center;
+    padding: 14px 0;
+  }
+
+  .headCont-H5 .back-link {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .headCont-H5 .back-link img {
+    width: 40%;
+    vertical-align: middle;
+  }
+
+  header>div>img {
+    width: 75%;
+  }
+
+  .content {
+    padding-top: 30px;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .content .title img {
+    width: 100%;
+  }
+
+  .content .list img {
+    width: 100%;
+  }
+
+  .fl {
+    width: 100%;
+    text-align: center;
+  }
+
+  .fl img {
+    width: 80%;
+  }
+
+  .footer .right {
+    padding-top: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer .qcode {
+    display: block;
+    margin-left: 0;
+  }
+
+  .ad {
+    padding-top: 180px;
+    width: 100%;
+  }
+
+  .title {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .des {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .btn {
+    margin-top: 30px;
+  }
+
+  .cs {
+    width: 130px;
+    top: 100px;
+    right: 10px;
+  }
+}
+
+@keyframes start {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}

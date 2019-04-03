@@ -1,0 +1,478 @@
+{
+    "message": "操作成功",
+    "data": [
+        {
+            "year": "2018",
+            "list": [
+                {
+                    "id":"20181101",
+                    "time": "2018年11月",
+                    "title": "印加帝国百万大奖",
+                    "pic": "/static/api/history/images/h-prize4.jpg",
+                    "url": "/static/page/history/20181101/index.html",
+                    "year": "2018",
+                    "des": "印加帝国百万大奖"
+                },
+                {   
+                    "id":"20181102",
+                    "time": "2018年11月",
+                    "title": "五行水送福百万大奖",
+                    "pic": "/static/api/history/images/h-prize1.jpg",
+                    "url": "/static/page/history/20181102/index.html",
+                    "year": "2018",
+                    "des": "五行水送福百万大奖"
+                },
+                {
+                    "id":"20181103",
+                    "time": "2018年11月",
+                    "title": "印加帝国千万头奖",
+                    "pic": "/static/api/history/images/h-prize.jpg",
+                    "url": "/static/page/history/20181103/index.html",
+                    "year": "2018",
+                    "des": "印加帝国千万头奖"
+                },
+                {
+                    "id":"20180801",
+                    "time": "2018年8月",
+                    "title": "八一公会战落幕",
+                    "pic": "/static/api/history/images/ghz.jpg",
+                    "url": "/static/page/history/20180801/index.html",
+                    "year": "2018",
+                    "des": ""
+                },
+                {
+                    "id":"20180701",
+                    "time": "2018年7月",
+                    "title": "PT百万奖池",
+                    "pic": "/static/api/history/images/bet129.jpg",
+                    "url": "/static/page/history/20180701/index.html",
+                    "year": "2018",
+                    "des": "PT百万奖池"
+                },
+                {
+                    "id":"20180501",
+                    "time": "2018年5月",
+                    "title": "PT百万奖池",
+                    "pic": "/static/api/history/images/bet214.jpg",
+                    "url": "/static/page/history/20180501/index.html",
+                    "year": "2018",
+                    "des": "PT百万奖池"
+                },
+                {
+                    "id":"20180401",
+                    "time": "2018年4月",
+                    "title": "奇幻城琅琊榜收官",
+                    "pic": "/static/api/history/images/mayrank.jpg",
+                    "url": "/static/page/history/20180401/index.html",
+                    "year": "2018",
+                    "des": ""
+                },
+                {
+                    "id":"20180201",
+                    "time": "2018年2月",
+                    "title": "PT百万奖池",
+                    "pic": "/static/api/history/images/bet213.jpg",
+                    "url": "/static/page/history/20180201/index.html",
+                    "year": "2018",
+                    "des": "PT百万奖池"
+                },
+                {
+                    "id":"20180202",
+                    "time": "2018年2月",
+                    "title": "PT百万奖池",
+                    "pic": "/static/api/history/images/bet160.jpg",
+                    "url": "/static/page/history/20180202/index.html",
+                    "year": "2018",
+                    "des": "PT百万奖池"
+                },
+                {
+                    "id":"20180101",
+                    "time": "2018年1月",
+                    "title": "年度人物排行榜",
+                    "pic": "/static/api/history/images/rank.jpg",
+                    "url": "/static/page/history/20180101/index.html",
+                    "year": "2018",
+                    "des": ""
+                }
+            ]
+        },
+        {
+            "year": "2017",
+            "list": [
+                {
+                    "id":"20171101",
+                    "time": "2017年11月",
+                    "title": "直播送钻石",
+                    "pic": "/static/api/history/images/m-nov6.jpg",
+                    "url": "/static/page/history/20171101/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20171102",
+                    "time": "2017年11月",
+                    "title": "11月公会赛完美落幕",
+                    "pic": "/static/api/history/images/m-nov5.jpg",
+                    "url": "/static/page/history/20171102/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20171103",
+                    "time": "2017年11月",
+                    "title": "DT千百万奖池",
+                    "pic": "/static/api/history/images/dtback.jpg",
+                    "url": "/static/page/history/20171103/index.html",
+                    "year": "2017",
+                    "des": "DT千百万奖池"
+                },
+                {
+                    "id":"20171001",
+                    "time": "2017年10月",
+                    "title": "奇幻城APP直播正式开始",
+                    "pic": "/static/api/history/images/liveshow.jpg",
+                    "url": "/static/page/history/20171001/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170801",
+                    "time": "2017年8月",
+                    "title": "霸道总裁完美收官",
+                    "pic": "/static/api/history/images/ceo.jpg",
+                    "url": "/static/page/history/20170801/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170501",
+                    "time": "2017年5月",
+                    "title": "独家赞助HEBE演唱会",
+                    "pic": "/static/api/history/images/hebe1.jpg",
+                    "url": "/static/page/history/20170501/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170502",
+                    "time": "2017年5月",
+                    "title": "首届团队赛赛龙舟",
+                    "pic": "/static/api/history/images/boatRacing.jpg",
+                    "url": "/static/page/history/20170502/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170503",
+                    "time": "2017年5月",
+                    "title": "喜事连三奖池连爆",
+                    "pic": "/static/api/history/images/free2.jpg",
+                    "url": "/static/page/history/20170503/index.html",
+                    "year": "2017",
+                    "des": "喜事连三奖池连爆"
+                },
+                {
+                    "id":"20170201",
+                    "time": "2017年2月",
+                    "title": "千万彩金庆元宵",
+                    "pic": "/static/api/history/images/bg18.jpg",
+                    "url": "/static/page/history/20170201/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170202",
+                    "time": "2017年2月",
+                    "title": "二月巨额奖池暴",
+                    "pic": "/static/api/history/images/bg20.jpg",
+                    "url": "/static/page/history/20170202/index.html",
+                    "year": "2017",
+                    "des": "二月巨额奖池暴"
+                },
+                {
+                    "id":"20170101",
+                    "time": "2017年1月",
+                    "title": "汕头群星演唱会",
+                    "pic": "/static/api/history/images/bg15.jpg",
+                    "url": "/static/page/history/20170101/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170102",
+                    "time": "2017年1月",
+                    "title": "百万红包贺新春",
+                    "pic": "/static/api/history/images/bg14.jpg",
+                    "url": "/static/page/history/20170102/index.html",
+                    "year": "2017",
+                    "des": ""
+                },
+                {
+                    "id":"20170103",
+                    "time": "2017年1月",
+                    "title": "高中406万奖池！",
+                    "pic": "/static/api/history/images/bg17.jpg",
+                    "url": "/static/page/history/20170103/index.html",
+                    "year": "2017",
+                    "des": "高中406万奖池！"
+                }
+            ]
+        },
+        {
+            "year": "2016",
+            "list": [
+                {
+                    "id":"20161101",
+                    "time": "2016年11月",
+                    "title": "WCA全球竞赛",
+                    "pic": "/static/api/history/images/bg13.jpg",
+                    "url": "/static/page/history/20161101/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160901",
+                    "time": "2016年9月",
+                    "title": "10万天天赏",
+                    "pic": "/static/api/history/images/bg12.jpg",
+                    "url": "/static/page/history/20160901/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160902",
+                    "time": "2016年9月",
+                    "title": "2016斯诺克上海",
+                    "pic": "/static/api/history/images/bg11.jpg",
+                    "url": "/static/page/history/20160902/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160801",
+                    "time": "2016年8月",
+                    "title": "千万赌王挑战赛",
+                    "pic": "/static/api/history/images/bg10.jpg",
+                    "url": "/static/page/history/20160801/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160802",
+                    "time": "2016年8月",
+                    "title": "百万赌王挑战赛",
+                    "pic": "/static/api/history/images/bg9.jpg",
+                    "url": "/static/page/history/20160802/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160803",
+                    "time": "2016年8月",
+                    "title": "中德国际足球赛",
+                    "pic": "/static/api/history/images/bg6.jpg",
+                    "url": "/static/page/history/20160803/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160601",
+                    "time": "2016年6月",
+                    "title": "灌篮高手公测试玩",
+                    "pic": "/static/api/history/images/bg5.jpg",
+                    "url": "/static/page/history/20160601/index.html",
+                    "year": "2016",
+                    "des": ""
+                },
+                {
+                    "id":"20160101",
+                    "time": "2016年1月",
+                    "title": "加藤莅临奇幻城",
+                    "pic": "/static/api/history/images/bg4.jpg",
+                    "url": "/static/page/history/20160101/index.html",
+                    "year": "2016",
+                    "des": ""
+                }
+            ]
+        },
+        {
+            "year": "2015",
+            "list": [
+                {
+                    "id":"20151001",
+                    "time": "2015年10月",
+                    "title": "奇幻城秋季交响",
+                    "pic": "/static/api/history/images/bg3.jpg",
+                    "url": "/static/page/history/20151001/index.html",
+                    "year": "2015",
+                    "des": "众所期待.让奇幻城带领大家享受这秋季的美味。"
+                },
+                {
+                    "id":"20150601",
+                    "time": "2015年6月",
+                    "title": "奇幻城体验金",
+                    "pic": "/static/api/history/images/bg1.jpg",
+                    "url": "/static/page/history/20150601/index.html",
+                    "year": "2015",
+                    "des": "体验彩金 研发升级！注册送彩金，您自助领取！想什么时候取，就什么时候取。"
+                }
+            ]
+        },
+        {
+            "year": "2014",
+            "list": [
+                {
+                    "id":"20141101",
+                    "time": "2014年11月",
+                    "title": "“蟹蟹”送给您",
+                    "pic": "/static/api/history/images/2014_11.jpg",
+                    "url": "/static/page/history/20141101/index.html",
+                    "year": "2014",
+                    "des": "金秋时节，正是阳澄湖大闸蟹肥美之际。鲁迅先生说“第一个吃螃蟹的人是很有勇气的”，奇幻城要送您的不仅仅是“蟹蟹”，还有那份无畏的勇气！"
+                },
+                {
+                    "id":"20140901",
+                    "time": "2014年9月",
+                    "title": "三年磨一剑，感恩常相随",
+                    "pic": "/static/api/history/images/2014_0902.jpg",
+                    "url": "/static/page/history/20140901/index.html",
+                    "year": "2014",
+                    "des": "诚信奇幻城周年庆典，感恩回馈广大玩家，388万红包随机发。"
+                },
+                {
+                    "id":"20140902",
+                    "time": "2014年9月",
+                    "title": "不变的传统，不变的爱",
+                    "pic": "/static/api/history/images/2014_09.jpg",
+                    "url": "/static/page/history/20140902/index.html",
+                    "year": "2014",
+                    "des": "中秋佳节，奇幻城为您备了精美月饼，祝您赏月愉快。"
+                },
+                {
+                    "id":"20140801",
+                    "time": "2014年8月",
+                    "title": "让你一次赢个嗨",
+                    "pic": "/static/api/history/images/2014_08.jpg",
+                    "url": "/static/page/history/20140801/index.html",
+                    "year": "2014",
+                    "des": "您提款多少，我支付多少，当日上限500万，史无前例的数字，不可替代的事实。"
+                },
+                {
+                    "id":"20140701",
+                    "time": "2014年7月",
+                    "title": "EA、AG、BBIN、太阳城、PT、188体育七大平台阵容",
+                    "pic": "/static/api/history/images/2014_07.jpg",
+                    "url": "/static/page/history/20140701/index.html",
+                    "year": "2014",
+                    "des": "恭迎天下豪客各大平台，应有尽有，实力的象征，安全的保障。"
+                },
+                {
+                    "id":"20140601",
+                    "time": "2014年6月",
+                    "title": "会员sha***创造返水奇迹，用返水盈利115万人民币",
+                    "pic": "/static/api/history/images/2014_06.jpg",
+                    "url": "/static/page/history/20140601/index.html",
+                    "year": "2014",
+                    "des": "奇迹的见证，反水盈利115万，风生水起，喜从天降，以小搏大，反水也能变土豪。"
+                },
+                {
+                    "id":"20140101",
+                    "time": "2014年1月",
+                    "title": "奇幻城为新老会员置办年货，1.5%高返水庆除夕，288万红包闹大年",
+                    "pic": "/static/api/history/images/2014_01.jpg",
+                    "url": "/static/page/history/20140101/index.html",
+                    "year": "2014",
+                    "des": "庆祝2014新年到，奇幻城带着祝福提前为广大玩家置办年货，同时288万红包在新年期间随机发，除夕之夜高返水，奇幻城陪您过大年"
+                }
+            ]
+        },
+        {
+            "year": "2013",
+            "list": [
+                {
+                    "id":"20131001",
+                    "time": "2013年10月",
+                    "title": "一路有你，默默相陪，注册会员已破10万大关",
+                    "pic": "/static/api/history/images/2013_10.jpg",
+                    "url": "/static/page/history/20131001/index.html",
+                    "year": "2013",
+                    "des": "奇幻城国际感谢广大玩家一路以来提出的宝贵建议，伴随奇幻城成长，突破10万大关立下新的里程碑！"
+                },
+                {
+                    "id":"20130101",
+                    "time": "2013年1月",
+                    "title": "前无古人，奇幻城开创稽查奖金制度，存提款延迟就赔",
+                    "pic": "/static/api/history/images/2013_01.jpg",
+                    "url": "/static/page/history/20130101/index.html",
+                    "year": "2013",
+                    "des": "稽查监督，存提款速度！人人监督，超时就赔钱！"
+                }
+            ]
+        },
+        {
+            "year": "2012",
+            "list": [
+                {
+                    "id":"20121001",
+                    "time": "2012年10月",
+                    "title": "开天辟地，奇幻城国际研发出的秒提功能震撼博彩界",
+                    "pic": "/static/api/history/images/2012_10.jpg",
+                    "url": "/static/page/history/20121001/index.html",
+                    "year": "2012",
+                    "des": "业内率先实现存款10秒钟到账奇幻城创新，秒提时代，自主研发秒提功能，只要您的银行信息正确，提款10秒即可到账！"
+                },
+                {
+                    "id":"20120901",
+                    "time": "2012年9月",
+                    "title": "让我们红尘作伴，活得潇潇洒洒",
+                    "pic": "/static/api/history/images/2012_09.jpg",
+                    "url": "/static/page/history/20120901/index.html",
+                    "year": "2012",
+                    "des": "红尘作伴，潇潇洒洒；奇幻城特邀VIP，免费出国热带游！"
+                },
+                {
+                    "id":"20120101",
+                    "time": "2012年1月",
+                    "title": "业内率先实现存款10秒钟到账",
+                    "pic": "/static/api/history/images/2012_01.jpg",
+                    "url": "/static/page/history/20120101/index.html",
+                    "year": "2012",
+                    "des": "业内率先实现存款10秒钟到账奇幻城创新，秒提时代，自主研发秒提功能，只要您的银行信息正确，提款10秒即可到账！"
+                }
+            ]
+        },
+        {
+            "year": "2011",
+            "list": [
+                {
+                    "id":"20111101",
+                    "time": "2011年11月",
+                    "title": "奇幻城VIP会所，身份的象征，势不可挡的权势",
+                    "pic": "/static/api/history/images/2011_11.jpg",
+                    "url": "/static/page/history/20111101/index.html",
+                    "year": "2011",
+                    "des": "合作加盟，高收益；无成本，不费力，轻轻松松做土豪与奇幻城合作，给自己一个翻身做土豪的机会，无成本，不费力，零投资，高收益，奇幻城期待您的加盟。"
+                },
+                {
+                    "id":"20111001",
+                    "time": "2011年10月",
+                    "title": "奇幻城赌王联盟，VIP会所隆重成立",
+                    "pic": "/static/api/history/images/2011_10.jpg",
+                    "url": "/static/page/history/20111001/index.html",
+                    "year": "2011",
+                    "des": "奇幻城VIP会所，身份的象征，势不可挡的权势！"
+                },
+                {
+                    "id":"20110901",
+                    "time": "2011年9月",
+                    "title": "携业界多年信誉的EA及AG娱乐城，盛大开启！",
+                    "pic": "/static/api/history/images/2011_09.jpg",
+                    "url": "/static/page/history/20110901/index.html",
+                    "year": "2011",
+                    "des": "视觉的冲击，不一样的体验；真人荷官，多种游戏，百家乐，龙虎斗，俄罗斯轮盘，骰宝，21点，各大游戏，真人视频荷官全场直播，冲击您的视觉，高端大气的体验。"
+                }
+            ]
+        }
+    ],
+    "code": "10000"
+}

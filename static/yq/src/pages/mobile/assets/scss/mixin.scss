@@ -1,0 +1,50 @@
+@function r($px, $base-font-size: 75) {
+  // @return $px*1px;
+  @return ($px/$base-font-size) * 1rem;
+}
+
+@mixin f($font-size) {
+  // font-size:$font-size;
+  font-size: $font-size/2;
+
+  [data-dpr="2"] & {
+    font-size: $font-size;
+  }
+
+  [data-dpr="3"] & {
+    font-size: $font-size * 1.5;
+  }
+}
+
+$iconcl: #fd4e5d; //icon色调
+
+$cl1: #4db7f4; //主要色调
+$cl2: #303030; //主要字体颜色1
+$cl3: #ff4b41; //重要提示性文字
+$cl4: #ff853a; //醒目提示性文字
+$cl5: #a7a7a8; //温馨提示文字
+$cl6: #dddddd; //个人中心分割线，边框颜色
+$cl7: rgba(
+  $color: #556ebc,
+  $alpha: 0.5
+); //模板分割线，边框颜色
+$cl-active: #494949;
+
+$body-bg: #eee; //body背景颜色
+$main-bg: #fff; //主背景颜色
+$main-cl: #333; //主背景 文字颜色
+$text-cl: #333; //主要字体颜色
+
+$header-h: 100;
+$header-bg: #4db7f4; //头部背景
+
+$footer-h: 100; //底部高度
+$footer-bg: #fff; //底部背景
+
+$btn-dis: #ddd; //按钮背景 禁用色
+
+$btn-bg1: $cl6; //按钮背景 主色调1
+$btn-bg2: #fc4863; //按钮背景  主色调2
+
+$btn-cl1: #fff; //按钮主色调1
+$btn-cl2: #fff; //按钮主色调2

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <title>奇幻城-微信1%返佣跑分</title>
+  <link rel="stylesheet" href="./css/index.css" />
+  <!--[if IE 6]>
+		<script src="js/png.js"></script>
+		<script>DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+</head>
+
+<body>
+  <div class="topHead">
+    <div class="headCont cfx">
+      <a href="/home" class="logo"><img src="/static/images/base/logo-1.png" alt="" class="fl logo"></a>
+      <div class="rightPart fr">
+        <span class="spanTitle">微信1%返佣跑分</span>
+        <a href="/promo/index" class="backBtn">返回优惠首页</a>
+        <a href="/home" class="backBtn">返回首页</a>
+      </div>
+    </div>
+    <div class="headCont-H5" style="display:none;">
+      <a href="/promo/index" class="back-link">
+        <img src="./images/back1.png" alt="">返回
+      </a>
+      微信跑分
+    </div>
+  </div>
+  <div class='ad'>
+    <img src="./img/ad1.jpg">
+  </div>
+  <div class="title">
+    关于我们
+  </div>
+  <div class="des">
+    奇幻城成立于2010年，持有菲律宾政府颁发的PAGCOR合法经营执照，同时也是网络博彩委员会制定有合法博彩牌照的网络博彩网站，是正规合法对外营业的专业赌场。持有在菲律宾马尼拉最豪华的两家赌场云顶赌场（Resort
+    World）和Solaire赌场中均设有VIP赌厅，提供最优质的现场VIP赌厅服务!公司拥有雄厚的经济实力，强大的资金保障！
+  </div>
+  <div class="title">
+    微信收款码标准：
+  </div>
+  <div class="des" style="text-align:center;">
+    1. 实名认证，真实存在 2. 已绑定银行卡 3. 可正常使用微信支付
+  </div>
+  <div class="title">
+    申请方式：
+  </div>
+  <div class="des" style="text-align:center;">
+    联系在线客服，提供您的联系方式：电话号码、微信账号
+    客服将会为您记录，我们会有专员联系您，您提供收款码后，将在7日内进行审核通知您
+  </div>
+  <a class="btn live800" target="_blank">
+    <img src="./img/btn2.png">
+  </a>
+  <a class="cs live800" target="_blank">
+    <img src="./img/btn1.png">
+  </a>
+  <script src="/static/lib/zepto/index.js"></script>
+  <script>
+    $(function () {
+      // 客服联系方式
+      $.get('/static/ajax/info/contact.json?v=' + new Date().getTime(), function (response) {
+        $(".live800").attr('href', response.live800)
+      })
+    })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+@import "~mobile/assets/scss/mixin.scss";
+.tech-block{
+  img{
+    display:block;
+    width:100%;
+  }
+}
+  .master-box{
+    background: #f1f1f1;
+    padding: r(30) r(30) r(30) r(45);
+    font-family: 'SimHei';
+    .title-box{
+      padding: r(30) 0;
+      .title-mobile{
+        display: inline-block;
+        // background: #fedd94;
+        background: url('./images/btn_b.jpg') no-repeat top center;
+        background-size: cover;
+        color: #fff;
+        // padding:r(15) r(60);
+        width: r(214);
+        height: r(60);
+        border-radius: r(5);
+        margin-right: 0.4rem;
+        line-height: r(60);
+        text-align: center;
+      }
+      .title-pc{
+        display: inline-block;
+        background: url('./images/btn_a.jpg') no-repeat top center;
+        background-size: cover;
+        color: #fff;
+        width: r(214);
+        height: r(60);
+        border-radius: r(5);
+        margin-right: 0.4rem;
+        line-height: r(60);
+        text-align: center;
+      }
+    }
+    .tech-block{
+      margin-bottom: r(15);
+    }
+    p{
+      @include f(25px);
+      color: #161616;
+      line-height: 1.5;
+      padding: r(15) 0 r(15) 0;
+    }
+    .yellow{
+      color: #ff0000;
+    }
+    .p-red{
+      color: #fd3c3c;
+    }
+    h3{
+      @include f(29px);
+      line-height: 3;
+      color: #44a7e0;
+    }
+    
+  }
+  .tab-a{
+    text-align: center;
+    background: #44A7E0;
+    line-height: r(80);
+    height: r(69);
+    .tab-title-a{
+      padding: r(14) r(30);
+      background: url(./images/ebank/ebank-title2.png);
+      background-size: 100% 100%;
+      color: #fff;
+    }
+    .tab-title-b{
+      padding: r(15) r(30);
+      color: #fff;
+      background: url(./images/ebank/ebank-title1.png);
+      background-size: 100% 100%;
+    }
+  }
+  .tab-h{
+    text-align: left;
+    background: #44A7E0;
+    line-height: r(80);
+    padding-left: r(30);
+    h3{
+      color: #fff;
+      @include f(30px);
+    }
+  }
+

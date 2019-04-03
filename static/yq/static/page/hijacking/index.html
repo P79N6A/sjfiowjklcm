@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <title>防劫持教程</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <!--[if IE 6]>
+		<script src="js/png.js"></script>
+		<script>DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+</head>
+
+<body>
+  <header>
+    <div>
+      <div class="content header_c cfx">
+        <img class="fl" id="logo" src="/static/images/logo.png">
+        <a class="fr home" href="/">返回首页<img src="./img/ico.png"></a>
+      </div>
+    </div>
+  </header>
+  <div class="content main_c cfx">
+    <div class="menu fl">
+      <h2><img src="./img/ico-mac.png">电脑端</h2>
+      <div class="osItem">
+        <p class="os active" data-type="device-mac" data-target="win"><a>Win8/Win7/Vista</a>&nbsp;&nbsp;></p>
+        <p class="os" data-type="device-mac" data-target="linux"><a>Linux系统</a>&nbsp;&nbsp;></p>
+        <p class="os" data-type="device-mac" data-target="mac"><a>苹果系统</a>&nbsp;&nbsp;></p>
+      </div>
+      <h2><img src="./img/ico-phone.png">手机端</h2>
+      <div class="osItem">
+        <p class="os" data-type="device-phone" data-target="android"><a>安卓手机</a>&nbsp;&nbsp;></p>
+        <p class="os" data-type="device-phone" data-target="ios"><a>苹果手机</a>&nbsp;&nbsp;></p>
+      </div>
+    </div>
+    <div class="shows fr">
+      <div class="title">
+        <h3>
+          <img id="device-mac" src="./img/ico-mac2.png">
+          <img id="device-phone" src="./img/ico-phone2.png" style="display:none;">
+          <span class="name">Win8/Win7/Vista</span>
+        </h3>
+      </div>
+      <div class="box" id="linux" style="display:none;">
+        <div class="texts">
+          <span class="nums">1</span>
+          <p>
+            以下设置对所用的Linux系统如Redhat/Ubuntu/Debian/CentOS等都有效，但您必须是管理员root或者具有管理员权限vim /etc/resolv.conf
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">2</span>
+          <p>
+            在其中加入: <br />
+            nameserver 180.76.76.76 <br />
+            nameserver 114.114.114.114
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">3</span>
+          <p>
+            保存退出,使用nslookup或者dig验证是否可以通过180.76.76.76正常解析www.baidu.com
+          </p>
+        </div>
+      </div>
+      <div class="box" id="win">
+        <div class="texts">
+          <span class="nums">1</span>
+          <p>
+            在电脑右下角的网络图标上单击鼠标右键可以看到"打开网络和共享中心"选项，点击进入设置
+          </p>
+          <p class="t-c">
+            <img class="winimg" src="./img/win/win1.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">2</span>
+          <p>
+            点击左侧的"更改适配器设置"
+          </p>
+          <p class="t-c">
+            <img class="winimg" src="./img/win/win2.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">3</span>
+          <p>
+            在选中的网络连接上单击鼠标右键，选择"属性"
+          </p>
+          <p class="t-c">
+            <img class="winimg" src="./img/win/win3.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">4</span>
+          <p>
+            单击"网络"选项卡。在"此连接使用下列项目"下，选中"Internet 协议版本 4 (TCP/IPv4)"，然后点击"属性"，或者直接双击"Internet 协议版本 4 (TCP/IPv4)"
+          </p>
+          <p class="t-c">
+            <img class="winimg" src="./img/win/win4.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">5</span>
+          <p>
+            勾选"使用下面的DNS服务地址"，然后在"首选DNS服务器"和"备用DNS服务器"框中，键入主DNS服务器地址180.76.76.76和辅助DN S服务器的地址114.114.114.114，点击确定即设置完成
+          </p>
+          <p class="t-c">
+            <img class="winimg" src="./img/win/win5.jpg">
+          </p>
+        </div>
+      </div>
+      <div class="box" id="mac" style="display:none;">
+        <div class="texts">
+          <span class="nums">1</span>
+          <p>
+            单击最左上角的苹果图标，在下拉菜单中点击"系统偏好设置"进入设置
+          </p>
+          <p class="t-c">
+            <img class="iosimg" src="./img/mac/mac1.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">2</span>
+          <p>
+            单击“网络”图标进入网络设置
+          </p>
+          <p class="t-c">
+            <img class="iosimg" src="./img/mac/mac2.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">3</span>
+          <p>
+            从列表中选择相应的网络连接服务，然后单击"高级"选项
+          </p>
+          <p class="t-c">
+            <img class="iosimg" src="./img/mac/mac3.jpg">
+          </p>
+        </div>
+        <div class="texts">
+          <span class="nums">4</span>
+          <p>
+            点击DNS的选项卡，然后点击左下角"+"，添加180.76.76.76和114.114.114.114，单击"好"
+          </p>
+          <p class="t-c">
+            <img class="iosimg" src="./img/mac/mac4.jpg">
+          </p>
+        </div>
+      </div>
+      <div class="box" id="android" style="display:none;">
+        <div class="blocks cfx">
+          <div class="texts fl">
+            <span class="nums">1</span>
+            <p>
+              在桌面点击"设置"图标，并且进入"WLAN设置"选项
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/android/android1.jpg">
+            </p>
+          </div>
+          <div class="texts fr">
+            <span class="nums">2</span>
+            <p>
+              在wifi列表中，选择已经连接的WiFi网络，长按之后在弹出来的提示选择"修改网络"
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/android/android2.jpg">
+            </p>
+          </div>
+        </div>
+        <div class="blocks cfx">
+          <div class="texts fl">
+            <span class="nums">3</span>
+            <p>
+              选中"显示高级选项"，将"IP设定"改成"静止"
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/android/android3.jpg">
+            </p>
+          </div>
+          <div class="texts fr">
+            <span class="nums">4</span>
+            <p>
+              将域名1和域名2分别改成180.76.76.76和114.114.114.114，保存即可
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/android/android4.jpg">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="box" id="ios" style="display:none;">
+        <div class="blocks cfx">
+          <div class="texts fl">
+            <span class="nums">1</span>
+            <p>
+              在主屏幕中点击"设置"图标进入设置界面
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/ios/ios1.jpg">
+            </p>
+          </div>
+          <div class="texts fr">
+            <span class="nums">2</span>
+            <p>
+              点击"无线局域网"
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/ios/ios2.jpg">
+            </p>
+          </div>
+        </div>
+        <div class="blocks cfx">
+          <div class="texts fl">
+            <span class="nums">3</span>
+            <p>
+              在"选取网络"列表中点击相应的网络链接右侧的"i"图标，进入网络设置
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/ios/ios3.jpg">
+            </p>
+          </div>
+          <div class="texts fr">
+            <span class="nums">4</span>
+            <p>
+              选择"DHCP"选项卡，设置选项下的"DNS"为180.76.76.76, 114.114.114.114即可
+            </p>
+            <p class="t-c">
+              <img class="phoneimg" src="./img/ios/ios4.jpg">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/lib/zepto/index.js"></script>
+  <script>
+    $(function(){
+      let type = window.location.href.split('=')[1] || 'pc'
+      if (type == 'app') {
+        $('.home').css('display','none')
+        $('#logo').css('left','50%')
+      }
+      $(".menu p").click(function(){
+        var $this=$(this);
+        var $type=$this.attr('data-type')
+        var $target=$this.attr('data-target')
+        var $name=$this.find('a').text()
+
+        console.log($target)
+        // 选中菜单
+        $(".menu p").siblings().removeClass('active')
+        $(this).addClass('active')
+        // 区分pc/mobile
+        $(".title img").hide();
+        $('#'+$type).show();
+        // 设置对应的教程详情内容
+        $('.box').hide();
+        $('#'+$target).show();
+        // 设置title
+        $(".title .name").text($name)
+      })
+    })
+    // // 读取当前ip
+    // $.get('https://ipapi.co/json/', function(response){
+    //   $("#city").text(response.country_name+'-'+response.city)
+    //   $("#ip").text(response.ip+'-'+response.org)
+    // })
+    // // 错误信息
+    // $.get('/static/ajax/error/403.json?v=' + new Date().getTime(), function (response) {
+    //   console.log(response)
+    //   $("#showText").html(response.data.html)
+    // })
+    // // 客服联系方式
+    // $.get('/static/ajax/info/contact.json?v=' + new Date().getTime(), function (response) {
+    //   $("#cs").attr('href', response.live800)
+    // })
+
+  </script>
+</body>
+
+</html>

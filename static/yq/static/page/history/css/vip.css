@@ -1,0 +1,478 @@
+@charset "utf-8";
+
+.vip_menu {
+    height: 122px;
+    padding-top: 20px;
+}
+
+.vip_menu .menu_pic {
+    float: left;
+    padding: 10px 10px;
+    border: 1px solid #c9c9c9;
+    border-radius: 19px;
+}
+
+.vip_menu ul {
+    height: 100%;
+}
+
+.vip_menu ul li {
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+    font-size: 14px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    zoom: 1;
+    position: relative;
+}
+
+.vip_menu ul li:hover {
+    border-bottom: 4px solid red;
+}
+
+.vip_menu .bg-blue_crown {
+    width: 61px;
+    height: 63px;
+    background: url(../images/vip/vip_sprites.png) -10px -10px;
+}
+
+.bg-gold_crown {
+    width: 64px;
+    height: 63px;
+    background: url(../images/vip/vip_sprites.png) -10px -86px;
+}
+
+.bg-cruise {
+    width: 67px;
+    height: 63px;
+    background: url(../images/vip/vip_sprites.png) -91px -4px;
+}
+
+.vip_menu .menu_text {
+    padding: 14px 0 0 20px;
+    overflow: auto;
+}
+
+.vip_menu .menu_text h3 {
+    margin-bottom: 5px;
+    color: #000;
+    font-size: 18px;
+}
+
+.info_content {
+    padding-top: 50px;
+    background: url(../images/vip/info_bg.jpg)
+}
+
+.info_content .title {
+    margin: 57px 0 27px;
+    font-size: 24px;
+    color: #000;
+}
+
+.info_content i {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.info_content .bg-bcrown_icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    background: url(../images/vip/vip_sprites.png) -245px -10px;
+}
+
+.info_content .member_container {
+    background: #fff;
+}
+
+.info_content .member_table {
+    width: 100%;
+    font-size: 15px;
+}
+
+.info_content .member_table thead tr {
+    color: #fff;
+    background: #b48c68;
+    line-height: 52px;
+}
+
+.info_content .member_table thead tr :nth-child(2) {
+    border-left: 1px solid #907053;
+    border-right: 1px solid #907053;
+}
+
+.info_content .member_table tbody {
+    color: #000;
+}
+
+.info_content .member_table .row_1 {
+    width: 20%;
+    border: 1px solid #c9c9c9;
+    text-align: center;
+    padding: 12px 0;
+}
+
+.info_content .member_table .row_1 i, .info_content .privilege_table .row_1 i {
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.info_content .member_table .row_2 {
+    width: 50%;
+    padding: 14px 0 14px 29px;
+    text-align: left;
+    border: 1px solid #c9c9c9;
+}
+
+.info_content .member_table .row_3 {
+    width: 30%;
+    text-align: center;
+    border: 1px solid #c9c9c9;
+}
+
+.info_content .member_container .tips {
+    padding: 28px 0 28px 65px;
+    text-align: left;
+    color: #8e8e8d;
+    line-height: 28px;
+}
+
+.info_content .member_container .tips div {
+    color: #000;
+}
+
+.info_content .privilege_container {
+    background: #fff;
+    font-size: 15px;
+}
+.info_content .privilege_container .pt-ten{
+    padding-top: 10px;
+}
+
+.info_content .privilege_container .privilege_table thead th {
+    width: 14%;
+    background: #b48c68;
+    color: #fff;
+    border-left: 1px solid #907053;
+    line-height: 52px;
+}
+.info_content .privilege_container .privilege_table thead th:nth-child(1){
+    width: 15%;
+    min-width: 259px;
+}
+.info_content .privilege_container .privilege_table tbody tr {
+    height: 50px;
+}
+
+.info_content .privilege_container .privilege_table tbody :nth-child(5) td div {
+    overflow: auto;
+}
+
+.info_content .privilege_container .privilege_table tbody td {
+    border: 1px solid #c9c9c9;
+    /*border-left: 1px solid #c9c9c9;*/
+    /*border-right: 1px solid #c9c9c9;*/
+    text-align: center;
+}
+
+.info_content .privilege_container .privilege_table tbody > :nth-child(even) {
+    background: #fffaf6;
+}
+
+.info_content .privilege_container .privilege_table {
+    width: 100%;
+}
+
+.info_content .privilege_container .privilege_table .row_1 {
+    padding-left: 20px;
+    text-align: left;
+}
+
+.info_content .privilege_container .privilege_table .row_2 {
+    width: 30%;
+    text-align: left;
+    padding-left: 10%;
+}
+
+.info_content .privilege_container .privilege_table .row_3 {
+
+    text-align: left;
+    padding-left: 2%;
+}
+.info_content .privilege_container .privilege_table .row_3.require-container{
+    text-align: center;
+}
+.info_content .privilege_container .privilege_table .row_3 .require{
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 5px auto;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.info_content .privilege_container .privilege_table .row_3 .require li{
+    width: 50%;
+    height: 30px;
+    line-height: 30px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.info_content .privilege_container .privilege_table2 {
+    width: 80% !important;;
+}
+
+.info_content .privilege_container .privilege_table2 tr {
+    height: 40px !important;
+}
+
+.info_content .member_table .bg-vip_1 {
+    width: 40px;
+    height: 39px;
+    background: url(../images/vip/vip_sprites.png) -245px -70px;
+}
+
+.info_content .member_table .bg-vip_2 {
+    width: 41px;
+    height: 39px;
+    background: url(../images/vip/vip_sprites.png) -72px -158px;
+}
+
+.info_content .member_table .bg-vip_3 {
+    width: 42px;
+    height: 39px;
+    background: url(../images/vip/vip_sprites.png) -178px -67px;
+}
+
+.info_content .member_table .bg-vip_4 {
+    width: 42px;
+    height: 39px;
+    background: url(../images/vip/vip_sprites.png) -10px -158px;
+}
+
+.info_content .member_table .bg-vip_5 {
+    width: 47px;
+    height: 39px;
+    background: url(../images/vip/vip_sprites.png) -94px -93px;
+}
+
+.info_content .member_table .bg-vip_6 {
+    width: 47px;
+    height: 37px;
+    background: url(../images/vip/vip_sprites.png) -178px -10px;
+}
+
+.info_content .bg-gcrown_icon {
+    width: 38px;
+    height: 30px;
+    margin-right: 12px;
+    background: url(../images/vip/vip_sprites.png) -124px -223px;
+}
+
+.info_content .bg-chips {
+    width: 38px;
+    height: 30px;
+    background: url(../images/vip/vip_sprites.png) -305px -163px;
+}
+
+.info_content .bg-birth {
+    width: 38px;
+    height: 38px;
+    background: url(../images/vip/vip_sprites.png) -245px -129px;
+}
+
+.info_content .bg-levelup {
+    width: 38px;
+    height: 30px;
+    background: url(../images/vip/vip_sprites.png) -10px -217px;
+}
+
+.info_content .bg-return {
+    width: 38px;
+    height: 30px;
+    background: url(../images/vip/vip_sprites.png) -305px -62px;
+}
+
+.info_content .bg-savepromo {
+    width: 38px;
+    height: 32px;
+    float: left;
+    background: url(../images/vip/vip_sprites.png) -305px -10px;
+}
+
+.info_content .bg-tour {
+    width: 38px;
+    height: 31px;
+    background: url(../images/vip/vip_sprites.png) -305px -112px;
+}
+
+.info_content .bg-festival {
+    width: 38px;
+    height: 30px;
+    background: url(../images/vip/vip_sprites.png) -305px -213px;
+}
+.info_content .bg-gifts {
+    width: 38px;
+    height: 32px;
+    background: url(../images/vip/vip_sprites1.png) -251px -215px;
+}
+.info_content .bg-integral {
+    width: 38px;
+    height: 32px;
+    background: url(../images/vip/vip_sprites1.png) -246px -180px;
+}
+
+.info_content .bg-cs {
+    width: 38px;
+    height: 30px;
+    background: url(../images/vip/vip_sprites.png) -68px -217px;
+}
+
+.info_content .bg-correct {
+    width: 20px;
+    height: 20px;
+    background: url(../images/vip/vip_sprites.png) -182px -217px;
+}
+
+.info_content .bg-error {
+    width: 20px;
+    height: 20px;
+    background: url(../images/vip/vip_sprites.png) -195px -158px;
+}
+
+.info_content .bg-cruise_icon {
+    width: 42px;
+    height: 36px;
+    margin-right: 12px;
+    background: url(../images/vip/vip_sprites.png) -133px -160px;
+}
+
+.info_content .bg-return2 {
+    width: 36px;
+    height: 36px;
+    background: url(../images/vip/return2.png) no-repeat center;
+    position: relative;
+    right: 5px;
+}
+.center-wallet-text{
+    font-size: 13px;
+    color: red;
+    padding-bottom: 10px;
+}
+.tour_intro .box {
+    width: 585px;
+    height: 235px;
+    margin-bottom: 30px;
+    background: #fff;
+    text-align: center;
+    padding: 5px 5px 0;
+    transition: background 0.8s, color 0.8s;
+    background: #fff;
+}
+
+.tour_intro .box.fullbox {
+    width: 1200px;
+    text-align: center;
+}
+
+.slide_show {
+    margin-bottom: 30px;
+}
+
+.slide_show .btn_container {
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 114px;
+    z-index: 5;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #b48c68;
+}
+
+.slide_show .btn_container button {
+    width: 100%;
+    color: #fff;
+    background: none;
+    font-size: 54px;
+    line-height: 114px;
+}
+
+.slide_show .btn_container:hover {
+    background: #fd4747;
+}
+
+.tour_intro .pic {
+    width: 100%;
+    height: 192px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tour_intro .pic_block {
+    width: 100%;
+    height: 100%;
+    padding: 28px 0 15px 50px;
+    position: absolute;
+    top: -100%;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    transition: top 0.8s;
+}
+
+.tour_intro .pic_block span {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px 8px 0;
+    display: inline-block;
+    border-radius: 99em;
+    line-height: 24px;
+    background: #fd4747;
+    text-align: center;
+}
+
+.tour_intro .box:hover .pic_block {
+    top: 0;
+    transition: top 0.8s;
+}
+
+.tour_intro .box:hover {
+    background: #fd4747;
+    color: #fff;
+    transition: background 0.8s, color 0.8s;
+}
+
+.tour_intro .box p {
+    line-height: 38px;
+}
+
+.tour_intro .pic.cruise_tour {
+    background: url(../images/vip/cruise_tour.jpg) no-repeat center;
+}
+
+.tour_intro .pic.malay {
+    background: url(../images/vip/malaysian.jpg) no-repeat center;
+}
+
+.tour_intro .pic.palawan {
+    background: url(../images/vip/palawan.jpg) no-repeat center;
+}
+
+.tour_intro .pic.cebu {
+    background: url(../images/vip/cebu.jpg) no-repeat center;
+}
+
+.tour_intro .pic.star_cruises {
+    background: url(../images/vip/star_cruises.jpg) no-repeat center;
+}
+
+.info_content .tips {
+    padding-bottom: 30px;
+    color: #8e8e8d;
+    line-height: 28px;
+    color: #8e8e8d;
+}

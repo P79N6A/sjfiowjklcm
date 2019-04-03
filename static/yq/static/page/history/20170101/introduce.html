@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="./files/reset.css">
+    <link rel="stylesheet" type="text/css" href="./files/common.css">
+    <link rel="stylesheet" type="text/css" href="./files/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./files/carousel.css">
+    <link rel="stylesheet" type="text/css" href="./files/jplayer.css">
+    <link rel="stylesheet" type="text/css" href="./files/style.css">
+    <script type="text/javascript" src="./files/jquery-1.12.4.min.js "></script>
+    <script type="text/javascript" src="./files/items.js "></script>
+    <script type="text/javascript" src="./files/carousel.js "></script>
+    <script type="text/javascript" src="./files/jquery.jplayer.min.js "></script>
+    <script type="text/javascript" src="./files/jplayer.config.js "></script>
+    <script type="text/javascript" src="./files/jplayer.playlist.min.js "></script>
+    <script type="text/javascript" src="./files/music.js "></script>
+
+    <script type="text/javascript">
+        $(function(){
+            if(/AppleWebKit.*Mobile/i.test(navigator.userAgent)
+                    || /Android/i.test(navigator.userAgent)
+                    || /BlackBerry/i.test(navigator.userAgent)
+                    || /IEMobile/i.test(navigator.userAgent)
+                    || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))
+            {
+
+            } else {
+                audio();
+                setTimeout("PlaySound()", 2000);
+            }
+
+
+            $(".explain-2 li").click(function(){
+                var target = "#"+$(this).data('target');
+                $("html,body").animate({scrollTop: $(target).offset().top}, 1000);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    
+    <div class="audio" style="position:fixed; bottom:55px;right:75px;z-index: 1000">
+        <!-- Focus Audio Player -->
+        <div class="focus-container focus-audio boxed">
+            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://dn-qiniucdn.qbox.me/star/a2.mp3"></audio></div>
+            <div id="jp_container_1" class="jp-audio jp-audio1" style="display: block;">
+                <div class="inner">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-controls-wrap">
+                            <div class="song_title"><div class="item-song">醜八怪</div><div class="item-artist">薛之谦</div></div>
+                            <div class="jp-current-time">00:00</div>
+                            <div class="jp-duration">00:00</div>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar" style="width: 100%;">
+                                    <div class="jp-play-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <ul class="jp-controls clearfix">
+                                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute" style="display: none;"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-previous disabled" tabindex="1"><i class="icon iconfont">
+                                </i></a></li>
+                                <li><a href="javascript:;" class="jp-play" tabindex="1" style="display: block;"><i class="icon iconfont"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-pause" tabindex="1" style="display: none;"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-next" tabindex="1"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-stop" tabindex="1"></a></li>
+                                <li>
+                                    <a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat" style="display: none;">
+                                        <i class="icon iconfont"></i>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off" style="display: block;"><i class="icon iconfont" style="color:#ffc886"></i></a></li>
+                                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle"></a></li>
+                                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off" style="display: none;"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-playlist-toggle" tabindex="1" title="Toggle PlayList">
+                                    <i class="icon iconfont"></i></a></li>
+                            </ul>
+                            <div class="jp-volume-bar">
+                                <div class="jp-volume-bar-value" style="width: 80%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-playlist">
+                        <ul class="jp-playlist-inner" style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1"><div class="item-song">醜八怪</div><div class="item-artist">薛之谦</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170101/introduce.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">你还要我怎样</div><div class="item-artist">薛之谦</div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170101/introduce.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">手掌心</div><div class="item-artist">丁噹</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">拯救</div><div class="item-artist">丁噹</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">浮誇</div><div class="item-artist">梁君諾</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170101/introduce.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">心虚</div><div class="item-artist">梁君諾</div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170101/introduce.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">我是一只小小烏</div><div class="item-artist">趙露</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">放過我</div><div class="item-artist">趙露</div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170101/introduce.html" class="buy"></a></span></div></li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./files/mobile(1).css">
+<link rel="stylesheet" type="text/css" href="./files/allInOneModal.css">
+<script type="text/javascript" src="./files/login.js "></script>
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+
+
+    <header class="slide hidden-lg hidden-md">
+        <ul id="navToggle" class="burger slide">
+            <li></li><li></li><li></li>
+        </ul>
+        <div id="logomobilebox">
+            <img id="logomobile" src="/static/images/base/mlogo2.png">
+        </div>
+    </header>
+
+    <nav class="slide hidden-lg hidden-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="./files/trunk.css">
+<script type="text/javascript" language="javascript" src="./files/trunk.js "></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+
+
+
+
+
+
+    </nav>
+
+    <div class="content slide">
+        <ul class="responsive">
+            <!-- header -->
+            <li class="header-section hidden-xs">
+                <header>
+                    <div class="top">
+                        <div class="cont clearfix">
+                            <ul class="fr login">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <nav>
+                        <div class="cont clearfix">
+                            <h1><a href="/"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_pc"><img src="/static/images/base/mlogo2.png" alt="" class="logo_mobile"></a></h1>
+                            <ul class="fr">
+                                
+                                
+                                
+                                
+                                <li class="active"><a href="/static/page/history/20170101/ticket.html" target="_blank">群星演唱会</a></li>
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </li>
+
+            <!-- body -->
+            <li class="body-section">
+                <div class="explain-1">
+                    <div class="cont show-banner">
+                        <div id="img2" class="ani-delay">
+                            <img src="./files/title5-1.png" alt="">
+                        </div>
+                    </div>
+                    <img src="./files/phone4.jpg" alt="" class="phonesize" width="100%">
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<title>奇幻城国际-“潮”玩赞音乐</title>
+
+                <div id="explain3title" class="explain-2">
+                    <div class="cont clear">
+                        <ul>
+                            <li class="active" data-target="explain3title">“潮”玩赞音乐</li>
+                            <li><a href="/static/page/history/20170101/ticket.html">
+                                <div>
+                                    <img src="./files/icon-get.png">
+                                    抢票活动<i class="hearder-sprite sprite-HOT floating-hot HOT"></i>
+                                </div>
+                                </a>
+                            </li>
+                            <li><a href="/static/page/history/20170101/index.html">演唱会花絮</a></li>
+                            <li><a href="/static/page/history/20170101/news.html">媒体报导</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="explain-3 bg5">
+                    <div class="cont clear">
+                        <div class="fr clear" style="margin-bottom:35px;">
+                            <img src="./files/support.jpg">
+                        </div>
+                        <div class="content-box">
+                            <div class="content-title">
+                                <h1 class="sc">“潮”玩音乐</h1><span class="sc2">TREND MUSIC</span>
+                            </div>
+
+                            <p>此次演唱会创新性的与汕头本地正如火如荼开展的创文活动相结合，致力打造最具“文”气的演唱会</p>
+                            <p>演唱会以“赞”为主题，为自己点赞，为他人点赞，为创文点赞！</p>
+
+
+                        </div>
+                        <div class="content-box">
+                            <div class="content-title">
+                                <h1 class="sc">“潮”星亲临</h1><span class="sc2">SINGERS SING</span>
+                            </div>
+
+                            <p>演唱会于1月揭开序幕，此次最大的亮点就是国内近期最多话题的《薛之谦》</p>
+                            <p>还有之前参加蒙面歌王比赛的《丁当》</p>
+                            <p>都是相当有有实力的歌手</p>
+                            <p>希望大家可以透过这个演唱会去感受一下音乐真正的魅力！敬请期待并且尽情享受吧！</p>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="explain-6">
+
+                    <div id="singleStar" class="carousel slide" data-ride="carousel" data-shift="1" data-interval="5000">
+                        
+                        <ol class="carousel-indicators">
+                            <li data-target="#singleStar" data-slide-to="0" class="active"></li>
+                            <li data-target="#singleStar" data-slide-to="1"></li>
+                            <li data-target="#singleStar" data-slide-to="2"></li>
+                            <li data-target="#singleStar" data-slide-to="3"></li>
+                            <li data-target="#singleStar" data-slide-to="4"></li>
+                            <li data-target="#singleStar" data-slide-to="5"></li>
+                            <li data-target="#singleStar" data-slide-to="6"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <ul class="row item active">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">薛之谦</h1><span class="sc2">JOKER</span>
+                                        </div>
+
+                                        <p>昵称：谦谦、二谦</p>
+                                        <p>生日： 1983年7月17日</p>
+                                        <p>职业：歌手、音乐制作人、演员、主持人</p>
+                                        <p>出生地：上海</p>
+                                        <p>代表作品：认真的雪、演员、丑八怪、你还要我怎样、一半</p>
+                                        <p>主要成就：9首歌曲共获20多次金曲奖 2016Music Radio62015年年度金曲 《演员》</p>
+                                        <p>第二十届华语榜中榜最受欢迎唱作歌手 2016Music Radio年度最佳男歌手</p>
+                                        <p>2016 酷音乐亚洲盛典年度最受欢迎创作人</p>
+                                    </div>
+                                </div>
+                            </ul>
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">赵露</h1>
+                                        </div>
+
+                                        <p>昵称：露露、赵小露</p>
+                                        <p>生日： 1991年9月25日</p>
+                                        <p>职业：歌手</p>
+                                        <p>出生地：湖南</p>
+                                        <p>代表作品：《我是一只小小鸟》、《中国好声音之为你转身》、《我的青春高八度》</p>
+                                        <p>主要成就：参加第21届金鸡百花电影节开幕晚会</p>
+                                        <p>并演唱歌曲《我是一只小小鸟》</p>
+                                        <p>参加东方风云榜嘉定汽车音乐节</p>
+                                    </div>
+                                </div>
+                            </ul>
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">李嘉琪</h1><span class="sc2">KA KI LI</span>
+                                        </div>
+
+                                        <p>昵称：KA KI LI</p>
+                                        <p>生日： 1994年4月21日</p>
+                                        <p>职业：歌手</p>
+                                        <p>出生地：香港</p>
+                                        <p>代表作品：漫步、Price Tag </p>
+                                        <p>主要成就：中国好声音第四季</p>
+                                    </div>
+                                </div>
+                            </ul>
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">李明霖</h1><span class="sc2">LEE MING</span>
+                                        </div>
+
+                                        <p>昵称：铁锤哥</p>
+                                        <p>生日： 1988年2月10日</p>
+                                        <p>职业：歌手、演员、音乐制作人</p>
+                                        <p>出生地：辽宁省</p>
+                                        <p>代表作品：衣服油、吴记麻辣油、饼饼饼</p>
+                                        <p>主要成就：原创歌曲《自私的幸福》获得中国人寿杯第三届网络文学艺术大赛暨网络原创歌曲大赛</p>
+                                        <p>十大网络原创金曲，东方卫视选秀娱乐节目《中国梦之声》</p>
+                                        <p>个人原创单曲《爱若是你的》</p>
+                                        <p>主演爱情悬疑电影《极速世界之战车》</p>
+                                    </div>
+                                </div>
+                            </ul>
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">至上励合</h1><span class="sc2">TOP COMBINE</span>
+                                        </div>
+
+                                        <p>至上励合（Top Combine）是中国内地的男子流行演唱组合，由张远、马雪阳</p>
+                                        <p>刘洲成与金恩圣（入伍参军）4人组成。</p>
+
+                                        <p>代表作品：棉花糖、Lucky Boys、咬耳朵、还好有你在</p>
+
+                                        <p>主要成就：第14届全球华语榜中榜 - 最佳新晋组合 2009音乐先锋榜 - 先锋乐队组合</p>
+                                        <p>2009音乐先锋榜 - 先锋跳舞组合  2009音乐先锋榜 - 网上最具人气先锋组合 2016 亚洲热播音</p>
+                                        <p>乐盛典－中印文化交流会大使及内地最佳组合</p>
+                                    </div>
+                                </div>
+                            </ul>
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">丁当</h1><span class="sc2">DELLA</span>
+                                        </div>
+
+                                        <p>昵称：当当</p>
+                                        <p>生日： 1982年4月17日</p>
+                                        <p>职业：歌手、音乐制作人、演员、主持人</p>
+                                        <p>出生地：上海</p>
+                                        <p>代表作品：《我爱他》《猜不透》《你为什么说谎》《我是一只小小鸟》</p>
+                                        <p>主要成就：2007年度东南劲爆新人奖</p>
+                                        <p>新城国语力最佳女歌手  Hito流行音乐奖最佳内地歌手   新加坡金曲奖内地杰出歌手</p>
+                                        <p>台湾地区KTV年度点播总冠军</p>
+                                    </div>
+                                </div>
+                            </ul>
+
+                            <ul class="row item">
+                                <div class="cont">
+                                    <div class="content-box">
+                                        <div class="content-title">
+                                            <h1 class="sc">梁君诺</h1><span class="sc2">NICOLSON</span>
+                                        </div>
+
+                                        <p>昵称：魔王，小诺，诺爷，小鱼诺</p>
+                                        <p>生日：1991年5月11日</p>
+                                        <p>职业：歌手、音乐制作人</p>
+                                        <p>出生地：广东省</p>
+                                        <p>代表作品：《心虚》，《西游永记》，《友你友我》，《暗恋有毒》</p>
+                                        <p>主要成就：《麦王争霸》2011年全球亚军  《麦王争霸》2011年最具人气奖</p>
+                                        <p>2013年音乐先锋榜年度先锋新人奖</p>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="explain-5">
+                    <div class="cont">
+                        <div class="content-box">
+                            <div class="content-title">
+                                <h1 class="sc">抢票规则</h1><span class="sc2">GRAB VOTES RULES</span>
+                            </div>
+                            <ul>
+                                <li class="sc">1.每个会员只能申请一张门票。</li>
+                                <li>2.至尊会员，钻石会员，无需任何要求，可以直接申请门票，其它会员需存款达到5888元才可以申请门票</li>
+                                <li>3.达到要求申请门票的会员请根据要求填写您的相关信息以及有效电话，并保挂电话畅通，将会有专员为您致电。</li>
+                                <li class="sc">4.门票数量为100张，如门票提前被抢完，则抢票活动提前结束！</li>
+                                <li>5.去现场领票的玩家，在演唱会结束后，我们奖补贴您388元住宿费，将以幸运抽奖的方式派发到您的账户上。</li>
+                                <li>6.奇幻城国际享有最终解释权。</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- footer -->
+            <li class="footer-section">
+                <div id="footer">
+                    <div class="cont clearfix">
+                        <p class="fl"><img src="./files/flogo.png" alt=""></p>
+                        <p class="fr" style="position:absolute;top:50%;right:0;transform:translateY(-50%);">
+                            <span>2018 版权所有奇幻城国际 www.qhc118.com</span>
+                            <span>奇幻城国际由PAGCOR所授权和监管</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+</body></html>

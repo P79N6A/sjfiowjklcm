@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>分享朋友圈-澳盈</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Microsoft Yahei", "微软雅黑";
+      background: #13a1c9;
+    }
+
+    .xr {
+      height: 240px;
+    }
+
+    .qrcode-box {
+      position: relative;
+      height: 180px;
+    }
+
+    .tips img {
+      width: 100%;
+      padding-top: 20px;
+    }
+
+    .qrcode {
+      width: 100%;
+    }
+
+    .qrcode1 {
+      width: 130px;
+    }
+
+    .qrcode1 img {
+      width: 100%;
+      padding: 4px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+
+    .pull-left {
+      float: left;
+    }
+
+    .pull-right {
+      float: right;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .contents {
+      max-width: 750px;
+      margin: 0 auto;
+      height: 100%;
+      padding-bottom: 60px;
+      background: #13a1ca url(./images/bg.jpg) no-repeat;
+      background-size: 100%;
+      min-height: 100%;
+      color: #333;
+    }
+
+    .content-in {
+      padding: 0 1.5rem;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 2px 0;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, .6)
+    }
+
+    .logo img {
+      height:7.5rem;
+    }
+
+    .bg-lr img {
+      width: 9%;
+    }
+
+    .download {
+      margin-left: 10px;
+    }
+
+    .download h3 {
+      font-size: 1.0rem;
+      color: #fff;
+      margin: 6px 0;
+    }
+
+    .download p {
+      font-size: 0.5rem;
+      color: #fff;
+      margin: 0;
+      word-break: break-all;
+    }
+
+    .qrcode-l {
+      float: left;
+      width: 25%;
+    }
+
+    .qrcode-r {
+      float: left;
+      width: 72%;
+      margin-left: 3%;
+    }
+
+    .tips {
+      color: rgb(25, 25, 112);
+    }
+  </style>
+</head>
+<body style=" overflow-x:hidden;">
+<div class="contents">
+  <div class="logo"><img src="./images/logo.png"></div>
+  <div class="content-in">
+    <div class="qrcode-box">
+      <div class="qrcode1 pull-left">
+        <img class="download_code" style="width:100%;">
+      </div>
+      <div class="download pull-left">
+        <h3>下载方式一</h3>
+        <p>使用专业的扫码软件下载</p>
+        <h3>下载方式二</h3>
+        <p>在手机浏览器地址中输入：<br/>
+          <span class="download_link"></span><br/>
+          (苹果安卓通用)
+        </p>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="tips">
+      <h3>温馨提示:</h3>
+      <ul>
+        <!--<li>下载App即可申请8-58APP专用彩金</li>-->
+        <li>各平台游戏畅玩无阻!存提款快速到账!</li>
+        <li>朋友圈分享精彩中奖瞬间!大家一起开心玩游戏!</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+<script>
+
+  window.onload = getDownloadCode;
+
+  function openurl() {
+    window.open('/mobile')
+  }
+
+  // 获取下载验证码
+  function getDownloadCode() {
+    var _origin = window.location.origin;
+    var _url = "https://www.staticsources.com/app/bjh/app.html";
+    var _src = _origin + "/asp/generateQRCode.php?qrtext=" + _url;
+    //$(".download_code").attr("src",_src);
+    //$(".download_link").text(_url);
+    document.querySelector('.download_code').setAttribute('src', _src);
+    document.querySelector('.download_link').innerHTML = _url;
+  }
+</script>
+</body>
+</html>

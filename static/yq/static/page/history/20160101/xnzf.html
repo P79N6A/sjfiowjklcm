@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+ <base href="" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>奇幻城国际-零距离取经加藤鹰</title>
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<script src="./js/jquery18.js"></script>
+<script type="text/javascript">  
+$(function(){
+	$('#menu li').click(function(){
+		var ind = $(this).index();
+		if(!$(this).hasClass('on')){$(this).addClass('on').siblings().removeClass('on');}
+		$(this).parent().siblings('.iteminfos').find('.iteminfo').eq(ind).addClass('on').siblings().removeClass('on');
+	});
+})
+
+
+</script> 
+</head>
+<body>
+<div class="top-bar">
+	<img src="./images/top.jpg" width="100%" height="90" />
+</div>
+<div class="header">
+	<div class="wp">
+    	<div class="logo fl"><img src="/static/images/base/logo_H5.png" /></div>
+        <div class="nav">
+			<a href="./index.html">明星专访</a>
+			<a href="./jczj.html">机场直击</a>
+			<a href="./whqy.html">问候奇幻城</a>
+			<a href="./pmcp.html">平面侧拍</a>
+			<a href="./zbsp.html">直播视频</a>
+			<a href="./xnzf.html" class="this">新年祝福</a>
+			<a href="/" target="_blank">返回官网</a>
+        </div>                                 
+    </div>
+
+</div>
+<div id="content-zj">
+    <div class="content-xn">
+		 <div class="w890">
+			<div class="video">
+				<div class="iteminfos">
+					<div class="iteminfo on">
+						<embed src="http://player.youku.com/player.php/sid/XMTQ4MDY2MDYyOA==/v.swf" allowFullScreen="true" quality="high" width="860" height="480" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+						<span><img src="/static/images/base/qrcode.png" width="130" height="130"></span>
+					</div>
+					<div class="iteminfo">
+						<embed src="http://player.youku.com/player.php/sid/XMTQ4MDY3MTczMg==/v.swf" allowFullScreen="true" quality="high" width="860" height="480" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+						<span><img src="/static/images/base/qrcode.png" width="130" height="130"></span>
+					
+					</div>
+				</div>
+				<ul id="menu">
+					<li class="on">视频1<img src="images/left.png" /></li>
+					<li>视频2<img src="images/left.png" /></li>
+				</ul>
+			</div>
+		 </div>		
+    </div>
+	 
+</div>
+<div class="footer tc">
+	<p>版权所有奇幻城国际 www.qhc118.com</p>
+    <p>奇幻城国际牌照NO.174，由菲律宾政府卡格扬河经济特区所授权和监管</p>
+</div>
+</body>
+</html>

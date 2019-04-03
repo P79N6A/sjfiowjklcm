@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- 以下内容在/static/config文件 -->
+  <%= htmlWebpackPlugin.options.header.pc.head %>
+  <!-- 避免IE使用兼容模式 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- 启用360浏览器的极速模式(webkit) -->
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico?v=sadf" />
+  <script>
+    // 检测到mobile端，强制跳转PC页面 
+    if (window.navigator.userAgent.toString().search(/(iPhone|iPod|Android|ios|Windows Phone|mobile|iPad|SymbianOS)/i) !=
+      -1) {
+      // 检测到手机设备，访问手机端
+      window.location.href = "/mobile";
+    }
+
+  </script>
+  <!-- import stylesheet -->
+  <!-- 引入样式 -->
+  <!-- 基础加载样式，必须第一时间引入 -->
+  <link rel="stylesheet" href="/static/style/first-loading.css">
+  <!-- 饿了么套件样式 -->
+  <link rel="stylesheet" href="/static/lib/element-ui/style/index.css">
+  <!-- animate动画 -->
+  <link href="/static/lib/animate/index.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- <div id="first-load">
+    <div class="top">
+      <p>请耐心等待，加载完后让您浏览速度更快!</p>
+      <div id="load-bar-1" class="mui-progressbar mui-progressbar-infinite"><span></span></div>
+    </div>
+    <div class="center">
+      <a href="/" class="btn_index">访问首页</a>
+    </div>
+    <div class="foot">
+      <span class="lds-circle"></span>
+    </div>
+  </div> -->
+  <div id="app">
+  </div>
+  <!-- 部分库可以使用cdn，减少打包体积，增加访问速度 -->
+  <script src="/static/lib/vue/js/vue.js"></script>
+  <script src="/static/lib/vue-router/js/vue-router.js"></script>
+  <!-- <script src="/static/lib/element-ui/js/element-ui.js"></script> -->
+  <script src="/static/js/element-ui.js"></script>
+
+  <!-- 以下内容在/static/config文件 -->
+  <%= htmlWebpackPlugin.options.header.pc.foot %>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+@charset "utf-8";/* reset========================================== */* {margin:0;padding:0;}
+body {font-size:14px;color:#fff;line-height:24px;font-family:"Microsoft YaHei",Verdana,Arial;overflow-x:hidden;}
+ul,li {list-style:none outside none;}
+a {text-decoration:none;border:none;}
+img {border:none;}
+input {vertical-align:middle;}
+/* common========================================== */.fl {float:left;}
+.fr {float:right;}
+.tc {text-align:center !important;}
+.clear {zoom:1;}
+.clear:after {content:"";display:block;clear:both;}
+/* body========================================== */body {background-image:url("../images/bg_nav.png"),url("../images/bg_poke1.png"),url("../images/bg_poke2.png"),url("../images/bg2.jpg");background-color:#5c60aa;background-repeat:repeat-x,no-repeat,no-repeat,no-repeat;background-position:left 8px,left 1104px,right 1452px,center 8px;}
+body {border-top:8px solid #af8d5f;padding:0;margin:0;}
+ul,li {list-style-type:none;margin:0;padding:0;}
+.page {width:1207px;padding-bottom:178px;min-height:2026px;margin:0 auto;background:url("../images/bg_nav.png") repeat-x left top,url("../images/bg1.jpg") no-repeat -26px top;}
+.nav .logo,.nav .menu {float:left;}
+.nav .login {float:right;}
+.login li {display:inline-block;}
+.logo {margin:10px 19px 0 0;}
+.nav {height:106px;}
+.nav .menu li {float:left;}
+.nav .menu li:hover,.nav .menu li.active {background:#af8d5f;}
+.nav .menu li a {color:#fff;display:block;height:99px;padding:0 14px;line-height:9;font-size:18px;}
+.login {margin:27px 0 0 10px;}
+.login input {font-size:20px;height:56px;width:107px;display:inline-block;line-height:2.6;text-align:center;font-weight:bold;margin:0 3px;border:0 none;cursor:pointer;}
+.login input:hover {opacity:.8;}
+.login input#logBtn {background:#ffc401;color:#000;}
+.login input#regBtn {background:#af8d5f;color:#fff;}
+.banner {height:666px;position:relative;}
+.banner ul {position:absolute;right:105px;bottom:-30px;}
+.banner li {float:left;}
+.banner li a {display:block;height:86px;width:165px;color:#fff;padding-left:84px;font-size:24px;line-height:3.5;transition:transform .2s;}
+.banner li a {background:#1f1f42 url("../images/icon3.png") no-repeat 6px center;}
+.banner li a:hover,.banner li a.active {background:#af8d5f url("../images/icon3.png") no-repeat 6px center;transform:scale(1.12);margin-right:14px;}
+.list {margin:20px 0 30px;}
+.title {background:url("../images/icon2.png") no-repeat;padding-left:60px;color:#fff;width:282px;font-size:40px;min-height:55px;line-height:55px;margin:30px auto;}
+.list .listtitle {color:#fff;font-size:28px;margin-bottom:26px;background:url("../images/icon.png") no-repeat;padding-left:35px;font-weight:bold;height:32px;}
+.list .listtitle span {font-size:20px;}
+.list  ul {text-align:center;padding-bottom:20px;}
+.list  ul li {display:inline-block;width:127px;padding:5px;margin-right:10px;background:#be61e4;color:#fff;text-align:center;cursor:pointer;font-size:22px;transition:transform .2s;}
+.list  ul li:hover {transform:scale(1.12);}
+.list .txt {color:#fff;font-size:18px;line-height:35px;}
+.list .txt ol {padding:0 220px 0 174px;}
+.list .txt ol,.list .txt ol li {list-style-type:decimal;font-size:18px;color:#fff}
+.yellow {color:#fff200;}
+.lists {display:inline-block;vertical-align:top;}
+.left {margin-left:157px;}
+table {width:100%;border-collapse:collapse;border:0 none;}
+table.table1 {width:770px;border-collapse:collapse;text-align:center;color:#fff;}
+table.table1 th,table.table1 td {border:1px solid #5c60aa;padding:10px 0;}
+table.table1 th {background:#6f7196;}
+table.table1 tr td {background:#7d80bb;}
+table.table1 tr td:first-child {background:#8d61c7;}
+.result table.table1 {display:none;}
+.result table.table1.active {display:table;}
+.col {margin:0 0 20px 76px;font-size:24px;}
+.col span {font-size:18px;}
+.col div:first-child {width:127px;padding:5px;margin-right:10px;display:inline-block;background:#be61e4;color:#fff;}
+.col div:nth-child(2) {padding:5px;display:inline-block;color:#fff600;}
+.items .item {display:none;}
+.items .item.active {display:block;}
+.footer {background:url("../images/bg_footer.png") no-repeat center top;padding-top:264px;margin-top:-144px;}
+.footer .text {background:#fff;color:#5e5042;text-align:center;font-size:18px;padding:5px;}

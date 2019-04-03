@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>奇幻城国际-田馥甄世界巡回演唱会</title>
+
+    <link rel="stylesheet" type="text/css" href="./files/reset.css">
+    <link rel="stylesheet" type="text/css" href="./files/common.css">
+    <link rel="stylesheet" type="text/css" href="./files/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./files/animations2.css">
+    
+    <link rel="stylesheet" type="text/css" href="./files/jplayer.css">
+    <link rel="stylesheet" type="text/css" href="./files/style.css">
+    <script type="text/javascript" src="./files/jquery-1.12.4.min.js "></script>
+    <script type="text/javascript" src="./files/items.js "></script>
+    
+    <script type="text/javascript" src="./files/jquery.jplayer.min.js "></script>
+    <script type="text/javascript" src="./files/jplayer.config.js "></script>
+    <script type="text/javascript" src="./files/jplayer.playlist.min.js "></script>
+    <script type="text/javascript" src="./files/music.js "></script>
+
+    <script type="text/javascript">
+        $(function(){
+            if(/AppleWebKit.*Mobile/i.test(navigator.userAgent)
+                    || /Android/i.test(navigator.userAgent)
+                    || /BlackBerry/i.test(navigator.userAgent)
+                    || /IEMobile/i.test(navigator.userAgent)
+                    || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))
+            {
+
+            } else {
+                audio();
+                setTimeout("PlaySound()", 2000);
+//                vidplay();
+            }
+        });
+
+        function vidplay() {
+            var video = document.getElementById("myvideo");
+            if (video.paused) {
+                video.play();
+            } else {
+//                video.pause();
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    
+    <div class="audio" style="position:fixed; bottom:55px;right:75px;z-index: 1000">
+        <!-- Focus Audio Player -->
+        <div class="focus-container focus-audio boxed">
+            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://dn-qiniucdn.qbox.me/hebe/m1.mp3"></audio></div>
+            <div id="jp_container_1" class="jp-audio jp-audio1" style="display: block;">
+                <div class="inner">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-controls-wrap">
+                            <div class="song_title"><div class="item-song">看淡</div><div class="item-artist"></div></div>
+                            <div class="jp-current-time">00:00</div>
+                            <div class="jp-duration">00:00</div>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar" style="width: 100%;">
+                                    <div class="jp-play-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <ul class="jp-controls clearfix">
+                                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute" style="display: none;"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-previous disabled" tabindex="1"><i class="icon iconfont">
+                                </i></a></li>
+                                <li><a href="javascript:;" class="jp-play" tabindex="1" style="display: block;"><i class="icon iconfont"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-pause" tabindex="1" style="display: none;"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-next" tabindex="1"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-stop" tabindex="1"></a></li>
+                                <li>
+                                    <a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat" style="display: none;">
+                                        <i class="icon iconfont"></i>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off" style="display: block;"><i class="icon iconfont" style="color:#ffc886"></i></a></li>
+                                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle"></a></li>
+                                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off" style="display: none;"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-playlist-toggle" tabindex="1" title="Toggle PlayList">
+                                    <i class="icon iconfont"></i></a></li>
+                            </ul>
+                            <div class="jp-volume-bar">
+                                <div class="jp-volume-bar-value" style="width: 80%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-playlist">
+                        <ul class="jp-playlist-inner" style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1"><div class="item-song">看淡</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/" class="itunes"></a><a target="_blank" href="/" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">To Hebe</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">魔鬼中的天使</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">小幸运</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">你太猖狂</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/" class="itunes"></a><a target="_blank" href="/" class="amazon"></a></span></div></li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./files/mobile(1).css">
+<link rel="stylesheet" type="text/css" href="./files/allInOneModal.css">
+<script type="text/javascript" src="./files/login.js "></script>
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+
+    <header class="slide hidden-lg hidden-md">
+        <ul id="navToggle" class="burger slide">
+            <li></li><li></li><li></li>
+        </ul>
+        <div id="logomobilebox">
+            <img id="logomobile" src="/static/images/base/header_new_vip2.png">
+        </div>
+    </header>
+
+    <nav class="slide hidden-lg hidden-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="./files/trunk.css">
+<script type="text/javascript" language="javascript" src="./files/trunk.js "></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+
+<ul>
+    <li><a href="/"><img id="logo-menu" src="/static/images/base/header_new_vip2.png"></a></li>
+
+    
+    
+    <li><a href="/">返回首頁</a></li>
+    <script>
+        function clickFunc(){
+            window.location.href = window.location.href;
+        }
+    </script>
+</ul>
+
+
+
+
+    </nav>
+
+
+    <div class="content slide">
+        <ul class="responsive">
+            <!-- header -->
+            <li class="header-section hidden-xs">
+                <header>
+                    <div class="top">
+                        <div class="cont clearfix">
+                            <ul class="fr login">
+                                
+                            </ul>
+                        </div>
+
+                    </div>
+                    <nav>
+                        <div class="cont clearfix">
+                            <h1><a href="/"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_pc"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_mobile"></a></h1>
+                            <ul class="fr">
+                                
+                                
+                                <li class="active"><a href="/static/page/history/20170501/introduce.html">HEBE演唱会</a></li>
+                                
+                                
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </li>
+
+
+            <!-- body -->
+            <li class="body-section">
+                <section id="explain1">
+                    <div class="cont hidden-xs">
+                        <div id="title-box">
+                            <div class="img-box animated bounceInDown ani-delay">
+                                <img src="./files/logo2.png">
+                            </div>
+                            <div class="img-box animated rubberBand">
+                                <img src="./files/title.png">
+                            </div>
+                            
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="hidden-lg">
+                        <img src="./files/hehe.jpg">
+                    </div>
+                </section>
+            </li>
+        </ul>
+    </div>
+ </div>
+
+
+
+    <div id="floatmenu">
+        <ul>
+            <li><a href="/static/page/history/20170501/introduce.html">HEBE介绍</a></li>
+            <li><a href="/static/page/history/20170501/ticket.html">如何领票</a></li>
+            <li class="active"><a href="/static/page/history/20170501/index.html">演唱会花絮</a></li>
+            <li><a href="/static/page/history/20170501/news.html">媒体报道</a></li>
+        </ul>
+    </div>
+
+
+    <section id="explain2">
+        <div class="cont"></div>
+    </section>
+
+
+    <section id="explain3">
+        <div class="tab-list hidden-lg">
+            <ul class="cont">
+                <li class="active">现场直击</li>
+                <li>HEBE独家</li>
+                <li>奇幻城风采</li>
+            </ul>
+        </div>
+        <div id="maincontent" class="cont">
+            <div class="tab-list hidden-xs">
+                <ul>
+                    <li class="active">现场直击</li>
+                    <li>HEBE独家</li>
+                    <li>奇幻城风采</li>
+                </ul>
+            </div>
+            <div class="img-box" style="padding-bottom:20px;">
+                <img src="./files/stit3.png">
+            </div>
+
+            <div class="tab-panel active">
+                <div class="photo">
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner1.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/1.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d1.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/2.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d2.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/3.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d3.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/4.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner2.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/5.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d4.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/6.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d5.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/7.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d6.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/8.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner3.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/9.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d7.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/10.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d8.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/11.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/d9.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/12.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner4.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/13.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c1.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/14.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c2.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/15.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c3.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/16.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner5.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/17.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c4.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/18.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c5.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/19.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c6.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/20.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="banner-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/banner6.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/21.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c7.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/22.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c8.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/23.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/c9.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/c/24.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-panel">
+                <div class="photo">
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b1.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/1.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b2.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/2.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b3.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/3.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b4.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/4.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b5.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/5.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b6.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/6.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b7.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/7.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b8.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/8.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b9.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/9.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b10.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/10.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b11.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/11.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b12.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/12.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b13.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/13.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b14.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/14.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b15.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/15.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b16.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/16.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b17.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/17.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b18.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/18.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b19.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/19.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b20.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/20.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b21.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/21.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b22.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/22.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b23.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/23.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b24.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/24.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    
+                        
+                            
+                            
+                        
+                        
+                            
+                            
+                        
+                        
+                            
+                            
+                        
+                    
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/b28.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/25.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb29.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/29.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb30.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/30.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb31.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/31.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb32.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/32.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb33.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/33.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb34.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/34.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb35.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/35.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/bb36.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/d/36.JPG" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-panel">
+                <div class="photo">
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a1.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/1.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a2.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/2.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a3.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/3.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a4.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/4.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a5.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/5.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a6.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/6.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a7.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/7.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a8.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/8.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                        <div class="img-box">
+                            <img src="https://dn-qiniucdn.qbox.me/hebe/a9.jpg">
+                            <a href="https://dn-qiniucdn.qbox.me/hebe/a/9.jpg" rel="lightbox[plants]" title="" class="zoom"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="explain4">
+
+    </section>
+
+    <section id="explain5">
+
+    </section>
+
+
+
+
+
+<!-- footer -->
+<li class="footer-section">
+    <div id="footer">
+        <div class="cont clearfix">
+            <p class="fl"><img src="./files/flogo.png" alt=""></p>
+            <p class="fr">
+                <span>2018 版权所有奇幻城国际 www.qhc118.com</span>
+                <span>奇幻城国际由PAGCOR所授权和监管</span>
+            </p>
+        </div>
+    </div>
+</li>
+
+
+
+
+
+
+<div id="lightbox" style="display: none;">
+    <div class="lb-dataContainer">
+        <div class="lb-data">
+            <div class="lb-details">
+                <span class="lb-caption" style="display: inline;"></span>
+                <span class="lb-number"></span>
+            </div>
+            <div class="lb-closeContainer"><a class="lb-close"><img src="./files/close.png"></a></div>
+        </div>
+    </div>
+    <div class="lb-outerContainer">
+        <div class="lb-container">
+            <img class="lb-image" src="/" style="display: inline;">
+            <div class="lb-nav" style="display: block;"><a class="lb-prev" style="display: block;"></a><a class="lb-next" style="display: block;"></a></div>
+            <div class="lb-loader" style="display: none;"><a class="lb-cancel"><img src="./files/loading.gif"></a></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="./files/gallery.js "></script>
+<script>
+    $(function(){
+        $(".tab-list li").click(function(){
+            var ind = $(this).index();
+            $(this).addClass("active").siblings().removeClass("active");
+            $(".tab-list li").eq(ind).addClass("active").siblings().removeClass("active");
+            $(".tab-panel").eq(ind).addClass("active").siblings().removeClass("active");
+        });
+
+//        $(".zoom").each(function(){//遍历所有对象
+//            var $src=$(this).siblings("img").attr("src");
+//            $(this).attr({href:$src});
+//        });
+    });
+</script>
+
+
+<div id="lightboxOverlay" style="display: none;"></div></body></html>

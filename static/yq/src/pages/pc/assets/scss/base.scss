@@ -1,0 +1,241 @@
+@import "./variables.scss";
+
+body,
+div,
+ul,
+li,
+dl,
+dt,
+dd,
+ol,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+em,
+i,
+p,
+input,
+select,
+i,
+em,
+span,
+th,
+td,
+table {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  background: none;
+}
+
+img {
+  border: none;
+  vertical-align: middle;
+}
+
+img[lazy="loading"] {
+  width: auto;
+  height: auto;
+  background: url(/favicon.ico) center center no-repeat;
+}
+
+// 图片加载错误
+img[lazy="error"] {
+  width: auto;
+  height: 100%;
+  max-width: 100% !important;
+  display: inline-block;
+  margin: 0 auto;
+  background: url(/static/images/base/image-error.png) center center no-repeat;
+}
+
+a,
+a:hover {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-size: 14px;
+  background: #f0f0f0;
+  min-width: 1200px;
+  width: 100%;
+  font: normal 1 "Microsoft Yahei", "arial", "Microsoft JhengHei", "HeiTi",
+    "SimHei";
+}
+
+body,
+input,
+button,
+textarea,
+select {
+  -webkit-font-smoothing: antialiased;
+}
+
+input {
+  border: none;
+}
+
+input[type="submit"],
+input[type="button"],
+button {
+  border: none;
+  background: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.hide {
+  display: none;
+}
+
+.fl {
+  float: left !important;
+}
+
+.fr {
+  float: right !important;
+}
+
+.cfx {
+  clear: both;
+  zoom: 1;
+}
+
+.cfx:after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  content: ".";
+}
+
+.page_line_top {
+  background: url("../images/line.png") center top no-repeat;
+  padding-top: 65px;
+  position: relative;
+  top: -4px;
+}
+
+/* #滚动条
+=========*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track-piece {
+  margin: -2px;
+  background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+  min-width: 150px;
+  min-height: 150px;
+  border-radius: 10px;
+  background: #aaa;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: #555;
+}
+
+.content-warp {
+  width: 1200px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+
+.cl-red {
+  color: #ff1e1e !important;
+}
+.cl-blue {
+  color: #44a7e0 !important;
+}
+
+.cl-yelow {
+  color: #ffd924 !important;
+}
+
+.cl-bigred {
+  color: #e5210d;
+}
+
+.content {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+// .toastPos{
+//   margin-top: 50px;
+// }
+.el-message--warning {
+  margin-top: 8%;
+}
+
+.popper__arrow {
+  display: none !important;
+}
+
+// 图片懒加载配置
+
+img[lazy="loading"] {
+  width: auto;
+  height: auto;
+  background: url(/favicon.ico) center center no-repeat;
+}
+
+// 图片加载错误
+img[lazy="error"] {
+  width: auto;
+  height: 100%;
+  max-width: 100% !important;
+  display: inline-block;
+  margin: 0 auto;
+  background: url(/static/images/base/image-error.png) center center no-repeat;
+}
+
+// 加载完成的图片，显示一瞬间的动画
+img[lazy="loaded"] {
+  animation: rubberBand 0.4s;
+}
+
+.el-message.is-closable .el-message__content {
+  padding-right: 20px;
+}

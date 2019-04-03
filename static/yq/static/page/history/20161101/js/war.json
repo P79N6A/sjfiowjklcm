@@ -1,0 +1,1154 @@
+[
+  {
+    "type":"xj",
+    "warList":[
+
+      {
+        "time":"09-22 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Toodming.png",
+        "name1": "Toodming",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13283.html",
+        "pic2": "xj/Rushcrazy.png",
+        "name2": "Rushcrazy",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-22 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/CoffeeMs.png",
+        "name1": "CoffeeMs",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13283.html",
+        "pic2": "xj/iG.XY.png",
+        "name2": "iG.XY",
+        "num2": "0",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-22 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Rushcrazy.png",
+        "name1": "Rushcrazy",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13283.html",
+        "pic2": "xj/iG.XY.png",
+        "name2": "iG.XY",
+        "num2": "3",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"11-11 13:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/CoffeeMs.png",
+        "name1": "CoffeeMs",
+        "num1": "1",
+        "link": "javascript:;",
+        "pic2": "xj/Toodming.png",
+        "name2": "Toodming",
+        "num2": "3",
+        "bot":"《星际争霸2》决赛"
+      },
+
+      {
+        "time":"09-21 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/CoffeeMs.png",
+        "name1": "CoffeeMs",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13282.html",
+        "pic2": "xj/iG.MacSed.png",
+        "name2": "iG.MacSed",
+        "num2": "0",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-21 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Toodming.png",
+        "name1": "Toodming",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13282.html",
+        "pic2": "xj/RYE.JieShi.png",
+        "name2": "RYE.JieShi",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-21 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Rushcrazy.png",
+        "name1": "Rushcrazy",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13282.html",
+        "pic2": "xj/iG.Jim.png",
+        "name2": "iG.Jim",
+        "num2": "0",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-21 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/RYE.Saber.png",
+        "name1": "RYE.Saber",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0923/13282.html",
+        "pic2": "xj/iG.Jim.png",
+        "name2": "iG.XY",
+        "num2": "2",
+        "bot":"《星际争霸2》小组赛"
+      },
+
+      {
+        "time":"09-20 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Toodming.png",
+        "name1": "Toodming",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0922/13258.html",
+        "pic2": "xj/iG.MacSed.png",
+        "name2": "iG.MacSed",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-20 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/CoffeeMs.png",
+        "name1": "CoffeeMs",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0922/13258.html",
+        "pic2": "xj/RYE.JieShi.png",
+        "name2": "RYE.JieShi",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-20 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Rushcrazy.png",
+        "name1": "Rushcrazy",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0922/13258.html",
+        "pic2": "xj/iG.XY.png",
+        "name2": "iG.XY",
+        "num2": "2",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-20 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/RYE.Saber.png",
+        "name1": "RYE.Saber",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0922/13258.html",
+        "pic2": "xj/iG.Jim.png",
+        "name2": "iG.Jim",
+        "num2": "2",
+        "bot":"《星际争霸2》小组赛"
+      },
+
+      {
+        "time":"09-19 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/CoffeeMs.png",
+        "name1": "CoffeeMs",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0920/13209.html",
+        "pic2": "xj/Toodming.png",
+        "name2": "Toodming",
+        "num2": "2",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-19 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/RYE.JieShi.png",
+        "name1": "RYE.JieShi",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0920/13209.html",
+        "pic2": "xj/iG.MacSed.png",
+        "name2": "iG.MacSed",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-19 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/Rushcrazy.png",
+        "name1": "Rushcrazy",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0920/13209.html",
+        "pic2": "xj/RYE.Saber.png",
+        "name2": "RYE.Saber",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      },
+      {
+        "time":"09-19 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "xj/iG.XY.png",
+        "name1": "iG.XY",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0920/13209.html",
+        "pic2": "xj/iG.Jim.png",
+        "name2": "iG.Jim",
+        "num2": "1",
+        "bot":"《星际争霸2》小组赛"
+      }
+
+
+    ]
+  },
+  {
+    "type":"lushi",
+    "warList":[
+      {
+        "time":"09-30 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/dxr.png",
+        "name1": "小鱼鱼大仙人",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/yilidi.png",
+        "name2": "同福丶中华毅力帝",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"09-30 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/WEYouLove.png",
+        "name1": "WEYouLove",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/NewbeeNaiGod.png",
+        "name2": "NewbeeNaiGod",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"09-30 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/walila.png",
+        "name1": "同福丶瓦莉拉",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/WEMrHumor.png",
+        "name2": "WEMrHumor",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"11-13 10:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/NewbeeNaiGod.png",
+        "name1": "NewbeeNaiGod",
+        "num1": "3",
+        "link": "javascript:;",
+        "pic2": "ls/iG.TaiJi.png",
+        "name2": "iG.TaiJi",
+        "num2": "1",
+        "bot":"《炉石传说》决赛"
+      },
+
+      {
+        "time":"09-30 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/saman.png",
+        "name1": "贪睡之萨满",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/iG.TaiJi.png",
+        "name2": "iG.TaiJi",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"09-30 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/dxr.png",
+        "name1": "小鱼鱼大仙人",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/yilidi.png",
+        "name2": "同福丶中华毅力帝",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"09-30 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/WEYouLove.png",
+        "name1": "WEYouLove",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/NewbeeNaiGod.png",
+        "name2": "NewbeeNaiGod",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+      {
+        "time":"09-30 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/walila.png",
+        "name1": "同福丶瓦莉拉",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13695.html",
+        "pic2": "ls/WEMrHumor.png",
+        "name2": "WEMrHumor",
+        "num2": "0",
+        "bot":"《炉石传说》8进4"
+      },
+
+      {
+        "time":"09-29 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/dxr.png",
+        "name1": "小鱼鱼大仙人",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13692.html",
+        "pic2": "ls/SnakeLiBo.png",
+        "name2": "SnakeLiBo",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-29 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/CLZoro.png",
+        "name1": "CLZoro",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13692.html",
+        "pic2": "ls/WEMrHumor.png",
+        "name2": "WEMrHumor",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-29 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/yilidi.png",
+        "name1": "同福丶中华毅力帝",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13692.html",
+        "pic2": "ls/zzjj.png",
+        "name2": "同福丶猪之季节",
+        "num2": "0",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-29 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/yexing.png",
+        "name1": "WE衣锦夜行",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13692.html",
+        "pic2": "ls/walila.png",
+        "name2": "同福丶瓦莉拉",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+
+      {
+        "time":"09-28 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/NewbeeNaiGod.png",
+        "name1": "NewbeeNaiGod",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13691.html",
+        "pic2": "ls/xiaoruoji.png",
+        "name2": "可爱小弱鸡",
+        "num2": "1",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-28 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/saman.png",
+        "name1": "贪睡之萨满",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13691.html",
+        "pic2": "ls/mfzf.png",
+        "name2": "魔法之风",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-28 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/leialun.png",
+        "name1": "同福丶雷阿伦",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13691.html",
+        "pic2": "ls/iG.TaiJi.png",
+        "name2": "iG.TaiJi",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-28 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/OMGQingQing.png",
+        "name1": "OMGQingQing",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1002/13691.html",
+        "pic2": "ls/WEYouLove.png",
+        "name2": "WEYouLove",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+
+      {
+        "time":"09-27 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/dxr.png",
+        "name1": "小鱼鱼大仙人",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13569.html",
+        "pic2": "ls/WEMrHumor.png",
+        "name2": "WEMrHumor",
+        "num2": "0",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-27 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/CLZoro.png",
+        "name1": "CLZoro",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13569.html",
+        "pic2": "ls/SnakeLiBo.png",
+        "name2": "SnakeLiBo",
+        "num2": "2",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-27 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/yilidi.png",
+        "name1": "同福丶中华毅力帝",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13569.html",
+        "pic2": "ls/walila.png",
+        "name2": "同福丶瓦莉拉",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-27 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/yexing.png",
+        "name1": "WE衣锦夜行",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13569.html",
+        "pic2": "ls/zzjj.png",
+        "name2": "同福丶猪之季节",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+
+      {
+        "time":"09-26 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/NewbeeNaiGod.png",
+        "name1": "NewbeeNaiGod",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13567.html",
+        "pic2": "ls/mfzf.png",
+        "name2": "魔法之风",
+        "num2": "1",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-26 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/saman.png",
+        "name1": "贪睡之萨满",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13567.html",
+        "pic2": "ls/xiaoruoji.png",
+        "name2": "可爱小弱鸡",
+        "num2": "2",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-26 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/leialun.png",
+        "name1": "同福丶雷阿伦",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13567.html",
+        "pic2": "ls/WEYouLove.png",
+        "name2": "WEYouLove",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-26 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/OMGQingQing.png",
+        "name1": "OMGQingQing",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0928/13567.html",
+        "pic2": "ls/iG.TaiJi.png",
+        "name2": "iG.TaiJi",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+
+      {
+        "time":"09-24 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/dxr.png",
+        "name1": "小鱼鱼大仙人",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0927/13544.html",
+        "pic2": "ls/CLZoro.png",
+        "name2": "CLZoro",
+        "num2": "1",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-24 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/WEMrHumor.png",
+        "name1": "WEMrHumor",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0927/13544.html",
+        "pic2": "ls/SnakeLiBo.png",
+        "name2": "SnakeLiBo",
+        "num2": "2",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-24 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/yilidi.png",
+        "name1": "同福丶中华毅力帝",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0927/13544.html",
+        "pic2": "ls/yexing.png",
+        "name2": "WE衣锦夜行",
+        "num2": "1",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-24 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/walila.png",
+        "name1": "同福丶瓦莉拉",
+        "num1": "3",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0927/13544.html",
+        "pic2": "ls/zzjj.png",
+        "name2": "同福丶猪之季节",
+        "num2": "1",
+        "bot":"《炉石传说》小组赛"
+      },
+
+      {
+        "time":"09-23 14:00",
+        "title": "中国区职业预选赛 S2赛季",
+        "pic1": "ls/NewbeeNaiGod.png",
+        "name1": "NewbeeNaiGod",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0926/13523.html",
+        "pic2": "ls/saman.png",
+        "name2": "贪睡之萨满",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-23 16:00",
+        "title": "中国区职业预选赛 S2赛季",
+        "pic1": "ls/mfzf.png",
+        "name1": "魔法之风",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0926/13523.html",
+        "pic2": "ls/xiaoruoji.png",
+        "name2": "可爱小弱鸡",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-23 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/leialun.png",
+        "name1": "同福丶雷阿伦",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0926/13523.html",
+        "pic2": "ls/OMGQingQing.png",
+        "name2": "OMGQingQing",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      },
+      {
+        "time":"09-23 20:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ls/iG.TaiJi.png",
+        "name1": "iG.TaiJi",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/0926/13523.html",
+        "pic2": "ls/WEYouLove.png",
+        "name2": "WEYouLove",
+        "num2": "3",
+        "bot":"《炉石传说》小组赛"
+      }
+
+    ]
+  },
+  {
+    "type":"moshou",
+    "warList":[
+      {
+        "time":"10-04 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Yumiko0414.png",
+        "name1": "Yumiko0414",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13699.html",
+        "pic2": "ms/ColorFul.png",
+        "name2": "ColorFul",
+        "num2": "1",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-04 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Romantic.png",
+        "name1": "Romantic",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13699.html",
+        "pic2": "ms/TH000.png",
+        "name2": "TH000",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-04 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/ColorFul.png",
+        "name1": "ColorFul",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13699.html",
+        "pic2": "ms/Romantic.png",
+        "name2": "Romantic",
+        "num2": "1",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"11-12 13:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/TH000.png",
+        "name1": "TH000",
+        "num1": "3",
+        "link": "javascript:;",
+        "pic2": "ms/Yumiko0414.png",
+        "name2": "Yumiko0414",
+        "num2": "1",
+        "bot":"《魔兽争霸3》决赛"
+      },
+
+      {
+        "time":"10-03 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Xiaokk.png",
+        "name1": "Xiaokk",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13698.html",
+        "pic2": "ms/TH000.png",
+        "name2": "TH000",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-03 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/WFZ.png",
+        "name1": "WFZ",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13698.html",
+        "pic2": "ms/Yumiko0414.png",
+        "name2": "Yumiko0414",
+        "num2": "1",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-03 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/ColorFul.png",
+        "name1": "ColorFul",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13698.html",
+        "pic2": "ms/Fly.png",
+        "name2": "Fly100%",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-03 19:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Life.png",
+        "name1": "Life",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1006/13698.html",
+        "pic2": "ms/Romantic.png",
+        "name2": "Romantic",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+
+      {
+        "time":"10-02 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Xiaokk.png",
+        "name1": "Xiaokk",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/Yumiko0414.png",
+        "name2": "Yumiko0414",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-02 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/WFZ.png",
+        "name1": "WFZ",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/TH000.png",
+        "name2": "TH000",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-02 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/ColorFul.png",
+        "name1": "ColorFul",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/Romantic.png",
+        "name2": "Romantic",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-02 19:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Life.png",
+        "name1": "Life",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/Fly.png",
+        "name2": "Fly100%",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+
+      {
+        "time":"10-01 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/ColorFul.png",
+        "name1": "ColorFul",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13693.html",
+        "pic2": "ms/Life.png",
+        "name2": "Life",
+        "num2": "0",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-01 19:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Romantic.png",
+        "name1": "Romantic",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13693.html",
+        "pic2": "ms/Fly.png",
+        "name2": "Fly100%",
+        "num2": "0",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-02 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/Xiaokk.png",
+        "name1": "Xiaokk",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/Yumiko0414.png",
+        "name2": "Yumiko0414",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      },
+      {
+        "time":"10-02 16:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "ms/WFZ.png",
+        "name1": "WFZ",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1003/13694.html",
+        "pic2": "ms/TH000.png",
+        "name2": "TH000",
+        "num2": "2",
+        "bot":"《魔兽争霸3》半决赛"
+      }
+    ]
+  },
+  {
+    "type":"dota",
+    "warList":[
+
+      {
+        "time":"10-11 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LGD.png",
+        "name1": "LGD",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "dt/VG.J.png",
+        "name2": "VG.J",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-11 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/EHOME.png",
+        "name1": "EHOME",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "dt/Newbee.png",
+        "name2": "Newbee",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-12 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/VG.J.png",
+        "name1": "VG.J",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "dt/EHOME.png",
+        "name2": "EHOME",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"11-12 10:10",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/Newbee.png",
+        "name1": "Newbee",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "dt/LGD.png",
+        "name2": "LGD",
+        "num2": "1",
+        "bot":"《DOTA2》决赛"
+      },
+
+      {
+        "time":"10-09 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LGD.png",
+        "name1": "LGD",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1010/13828.html",
+        "pic2": "dt/EHOME.K.png",
+        "name2": "EHOME.K",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-09 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/iG.png",
+        "name1": "iG",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1010/13828.html",
+        "pic2": "dt/EHOME.png",
+        "name2": "EHOME",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-10 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/TongFu.png",
+        "name1": "TongFu",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "dt/Newbee.png",
+        "name2": "Newbee",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-10 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LFY.png",
+        "name1": "LFY",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "dt/VG.J.png",
+        "name2": "VG.J",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      },
+
+      {
+        "time":"10-07 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LGD.png",
+        "name1": "LGD",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1009/13817.html",
+        "pic2": "dt/Newbee.png",
+        "name2": "Newbee",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-07 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/iG.png",
+        "name1": "iG",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1009/13817.html",
+        "pic2": "dt/VG.J.png",
+        "name2": "VG.J",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-08 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/TongFu.png",
+        "name1": "TongFu",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1009/13826.html",
+        "pic2": "dt/EHOME.K.png",
+        "name2": "EHOME.K",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-08 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LFY.png",
+        "name1": "LFY",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1009/13826.html",
+        "pic2": "dt/EHOME.png",
+        "name2": "EHOME",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+
+      {
+        "time":"10-05 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/LGD.png",
+        "name1": "LGD",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1007/13701.html",
+        "pic2": "dt/TongFu.png",
+        "name2": "TongFu",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-05 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/iG.png",
+        "name1": "iG",
+        "num1": "1",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1007/13701.html",
+        "pic2": "dt/LFY.png",
+        "name2": "LFY",
+        "num2": "1",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-06 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/Newbee.png",
+        "name1": "Newbee",
+        "num1": "2",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1008/13708.html",
+        "pic2": "dt/EHOME.K.png",
+        "name2": "EHOME.K",
+        "num2": "0",
+        "bot":"《DOTA2》小组赛"
+      },
+      {
+        "time":"10-06 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "dt/VG.J.png",
+        "name1": "VG.J",
+        "num1": "0",
+        "link": "http://www.wca.com.cn/zhzx/zb/2016/1008/13708.html",
+        "pic2": "dt/EHOME.png",
+        "name2": "EHOME",
+        "num2": "2",
+        "bot":"《DOTA2》小组赛"
+      }
+    ]
+  },
+  {
+    "type":"cs",
+    "warList":[
+      {
+        "time":"10-23 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/BOF.png",
+        "name1": "BOF",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "cs/B.O.O.T.png",
+        "name2": "B.O.O.T",
+        "num2": "0",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-24 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/EHOME.png",
+        "name1": "EHOME",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/EPCSGO.png",
+        "name2": "EPCSGO",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-24 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/LGD.png",
+        "name1": "LGD",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/NEW4.png",
+        "name2": "NEW4",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"11-11 10:10",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/NEW4.png",
+        "name1": "NEW4",
+        "num1": "1",
+        "link": "javascript:;",
+        "pic2": "cs/BOF.png",
+        "name2": "BOF",
+        "num2": "2",
+        "bot":"《CS:GO》决赛"
+      },
+
+      {
+        "time":"10-23 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/EHOME.png",
+        "name1": "EHOME",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/EDG.png",
+        "name2": "EDG",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-23 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/BOF.png",
+        "name1": "BOF",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "cs/B.O.O.T.png",
+        "name2": "B.O.O.T",
+        "num2": "0",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-24 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/EHOME.png",
+        "name1": "EHOME",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/EPCSGO.png",
+        "name2": "EPCSGO",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-24 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/LGD.png",
+        "name1": "LGD",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/NEW4.png",
+        "name2": "NEW4",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      },
+
+      {
+        "time":"10-21 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/EHOME.png",
+        "name1": "EHOME",
+        "num1": "1",
+        "link": "javascript:;",
+        "pic2": "cs/Efuture.png",
+        "name2": "Efuture",
+        "num2": "1",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-21 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/BOF.png",
+        "name1": "BOF",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "cs/LGD.png",
+        "name2": "LGD",
+        "num2": "0",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-22 14:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/EDG.png",
+        "name1": "EDG",
+        "num1": "2",
+        "link": "javascript:;",
+        "pic2": "cs/EPCSGO.png",
+        "name2": "EPCSGO",
+        "num2": "0",
+        "bot":"《CS:GO》小组赛"
+      },
+      {
+        "time":"10-22 18:00",
+        "title": "中国区职业预选赛 S3赛季",
+        "pic1": "cs/B.O.O.T.png",
+        "name1": "B.O.O.T",
+        "num1": "0",
+        "link": "javascript:;",
+        "pic2": "cs/NEW4.png",
+        "name2": "NEW4",
+        "num2": "2",
+        "bot":"《CS:GO》小组赛"
+      }
+    ]
+  }
+]

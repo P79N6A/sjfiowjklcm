@@ -1,0 +1,36 @@
+main .live ul { margin-top: 25px; }
+main .live li { float: left; height: 50px; width: 229px; margin-right: 8px; background: url("../images/nav-menu-bg.jpg") repeat; text-align: center; line-height: 50px; overflow: hidden;position: relative}
+main .live li a{ width: 100%;height: 100%;display: inline-block;}
+main .live li span { height:18px;line-height:18px;background-color:red;position:absolute;left:-30px;top:8px;transform:rotate(-45deg);width:100px;text-align:center;font-size:13px}
+main .live li.active, main .live li:hover { background: url("../images/nav-menu-bg-hover.jpg") repeat; }
+main .live li:hover a { transition: transform .3s; transform: scale(1.5);}
+main .live li:last-child { margin-right: 0; }
+main .schedule { background-color: #030341; padding: 12px 12px 18px 12px; margin-top: 20px; border: 1px solid #0d2a52;}
+main .schedule h2 { text-align: center; line-height: 60px; font-size: 26px; }
+main .schedule-box { margin: 10px 0; padding:0 86px;height: 480px;position: relative}
+.focus-img {width: 100%;}
+.focus-box { width: 750px;overflow: hidden;height:480px;position: relative}
+main .schedule-box ul{position:absolute;top:0}
+main .schedule-box li{float:left;overflow: hidden;}
+main .schedule-box li,main .schedule-box li img{width:345px;height:330px;}
+
+main .live-box { width: 940px; height: 530px; }
+main .live-box #iframe { width: 100%; height: 100%; }
+main .btn-page { display: block; position: absolute; width: 32px; height: 56px; background: url("../images/icons.png") no-repeat 0 0; top: 50%; margin-top: -28px; }
+main .btn-page.prev { left: 14px; }
+main .btn-page.next { right: 18px; background-position: 0 -58px; }
+
+/*main table { width: 248px; height: 312px; color: #00f1f8; text-align: center; margin-right: 85px; float: left; table-layout: fixed; word-break: break-all; }*/
+/*main table:last-child { margin-right: 0; }*/
+/*main table th { font-size: 24px; height: 44px; line-height: 44px; background-color: #187f94; }*/
+/*main table th span { margin-left: -24%; }*/
+/*main table td { font-size: 17px; height: 54px; font-weight: bold; }*/
+/*main table td span { display: block; font-size: 17px; font-weight: bold; }*/
+/*main table td span.fs12 { font-size: 10px; -webkit-transform: scale(0.8); white-space: nowrap; margin-left: -12px; }*/
+/*main table td:first-child { width: 60px; background: rgba(16, 90, 112, 0.5); }*/
+/*main table td:last-child { width: 180px; }*/
+/*main table tr:nth-child(odd) { background-color: #11607a; }*/
+/*main table tr:nth-child(even) { background-color: #187f94; }*/
+/*main table:last-child td { height: 45px; }*/
+
+/*# sourceMappingURL=live.css.map */

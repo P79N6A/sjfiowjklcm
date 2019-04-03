@@ -1,0 +1,138 @@
+{
+  "wechat": {
+    "ts1": {
+      "qr": "/static/images/wechatQr/TS1.png?V=1205",
+      "name": "qhc85236999"
+    },
+    "ts2": {
+      "qr": "/static/images/wechatQr/TS2.jpg?V=1205",
+      "name": "qhc52111111"
+    },
+    "ts3": {
+      "qr": "/static/images/wechatQr/TS3.png?V=1205",
+      "name": "qhc54288"
+    },
+    "ts4": {
+      "qr": "/static/images/wechatQr/TS4.jpg?V=1205",
+      "name": "qhc54288"
+    },
+    "ts5": {
+      "qr": "/static/images/wechatQr/TS5.png?V=1205",
+      "name": "kkk881477"
+    },
+    "ts6": {
+      "qr": "/static/images/wechatQr/TS6.png?V=1205",
+      "name": "qhc1100"
+    },
+    "ts7": {
+      "qr": "/static/images/wechatQr/TS7.jpg?V=1205",
+      "name": "qhc725369"
+    },
+    "ts8": {
+      "qr": "/static/images/wechatQr/TS8.jpg?V=1205",
+      "name": "qhc725369"
+    },
+    "ts9": {
+      "qr": "/static/images/wechatQr/TS9.png?V=1205",
+      "name": "kkk881477"
+    },
+    "cs1": {
+      "qr": "/static/images/wechatQr/CS1.png",
+      "name": "qyqy0525"
+    },
+    "cs2": {
+      "qr": "/static/images/wechatQr/CS2.png",
+      "name": "qyqy0525"
+    },
+    "cs3": {
+      "qr": "/static/images/wechatQr/CS3.png",
+      "name": "qyqy0525"
+    },
+    "cs4": {
+      "qr": "/static/images/wechatQr/CS4.jpg",
+      "name": "qhc999888"
+    },
+    "cs5": {
+      "qr": "/static/images/wechatQr/CS5.jpg",
+      "name": "qhc999888"
+    },
+    "cs6": {
+      "qr": "/static/images/wechatQr/CS6.jpg",
+      "name": "qhc999888"
+    },
+    "cs7": {
+      "qr": "/static/images/wechatQr/CS7.jpg",
+      "name": "qhc999666"
+    },
+    "cs8": {
+      "qr": "/static/images/wechatQr/CS8.jpg",
+      "name": "qhc999666"
+    },
+    "cs9": {
+      "qr": "/static/images/wechatQr/CS9.jpg",
+      "name": "qhc999666"
+    },
+    "default": {
+      "qr": "/static/images/wechatQr/DEFAULT.png",
+      "name": "qq54288mk"
+    }
+  },
+  "welfare": {
+    "0": {
+      "free": "0",
+      "birthday": "0",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "1": {
+      "free": "8",
+      "birthday": "88",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "2": {
+      "free": "38",
+      "birthday": "188",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "3": {
+      "free": "88",
+      "birthday": "888",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "4": {
+      "free": "188",
+      "birthday": "1888",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "5": {
+      "free": "588",
+      "birthday": "2888",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "6": {
+      "free": "128",
+      "birthday": "8888",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    },
+    "default": {
+      "free": "",
+      "birthday": "",
+      "girl": "达到存款/投注额要求，赠予您指定“伴侣”",
+      "gift": "节日彩金敬请期待",
+      "fare": "请扫描右方二维码咨询您的专属客服申请"
+    }
+  }
+}

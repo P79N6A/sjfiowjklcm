@@ -1,0 +1,108 @@
+@charset "UTF-8";.center {margin:0 auto}
+.textAlign {text-align:center}
+* {margin:0;padding:0;box-sizing:border-box}
+body {font-size:18px;color:#434343;line-height:24px;font-family:"Microsoft YaHei",Verdana,Arial;overflow-x:hidden;max-width:1920px}
+ul,li {list-style:none outside none}
+a {text-decoration:none;border:none;color:#fff}
+img {border:none;vertical-align:middle}
+input {vertical-align:middle;outline:none}
+table {border-collapse:collapse}
+button {border:0;outline:none;cursor:pointer}
+i {font-style:normal}
+.sc {color:#b30bf1 !important}
+.sc2 {color:red}
+.mb30 {margin-bottom:30px}
+.w1200 {width:1200px;margin:0 auto}
+.w1100 {width:1100px;margin:0 auto}
+.w1000 {width:1000px;margin:0 auto}
+.w900 {width:900px;margin:0 auto}
+.mb150 {margin-bottom:180px}
+.mb160 {margin-bottom:215px}
+.red {color:red}
+.c-orange {color:#ff4e00 !important;padding-left:16px}
+html {max-width:1920px;margin:0 auto}
+body {max-width:1920px;margin:0 auto}
+header {width:100%;height:130px;position:relative;z-index:30}
+header .top {background-color:#ccac69;width:100%;height:50px;line-height:50px}
+header .top li {float:left}
+header nav {background-color:#fff;height:80px;width:100%}
+header nav ul {height:100%}
+header nav li {float:left;margin:0 12px;padding:28px 0px 0}
+header nav li a {color:#ccac69;font-size:20px;display:block}
+header nav li.active,header nav li:hover {padding-top:16px;border-bottom:8px solid #ff8c00;transition:0.3s;padding-bottom:28px}
+header nav li.active a,header nav li:hover a {color:#ff8c00}
+header h1 {float:left}
+header h1 img {margin-top:-44px}
+header h1 .logo_mobile {display:none}
+.login input {font-size:16px;color:#fff;height:32px;line-height:32px;text-align:center;border:none;margin:0 15px;cursor:pointer;padding:0 15px;background-color:#564017;font-size:18px}
+#regBtn {background-color:#FFE401;color:#5B450B}
+.cont {width:1200px;margin:0 auto;position:relative;z-index:2}
+.items {display:none}
+.items.active {display:block}
+#footer {background:#fff}
+.color1 {font-size:18px;font-weight:bold;color:#fffa6c}
+.color2 {color:#fffa6c}
+.mobile-part-title {height:auto;padding:20px 10px 15px}
+.mobile-part-title span {display:inline-block;padding:6px 20px;color:#291602;font-size:18px;background:#caa976;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}
+.mobile-part-text {color:#291602;padding:5px 15px}
+.red {color:red}
+.mobile-part-2 {padding-top:30px}
+.mobile-part-2 p:first-child {line-height:30px;padding:5px 0;color:#6d4e2f;font-size:22px;text-align:center}
+.mobile-part-2 p:nth-child(2) {color:#ff7300;font-size:34px;text-align:center;padding-bottom:10px}
+.mobile-part-2 img {text-align:center;margin:30px 25%}
+.mobile-btn-position {margin-left:25%}
+.mobile-title1 {color:#ff7300;font-size:26px;text-align:center;padding-bottom:10px;border-bottom:2px solid #c25700}
+.mobile-part-3 {padding:40px 0;background:#cdbc99}
+.mobile-part-4 {padding-top:40px}
+.activity-modal {width:600px;margin:0 auto;display:none}
+.modal-title-size {font-size:24px;color:#fff}
+.racing-banner {height:777px;background:url(images/banner-bg2.jpg) no-repeat center}
+.racing-stage {position:relative;height:1328px;padding-top:18%;background:url(images/bg2.jpg) no-repeat center}
+.racing-stage .page-content {overflow:hidden;width:35%;height:40px;margin:30px auto}
+.racing-stage .page-content .register-message,.racing-stage .page-content .nav,.page-check {float:left;margin:0 auto;overflow:hidden}
+.racing-stage .page-content .register-message {margin-right:8%}
+.racing-stage .page-content .page-check {color:#fff;font-size:18px;padding:5px 10px;margin-right:10px;border:2px solid #399ebc;cursor:pointer}
+.racing-stage .page-content .register-message li,.racing-stage .page-content .nav li {float:left;color:#fff;font-size:18px;padding:5px 10px}
+.racing-stage .page-content .nav li:hover,.racing-stage .page-content .nav li.active {cursor:pointer;background:#fffa6c;color:red}
+.racing-stage .page-content .register-message li {margin-right:15px}
+#page2 {display:none}
+.racing-stage .page-content .nav li {margin-right:10px;border:2px solid #399ebc}
+.table-content .award-require {width:85%;margin:0 auto;font-size:24px}
+.table-content .award-require thead tr td {padding:30px 10px;text-align:center;background:#3991bc;color:#fff}
+.table-content .award-require tbody tr td {padding:25px 10px;text-align:center;color:#fff;background:#77bcd2;border-bottom:2px solid #3991bc}
+#tribune-btn {position:absolute;height:102px;width:286px}
+/*}
+*/#tribune-btn {top:138px;left:68%;background:url(images/tribune-btn1.png) no-repeat}
+.racing-content {height:850px;padding-top:10px;background:url(images/acitivity-context.jpg) no-repeat center}
+.racing-content p {font-size:18px;color:#fff;margin-bottom:9px}
+.racing-content p.color2 {color:#fffa6c}
+.racing-content .racing-content-title {padding-top:5px;padding-bottom:10px;font-size:18px;font-weight:bold;color:#fffa6c}
+.racing-rule {height:300px;background:#2184A6}
+.racing-rule .racing-content-title {padding-top:30px;padding-bottom:10px;font-size:18px;font-weight:bold;color:#fffa6c}
+.racing-rule p {font-size:18px;color:#fff;margin-bottom:10px}
+@media (max-width:1024px) {.racing-stage {padding-top:30%;margin:0 auto}
+  .table-content .award-require {font-size:15px;width:95%}
+  .table-content .award-require thead tr td {background:#8f6a3e}
+  .table-content .award-require tbody tr td {padding:30px 10px;text-align:center;color:red;background:#f8e094;border-bottom:2px solid #fff}
+  .table-content .award-require tbody tr td:nth-child(3) {font-size:13px}
+  .racing-stage .page-content {width:71%;height:auto;margin:0 auto}
+  .racing-stage .page-content .register-message {width:100%}
+  .racing-stage .page-content .register-message li {text-align:center;margin:5px 0;width:50%}
+  /*}
+  */  #tribune-btn {left:50%;margin-left:-143px;top:8px;background:url(images/tribune-btn1.png) no-repeat}
+  .content-padding {padding-bottom:40px}
+  .content-width {width:90% !important;margin:0 auto}
+  .racing-stage {height:auto;background:#2593b9;font-size:16px}
+  .racing-stage .main-container {padding:40px 5%}
+  .racing-stage .main-container p {margin-bottom:20px}
+  .racing-stage .main-container .boat-list {height:auto}
+  .racing-stage .main-container .boat-list p {width:100%;padding-bottom:0}
+  .racing-stage .main-container .username-container {text-align:left}
+  #username {margin:10px 0}
+  .racing-content {height:auto;padding:20px 0;background:#2593b9}
+  .racing-content .racing-content-title {padding:0}
+  .racing-rule {height:auto;padding:20px 0;background:#2184A6}
+  .cont {width:90% !important}
+}
+@media (max-width:325px) {.racing-stage .page-content {width:83%;height:auto;margin:0 auto}
+}

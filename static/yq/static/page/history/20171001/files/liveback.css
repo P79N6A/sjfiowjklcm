@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+.liveback { margin: 0 auto; max-width: 1920px; }
+.liveback__footer { padding: 22px 0; text-align: center; background: #1d1a1d; color: gray; font-size: 14px; }
+.liveback__vis { background: url("../liveback/images/vis.jpg"); height: 660px; }
+.liveback__video { background: url("../liveback/images/vid.jpg"); height: 798px;
+position: relative}
+.liveback__iframe {
+    position: absolute;
+    top: 240px;
+    left: 460px;
+}
+.liveback__filter { background: #ffe8bb; min-height: 1138px; text-align: center; padding-top: 70px; }
+.liveback__gallery { padding-top: 60px; width: 1220px; margin: 0 auto; font-size: 0; text-align: left; }
+.liveback__gallery .lightbox { display: inline-block; margin: 10px; -moz-transition: all 0.4s ease; -o-transition: all 0.4s ease; -webkit-transition: all 0.4s ease; transition: all 0.4s ease; }
+.liveback__gallery .lightbox:hover { transform: scale(1.2); }
+.liveback__buttonlist { padding-top: 60px; }
+.liveback__buttonlist li { display: inline-block; margin: 0 20px; }
+.liveback__buttonlist li a { color: #fff; font-size: 24px; padding: 20px 0; width: 200px; background: #c4a974; display: block; }
+.liveback__buttonlist li a.active { background: #ff6144; }
+
+
+.fixbar{
+    position: fixed;
+    right: 35px;
+    top: 50%;
+    width: 150px;    z-index: 999;
+}
+
+

@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+.tc{text-align:center;}
+#banner{width:100%;height:232px;background:url(../images/banner/banner_help.jpg) no-repeat center top;}
+#content_bg{width:100%;overflow:hidden;background:url(../images/aboutbg1.jpg) no-repeat center top;position:relative;}
+#content_bg .content{width:1000px;overflow:hidden;margin:0 auto;background:#fff;}
+#content_bg .gongao{width:1000px;height:45px;background:url(../images/noticebg.png) no-repeat center top;margin-bottom:25px;cursor:pointer;}
+#content_bg .gongao h2{display:block;width:150px;height:45px;line-height:45px;float:left;text-align:center;margin-left:30px;}
+#content_bg .gongao h2 span{font-family:Arial;font-size:24px;font-weight:700;}
+#content_bg .gongao .list{position:relative;width:720px;height:35px;float:left;overflow:hidden;}
+#content_bg .gongao ul{display:block;width:720px;overflow:hidden;outline:1px solid red;position:absolute;top:0;left:0;}
+#content_bg .gongao ul li{display:block;width:720px;height:35px;line-height:45px;}
+#content_bg .gongao ul li:hover{text-decoration:underline;}
+#content_bg .gongao .prevnext{width:85px;height:30px;float:left;padding:15px 0 0 15px;position:relative;}
+#content_bg .gongao .prevnext span{display:block;width:12px;height:14px;float:left;}
+#content_bg .gongao .prevnext span.prev{background:url(../images/prevnext.png) no-repeat;}
+#content_bg .gongao .prevnext span.next{background:url(../images/prevnext.png) no-repeat right top;}
+.unids{display:none;} 
+#content_bg .content .main{width:980px;overflow:hidden;margin:0 auto;}
+#content_bg .content .main .left{position:relative;width:257px;float:left;}
+#content_bg .content .main .sidebar{position:relative;width:253px;overflow:hidden;float:left;border:2px solid #e6dfd8;margin-bottom:30px;padding-bottom:40px; background-color:#fff; z-index:999}
+#content_bg .content .main .sidebar h2{display:block;width:253px;height:89px;background:url(../images/helptitle01.jpg) no-repeat center top;text-indent:-9999px;margin-bottom:20px;}
+#content_bg .content .main .sidebar dl, #content_bg .content .main .sidebar .menu{display:block;width:231px;overflow:hidden;margin:0 auto;position:relative;}
+#content_bg .content .main .sidebar dl dt{position:relative;z-index:2;display:block;width:231px; height:40px; margin-bottom:3px; line-height:40px;background-color: #ccc4ba;text-align:center; font-size:16px;}
+#content_bg .content .main .sidebar dt.active{}
+#content_bg .content .main .sidebar dl dd p{height:35px; line-height:35px; font-size:14px; border-bottom:1px solid #ddd; text-align:center; cursor:pointer;}
+#content_bg .content .main .sidebar .menu p{height:40px;line-height:40px; margin-bottom:3px; background-color: #ccc4ba;text-align:center; font-size:18px; cursor:pointer;}
+#content_bg .content .main .sidebar p.this{background: url(../images/sidebarbg1.jpg) no-repeat center top;}
+#content_bg .content .main .sidebar ul li.move{position:absolute;z-index:1;height:40px; padding:0;background:url(../images/sidebarbg1.jpg) no-repeat center top;}
+#content_bg .content .main .sidebar ul li.default{color:#fff;}
+#content_bg .content .main .right{width:710px;overflow:hidden;min-height:700px;float:right;margin-bottom:30px;}
+#content_bg .content .main .right .item{display:none;}
+#content_bg .content .main .right .on{display:block;}
+#content_bg .content .main .right h2{display:block;height:60px;width:642px;line-height:60px;font-size:28px;margin-bottom:20px;border-bottom:2px solid #e1ceae;}
+#content_bg .content .main .right dl dt{color:#cc0000;font-weight:bold; font-size:21px; margin:25px 0; line-height:27px;}
+#content_bg .content .main .right dl dd{margin:0 5px 20px 5px;line-height:180%;letter-spacing:1px;}
+#content_bg .content .main .right dl dd p{color: #cc0000;}
+/*---------------------------- �һ�����
+----------------------------*/
+/*ͼ��*/
+/*.f_banner{background: url(../images/help_banner2.jpg) no-repeat center top; height: 230px;}*/
+.icon{display: inline-block; background-image: url(../images/icon/icon.png); vertical-align: middle;}
+.m_forgot{padding-top:30px; color: #8f7259; text-align: center; /*background: url(../images/forgotpwd-pngfreebg.jpg) no-repeat 88px 130px;*/}
+.m_forgot .tip{font-size: 26px; color: #fff; width: 196px; height: 40px; line-height: 40px; background: #d4b278; position: relative; margin: 0 auto 18px; text-align: center;}
+.caret{display: inline-block; height: 0; width: 0; border-top: 8px solid #d4b278; border-right: 8px solid transparent; border-left: 8px solid transparent;}
+.m_forgot .tip .caret{position: absolute; left: 94px; bottom: -8px;}
+.m_forgot h3{text-align: center; font-size: 24px; margin-bottom: 18px;}
+.way_list{background: url(../images/help/forgotpwd-icon.jpg) no-repeat; height: 340px; width: 660px; margin: 0 auto;}
+.way_list .way_item{float: left; width: 33.33%; padding-top: 68px;}
+.way_list .way_item p{font-size:18px; margin-bottom: 240px;}
+.btn{display: inline-block; line-height: 30px; height: 30px; width: 100px; color: #fff; text-align: center; background: #967f6d; font-size: 14px;}
+.btn:hover{color: #fff; background: #fa9300;}
+.ipt_row{margin-bottom: 18px;}
+.ipt_row label{display: inline-block; color: #7b7775; min-width: 100px; text-align: right; font-size: 14px; margin-right: 12px;}
+.ipt_row input[type="text"]{width: 300px; height: 38px; font-size: 18px; line-height: 38px; color: #7b7775; border: 1px solid #bfbfbf;}
+.modal.dialog_tip .modal-hd{position: relative; color: #8f7259; font-size: 26px; text-align: center; min-height: 50px; max-height:50px; line-height:50px;}
+.modal.dialog_tip .modal-bd{padding-bottom: 28px; height:230px; background:none; padding-top:20px;}
+.modal-bd .ipt_row.last{text-align: center; margin-bottom: 0;}
+.modal-bd .ipt_row .btn{height: 46px; width: 178px; background: #fa9300;}

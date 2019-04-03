@@ -1,0 +1,291 @@
+html,
+body {
+  background: #1e1e20;
+}
+
+.content {
+  width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-align {
+  align-items: center;
+}
+
+/* header */
+
+.headItem {
+  width: 100%;
+  height: 70px;
+  background: #000;
+}
+
+.headItem .headcss {
+  padding: 12px 20px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.headItem .headcss img {
+  width: 15%;
+}
+
+.headcss .textItem {
+  width: 380px;
+}
+
+.headcss .title {
+  color: #fff;
+  font-size: 14px;
+  margin-right: 60px;
+}
+
+.headcss .btn {
+  background: #2f2f2f;
+  border: 1px solid #666;
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  margin-right: 8px;
+  width: 98px;
+  height: 38px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 38px;
+}
+
+/* banner */
+.bodyItem .banner {
+  width: 100%;
+}
+
+/* tabs */
+.bodyItem .btns {
+  justify-content: space-around;
+}
+
+.bodyItem .btns .btn {
+  cursor: pointer;
+}
+
+/* time */
+.bodyItem .time {
+  color: #fff;
+  font-size: 20px;
+  margin: 40px auto;
+}
+
+/* circle */
+.bodyItem .goTime {
+  justify-content: space-around;
+}
+
+.bodyItem .goTime .cycle {
+  background: url('../images/circle.png') no-repeat;
+  background-size: cover;
+  background-position: top center;
+  width: 180px;
+  height: 180px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bodyItem .goTime .cycle .cycleTitle {
+  font-size: 30px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.bodyItem .goTime .cycle .cycleTime {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* title */
+.bodyItem .title {
+  text-align: center;
+  margin: 70px auto;
+}
+
+/* mainItem */
+.mainItem .cycleList {
+  width: 654px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.mainItem .cycleList .leftItem,
+.mainItem .cycleList .rightItem {
+  color: #fff;
+  font-size: 24px;
+}
+
+/* table */
+.mainItem .table {
+  width: 995px;
+  display: table;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+.mainItem .table thead th {
+  background: #a99358;
+  border: 1px solid #000;
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+  height: 70px;
+  line-height: 70px;
+}
+
+.mainItem .table tbody td {
+  background: #282828;
+  border: 1px solid #000;
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  height: 70px;
+  line-height: 70px;
+}
+
+.mainItem .paginations {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  color: #fff;
+}
+
+.mainItem .paginations .jumpbtn {
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: inline-block;
+  font-size: 24px;
+  color: #000;
+  cursor: pointer;
+  background: #fff;
+
+}
+
+
+/* rulesItem */
+.rulesItem {
+  width: 995px;
+  margin: 0 auto;
+}
+
+.rulesItem .tips {
+  line-height: 2;
+  font-size: 24px;
+  color: #fff;
+  text-align: left;
+}
+
+/* login */
+/* 弹窗 */
+.layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  z-index: 999;
+}
+
+.layer .toast {
+  position: relative;
+  background: #ffefd6;
+  background-size: 100% 100%;
+  width: 750px;
+  height: 510px;
+  border-radius: 4px;
+}
+
+.toast .info {
+  text-align: center;
+  padding-top: 80px;
+}
+
+.toast .info .inputs {
+  position: relative;
+  width: 500px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 20px;
+}
+
+.toast .info .inputs input {
+  border: none;
+  background: #e2c290;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  font-size: 24px;
+  text-indent: 20px;
+  outline: 0;
+}
+
+.toast .info .inputs img {
+  height: 60px;
+  width: 160px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toast .info p {
+  color: #ff0201;
+  font-size: 24px;
+  margin: 30px 0 0;
+}
+
+.toast .info .btn {
+  margin-top: 60px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.toast .info .gift {
+  -webkit-animation: pulse 0.5s linear infinite;
+  -moz-animation: pulse 0.5s linear infinite;
+  -o-animation: pulse 0.5s linear infinite;
+  -ms-animation: pulse 0.5s linear infinite;
+  animation: pulse 0.5s linear infinite;
+}
+
+.toast .info .btn:hover {
+  transform: scale(1.1);
+}
+
+.toast .close {
+  color: red;
+  font-size: 18px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  background: #ffefd6;
+  top: -70px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.toast .close:hover {
+  transform: scale(1.1);
+}

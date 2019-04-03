@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <title>奇幻城-存款送豪礼</title>
+  <link rel="stylesheet" href="css/index.css?v=3" />
+  <!--[if IE 6]>
+		<script src="js/png.js"></script>
+		<script>DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+</head>
+
+<body>
+  <div class="topHead">
+    <div class="headCont cfx">
+      <a href="/home"><img src="/static/images/base/logo-1.png" alt="" class="fl logo"></a>
+      <div class="rightPart fr">
+        <span class="spanTitle">老会员送豪礼</span>
+        <a href="/promo/index" class="backBtn">返回优惠首页</a>
+        <a href="/home" class="backBtn">返回首页</a>
+      </div>
+    </div>
+    <div class="headCont-H5" style="display:none;">
+      <a href="/promo/index" class="back-link">
+        <img src="./images/back1.png" alt="">返回
+      </a>
+      老会员送豪礼
+    </div>
+  </div>
+  <header>
+    <div>
+      <img src="./images/top1.png" alt="送豪礼">
+    </div>
+  </header>
+  <div class="a4"><img src="./images/a4.png" alt=""></div>
+  <div class="a3"><img src="./images/a3.png" alt=""></div>
+  <div class="a2"><img src="./images/a2.png" alt=""></div>
+
+  <div class="content">
+    <div class="title"><img src="./images/title2.png" alt=""></div>
+    <div class="text">
+      <h3 class="cl-y">活动内容：</h3>
+      <p>贵宾老会员满足条件为：<span class="cl-y">1注册至活动开启时满1个月及以上 2.有存款记录</span></p>
+      <p>为回馈广大用户，奇幻城特推出“贵宾老会员专享首存5重好礼”活动，老客户存款即可联系在线客服领取立即，存款越多送越多，赠送比例高达50%； 联系在线客服申请实时到账。</p>
+      <p>举例说明：如用户在4月1号12点单笔首存金额为1000元，总数红利30%，则用户需要达到的有效投注额为：</p>
+      <p>（1000+300）*25=32500</p>
+      <p> 如用户在4月8号12点前，未再次存款申请续存活动，将视为自动放弃“首存5重好礼活动”</p>
+    </div>
+    <div class="list">
+      <img src="./images/list1.png" alt="">
+      <img src="./images/list2.png" alt="">
+      <img src="./images/list3.png" alt="">
+      <img src="./images/list4.png" alt="">
+      <img src="./images/list5.png" alt="">
+    </div>
+    <div class="text" style="margin-bottom:60px;">
+      <h3 class="cl-y">活动规则：</h3>
+      <p>1.此活动不与其他活动优惠共享，只与反水优惠共享。</p>
+      <p>2.活动开启后存款联系客服参加首存，以成功参加首存活动时间起，7天内进行续存视为有效。如超过7天时间未存款参加续存，将视为自动放弃续存活动。</p>
+      <p>3.优惠礼金请在存款后联系在线客服申请，彩金会实时到账，如在存款后转入游戏前未联系在线客服申请，视为玩家主动放弃优惠，不做添加处理。</p>
+      <p>4.为了公平游戏，您在提取任何现金之前需要有效投注额达到规定的要求即可申请提款。</p>
+      <p>5.此优惠只适用于拥有一个账户的玩家，相同姓名、电话号码、地址、邮箱、支付方式及IP都只可享受一次。</p>
+      <p>6.为了避免文字的理解差异，奇幻城保留以上方案的解释权。</p>
+    </div>
+
+    <div class="title"><img src="./images/title2.png" alt=""></div>
+    <div class="footer cfx">
+      <div class="fl"><img src="./images/phone.png" alt=""></div>
+      <div class="fr right">
+        <h3 class="h3">奇幻城APP <span class="cl-y">全新上线</span></h3>
+        <p class="top-p">精彩 尽在其中</p>
+        <img src="./images/qrcode.png" alt="">
+        <div class="qcode"><img src="./images/apple.png" alt=""></div>
+        <p style="padding-top:20px;">使用二维码扫码工具或微信“扫一扫”功能 <br>即可轻松下载奇幻城APP同时兼容-安卓和IOS系统</p>
+      </div>
+    </div>
+
+    <a href="" id="cs" target="_blank"><img src="./images/chat.png" alt="" class="chat"></a>
+  </div>
+
+  <script src="/static/lib/zepto/index.js"></script>
+  <script>
+    $(function () {
+      // 客服联系方式
+      $.get('/static/ajax/info/contact.json?v=' + new Date().getTime(), function (response) {
+        $("#cs").attr('href', response.live800)
+      })
+    })
+
+  </script>
+</body>
+
+</html>

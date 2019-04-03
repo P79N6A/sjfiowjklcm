@@ -1,0 +1,676 @@
+@charset "UTF-8";
+
+html {
+    font-size: 62.5%;
+}
+
+img {
+    max-width: 100%;
+}
+
+.cf:after {
+    clear: both;
+    display: block;
+    content: "";
+    height: 0;
+    visibility: hidden;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'microsoft yahei';
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+input {
+    font-family: 'microsoft yahei';
+}
+
+a {
+    text-decoration: none;
+}
+
+* {
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.cf:after {
+    clear: both;
+    display: block;
+    content: "";
+    height: 0;
+    visibility: hidden;
+}
+
+.containerd {
+    width: 1110px;
+    margin: 0 auto;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    width: 100%;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent !important;
+}
+
+input:focus::-moz-placeholder {
+    color: transparent !important;
+}
+
+input:focus:-moz-placeholder {
+    color: transparent !important;
+}
+
+img {
+    max-width: 100%;
+}
+
+ol li {
+    list-style: decimal;
+}
+
+header {
+    width: 100%;
+    height: 130px;
+    position: relative;
+    z-index: 30;
+}
+
+header .top {
+    background-color: #ccac69;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+}
+
+header .top li {
+    float: left;
+}
+
+header nav {
+    background-color: #fff;
+    height: 80px;
+    width: 100%;
+}
+
+header nav ul {
+    height: 100%;
+}
+
+header nav li {
+    float: left;
+    margin: 0 12px;
+    padding: 28px 0px 0;
+}
+
+header nav li a {
+    color: #ccac69;
+    font-size: 20px;
+    display: block;
+}
+
+header nav li.active, header nav li:hover {
+    padding-top: 16px;
+    border-bottom: 8px solid #ff8c00;
+    transition: 0.3s;
+    padding-bottom: 28px;
+}
+
+header nav li.active a, header nav li:hover a {
+    color: #ff8c00;
+}
+
+header h1 {
+    float: left;
+}
+
+header h1 img {
+    margin-top: -44px;
+}
+
+header h1 .logo_mobile {
+    display: none;
+}
+
+.hidden-lg {
+    display: none;
+}
+
+/* 登录 登出 免费开户 */
+.login input {
+    color: #fff;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: none;
+    margin: 0 15px;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #564017;
+    font-size: 18px;
+}
+
+#regBtn {
+    background-color: #FFE401;
+    color: #5B450B;
+}
+
+.cont {
+    width: 1242px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.items {
+    display: none;
+}
+
+.items.active {
+    display: block;
+}
+
+.header-section .top {
+    max-width: 100%;
+    width: 100%;
+}
+
+#logomobilebox {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+@media only screen and (max-width: 780px) {
+    nav ul {
+        display: block;
+    }
+
+    .hidden-lg {
+        display: block;
+    }
+}
+
+@keyframes upAndDown {
+    50% {
+        top: -10px;
+    }
+}
+
+@-webkit-keyframes upAndDown {
+    50% {
+        top: -10px;
+    }
+}
+
+.pointer {
+    -webkit-animation: upAndDown .5s infinite;
+    -o-animation: upAndDown .5s infinite;
+    animation: upAndDown .5s infinite;
+}
+
+body {
+    background: #e9e9e9;
+}
+
+.tablebox {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 2px;
+    width: 1035px;
+}
+
+.tablebox th {
+    background: #bc9955;
+    padding: 15px 0;
+}
+
+.tablebox td {
+    background: #fff;
+}
+
+.tablebox .time {
+    width: 260px;
+}
+
+.tablebox .time p {
+    padding-bottom: 30px;
+}
+
+.tablebox .nice {
+    padding: 0;
+}
+
+.tablebox .total {
+    width: 260px;
+}
+
+.tablebox .app {
+    width: 260px;
+}
+
+.mobtable {
+    color: #000;
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 2px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.mobtable th {
+    background: #bc9955;
+}
+
+.mobtable td {
+    background: #fff;
+}
+
+.mobtable th, .mobtable td {
+    padding: 5px 0;
+}
+
+.girl {
+    position: absolute;
+    left: -320px;
+}
+
+.tab-content {
+    margin-bottom: 50px;
+}
+
+.appre {
+    background: #7d6132 url("./images/vis.jpg") no-repeat center top;
+    padding-top: 525px;
+}
+
+.appre__mobtip {
+    background: #e5bc65;
+    padding: 35px 0;
+    text-align: center;
+    margin-top: 5px;
+    color: #000;
+    font-size: 16px;
+}
+
+.appre__mobcon {
+    display: none;
+    background: #e1d8cb;
+    border: 13px solid #806133;
+    padding: 0 2%;
+    padding-bottom: 15%;
+}
+
+.appre__mobcon .appre__rulelist {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.appre__mobcon .rulelist {
+    color: #000;
+}
+
+.appre__mobcon .rulelist li:nth-child(2) p {
+    color: #1b53d4;
+}
+
+.appre__mobcon .rulelist span {
+    width: 7%;
+    margin-right: 1%;
+    font-size: 14px;
+    max-width: 25px;
+}
+
+.appre__mobcon .rulelist p {
+    width: 88%;
+}
+
+.appre__mobyoyo {
+    width: 66%;
+    margin: 0 auto;
+    color: #303537;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.appre__mobyoyo.left {
+    text-align: left;
+}
+
+.appre__mobtit {
+    background: #bc9955;
+    font-size: 40px;
+    color: #fff;
+    width: 92%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 30px 0;
+    text-align: center;
+    border: 1px solid #e0cb92;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    border-radius: 40px;
+}
+
+.appre__rulelist {
+    width: 780px;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 2;
+}
+
+.appre__listtext {
+    display: inline-block;
+    vertical-align: top;
+    width: 730px;
+}
+
+.appre__listicon {
+    text-align: center;
+    background: #e5bc65;
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 25px;
+    margin-right: 10px;
+}
+
+.appre__footer {
+    background: #000;
+    text-align: center;
+    color: #fff;
+    padding: 70px 0 130px 0;
+    line-height: 2;
+}
+
+.appre__footer img {
+    margin-bottom: 30px;
+}
+
+.appre__textone {
+    padding-bottom: 30px;
+}
+
+.appre__con {
+    width: 1145px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.appre__coninn {
+    padding: 20px 30px;
+    background: #fdfdfd;
+}
+
+.appre__coninntwo {
+    background: #dad1cc;
+    border: 1px solid #bc9955;
+    color: #000;
+    text-align: center;
+    padding-top: 70px;
+    font-size: 18px;
+    padding-bottom: 33px;
+}
+
+.appre__coninntwo.wine {
+    background: url("./images/wine.jpg");
+    background-size: cover;
+    padding-bottom: 460px;
+}
+
+.appre__tipblock {
+    background: #4d4338;
+    padding: 20px 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    width: 1035px;
+    margin: 5px auto;
+    color: #fff;
+}
+
+.appre__tipblock img, .appre__tipblock p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.appre__tipblock p {
+    margin-left: 10px;
+}
+
+.appre__tit {
+    font-size: 40px;
+    color: #fff;
+    background: #bc9955;
+    width: 400px;
+    padding: 30px 0;
+    text-align: center;
+    border: 1px solid #e0cb92;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    border-radius: 40px;
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    top: -22px;
+}
+
+.appre__topblock {
+    background: #c8b175;
+    border: 1px solid #bc9955;
+    height: 352px;
+    width: 1145px;
+    margin: 0 auto;
+    position: relative;
+    display: block;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 60px;
+}
+
+.appre__topblock:after {
+    position: absolute;
+    display: block;
+    content: '';
+    background: url(./images/bot.png) no-repeat center top;
+    height: 23px;
+    bottom: -23px;
+    left: 0;
+    width: 100%;
+}
+
+.appre__topul {
+    height: 100%;
+}
+
+.appre__topul li {
+    cursor: pointer;
+    background: #faf7f1;
+    width: 24.2%;
+    float: left;
+    height: 100%;
+    text-align: center;
+    padding-top: 14px;
+}
+
+.appre__topul li.active {
+    background: #eeebda;
+}
+
+.appre__topul li:hover {
+    background: #eeebda;
+}
+
+.appre__topul li:not(:last-child) {
+    margin-right: 1%;
+}
+
+.appre__topul li h2 {
+    font-size: 22px;
+    color: #000;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-bottom: 24px;
+}
+
+.appre__topul li p {
+    color: #000;
+    text-align: left;
+    width: 83%;
+    margin: 0 auto;
+}
+
+.appre__topul li .noneless {
+    color: #c00d04;
+    font-size: 14px;
+}
+
+.appre__topul li .allme {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.appre__topul li .clickfor {
+    cursor: pointer;
+}
+
+.appre__topul li .pointer {
+    position: relative;
+    top: 0;
+}
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
+@keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+
+@-webkit-keyframes slide {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(70%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+    }
+}
+
+header {
+    height: auto;
+}
+
+#navToggle li {
+    background: #fff;
+}
+
+@media only screen and (max-width: 1150px) {
+    nav.open {
+        background: #303537;
+    }
+
+    #logomobilebox {
+        background: #303537;
+    }
+
+    .appre {
+        padding-top: 57%;
+        background-size: 210%;
+    }
+
+    .appre__topblock {
+        display: none;
+    }
+
+    .js-tab-content {
+        display: none;
+    }
+
+    .appre__mobcon {
+        display: block;
+    }
+
+    .appre__footer {
+        background: #806133;
+        padding: 10px 0 30px 0;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .appre__mobtit {
+        font-size: 130%;
+        width: 77%;
+        padding: 20px 0;
+    }
+
+    .appre__mobyoyo {
+        width: 80%;
+        padding-top: 20px;
+    }
+}

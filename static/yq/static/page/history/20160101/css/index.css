@@ -1,0 +1,77 @@
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, form, ul, ol, pre, blockquote, textarea, input { margin:0; }
+ul, ol, th, td, button, textarea, input { padding:0; }
+ul, ol { list-style:none; }
+img { vertical-align:top; border:none; }
+.tc { text-align:center; }
+.tl { text-align:left; }
+.tr { text-align:right; }
+.dis { display:block; }
+.undis { display:none; }
+p{ line-height:27px;}
+.fl { float:left; }
+.fr { float:right; }
+.cl { clear:both; }
+.fb { font-weight:700; }
+.cee{ color:#ee0a55; font-weight:700;}
+a { text-decoration:none; color:#333; }
+a:hover { text-decoration:none; color:#c00; }
+body { font:12px/21px; background:#f1dcc0; color:#6f5a40; font-family: "Microsoft YaHei", "黑体", "宋体"; overflow-x:hidden;}
+#content { height:1129px; background:url(../images/bj.jpg) no-repeat top center; }
+.content { background:url(../images/bottom-bj.jpg) no-repeat bottom center; }
+.header { height:116px; background:url(../images/nav-bj.jpg) repeat-x; }
+.wp { width:1138px; margin:0 auto; position:relative; }
+.wp .logo{
+    position: absolute;
+    top: 20px;
+}
+.nav { position:absolute; right:0; top:50px; }
+.nav a { height:97px; float:left; line-height:57px; padding:0 23px; font-size:20px; color:#fff; transition: all 0.3s linear;}
+.nav a:hover, .nav a.this{ background:url(../images/nav.png) no-repeat 0 0;  }
+.neirong{ width:520px; margin-left:160px; padding-top:380px; font-size:18px; color:#6f5a40;}
+.neirong p{ line-height:37px;}
+.neirong .p1{ color:#ee0a55; font-size:24px;}
+/*现场直击*/
+#content-zj{ height:1129px; background:url(../images/bottom-bj.jpg) no-repeat bottom center; }
+.content-zj{ height:730px;  background:url(../images/bj1.jpg) no-repeat top center;}
+.w1100{ width:1100px;  margin:0 auto;  position:relative;}
+.w230, .w223{ font-size:16px; overflow:hidden; color:#fff;position:absolute;}
+.w230{ width:230px; height:230px; left:280px;top:470px; }
+.w223{ width:160px; height:137px; right:80px; top:570px;}
+.w230 span, .w223 span{ color:#ee0a55;}
+.zj p{ text-indent:2em; color:#4b2b0d;}
+/*问候奇幻城*/
+.content-wh{ height:825px;  background:url(../images/bj3.jpg) no-repeat top center;}
+.w887{ width:887px; height:510px; margin:0 auto; padding-top:295px;}
+.video{ margin:12px; position:relative;}
+.video span{ position:absolute;right:0;bottom:40px;}
+/*平面侧拍*/
+.content-cp{ height:900px;  background:url(../images/bj4.jpg) no-repeat top center;}
+.w1104{ width:1104px;  margin:0 auto; position:relative;}
+.w1104 p{ font-size:18px;}
+.bge{width:100%; height:660px;  background-color:#ee0a55; position:absolute;left:0;top:147px;}
+#focus {width:1074px; height:735px; margin:20px 0 0 15px; overflow:hidden; position:relative;  z-index: 9;}
+#focus ul {height:730px; position:absolute;}
+#focus ul li {float:left; width:1074px; height:630px; overflow:hidden; position:relative; background:#000;}
+#focus ul li div {position:absolute; overflow:hidden;}
+#focus .btnBg {position:absolute; width:800px; height:20px; left:0; bottom:0; background:#000;}
+#focus .btn {position:absolute; width:780px; height:10px; padding:5px 10px; right:0; bottom:0; text-align:right;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:25px; height:10px; _font-size:0; margin-left:5px; cursor:pointer; background:#fff;}
+#focus .btn span.on {background:#fff;}
+#focus .preNext {width:247px; height:67px; line-height:67px; border-bottom:15px solid #a61d4a; background-color:#ee0a55;  position:absolute; bottom:0; cursor:pointer; font-size:30px; color:#fff; text-align:center;transition: all 0.3s linear}
+#focus .preNext b{ font-size:26px;font-family: "Microsoft YaHei"}
+#focus .preNext:hover{ background-color:#a0083a;}
+#focus .pre {left:30%;}
+#focus .next {right:20%;}
+/*直播视频*/
+.content-zb{ height:960px;  background:url(../images/bj5.jpg) no-repeat top center;}
+.w890{width:890px; height:510px; margin:0 auto; padding-top:295px;}
+/*新年祝福*/
+.content-xn{ height:960px;  background:url(../images/bj6.jpg) no-repeat top center;}
+.iteminfos .iteminfo{ display:none; }
+.iteminfos .on{ display:block; }
+#menu{ margin:30px 0 0 160px;}
+#menu li{  width: 247px; height: 67px; float:left;margin-left:30px;  line-height: 67px; border-bottom: 15px solid #a61d4a;  background-color: #ee0a55;   cursor: pointer;  font-size: 30px; color: #fff; text-align: center; transition: all 0.3s linear; position:relative;}
+#menu li.on, #menu li:hover{ background-color:#a0083a;border-bottom: 15px solid #bd1c51;}
+#menu li img{ position:absolute;right:20px;top:10px;}
+.footer{ height:95px; padding-top:20px; background-color:#7c6c5d; overflow:hidden;}
+.footer p{ line-height:27px; color:#e4be91;}

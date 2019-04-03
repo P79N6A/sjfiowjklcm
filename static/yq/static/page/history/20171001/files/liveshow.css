@@ -1,0 +1,545 @@
+@charset "UTF-8"; /* reset==========================================*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.fixbar{
+    position: fixed;
+    right: 35px;
+    top: 50%;
+    width: 150px;    z-index: 999;
+}
+
+body {
+    font-size: 16px;
+    color: #000;
+    line-height: 24px;
+    font-family: "Microsoft YaHei", Verdana, Arial;
+    overflow-x: hidden;
+    max-width: 1920px;
+    background: #f8f8f8;
+}
+
+ul, li {
+    list-style: none outside none;
+}
+
+a {
+    text-decoration: none;
+    border: none;
+    color: #fff;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+input {
+    vertical-align: middle;
+    outline: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+button {
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+i {
+    font-style: normal;
+}
+
+/* common==========================================*/
+section {
+    position: relative;
+}
+
+.cont {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.cont2 {
+    width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+#footer {
+    background-color: #390d01;
+    color: #333;
+    line-height: 74px;
+    width: 100%;
+    position: relative;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/*#footer span {float:left;}
+*/
+html {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.hidden-md {
+    display: none;
+}
+
+.hidden-mmd {
+    display: none;
+}
+
+.hidden-lg {
+    display: none;
+}
+
+/* header==========================================*//* 登录 登出 免费开户 */
+.login input {
+    font-size: 16px;
+    color: #fff;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: none;
+    margin: 0 15px;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #564017;
+    font-size: 18px;
+}
+
+#regBtn {
+    background-color: #FFE401;
+    color: #5B450B;
+}
+
+header {
+    width: 100%;
+    height: 130px;
+    position: relative;
+    z-index: 30;
+}
+
+header .top {
+    background-color: #ccac69;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+}
+
+header .top li {
+    float: left;
+}
+
+header nav {
+    background-color: #fff;
+    height: 80px;
+    width: 100%;
+}
+
+header nav ul {
+    height: 100%;
+}
+
+header nav li {
+    float: left;
+    margin: 0 12px;
+    padding: 28px 0px 0;
+}
+
+header nav li a {
+    color: #ccac69;
+    font-size: 20px;
+    display: block;
+}
+
+header nav li.active, header nav li:hover {
+    padding-top: 16px;
+    border-bottom: 8px solid #ff8c00;
+    transition: 0.3s;
+    padding-bottom: 28px;
+}
+
+header nav li.active a, header nav li:hover a {
+    color: #ff8c00;
+}
+
+header h1 {
+    float: left;
+}
+
+header h1 img {
+    margin-top: -44px;
+}
+
+header h1 .logo_mobile {
+    display: none;
+}
+
+main {
+    background-color: #ebf0f7;
+}
+
+/*导航*/
+@media (max-width: 1200px) {
+    header h1 img {
+        margin-top: -34px;
+    }
+
+    header nav li {
+        padding: 28px 0;
+        margin: 0 7px;
+    }
+
+    header h1 .logo_pc {
+        width: 300px;
+    }
+}
+
+@media (max-width: 1000px) {
+    header h1 img {
+        margin-top: -28px;
+    }
+
+    header h1 .logo_pc {
+        width: 248px;
+    }
+
+    header nav li a {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 780px) {
+
+    .hidden-xs {
+        display: none;
+    }
+
+    .hidden-md {
+        display: block
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hidden-xs {
+        display: none;
+    }
+
+    .hidden-lg {
+        display: block;
+    }
+}
+
+/* content==========================================*/
+
+.space-1 {
+    height: 10px;
+}
+
+.space-2 {
+    height: 25px;
+}
+
+.space-3 {
+    height: 50px;
+}
+
+.red {
+    color: #ff0000;
+}
+
+strong {
+    font-size: 24px;
+}
+
+.tab-panel {
+    display: none;
+    margin: 30px;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+.title-box {
+    padding: 30px 0px;
+}
+
+#explain-bg {
+    background: url("images/top.jpg") no-repeat center, #fff;
+}
+
+#explain1 {
+    background: url("https://dn-qiniucdn.qbox.me/banner/11/liveshow.jpg") no-repeat center top;
+    height: 530px;
+    position: relative;
+}
+
+#explain2 {
+    background: url("images/left1.png") no-repeat left bottom, url("images/right1.png") no-repeat right top, url("images/top.jpg") no-repeat center top, #f9fafd;
+    position: relative;
+    padding-top: 80px;
+}
+
+#explain3 {
+    background: url("images/right2.png") no-repeat right top, #f2f2f2;
+    padding: 50px 0;
+}
+
+#explain3 p {
+    line-height: 1.8;
+}
+
+#explain4 {
+    background: url("images/left2.png") no-repeat left top, url("images/bottom-bg.png") no-repeat center top, #f9fafd;
+}
+
+#explain-rule {
+    background: #5a5a5a;
+    padding-bottom: 30px;
+    color: #ddc383;
+    border-bottom: 3px solid #b68744
+}
+
+p {
+    line-height: 2;
+}
+
+.hr {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #898989;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.title-box {
+    background: url(images/content-bg.jpg) no-repeat center;
+    height: 136px;
+    width: 1024px;
+    text-align: center;
+    color: #000000;
+    margin: 0 auto;
+    margin-left: 15px;
+}
+
+.title-box h1 {
+    color: #fff;
+    font-size: 36px;
+    padding-bottom: 10px;
+}
+
+.number {
+    width: 100px;
+    padding: 25px 0;
+}
+
+#t1 {
+    background: url(images/t1.png) no-repeat right top, url(images/content-bg.jpg) no-repeat center;
+}
+
+#t2 {
+    background: url(images/t2.png) no-repeat right top, url(images/content-bg.jpg) no-repeat center;
+}
+
+.title {
+    background: url(images/title-bg.png) no-repeat center;
+    height: 124px;
+    width: 1032px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 120px;
+    color: #977f3e;
+    margin: 0 auto;
+}
+
+.title span {
+    margin-left: 90px;
+}
+
+.sub-title {
+    padding: 30px 0;
+    text-align: center;
+    font-size: 30px;
+    color: #ddc383;
+}
+
+.white-bg {
+    background: #ffffff;
+    color: #7b7b7b;
+}
+
+.gray-bg {
+    background: #505050;
+    color: #fff;
+}
+
+#qrcode {
+    width: 300px;
+}
+
+#qrcode-detail {
+    padding-top: 50px;
+}
+
+section ul li {
+    display: block;
+    line-height: 2;
+}
+
+.brown-bg {
+    background: #bb9e66;
+}
+
+#girl-list {
+    padding-bottom: 20px;
+    background: #c4a974;
+    margin: 10px;
+}
+
+#girl-list li {
+    display: inline-block;
+    text-align: center;
+}
+
+#girl-list li img {
+    width: 200px;
+}
+
+.img-box {
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #bda271;
+}
+
+#table1 {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+#table1 td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #fff;
+    width: 25%;
+}
+
+#table1 thead td {
+    background: #c4a974;
+}
+
+#table1 tbody td {
+    background: #e8e8e8;
+}
+
+/*!效果延迟==========*/
+.ani-delay:nth-child(1) {
+    animation-delay: .2s;
+}
+
+.ani-delay:nth-child(2) {
+    animation-delay: .5s;
+}
+
+.ani-delay:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@media (max-width: 480px) {
+
+    #explain1, #explain2, #explain3, #explain4 {
+        background: none;
+        height: auto;
+    }
+
+    .cont, .cont2 {
+        width: 90%;
+    }
+
+    #explain2 {
+        background: #f9fafd;
+        padding: 0px;
+    }
+
+    #explain3 {
+        background: #f2f2f2;
+    }
+
+    #explain4 {
+        background: #f9fafd;
+    }
+
+    .title {
+        height: auto;
+        line-height: 2;
+        width: 100%;
+        background: none;
+    }
+
+    .title:before {
+        content: "<< ";
+    }
+
+    .title:after {
+        content: " >>";
+    }
+
+    .title-box {
+        width: 100%;
+        margin: 0px;
+    }
+
+    .title-box h1 {
+        padding-top: 70px;
+        line-height: 1;
+    }
+
+    #t1 {
+        background: url(images/t1.png) no-repeat right top, #c4a974;
+        height: 100%;
+    }
+
+    #t2 {
+        background: url(images/t2.png) no-repeat right top, #c4a974;
+        height: 100%;
+    }
+
+    #table1 td {
+        padding: 1px;
+        font-size: 10px;
+    }
+}
+

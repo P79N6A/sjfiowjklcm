@@ -1,0 +1,672 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-size: 18px;
+  color: #434343;
+  line-height: 24px;
+  font-family: "Microsoft YaHei", Verdana, Arial;
+  overflow-x: hidden;
+  max-width: 1920px;
+}
+ul,
+li {
+  list-style: none outside none;
+}
+a {
+  text-decoration: none;
+  border: none;
+  color: #fff;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+input {
+  vertical-align: middle;
+  outline: none;
+}
+table {
+  border-collapse: collapse;
+}
+button {
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+i {
+  font-style: normal;
+}
+.sc {
+  color: #b30bf1 !important;
+}
+.sc2 {
+  color: red;
+}
+.mb30 {
+  margin-bottom: 30px;
+}
+.w1200 {
+  width: 1200px;
+  margin: 0 auto;
+}
+.w1100 {
+  width: 1100px;
+  margin: 0 auto;
+}
+.w1000 {
+  width: 1000px;
+  margin: 0 auto;
+}
+.w900 {
+  width: 900px;
+  margin: 0 auto;
+}
+.mb150 {
+  margin-bottom: 180px;
+}
+.mb160 {
+  margin-bottom: 215px;
+}
+.red {
+  color: red;
+}
+.c-orange {
+  color: #ff4e00 !important;
+  padding-left: 16px;
+}
+/* common==========================================*/
+html {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+body {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+header {
+  width: 100%;
+  height: 130px;
+  position: relative;
+  z-index: 30;
+}
+header .top {
+  background-color: #ccac69;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+}
+header .top li {
+  float: left;
+}
+header nav {
+  background-color: #fff;
+  height: 80px;
+  width: 100%;
+}
+header nav ul {
+  height: 100%;
+}
+header nav li {
+  float: left;
+  margin: 0 12px;
+  padding: 28px 0px 0;
+}
+header nav li a {
+  color: #ccac69;
+  font-size: 20px;
+  display: block;
+}
+header nav li.active,
+header nav li:hover {
+  padding-top: 16px;
+  border-bottom: 8px solid #ff8c00;
+  transition: 0.3s;
+  padding-bottom: 28px;
+}
+header nav li.active a,
+header nav li:hover a {
+  color: #ff8c00;
+}
+header h1 {
+  float: left;
+}
+header h1 img {
+  margin-top: -44px;
+}
+header h1 .logo_mobile {
+  display: none;
+}
+/* 登录 登出 免费开户 */
+.login input {
+  color: #fff;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border: none;
+  margin: 0 15px;
+  cursor: pointer;
+  padding: 0 15px;
+  background-color: #564017;
+  font-size: 18px;
+}
+#regBtn {
+  background-color: #FFE401;
+  color: #5B450B;
+}
+.cont {
+  width: 1242px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.items {
+  display: none;
+}
+.items.active {
+  display: block;
+}
+#footer {
+  background: #fff;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  border: none;
+  color: #fff;
+}
+img {
+  border: none;
+  vertical-align: middle;
+}
+input,
+button {
+  vertical-align: middle;
+  outline: none;
+}
+header,
+footer,
+article,
+section,
+em,
+figure,
+figcaption {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  position: relative;
+  width: 100%;
+  height: 530px;
+  background: url(./images/rank.jpg) no-repeat center;
+}
+.main-body {
+  position: relative;
+}
+.act-nav {
+
+  height: 200px;
+  background: #b78f51;
+}
+.act-nav ul {
+   max-width: 1204px;
+  margin: 0 auto;
+  overflow: hidden;
+  height: 100%;
+}
+.act-nav ul li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  width: 15%;
+  margin: 0 5%;
+  height: 200px;
+  background: url("./images/nav-bg.png") no-repeat center;
+  text-align: center;
+  background-position: center top;
+}
+.act-nav ul li a {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  margin-top: 16px;
+  padding-top: 15px;
+  font-size: 34px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.2;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.act-nav ul li a.ps5 {
+  padding-top: 35px;
+}
+.act-nav ul li:hover,
+.act-nav ul li.active {
+  background: url("./images/act-nav-bg.png") no-repeat center top;
+}
+.act-time-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 607px;
+  padding: 50px;
+  background: url(./images/rule-border-bg.png) no-repeat center;
+  background-size: 100% 100%;
+}
+.act-time-container li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 33.3333333%;
+  height: 85%;
+  color: #8f6a3e;
+  padding: 0 25px;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+  border: 1px solid  transparent;
+}
+.act-time-container li:not(:last-child) {
+  margin-right: 35px;
+}
+.act-time-container li:hover {
+  border: 1px solid  #c6a47e;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+}
+.act-time-container li:hover .intro .intro-cont {
+  background: url("images/part1-hover-bg.png") no-repeat center;
+}
+.act-time-container li .intro {
+  margin-top: 20px;
+}
+.act-time-container li .intro .intro-cont {
+  width: 100%;
+  height: 227px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+  background-position: center;
+  margin-bottom: 40px;
+}
+.act-time-container li .intro .intro-cont img {
+  margin: 20px auto;
+}
+.act-time-container li .intro .intro-cont img.ps1 {
+  margin-top: 42px;
+}
+.act-time-container li .intro .intro-text {
+  line-height: 2;
+  text-align: left;
+}
+.act-time-container li .intro .intro-text1 {
+  text-align: center;
+}
+.preface {
+  text-align: center;
+}
+.preface .propaganda {
+  max-width: 791px;
+  margin: 0 auto;
+  height: 177px;
+  padding: 20px 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #ccac69;
+  line-height: 2;
+}
+.preface .propaganda h3 {
+  font-weight: bold;
+}
+.preface .pre-img {
+  position: relative;
+  bottom: -55px;
+  padding-top: 30px;
+  text-align: center;
+}
+.tab-content {
+  position: relative;
+  height: 1388px;
+  background: url(images/prize-bg.jpg) repeat 0 0;
+}
+.tab-content > section {
+  display: none;
+}
+.tab-content > section.active {
+  display: block;
+}
+.act-common .tab-title {
+  height: 210px;
+  padding: 60px 0;
+  text-align: center;
+  background: url("images/title-bg.png") no-repeat center 60px;
+}
+.act-common .tab-title span {
+  display: block;
+  line-height: 70px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+}
+.act-common .tab-context {
+  font-size: 24px;
+  font-weight: normal;
+}
+.act-common .tab1-context {
+  text-align: center;
+  margin: 60px 0;
+  font-size: 22px;
+}
+.apply-way {
+  max-width: 1204px;
+  margin: 0 auto;
+}
+.apply-way .main-content {
+  width: 1204px;
+  padding: 50px;
+  margin-bottom: 20px;
+  background: url("./images/prize-bg.jpg") no-repeat center top;
+}
+.apply-way .act-context {
+  font-size: 20px;
+  line-height: 2;
+  width: 50%;
+  margin: 0 auto 20px;
+}
+.apply-way .prize-intro {
+  padding: 20px;
+  background: #b39864;
+}
+.apply-way .prize-intro h2 {
+  font-size: 40px;
+  color: #fff;
+  line-height: 2;
+  text-align: center;
+}
+.apply-way .prize-intro ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+}
+.apply-way .prize-intro ul li {
+  position: relative;
+  width: 32.333333333%;
+  height: 210px;
+  margin-bottom: 1%;
+  padding: 25px;
+  text-align: center;
+  background: #f8f0e0;
+  color: #604934;
+  font-size: 24px;
+}
+.apply-way .prize-intro ul li:not(:nth-child(3n)) {
+  margin-right: 1%;
+}
+.apply-way .prize-intro ul li:hover {
+  background: #fff;
+}
+.apply-way .prize-intro ul li img {
+  margin-top: 10px;
+}
+.apply-way .prize-intro ul li span {
+  position: absolute;
+  bottom: 27%;
+  left: 38%;
+  font-size: 34px;
+  font-weight: bold;
+  color: #fff;
+}
+.apply-way .prize-intro ul li span.ps2 {
+  left: 44%;
+}
+.apply-way .prize-intro ul li span.ps3 {
+  left: 41%;
+}
+.ranklist-content {
+  max-width: 1204px;
+  margin: 0 auto;
+}
+#tab-rank-2{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 25px;
+  background: #b39864;
+  text-align:  center;
+  color: #fff;
+  -webkit-box-shadow: 0 10px 10px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 10px 10px rgba(0,0,0,.2);
+  box-shadow: 0 10px 10px rgba(0,0,0,.2);
+}
+#tab-rank-2 table{
+  width: 100%;
+  color: #000;
+
+}
+
+#tab-rank-2 table thead tr td{
+  color: #000;
+  text-align: center;
+  height: 50px;
+}
+
+#tab-rank-2 table tbody tr td{
+  width: 32%;
+  height: 50px;
+  text-align: center;
+  background: #fff;
+  border-bottom: 2px solid #b39864;
+
+}
+#tab-rank-2 table tbody tr td:not(:last-child){
+  border-right: 2px solid #b39864;
+  margin-right: 1%;
+}
+.pagination{
+  max-width: 1100px;
+  margin: 20px auto;
+  height: 40px;
+  color: #000;
+  text-align: center;
+}
+.pagination>a{
+  color: #000;
+   display: inline-block;
+   border: 1px solid #ff7c00;
+   padding: 5px 10px;
+}
+.pagination>select{
+  color: #000;
+  /* display: inline-block; */
+  border: 1px solid #ff7c00;
+  padding: 2px 5px;
+  font-size: 20px;
+  text-align:  center;
+}
+
+.rule {
+  max-width: 1204px;
+  margin: 0 auto;
+  position: relative;
+  height: 680px;
+}
+.rule .cont-title {
+  margin-top: 40px;
+  padding: 0;
+}
+.rule-description {
+  width: 75%;
+  margin: 20px auto 0;
+}
+.rule-description p {
+  position: relative;
+  padding-left: 22px;
+  text-align: left;
+  font-size: 18px;
+  color: #000;
+  line-height: 2;
+}
+.rule-description span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@media (max-width: 992px) {
+  .cont {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .header {
+    height: auto;
+    background-size: 100%;
+  }
+  .tab-content {
+    padding-top: 0;
+    padding-bottom: 40px;
+    height: auto;
+  }
+  .main-body {
+    background: #fff;
+    height: auto;
+  }
+  .rule-description {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .rule {
+    height: auto;
+  }
+  .rule .cont-title2 {
+    padding: 20px 0;
+  }
+  .act-nav {
+
+    height: auto;
+  }
+  .act-nav ul li {
+    width: 25%;
+    height: 65px;
+    margin: 0;
+  }
+  .act-nav ul li a {
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0;
+    padding-top: 5px;
+    text-align: center;
+    line-height: 1.2;
+    border: 1px solid #ccac69;
+    border-right: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  .act-nav ul li:hover,
+  .act-nav ul li.active {
+    background: #ccac69;
+  }
+  .act-nav ul li:hover a,
+  .act-nav ul li.active a {
+    border: 1px solid transparent;
+  }
+  .act-common .tab-title {
+    height: 80px;
+    padding: 20px 0;
+    background-size: 150% 40px;
+    background-position-y: 20px;
+  }
+  .act-common .tab-title span {
+    line-height: 40px;
+  }
+  .act-common .tab-title span {
+    font-size: 24px;
+  }
+  .act-common .tab-context,
+  .apply-way .act-context {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 20px;
+  }
+  .img-scale {
+    width: 90%;
+  }
+  .preface .propaganda {
+    width: 90%;
+    margin: 40px auto;
+    font-size: 18px;
+    background-size: 100% 100%;
+  }
+  .act-nav ul li {
+    background: gold;
+  }
+  .act-nav ul li a.ps5 {
+    padding-top: 0;
+    line-height: 65px;
+  }
+  .act-time-container {
+    display: block;
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 0 20px;
+    background: none;
+    border: 1px solid #ccac69;
+  }
+  .act-time-container li {
+    width: 100%;
+    height: auto;
+  }
+  .act-time-container li:not(:last-child) {
+    margin-right: 0;
+  }
+  .apply-way .main-content {
+    width: 90%;
+    padding: 5px;
+    height: auto;
+    margin: 0 auto;
+    background: none;
+    border: 1px solid #ccad6a;
+  }
+  .apply-way .prize-intro {
+    padding: 10px;
+  }
+  .apply-way .prize-intro h2 {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 24px;
+  }
+  .apply-way .prize-intro ul {
+    display: block;
+    margin: 0;
+  }
+  .apply-way .prize-intro ul li {
+    width: 100%;
+  }
+  .apply-way .prize-intro ul li:not(:nth-child(3n)) {
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,211 @@
+{
+    "main": [{
+        "name": "主账户",
+        "value": "MAIN"
+      },
+      {
+        "name": "副账户彩金",
+        "value": "DEPUTY"
+      }
+    ],
+    "agent": [{
+        "name": "老虎机佣金",
+        "value": "SLOT"
+      },
+      {
+        "name": "其他佣金",
+        "value": "LIVEALL"
+      }
+    ],
+    "slot": [{
+        "name": "PT国际版",
+        "value": "PT2TIGER",
+        "type": "slot"
+      }, {
+        "name": "DT老虎机",
+        "value": "DT",
+        "type": "slot"
+      },
+      {
+        "name": "MG老虎机",
+        "value": "MG",
+        "type": "slot"
+      },
+      {
+        "name": "CQ9老虎机",
+        "value": "CQ9",
+        "type": "slot"
+      },
+      {
+        "name": "SW老虎机",
+        "value": "SW",
+        "type": "slot"
+      },
+      {
+        "name": "JDB老虎机",
+        "title": "JDB",
+        "value": "JDBSLOT",
+        "type": "slot"
+      },
+      {
+        "name": "AE老虎机",
+        "value": "AMEBA",
+        "type": "slot"
+      },
+      {
+        "name": "PG老虎机",
+        "value": "PG",
+        "type": "slot"
+      },
+      {
+        "name": "TGP老虎机",
+        "value": "TGP",
+        "type": "slot"
+      },
+      {
+        "name": "RTG老虎机",
+        "value": "RTG",
+        "type": "slot"
+      },
+      {
+        "name": "PNG老虎机",
+        "value": "PNG",
+        "type": "slot"
+      },
+      
+      {
+        "name": "QT老虎机",
+        "value": "QT",
+        "type": "slot"
+      },
+  
+      {
+        "name": "NT老虎机",
+        "value": "NT",
+        "type": "slot"
+      }
+    ],
+    "live": [
+      {
+        "name": "AG真人",
+        "value": "AGIN",
+        "type": "live",
+        "href": "/gameAginReal.php"
+      },
+      {
+        "name": "申博真人",
+        "value": "SUNBET",
+        "type": "live",
+        "href": "/game/gameSUNBET.php"
+      },
+      {
+        "name": "OG真人",
+        "value": "OG",
+        "type": "live",
+        "href": "/gameOG.php"
+      },
+      {
+        "name": "BBIN真人",
+        "value": "BBIN",
+        "type": "live",
+        "href": "/game/loginBBIN.php?gameType=live"
+      },
+      {
+        "name": "DG真人",
+        "value": "DGLIVE",
+        "type":"live",
+        "href":"/game/gameDGLIVE.php?deviceType=PC"
+      }
+    ],
+    "sport": [{
+          "name": "沙巴体育",
+          "value": "SB",
+          "type": "sport",
+          "href": "/game/loginSB.php"
+        },
+        {
+          "name": "皇冠体育",
+          "value": "UG",
+          "type": "sport",
+          "href": "/game/gameUG.php?deviceType=PC"
+        },
+        {
+          "name": "BTI体育",
+          "value": "BTI",
+          "type": "sport",
+          "href": "/game/gameBTI.php"
+        }
+      ],
+  "competition": [{
+      "name": "泛亚电竞",
+      "value": "AVIA",
+      "type": "competition",
+      "href": "/game/gameAVIA.php"
+    }],
+  "lottery": [{
+        "name": "VR彩票",
+        "value": "VR",
+        "type": "lottery",
+        "href": "/game/gameVR.php"
+      },
+      {
+        "name": "IG彩票",
+        "value": "IG",
+        "type": "lottery",
+        "href": "/game/gameIG.php?gameId=1&deviceType=pc"
+      },
+      {
+        "name": "彩播彩票",
+        "value": "CB",
+        "type":"lottery",
+        "href":"/game/gameCB.php?deviceType=PC"
+      }
+    ],
+    "chess": [{
+        "name": "开元棋牌",
+        "value": "KYQP",
+        "type": "chess",
+        "href": "/game/gameKYQP.php"
+      },
+      {
+        "name": "761棋牌",
+        "value": "City761",
+        "type": "chess",
+        "href": "/game/gameCity761.php"
+      },
+      {
+        "name": "DT棋牌",
+        "value": "DTQP",
+        "type":"chess",
+        "href":"/chessHall/index/DTQP"
+      },
+      {
+        "name": "幸运棋牌",
+        "value": "LGQP",
+        "type":"chess",
+        "href":"/game/gameLGQP.php"
+      },
+      {
+        "name": "BY棋牌",
+        "value": "BY",
+        "type":"chess",
+        "href":"/game/gameBY.php"
+      }
+    ],
+  "fish":[
+    {
+      "name": "JDB捕鱼",
+      "value": "JDBFISH",
+      "type": "fish",
+      "href": "/game/gameJDBFISH.php?gameId=7-7003&isfun=0"
+    },
+    {
+      "name": "大满贯捕鱼",
+      "value": "MW",
+      "type": "fish",
+      "href": "/game/gameMW.php?gameId=1051&isfun=0&deviceType=pc"
+    }
+  ]
+
+  }
+  

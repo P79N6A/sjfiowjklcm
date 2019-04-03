@@ -1,0 +1,342 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dd,
+form,
+ul,
+ol,
+pre,
+blockquote,
+textarea,
+input {
+  margin: 0;
+}
+
+ul,
+ol,
+th,
+td,
+button,
+textarea,
+input {
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+  border: none;
+}
+
+.tc {
+  text-align: center;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tr {
+  text-align: right;
+}
+
+.dis {
+  display: block;
+}
+
+.undis {
+  display: none;
+}
+
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.cfx,
+.clear {
+  clear: both;
+  zoom: 1
+}
+
+.cfx:after,
+.clear:after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  overflow: hidden;
+  height: 0;
+  content: '.'
+}
+
+/* #滚动条
+=========*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track-piece {
+  margin: -2px;
+  background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+  min-width: 150px;
+  min-height: 150px;
+  border-radius: 10px;
+  background: #aaa;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: #555;
+}
+
+.content {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+body {
+  font-size: 14px;
+  background: #f95e12;
+  color: #000000;
+  font-family: "SimHei ";
+  overflow-x: hidden;
+  padding-bottom: 30px;
+}
+
+/* 头部 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background: #b99a5b;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 20px;
+}
+
+header img {
+  max-height: 60px;
+}
+
+/* 主体部分 */
+.show {
+  padding: 10px 0 20px;
+  background-size: 100% auto;
+}
+
+.show .box {
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px 0;
+  width: 90%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  word-break: break-all;
+}
+
+/* 主要说明 */
+
+
+.box .main {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  border-bottom: dashed 1px #f95e12;
+  padding-bottom: 10px;
+}
+
+.box .main .title {
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.box .main .red {
+  color: #f95e12;
+}
+
+.box .main .orange {
+  color: #ffa500;
+}
+
+/* 对比 */
+.picmore {
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.picmore .detail {
+  display: block;
+  margin: 5px 0;
+  text-align: left;
+  font-weight: bold;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+.picmore .detail .red {
+  color: #f95e12;
+}
+
+.pic-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.pic-table>div {
+  margin-top: 20px;
+}
+
+.pic-table>div img {
+  width: 90%;
+}
+
+.pic-table .title {
+  vertical-align: text-top;
+  line-height: 1.5;
+}
+
+.pic-table .title .red {
+  font-size: 12px;
+  color: #ff0000;
+}
+
+.pic-table .show-detail {
+  text-decoration: underline;
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* 相关信息 */
+.info {
+  margin-top: 30px;
+  font-size: 14px;
+  line-height: 1.8;
+  padding: 0 15px;
+}
+
+.info .title {
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+.info .text {
+  color: #000000;
+}
+
+.info .text .red {
+  color: #f95e12;
+}
+
+.info .text .btn {
+  display: inline-block;
+  background: #f95e12;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20em;
+  line-height: 1;
+  font-size: 12px;
+  padding: 4px 10px;
+  margin: 0 10px;
+}
+
+.info .code img {
+  width: 50%;
+}
+
+/* 弹窗 */
+.toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  padding: 40px 0;
+  display: none;
+}
+
+.toast:hover {
+  overflow: scroll;
+}
+
+.toast .btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #000000;
+  background: #fff;
+  border-radius: 20em;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.toast .pic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  max-width: 90%;
+  max-height: 100%;
+}
+
+.toast .control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 10px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  z-index: 999;
+}
+
+.toast .control img {
+  width: 30px;
+}
+
+.toast .control.pre {
+  left: 0;
+}
+
+.toast .control.next {
+  right: 0;
+}
+
+/* 底部 */
+footer {
+  width: 90%;
+  margin: 0 auto;
+  color: #fff;
+}

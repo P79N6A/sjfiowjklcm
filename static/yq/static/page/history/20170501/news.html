@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>奇幻城国际-田馥甄世界巡回演唱会</title>
+
+    <link rel="stylesheet" type="text/css" href="./files/reset.css">
+    <link rel="stylesheet" type="text/css" href="./files/common.css">
+    <link rel="stylesheet" type="text/css" href="./files/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./files/animations2.css">
+    
+    <link rel="stylesheet" type="text/css" href="./files/jplayer.css">
+    <link rel="stylesheet" type="text/css" href="./files/style.css">
+    <script type="text/javascript" src="./files/jquery-1.12.4.min.js  "></script>
+    <script type="text/javascript" src="./files/items.js  "></script>
+    
+    <script type="text/javascript" src="./files/jquery.jplayer.min.js  "></script>
+    <script type="text/javascript" src="./files/jplayer.config.js  "></script>
+    <script type="text/javascript" src="./files/jplayer.playlist.min.js  "></script>
+    <script type="text/javascript" src="./files/music.js  "></script>
+
+    <script type="text/javascript">
+        $(function(){
+            if(/AppleWebKit.*Mobile/i.test(navigator.userAgent)
+                    || /Android/i.test(navigator.userAgent)
+                    || /BlackBerry/i.test(navigator.userAgent)
+                    || /IEMobile/i.test(navigator.userAgent)
+                    || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))
+            {
+
+            } else {
+                audio();
+                setTimeout("PlaySound()", 2000);
+//                vidplay();
+            }
+        });
+
+        function vidplay() {
+            var video = document.getElementById("myvideo");
+            if (video.paused) {
+                video.play();
+            } else {
+//                video.pause();
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    
+    <div class="audio" style="position:fixed; bottom:55px;right:75px;z-index: 1000">
+        <!-- Focus Audio Player -->
+        <div class="focus-container focus-audio boxed">
+            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://dn-qiniucdn.qbox.me/hebe/m1.mp3"></audio></div>
+            <div id="jp_container_1" class="jp-audio jp-audio1" style="display: block;">
+                <div class="inner">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-controls-wrap">
+                            <div class="song_title"><div class="item-song">看淡</div><div class="item-artist"></div></div>
+                            <div class="jp-current-time">00:00</div>
+                            <div class="jp-duration">00:00</div>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar" style="width: 100%;">
+                                    <div class="jp-play-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <ul class="jp-controls clearfix">
+                                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute" style="display: none;"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-previous disabled" tabindex="1"><i class="icon iconfont">
+                                </i></a></li>
+                                <li><a href="javascript:;" class="jp-play" tabindex="1" style="display: block;"><i class="icon iconfont"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-pause" tabindex="1" style="display: none;"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-next" tabindex="1"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-stop" tabindex="1"></a></li>
+                                <li>
+                                    <a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat" style="display: none;">
+                                        <i class="icon iconfont"></i>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off" style="display: block;"><i class="icon iconfont" style="color:#ffc886"></i></a></li>
+                                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle"></a></li>
+                                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off" style="display: none;"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-playlist-toggle" tabindex="1" title="Toggle PlayList">
+                                    <i class="icon iconfont"></i></a></li>
+                            </ul>
+                            <div class="jp-volume-bar">
+                                <div class="jp-volume-bar-value" style="width: 80%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-playlist">
+                        <ul class="jp-playlist-inner" style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1"><div class="item-song">看淡</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/news.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170501/news.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">To Hebe</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170501/news.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">魔鬼中的天使</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/news.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">小幸运</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/news.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">你太猖狂</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/news.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170501/news.html" class="amazon"></a></span></div></li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./files/mobile(1).css">
+<link rel="stylesheet" type="text/css" href="./files/allInOneModal.css">
+<script type="text/javascript" src="./files/login.js  "></script>
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+
+    <header class="slide hidden-lg hidden-md">
+        <ul id="navToggle" class="burger slide">
+            <li></li><li></li><li></li>
+        </ul>
+        <div id="logomobilebox">
+            <img id="logomobile" src="/static/images/base/header_new_vip2.png">
+        </div>
+    </header>
+
+    <nav class="slide hidden-lg hidden-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="./files/trunk.css">
+<script type="text/javascript" language="javascript" src="./files/trunk.js  "></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+
+
+
+    </nav>
+
+
+    <div class="content slide">
+        <ul class="responsive">
+            <!-- header -->
+            <li class="header-section hidden-xs">
+                <header>
+                    <div class="top">
+                        <div class="cont clearfix">
+                           
+                        </div>
+
+                    </div>
+                    <nav>
+                        <div class="cont clearfix">
+                            <h1><a href="/"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_pc"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_mobile"></a></h1>
+                            <ul class="fr">
+                                
+                                
+                                <li class="active"><a href="/static/page/history/20170501/introduce.html">HEBE演唱会</a></li>
+                                
+                                
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </li>
+
+
+            <!-- body -->
+            <li class="body-section">
+                <section id="explain1">
+                    <div class="cont hidden-xs">
+                        <div id="title-box">
+                            <div class="img-box animated bounceInDown ani-delay">
+                                <img src="./files/logo2.png">
+                            </div>
+                            <div class="img-box animated rubberBand">
+                                <img src="./files/title.png">
+                            </div>
+                            
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="hidden-lg">
+                        <img src="./files/hehe.jpg">
+                    </div>
+                </section>
+            </li>
+        </ul>
+    </div>
+ </div>
+
+
+
+ <div id="floatmenu">
+    <ul>
+        <li><a href="/static/page/history/20170501/introduce.html">HEBE介绍</a></li>
+        <li><a href="/static/page/history/20170501/ticket.html">如何领票</a></li>
+        <li><a href="/static/page/history/20170501/index.html">演唱会花絮</a></li>
+        <li class="active"><a href="/static/page/history/20170501/news.html">媒体报道</a></li>
+    </ul>
+</div>
+
+
+<section id="explain2">
+    <div class="cont"></div>
+</section>
+
+
+<section id="explain3">
+    <div class="tab-list hidden-lg">
+        <ul class="cont">
+            <li class="active">媒体报道</li>
+        </ul>
+    </div>
+    <div id="maincontent" class="cont">
+        <div class="tab-list hidden-xs">
+            <ul>
+                <li class="active">媒体报道</li>
+            </ul>
+        </div>
+        <div class="img-box" style="padding-bottom:20px;">
+            <img src="./files/stit4.png">
+        </div>
+
+        <div class="tab-panel active">
+            <div class="photo">
+                <ul id="news-list">
+                    <li>
+                        <a href="http://www.cqtimes.cn/newsdetail/index/id/1931229.html" target="_blank">
+                            <div class="a1">
+                                <img src="./files/cqtimes.png">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 2017奇幻城国际独家冠名赞助HEBE田馥甄世界巡回演唱会重庆站</div>
+                                <div class="text"> 夏日的炎热无法掩盖现场所有歌迷对奇幻城国际此次赞助HEBE演唱会的全方位支持表示的感谢，无论是场地布置或广告宣传，奇幻城国际此次的力度是前所未有！ </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.sohu.com/a/146459274_794363" target="_blank">
+                            <div class="a1">
+                                <img src="./files/souhu.png">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 一同见证奇幻城国际2017震撼出击，独家冠名赞助HEBE重庆演唱会！</div>
+                                <div class="text"> 田馥甄一直凭借着个人的魅力和个性化的嗓音彻底实现文艺转型，从偶像派蜕变成倍受乐坛瞩目的实力派唱将。奇幻城国际考虑到外地歌迷不熟悉本地路况，无论是解放路或是场馆外，随处可见奇幻城国际的展架及LOGO旗帜，为外地歌迷减少了熟悉路况的时间！</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://ln.qq.com/a/20170606/045737.htm" target="_blank">
+                            <div class="a1">
+                                <img src="./files/qq2logo.png">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 见证奇幻城国际独家冠名赞助HEBE重庆站</div>
+                                <div class="text"> 天使在人间·HEBE田馥甄演唱会，全场欢呼引爆现场，奇幻城国际LOGO格外显眼！演唱会的每首歌曲都引发全场的KTV效应，尤其是演唱《我的少女时代》主题曲《小幸运》时，歌迷们自发举起奇幻城国际提供的荧光棒与歌声一起挥舞并一起大合唱。 </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://edong.house.qq.com/a/20170606/039898.htm" target="_blank">
+                            <div class="a1">
+                                <img src="./files/qq2logo.png">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 奇幻城国际2017再次回馈广大歌迷，全程赞助HEBE田馥甄重庆站</div>
+                                <div class="text"> 一直以来奇幻城国际的宗旨及理念是感恩回馈每一个人，免费为很多忠实歌迷提供此次演唱会的门票，带领大家一同给Hebe加油助威，一起倾听“天使的声音” </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://fj.news.163.com/17/0606/18/CM9204LT04418MOK.html" target="_blank">
+                            <div class="a1">
+                                <img src="./files/newlogo2.png" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 带你走进平凡，了解HEBE，了解奇幻城国际</div>
+                                <div class="text"> 不善与歌迷进行沟通的田馥甄，在奇幻城国际冠名的重庆站演唱会与歌迷互动长达20分钟，大聊本地特色火锅、探讨重庆方言等等。奇幻城国际也为此次演唱会做足了准备，现场随处可见的荧光头饰，荧光棒，与她的一次又一次的互动中交相辉映！ </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://gx.sina.com.cn/waibao/shangye/2017-06-07/detail-ifyfuzny3759892.shtml" target="_blank">
+                            <div class="a1">
+                                <img src="./files/sinalogo.png" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 新浪新闻带你走进2017奇幻城国际冠名赞助HEBE田馥甄重庆演唱会</div>
+                                <div class="text"> 歌坛“新人”田馥甄降临历史名城“重庆”多变风格，多种舞蹈搭配，引领全场与歌迷互动，high爆全场，平凡，纯真，《小幸运》带你回到过去，回忆从前！</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://hebei.ifeng.com/a/20170607/5730156_0.shtml" target="_blank">
+                            <div class="a1">
+                                <img src="./files/hebailogo.jpg" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 凤凰网带您走进Hebe田馥甄2017世界巡回演唱会重庆</div>
+                                <div class="text"> 中国最炎热的几个城市之一“重庆”让来自全国各地的歌迷热情淹没。HEBE田馥甄联手奇幻城国际带来视觉文化的音乐盛典，全场歌迷随音乐一起合唱《小幸运》，奇幻城国际独家呈现！</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.cqnews.net/html/2017-06/07/content_41862102.htm" target="_blank">
+                            <div class="a1">
+                                <img src="./files/xwdc_logo.png" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 奇幻城国际与天使HEBE邀您感受夏日的热情</div>
+                                <div class="text"> 夏日炎炎·热情不断，天使降临重庆，让您感受到热情中的一丝清凉。奇幻城国际邀您一同感受曾经的《小幸运》</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://tj.sina.com.cn/finance/cyjj/2017-06-08/1735148824.html" target="_blank">
+                            <div class="a1">
+                                <img src="./files/sinalogo.png" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 天使在人间·Hebe降临重庆·奇幻城国际邀您一同聆听天使的声音</div>
+                                <div class="text"> 历史名城重庆2017年5月27日迎来音乐界最佳“新人”田馥甄，与您一同感受音乐与舞台的魅力
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.sohu.com/a/147157892_794363" target="_blank">
+                            <div class="a1">
+                                <img src="./files/souhu.png" width="140">
+                            </div>
+                            <div class="a2">
+                                <div class="title"> 聆听天使之音·田馥甄重庆演唱会</div>
+                                <div class="text"> 奇幻城国际独家冠名HEBE田馥甄降临历史名城“成都”用天使的声音给大家带来夏日的“清凉”</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="explain4">
+
+</section>
+
+<section id="explain5">
+
+</section>
+
+
+
+
+
+<!-- footer -->
+<li class="footer-section">
+    <div id="footer">
+        <div class="cont clearfix">
+            <p class="fl"><img src="./files/flogo.png" alt=""></p>
+            <p class="fr">
+                <span>2018 版权所有奇幻城国际 www.qhc118.com</span>
+                <span>奇幻城国际由PAGCOR所授权和监管</span>
+            </p>
+        </div>
+    </div>
+</li>
+
+
+
+
+
+
+<div id="lightbox" style="display: none;">
+    <div class="lb-dataContainer">
+        <div class="lb-data">
+            <div class="lb-details">
+                <span class="lb-caption" style="display: inline;"></span>
+                <span class="lb-number"></span>
+            </div>
+            <div class="lb-closeContainer"><a class="lb-close"><img src="./files/close.png"></a></div>
+        </div>
+    </div>
+    <div class="lb-outerContainer" style="overflow: hidden; width: 1100px; height: 733px;">
+        <div class="lb-container">
+            <img class="lb-image" src="/static/page/history/20170501/news.html" style="display: inline;">
+            <div class="lb-nav" style="display: block;"><a class="lb-prev" style="display: block;"></a><a class="lb-next" style="display: block;"></a></div>
+            <div class="lb-loader" style="display: none;"><a class="lb-cancel"><img src="./files/loading.gif"></a></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="./files/gallery.js  "></script>
+<script>
+    $(function(){
+        $(".tab-list li").click(function(){
+            var ind = $(this).index();
+            $(this).addClass("active").siblings().removeClass("active");
+            $(".tab-list li").eq(ind).addClass("active").siblings().removeClass("active");
+            $(".tab-panel").eq(ind).addClass("active").siblings().removeClass("active");
+        });
+
+//        $(".zoom").each(function(){//遍历所有对象
+//            var $src=$(this).siblings("img").attr("src");
+//            $(this).attr({href:$src});
+//        });
+    });
+</script>
+
+
+<div id="lightboxOverlay" style="display: none;"></div></body></html>

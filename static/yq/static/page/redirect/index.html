@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title>正在跳转</title>
+  <link rel="stylesheet" href="/static/style/first-loading.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+
+<body>
+  <div id="first-load">
+    <!-- 首次加载时的提示 -->
+    <div class="top">
+      <p>请耐心等待，正在跳转!</p>
+      <div id="load-bar-1" class="mui-progressbar mui-progressbar-infinite"><span></span></div>
+    </div>
+    <div class="center">
+      <a href="" class="btn_index" id="cs">访问首页</a>
+    </div>
+    <div class="foot">
+      <!-- 加载的icon -->
+      <span class="lds-circle"></span>
+    </div>
+  </div>
+  <script src="/static/lib/zepto/index.js"></script>
+  <script>
+    // 读取客服联系方式
+    $.get('/static/ajax/info/config.json?v='+new Date().getTime(), function(response){
+      $("#cs").attr('href',response.appNative)
+    })
+    var redirectUrl = getQueryString("redirect");
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    }
+    // 获取url参数
+    function getQueryString(name, url) {
+      if (!url){
+        url = window.location.href;
+      }
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+      var results = regex.exec(url);
+      if (!results){
+        return null
+      }
+      if (!results[2]){
+        return '';
+      }
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  </script>
+</body>
+
+</html>

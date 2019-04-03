@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <base href=".">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>奇幻城国际-田馥甄世界巡回演唱会</title>
+
+    <link rel="stylesheet" type="text/css" href="./files/reset.css">
+    <link rel="stylesheet" type="text/css" href="./files/common.css">
+    <link rel="stylesheet" type="text/css" href="./files/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./files/animations2.css">
+    
+    <link rel="stylesheet" type="text/css" href="./files/jplayer.css">
+    <link rel="stylesheet" type="text/css" href="./files/style.css">
+    <script type="text/javascript" src="./files/jquery-1.12.4.min.js  "></script>
+    <script type="text/javascript" src="./files/items.js  "></script>
+    
+    <script type="text/javascript" src="./files/jquery.jplayer.min.js  "></script>
+    <script type="text/javascript" src="./files/jplayer.config.js  "></script>
+    <script type="text/javascript" src="./files/jplayer.playlist.min.js  "></script>
+    <script type="text/javascript" src="./files/music.js  "></script>
+
+    <script type="text/javascript">
+        $(function(){
+            if(/AppleWebKit.*Mobile/i.test(navigator.userAgent)
+                    || /Android/i.test(navigator.userAgent)
+                    || /BlackBerry/i.test(navigator.userAgent)
+                    || /IEMobile/i.test(navigator.userAgent)
+                    || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))
+            {
+
+            } else {
+                audio();
+                setTimeout("PlaySound()", 2000);
+//                vidplay();
+            }
+        });
+
+        function vidplay() {
+            var video = document.getElementById("myvideo");
+            if (video.paused) {
+                video.play();
+            } else {
+//                video.pause();
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="container">
+
+
+    
+    <div class="audio" style="position:fixed; bottom:55px;right:75px;z-index: 1000">
+        <!-- Focus Audio Player -->
+        <div class="focus-container focus-audio boxed">
+            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;"><audio id="jp_audio_0" preload="metadata" src="https://dn-qiniucdn.qbox.me/hebe/m1.mp3"></audio></div>
+            <div id="jp_container_1" class="jp-audio jp-audio1" style="display: block;">
+                <div class="inner">
+                    <div class="jp-gui jp-interface">
+                        <div class="jp-controls-wrap">
+                            <div class="song_title"><div class="item-song">看淡</div><div class="item-artist"></div></div>
+                            <div class="jp-current-time">00:00</div>
+                            <div class="jp-duration">00:00</div>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar" style="width: 100%;">
+                                    <div class="jp-play-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <ul class="jp-controls clearfix">
+                                <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute" style="display: none;"><i class="icon iconfont"></i></a></li>
+                                <li><a href="javascript:;" class="jp-previous disabled" tabindex="1"><i class="icon iconfont">
+                                </i></a></li>
+                                <li><a href="javascript:;" class="jp-play" tabindex="1" style="display: block;"><i class="icon iconfont"></i></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-pause" tabindex="1" style="display: none;"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-next" tabindex="1"><i class="icon iconfont"></i>
+                                </a></li>
+                                <li><a href="javascript:;" class="jp-stop" tabindex="1"></a></li>
+                                <li>
+                                    <a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat" style="display: none;">
+                                        <i class="icon iconfont"></i>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off" style="display: block;"><i class="icon iconfont" style="color:#ffc886"></i></a></li>
+                                <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-shuffle" tabindex="1" title="shuffle"></a></li>
+                                <li><a href="javascript:;" class="jp-shuffle-off" tabindex="1" title="shuffle off" style="display: none;"></a>
+                                </li>
+                                <li><a href="javascript:;" class="jp-playlist-toggle" tabindex="1" title="Toggle PlayList">
+                                    <i class="icon iconfont"></i></a></li>
+                            </ul>
+                            <div class="jp-volume-bar">
+                                <div class="jp-volume-bar-value" style="width: 80%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-playlist">
+                        <ul class="jp-playlist-inner" style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="1"><div class="item-song">看淡</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/introduce.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170501/introduce.html" class="amazon"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">To Hebe</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a class="free-dl" target="_blank" href="/static/page/history/20170501/introduce.html"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">魔鬼中的天使</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/introduce.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">小幸运</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/introduce.html" class="buy"></a></span></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="1"><div class="item-song">你太猖狂</div><div class="item-artist"></div></a><span class="ap-jp-song-url"><a target="_blank" href="/static/page/history/20170501/introduce.html" class="itunes"></a><a target="_blank" href="/static/page/history/20170501/introduce.html" class="amazon"></a></span></div></li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./files/mobile(1).css">
+<link rel="stylesheet" type="text/css" href="./files/allInOneModal.css">
+<script type="text/javascript" src="./files/login.js  "></script>
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+
+    <header class="slide hidden-lg hidden-md">
+        <ul id="navToggle" class="burger slide">
+            <li></li><li></li><li></li>
+        </ul>
+        <div id="logomobilebox">
+            <img id="logomobile" src="/static/images/base/header_new_vip2.png">
+        </div>
+    </header>
+
+    <nav class="slide hidden-lg hidden-md">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="./files/trunk.css">
+<script type="text/javascript" language="javascript" src="./files/trunk.js  "></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->
+
+<ul>
+    <li><a href="/"><img id="logo-menu" src="/static/images/base/header_new_vip2.png"></a></li>
+
+    
+    <script>
+        function clickFunc(){
+            window.location.href = window.location.href;
+        }
+    </script>
+</ul>
+
+
+
+
+    </nav>
+
+
+    <div class="content slide">
+        <ul class="responsive">
+            <!-- header -->
+            <li class="header-section hidden-xs">
+                <header>
+                    <div class="top">
+                        <div class="cont clearfix">
+                            <ul class="fr login">
+                                
+                                
+                                
+                            </ul>
+                        </div>
+
+                    </div>
+                    <nav>
+                        <div class="cont clearfix">
+                            <h1><a href="/"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_pc"><img src="/static/images/base/header_new_vip2.png" alt="" class="logo_mobile"></a></h1>
+                            <ul class="fr">
+                                
+                                
+                                <li class="active"><a href="/static/page/history/20170501/introduce.html">HEBE演唱会</a></li>
+                                
+                                
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </li>
+
+
+            <!-- body -->
+            <li class="body-section">
+                <section id="explain1">
+                    <div class="cont hidden-xs">
+                        <div id="title-box">
+                            <div class="img-box animated bounceInDown ani-delay">
+                                <img src="./files/logo2.png">
+                            </div>
+                            <div class="img-box animated rubberBand">
+                                <img src="./files/title.png">
+                            </div>
+                            
+                                
+                            
+                        </div>
+                    </div>
+
+                    <div class="hidden-lg">
+                        <img src="./files/hehe.jpg">
+                    </div>
+                </section>
+            </li>
+        </ul>
+    </div>
+ </div>
+
+
+ <div id="floatmenu">
+    <ul>
+        <li class="active"><a href="/static/page/history/20170501/introduce.html">HEBE介绍</a></li>
+        <li><a href="/static/page/history/20170501/ticket.html">如何领票</a></li>
+        <li><a href="/static/page/history/20170501/index.html">演唱会花絮</a></li>
+        <li><a href="/static/page/history/20170501/news.html">媒体报道</a></li>
+    </ul>
+</div>
+
+                <section id="explain2">
+                    <div class="cont hidden-xs">
+                        <ul id="video-list">
+                            <li class="li">HEBE风采</li>
+                            <li class="li">奇幻城风采</li>
+                            <li class="li active">奇幻城独家视频</li>
+                            <li class="li">演唱会外景</li>
+                        </ul>
+                    </div>
+                    <div class="cont hidden-xs">
+                        <div class="tab-panel" style="background: #000">
+                            <video controls="" class="myvideo" controlslist="nodownload">
+                                <source src="https://dn-qiniucdn.qbox.me/hebe.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="tab-panel">
+                            <video controls="" class="myvideo" controlslist="nodownload">
+                                <source src="https://dn-qiniucdn.qbox.me/hebe/QY_04.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="tab-panel active"><iframe height="600" width="1000" src="./files/XMjgwNzQ0OTI4MA==.html" frameborder="0" allowfullscreen=""></iframe></div>
+                        <div class="tab-panel">
+                            <video controls="" class="myvideo" controlslist="nodownload">
+                                <source src="https://dn-qiniucdn.qbox.me/hebe/qy_history.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                    </div>
+                    <div class="cont hidden-lg">
+                        <img id="girl" src="./files/girl.jpg">
+                    </div>
+                </section>
+
+                <section id="explain3">
+                    <div class="cont">
+
+                    </div>
+                </section>
+
+                <section id="explain4">
+                    <div id="banner" class="cont" data-index="0">
+                        <div class="hidden-xs">
+                            <div class="img-box item animated flipInX active">
+                                <img src="./files/banner1.png">
+                            </div>
+                            <div class="img-box item animated flipInX">
+                                <img src="./files/banner2.png">
+                            </div>
+
+                            <div id="swiper-button-next" class="swiper hidden-xs"></div>
+                            <div id="swiper-button-prev" class="swiper hidden-xs"></div>
+                        </div>
+                        <div class="hidden-lg">
+                            <div class="img-box item active">
+                                <img src="./files/banner1.png">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="explain5" class="index">
+                    <div class="cont">
+                        <div class="img-box">
+                            <img id="hebeimg" src="./files/hebe.png">
+                        </div>
+
+                        <div id="leftlight" class=" hidden-xs">
+                            <img src="./files/left-light.png">
+                        </div>
+                        <div id="rightlight" class=" hidden-xs">
+                            <img src="./files/right-light.png">
+                        </div>
+                    </div>
+                </section>
+
+            
+
+            <!-- footer -->
+            <li class="footer-section">
+                <div id="footer">
+                    <div class="cont clearfix">
+                        <p class="fl"><img src="./files/flogo.png" alt=""></p>
+                        <p class="fr">
+                            <span>2018 版权所有奇幻城国际 www.qhc118.com</span>
+                            <span>奇幻城国际由PAGCOR所授权和监管</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        
+    
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $(function(){
+        carousel();
+
+        var $iframe = "<iframe height=600 width=1000 src='https://player.youku.com/embed/XMjgwNzQ0OTI4MA==' frameborder=0 allowfullscreen></iframe>";
+        $("#video-list li.li").click(function(){
+
+            $(".myvideo").stop();
+
+           var $that = $(this);
+           var ind = $(this).index();
+
+//            if(ind == 2) {
+//                return false;
+//            }
+
+           $that.addClass("active").siblings().removeClass("active");
+           $(".tab-panel").eq(ind).addClass("active").siblings().removeClass("active");
+
+
+            $(".myvideo").load();
+
+            if(ind == 2){
+                $(".tab-panel").eq(2).html($iframe);
+            } else {
+                $(".tab-panel").eq(2).html("");
+            }
+        });
+    });
+
+    function carousel(){
+
+        var that = this;
+        var Timer = "";
+
+        var $carousel  = $("#banner .item");
+        var $banner    = $("#banner");
+//        var $menu_item = $("#banner-box li");
+
+        var $carousel_next = $("#swiper-button-next");
+        var $carousel_prev = $("#swiper-button-prev");
+
+        this.init = function(){
+            $banner.data("index", 0);
+            that.setTimer();
+            that.setEvent();
+        },
+
+        this.setBanner = function(ind){
+            $banner.data("index", ind);
+            $carousel.eq(ind).addClass("active").siblings().removeClass("active");
+//            $menu_item.eq(ind).addClass("active").siblings().removeClass("active");
+        },
+
+        this.getIndex = function(type){
+            var ind = $banner.data("index");
+            var num = 2;
+
+            if(type == "next"){
+                ind = ind + 1;
+            }
+
+            if(type == "prev"){
+                ind = ind - 1;
+            }
+
+            if(ind > (num-1)){
+                ind = 0;
+            }
+
+            if(ind < 0){
+                ind = (num-1);
+            }
+
+            return ind;
+        },
+
+        this.clearTimer = function(){
+            clearInterval(that.Timer);
+        },
+
+        this.setTimer = function(){
+            // auto
+            that.Timer = setInterval(function(){
+                var ind = that.getIndex("next");
+                that.setBanner(ind);
+            }, 4000);
+        },
+
+        this.setEvent = function(){
+            // click prev
+            $carousel_prev.on("click", function(){
+                that.clearTimer();
+                var ind = that.getIndex("prev");
+                that.setBanner(ind);
+                that.setTimer();
+            });
+
+            // click next
+            $carousel_next.on("click", function(){
+                that.clearTimer();
+                var ind = that.getIndex("next");
+                that.setBanner(ind);
+                that.setTimer();
+            });
+        }
+
+        this.init();
+    }
+</script>
+
+</body></html>

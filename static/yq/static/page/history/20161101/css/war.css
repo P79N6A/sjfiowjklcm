@@ -1,0 +1,64 @@
+main .nav-menu { line-height: 88px; background: url("../images/nav-menu-bg-hover.png") repeat; height: 94px; padding-bottom: 8px; }
+
+main .nav-menu li { float: left; width: 188px; line-height: 88px; height: 88px; text-align: center; background: url("../images/nav-menu-bg.jpg") repeat; }
+main .nav-menu li a { text-indent: -9999px; font-size: 0; }
+main .nav-menu li.active { background: url("../images/nav-menu-bg-hover.png") repeat; }
+
+main .nav-menu-box { position: relative; margin-top: 14px; }
+
+main .btn-page { display: block; position: absolute; width: 32px; height: 56px; background: url("../images/icons.png") no-repeat 0 0; top: 50%; margin-top: -28px; }
+
+main .btn-page.prev { left: -52px; }
+
+main .btn-page.next { right: -52px; background-position: 0 -58px; }
+
+main .nav-menu-item .focus-box { width: 940px; height: 325px; overflow: hidden; position: relative; }
+.nav-menu-item {display: none }
+main .nav-menu-item .focus-box ul { position: absolute; top: 0;}
+main .nav-menu-item .focus-box ul li { width: 222px; height: 325px; padding: 10px; margin-right: 16px; float: left; overflow: hidden; text-align: center; border-bottom: 5px solid #c5c100; background-color: #164f5c; background-image: url("../images/season-item-bg.png"); cursor: auto; }
+main .nav-menu-item .focus-box ul li:hover .time { color: #e1dd10; }
+main .nav-menu-item .focus-box ul li:hover .bot a { color: #e1dd10; }
+main .nav-menu-item .focus-box ul .time, main .nav-menu-item .focus-box ul title { font-size: 12px; line-height: 22px; }
+main .nav-menu-item .focus-box ul .time { padding-top: 15px; }
+main .nav-menu-item .focus-box ul .mid { position: relative; display: -moz-box; display: -webkit-box; margin-top: 18px; }
+main .nav-menu-item .focus-box ul .mid .troop { position: relative; z-index: 2000; width: 72px; float: left; }
+main .nav-menu-item .focus-box ul .mid .pic { width: 74px; height: 74px; border-radius: 50%; margin: 0px auto; }
+main .nav-menu-item .focus-box ul .mid .pic img { width: 74px; height: 74px; }
+main .nav-menu-item .focus-box ul .mid .name { margin: 14px auto; font-size: 12px; text-align: center; overflow: hidden; display: -webkit-box; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 30px;line-height: 12px;margin-bottom: 0}
+main .nav-menu-item .focus-box ul .mid .num { width: 35px; height: 50px; line-height: 50px; display: inline-block; font-size: 20px; color: #fff; border-radius: 10px; background-color: rgba(96, 133, 140, 0.6); }
+main .nav-menu-item .focus-box ul .mid .vs { position: relative; z-index: 2000; float: left; width: 57px; margin-top: 15px; -moz-box-flex: 1; -webkit-box-flex: 1; -ms-box-flex: 1; box-flex: 1; line-height: 20px; }
+main .nav-menu-item .focus-box ul .mid .vs .vs_style { font-size: 18px; display: inline-block; margin-top: 10px; margin-bottom: 0; }
+main .nav-menu-item .focus-box ul .mid .vs a span { width: 50px; height: 30px; line-height: 30px; font-size: 14px; margin-top: 90px; display: inline-block; border-radius: 10px; background-color: rgba(96, 133, 140, 0.6); }
+main .nav-menu-item .focus-box ul .bot a { margin-top: 15px; font-size: 18px; padding: 0 10px; display: inline-block; }
+
+main .season .nav-menu { margin-top: 35px; line-height: 88px; height: 88px; }
+
+main .season .nav-menu li { position: relative; }
+
+main .item-list li:hover img { transition: transform .3s; transform: scale(1.12); }
+
+.war { margin-top: 16px; }
+.war h3 { line-height: 42px; font-size: 14px; color: #c5c100; width: 100%; border-bottom: 5px solid #d3dcf9; position: relative; margin-bottom: 20px; }
+.war h3 span { display: block; width: 224px; height: 5px; background-color: #c5c100; position: absolute; left: 0; bottom: -5px; }
+.war .war-box { width: 535px; }
+.war .live-show { width: 100%; height: 300px; }
+.war #iframe { width: 100%; height: 100%; }
+.war .more { margin-top: 10px; width: 100%; position: relative; }
+.war .more .more-show { width: 532px; height: 71px; position: relative; overflow: hidden; }
+.war .more .more-show ul { height: 71px; top: 0; }
+.war .more li { width: 126px; height: 71px; border: 2px solid transparent; margin-right: 9px; overflow: hidden; position: relative; float: left;cursor: pointer }
+.war .more li:last-child { margin-right: 0;}
+.war .more li.active { border-color: #c5c100; }
+.war .more li a, .war .more li img, .war .more li p { width: 100%; height: 100%; }
+.war .more li p { position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.6); text-align: center; padding: 6px; }
+.war .more li p span { display: block; font-size: 12px; line-height: 18px; }
+.war .more li p span:nth-child(2) { color: #c5c100; }
+.war .more .btn-page.next { right: -12px; }
+.war .war-img-box { width: 386px; height: 381px; overflow: hidden; position: relative; }
+.war .war-img-box li, .war .war-img-box img { width: 386px; }
+.war .war-img-box li { float: left; height: 381px; }
+.war .war-img-box .dots { position: absolute; width: 100%; left: 0; bottom: 20px; text-align: center; }
+.war .war-img-box .dots li { display: inline-block; width: 12px; height: 12px; background-color: #ccc; border-radius: 50%; cursor: pointer;float:none;text-indent: -9999999px;    margin: 0 2px; }
+.war .war-img-box .dots li.active { background-color: #c5c100; }
+
+/*# sourceMappingURL=war.css.map */

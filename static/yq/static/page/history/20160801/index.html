@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <base href=".">
+        
+        <title>奇幻城国际-AG赌王大賽</title>
+        <link rel="stylesheet" type="text/css" href="./css/reset.css">
+        <link rel="stylesheet" type="text/css" href="./css/agchallenge.css">
+        <script src="./js/jquery18.js"></script>
+        <script src="./js/items.js"></script>
+    </head>
+
+    <body>
+        <div id="contain"> 
+
+            <div class="top">
+                <div class="nav container">
+                    <div class="logo"><a href="/"><img src="/static/images/base/logo.png"></a></div>
+                    <div class="menu"> 
+                        <ul> 
+                            <li class="active"><a href="#" target="_blank">AG赌王大賽</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- banner -->
+            <div class="banner">
+                <div class="container">
+                    <div class="row title"></div>
+                    
+                    <div class="coin tc">
+                        免费参与<br>坐满开赛
+                        <img src="./images/coin.png">
+                    </div>
+                    <div class="could"></div>
+                </div>                 
+            </div>
+
+
+            <!-- part1 -->  
+            <div class="bg1">
+                <div class="container">
+                    <p class="tc">基于最受欢迎的百家乐游戏，迎合当前网络最火爆的Sit and Go (坐满即玩)比赛方<br>式，以公平透明的比赛规则为玩家呈现最具娱乐性的线上百家乐比赛。</p>
+                    <h1 id="list1" class="tc effect tit">如何参赛</h1>
+                    <p class="tc">该活动所有奇幻城用户，免费报名，先到先得</p>
+                    <h1 class="tc effect tit line">总奖金</h1>
+                    <p class="tc">本次比赛活动总奖金</p>
+                    <p class="tc"><img src="./images/ten-million.png"></p>
+                </div> 
+            </div> 
+
+            <!-- part2 -->
+            <div class="container clear">
+                <h1 id="list2" class="tc tit effect">比赛流程</h1>
+                <p>
+                    </p><ul class="step">
+                        <li>
+                            <div class="tip">步骤1</div>
+                            <div class="tit">进入AG百家乐<br>比赛大厅</div>
+                        </li>
+                        <li>
+                            <div class="tip">步骤2</div>
+                            <div class="tit">选择比赛赛场<br>报名参赛</div>
+                        </li>
+                        <li>
+                            <div class="tip">步骤3</div>
+                            <div class="tit" style="margin-top:-13px;">人满开赛</div>
+                            <div class="txt">等报名参赛人次达到<br>指定人数要求</div>
+                        </li>
+                        <li>
+                            <div class="tip">步骤4</div>
+                            <div class="tit" style="margin-top:-13px;">进行中</div>
+                            <div class="txt">第一轮&gt;第二轮&gt;第三轮<br>(根据比赛场轮次晋级)</div>
+                        </li>
+                        <li>
+                            <div class="tip">步骤5</div>
+                            <div class="tit">比赛后结果即时<br>公布并派彩</div>
+                        </li>
+                    </ul>
+                <p></p>
+                <h1 id="list3" class="tc tit effect">赛场设定</h1>
+                <p class="tc">本次活动将另设置4场不同人数及奖金数额的比赛场。</p>
+                <h1 id="list4" class="tc tit effect">奖金发放</h1>
+                <p class="tc">所有用户在所参与的比赛场中所获得的奖金会即时到账用户所在的AG游戏户口，<br>无需等待，无需审核。</p>
+                <div class="card"><img src="./images/card.png"></div>
+                <div class="coins"><img src="./images/coins.png"></div>
+            </div>
+
+            <!-- footer -->
+            <div id="footer" class="clear">
+                <div class="container">
+                    <div class="tc">
+                        <p>建议浏览版本：IE8.0以上解析度1024x768 版权所有 2016 奇幻城国际</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-list">
+                <h1 class="tc">比赛介绍</h1>
+                <ul>
+                    <li><a href="#list1">如何参赛</a></li>
+                    <li><a href="#list2">比赛流程</a></li>
+                    <li><a href="#list3">赛场设定</a></li>
+                    <li><a href="#list4">奖金发放</a></li>
+                </ul>
+                <h1 class="tc">比赛规则</h1>
+                <ul class="bottom">
+                    <li><a href="#list5">比赛规则</a></li>
+                    <li><a href="#list6">注意事项</a></li>
+                </ul>
+            </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./css/mobile.css">
+<link rel="stylesheet" type="text/css" href="./css/allInOneModal.css">
+<!-- <script type="text/javascript" src="./images/login.js.下载"></script> -->
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+
+<script type="text/javascript">   
+    $(function(){
+        $("ul.nav li").click(function(){
+            var index = $(this).index();  
+            if(index != 2){
+                $(this).addClass('active').siblings().removeClass('active');
+                $("ul.nav li a").removeClass('active');
+                $(this).find("a").addClass('active');
+                
+                $(".item").removeClass('active');
+                $(".item").eq(index).addClass('active');
+            }
+        });
+        
+        $(".list ul li").click(function(){
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $(".result .table1").removeClass('active');
+            $(".result .table1").eq(index).addClass('active');
+        });
+    }); 
+</script> 
+
+
+</body></html>

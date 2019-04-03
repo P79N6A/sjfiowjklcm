@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>奇幻城-流水排行榜</title>
+  <link rel="stylesheet" href="./css/mobile.css">
+  <link rel="stylesheet" href="./css/reset.css">
+
+  <script type="text/javascript" src="./js/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      if (
+        /AppleWebKit.*Mobile/i.test(navigator.userAgent) ||
+        /Android/i.test(navigator.userAgent) ||
+        /BlackBerry/i.test(navigator.userAgent) ||
+        /IEMobile/i.test(navigator.userAgent) ||
+        /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/
+        .test(
+          navigator.userAgent
+        )
+      ) {
+        // window.location.href = "./mobile.html";
+      } else {
+        window.location.href = "./index.html";
+
+      }
+    });
+
+  </script>
+</head>
+
+<body>
+  <div class="headItem">
+    <div class="content flex flex-align headcss">
+      <img src="/static/images/base/logo.1.png" alt="">
+      <div class="textItem">
+        <a href="/" class="btn">返回优惠首页</a>
+        <a href="/promo/index" class="btn">返回首页</a>
+      </div>
+    </div>
+  </div>
+  <div class="banner">
+    <img src="./images/banner_h5.gif" alt="">
+  </div>
+  <div class="bodyItem">
+    <div class="content">
+      <div class="btns flex flex-align">
+        <a href="#mainItem" class="btn">
+          <img src="./images/btn1.png" alt="">
+        </a>
+        <a href="#rewardItem" class="btn">
+          <img src="./images/btn2.png" alt="">
+        </a>
+        <a href="#rulesItem" class="btn">
+          <img src="./images/btn3.png" alt="">
+        </a>
+      </div>
+      <div class="time">活动时间：2019年4月8日起，每个自然周为一期活动</div>
+      <div class="goTime flex flex-align">
+
+      </div>
+      <div class="title" id="mainItem">
+        <img src="./images/title1.png" alt="">
+      </div>
+      <div class="mainItem">
+        <div class="cycleList flex flex-align">
+          <div class="leftItem">
+            第
+            <select name="" id="select">
+
+            </select>
+            期
+          </div>
+          <div class="rightItem">
+            您在第<span class="cycleNum"></span>期总排名“第<span class="ranking">请登录</span>名”
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>排行</th>
+              <th>玩家账号</th>
+              <th>投注流水额</th>
+              <th>计算周期</th>
+            </tr>
+          </thead>
+          <tbody class="tbody">
+
+          </tbody>
+        </table>
+        <div class="paginations">
+          共<span class="totals"></span>条，每页<span class="size">10</span>条，当前第<span class="pageindex"></span>页
+          <br>
+          <br>
+          <a href="javascript:void(0);" class="jumpbtn prev">上一页</a>
+          <a href="javascript:void(0);" class="jumpbtn next">下一页</a>
+        </div>
+      </div>
+      <div class="title" id="rewardItem">
+        <img src="./images/title2.png" alt="">
+      </div>
+      <div class="rewardItem">
+        <img src="./images/mobile/gifts.jpg" alt="">
+      </div>
+      <div class="title">
+        <img src="./images/title3.png" alt="">
+      </div>
+      <div class="rulesItem" id="rulesItem">
+        <p class="tips">1、活动时间：2019年4月8日起，每个自然周为一期活动</p>
+        <p class="tips">
+          2、计算AG/BBIN/DG/OG/申博百家乐真人平台有效投注额，流水排行榜以次日下午16点更新后为准。例如：A会员4月8号在百家乐真人平台投注15万，4月9号16点之前显示的数据会有偏差，16点之后显示的数据将会是准确数据。
+        </p>
+        <p class="tips">3、每期活动结束后，会在下周一的18点前派发彩金，彩金将会派发至副账户，10倍流水倍数；获得现金与实体奖品的会员，请您保持手机畅通，将会有专员致电与您确认相关信息。</p>
+        <p class="tips">
+          4、我们坚决打击套利玩家，如发现用户拥有超过一个账户，包括同一姓名，同一邮箱，同一/相似IP地址，同一住址，同一银行卡，同一电脑等其他任何不正常投注行为，系统将自动判定账号安全等级不足，将无法申请到此项优惠。我们将有权冻结账号并收回盈利。
+        </p>
+        <p class="tips">5、关联账号不可重复参加；任何会员以任何不诚实手段，包括但不限于对赌、冒充、伪造身份、合谋作弊等参加本活动，违规者会取消该等用户任何领奖资格并不需事先作任何通知。</p>
+        <p class="tips">6、奇幻城国际保留对本次活动的修改、修订和最终解释权，以及在无通知情况下修改本次活动的权利。</p>
+      </div>
+    </div>
+    <!-- 中奖 -->
+    <div class="layer to-login" style="display:none;">
+      <div class="toast login-box">
+        <span class="close j-close-login">关闭</span>
+        <div class="info">
+          <div class="inputs">
+            <input id="j-account" placeholder="请输入用户名" />
+          </div>
+          <div class="inputs">
+            <input id="j-password" placeholder="请输入登陆密码" type="password" />
+          </div>
+          <div class="inputs">
+            <input style="width:70%;" id="j-imageCode" placeholder="请输入验证码" />
+            <img src="" class="j-code-img" />
+          </div>
+          <div><img src="./images/btn4.png" class="btn j-post-login" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" value="7" class="rankId">
+</body>
+
+</html>

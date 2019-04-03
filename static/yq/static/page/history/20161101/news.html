@@ -1,0 +1,276 @@
+
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>奇幻城国际-新闻报道</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="css/common.css?v=1227">
+    <link rel="stylesheet" href="css/news.css">
+    <script src="./js/lib/jquery18.js"></script>
+    <script src="./js/items.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="top">
+        <div class="head" style="width: 1200px;margin:0 auto;">
+            <div class="logo"><a href="/"><img src="/static/images/base/logo.png"></a></div>
+
+            
+        </div>
+    </div>
+    <div class="cont">
+        <h1>
+            
+            <a href="/" ><img src="images/text-new.png" alt="" class="slideDown">奇幻城国际</a>
+        </h1>
+        
+    </div>
+</header>
+<nav>
+    <ul class="cont clearfix">
+
+        <li><a href="./about.html">关于wca</a></li>
+        <li><a href="./introduce.html">队伍介绍</a></li>
+        <li><a href="./live.html">直播赛事</a></li>
+        <li><a href="./war.html">S3赛季战报</a></li>
+        <li class="active"><a href="./news.html">新闻报道</a></li>
+        <li><a href="./index.html" style="position: relative"><i class="sprite-HOT floating-hot"></i>wca精彩集锦</a></li>
+    </ul>
+</nav>
+
+<main class="cont">
+    <ul class="news-name clearfix" id="j-gameNav">
+        <li class="area">新闻专区</li>
+        <li class="active" data-game-type="slotGames" href="#tab-all"><a href="javascript:;">全部消息</a><i></i></li>
+        <li><a href="javascript:;">最新消息</a><i></i></li>
+        <li><a href="javascript:;">赛事战</a><i></i></li>
+        <li><a href="javascript:;">新闻报道</a><i></i></li>
+    </ul>
+    <div class="news-box">
+        <div class="news-section" id="items"></div>
+
+        <div class="page clearfix">
+            <div class="page-item clearfix page1">
+                <p class="fl record">记录总数：<span class="page-total">23</span>页数：<span class="total">1/23</span></p>
+                <div id="pager1" class="fr"></div>
+            </div>
+            <div class="page-item page2" style="display: none">
+                <p class="fl record">记录总数：<span class="page-total">18</span>页数：<span class="total">1/18</span></p>
+                <div id="pager2" class="fr"></div>
+            </div>
+            <div class="page-item page3" style="display: none">
+                <p class="fl record">记录总数：<span class="page-total">5</span>页数：<span class="total">1/5</span></p>
+                <div id="pager3" class="fr"></div>
+            </div>
+            <div class="page-item page4" style="display: none">
+                <p class="fl record">记录总数：<span class="page-total">12</span>页数：<span class="total">1/12</span></p>
+                <div id="pager4" class="fr"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="cont clearfix">
+        <h1 class="fl"><a href="/"><img src="images/logo.png" alt=""></a></h1>
+        <p class="fr">版权所有<a href="/">奇幻城国际</a> <a href="/">qhc118.com</a>   奇幻城国际牌照NO.174，由菲律宾政府卡格扬河经济特区所授权和监管</p>
+    </div>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./css/mobile.css?v=2" />
+<link rel="stylesheet" type="text/css" href="./css/allInOneModal.css?v=3" />
+<!-- <script type="text/javascript" src="/js/login.js?v=8"></script> -->
+
+<div class="modal" id="allInOneModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+        // 加載作業
+        $("#allInOneModal").on('show.bs.modal', function(){
+            var $body = $(this).find(".modal-body").attr("id");
+            switch($body){
+                case "loginModalBody":
+                    $("#loginname").focus();
+                    break;
+                case "registerModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/register.js?v=3777', true);
+                    break;
+                case "registerChkModalBody":
+                    $("#validateCodeRegister").val("");
+                    $("#getRegisterTryCode").show();
+                    $("#imgRegisterTryCode").hide();
+                    break;
+                case "forgetpasswordModalBody":
+                    $.getScript('/js/forgetpassword.js?v=0901', true);
+                    $.getScript('//js.touclick.com/js.touclick?b=68aca137-f3c5-457b-87a4-8a46880b1e66', true);
+                    break;
+                case "agentRegisterModalBody":
+                    $("#loginnameRegister").focus();
+                    $.getScript('/js/agentRegister.js?v=67', true);
+                    break;
+            }
+        });
+    });
+
+</script>
+<script src="js/pager.js"></script>
+
+
+<script id="tpl" type="text/x-handlebars-template">
+    <div class="news-info clearfix" data-index="{{index}}" style="display: none">
+        <div class="fl new-img">
+            <img src="images/news/{{pic}}" alt="">
+            <p>{{type}}</p>
+        </div>
+        <div class="fr new-text">
+            <h3>{{title}}</h3>
+            <p class="text-info"><span>{{text}}</span></p>
+            <p class="time"><i></i>{{time}}</p>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript">
+
+    $(function() {
+        newsList();
+    })
+
+    function newsList() {
+        var tplhtml=$('#tpl').html(),
+                $cont=$('#items'),
+                $nav=$('#j-gameNav'),
+                $navItem=$nav.find('li'),
+                newsList;
+
+        $.getJSON('js/news.json?v=1209', function(data){
+            newsList=data;
+            nav();
+            $navItem.eq(0).trigger('click');
+            $('.news-section .news-item').eq(0).addClass('active in');
+        });
+
+        function nav(){
+            builHtml(newsList);
+            $navItem.on('click',function(e){
+                if($(this).index() != 0) {
+                    $(this).addClass("active").siblings().removeClass("active");
+                    $('.news-section .news-item').eq($(this).index()-1).addClass('active in').siblings().removeClass('active in');
+                    $('.page .page-item').eq($(this).index()-1).show().siblings().hide();
+                }
+
+            });
+        }
+        function builHtml(data){
+            var dataList,html=[];
+            dataList=data;
+
+            for(var i = 0; i < dataList.length; i++) {
+
+                var type = dataList[i].type;
+                var typeNewsList = dataList[i].newsList;
+
+                html.push('<div id="tab-'+type+'" class="news-item tab_panel fade">');
+
+                for(var j = 0; j < typeNewsList.length; j++){
+                    var obj = typeNewsList[j];
+                    var _index = Math.ceil(j / 5)
+                    //if(obj.state!=1) continue; //不显示状态不可以用的数据
+
+                    html.push(tplhtml
+                            .replace(/\{\{index\}\}/g,_index)
+                            .replace(/\{\{pic\}\}/g,obj.pic)
+                            .replace(/\{\{type\}\}/g,obj.type)
+                            .replace(/\{\{title\}\}/g,obj.title)
+                            .replace(/\{\{text\}\}/g,obj.text)
+                            .replace(/\{\{link\}\}/g,obj.link)
+                            .replace(/\{\{time\}\}/g,obj.time));
+                }
+
+
+                html.push('</div>');
+            }
+            $cont.html(html.join(''));
+
+
+            $('.news-info .text-info span').each(function(){
+                var maxwidth=110;
+                if($(this).text().length>maxwidth){
+                    $(this).text($(this).text().substring(0,maxwidth));
+                    $(this).html($(this).html()+'…');
+                }
+            });
+            page($('#tab-all .news-info'),$("#pager1"),$('.page1 .total'),23);
+            page($('#tab-new .news-info'),$("#pager2"),$('.page2 .total'),18);
+            page($('#tab-game .news-info'),$("#pager3"),$('.page3 .total'),5);
+            page($('#tab-report .news-info'),$("#pager4"),$('.page4 .total'),12);
+            function  page(obj,pager,pageTotal,page) {
+//                var $newsItems = $('#tab-all .news-info');
+                var $newsItems = obj;
+                var $pager = pager;
+                var $total = pageTotal;
+
+                for(var i = 0; i < $newsItems.length;i++) {
+                    if ($newsItems.eq(i).attr('data-index') == 1) {
+                        var n = i;
+                        $newsItems.eq(n).show();
+                    }
+                }
+
+                $pager.pager({ pagenumber: 1, pagecount: page, buttonClickCallback: PageClick});
+
+                function PageClick (pageclickednumber) {
+                    $pager.pager({ pagenumber: pageclickednumber, pagecount: page, buttonClickCallback: PageClick });
+
+                    for(var i = 0; i < $newsItems.length;i++) {
+                        var num = i;
+
+                        if ($newsItems.eq(i).attr('data-index') == pageclickednumber) {
+                            $newsItems.eq(num).show();
+                        }
+                        if ($newsItems.eq(i).attr('data-index') != pageclickednumber) {
+                            $newsItems.eq(num).hide();
+                        }
+                    }
+                    $total.html(pageclickednumber + '/'+ page);
+                }
+            }
+
+        }
+
+
+    }
+</script>

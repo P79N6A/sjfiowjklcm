@@ -1,0 +1,871 @@
+@CHARSET "UTF-8";
+
+body {
+    margin-top: -22px !important;
+}
+
+.cl {
+    clear: both;
+}
+
+.tc {
+    text-align: center;
+}
+
+.c9 {
+    color: #ab9275;
+    font-weight: 700;
+}
+
+.cf5 {
+    color: #f50000;
+    font-weight: 700;
+}
+
+.mt12 {
+    margin-top: 7px;
+}
+
+.content {
+    padding-top: 22px;
+}
+
+/* 轮播 */
+#banner {
+    position: relative;
+    width: 100%;
+    max-height: 530px;
+    /*min-height: 330px;*/
+    text-align: center;
+}
+#banner .loading{
+    vertical-align: middle;
+}
+
+#banner .ei-slider {
+    width: 100%;
+    max-width: 1920px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#banner .ei-slider-loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: url(../images/lhtbg.jpg);
+    color: #fff;
+    text-align: center;
+    line-height: 541px;
+}
+
+#banner .ei-slider-large {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#banner .ei-slider-large li {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+#banner .ei-slider-large li img {
+    width: 100%;
+}
+
+#banner .ei-title {
+    position: absolute;
+    right: 50%;
+    margin-right: 13%;
+    top: 30%;
+}
+
+#banner .ei-title h2, .ei-title h3 {
+    text-align: right;
+}
+
+#banner .ei-title h2 {
+    font-size: 40px;
+    line-height: 50px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #b5b5b5;
+}
+
+#banner .ei-title h3 {
+    font-size: 70px;
+    line-height: 70px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-transform: uppercase;
+    color: #000;
+}
+
+#content_bg {
+    background: #f1f1f1;
+    overflow: hidden;
+}
+
+/* 最新消息 */
+#banner .news {
+    width: 100%;
+    height: 51px;
+    position: absolute;
+    top: 0;
+}
+
+/* 轮播导航 */
+
+.slick-dots li {
+    width: 16.6%;
+    float: left;
+    text-align: center;
+}
+
+.slick-dots li a {
+    display: block;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.slick-slide {
+    /*max-height: 513px;*/
+}
+.slick-slide a img{
+    width: 100%;
+    max-height: 530px;
+}
+
+
+.slick-dots li :hover, .slick-dots li.slick-active {
+    background: #b48c68;
+    color: #fff;
+}
+
+/* top_section */
+.top_section .download {
+    width: 330px;
+}
+
+/* 下载区快 */
+.download .app_part {
+    width: 165px;
+    height: 150px;
+    position: relative;
+    background: #b48c68;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    transition: all .5s
+}
+
+.download .down_part {
+    width: 165px;
+    height: 150px;
+    position: relative;
+    background: #b59f85;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    transition: all .5s
+}
+
+.download .app_part:hover, .download .down_part:hover {
+    background: #ff5555;
+    transition: all .5s
+}
+
+.download .down_part .icon-dailijiameng, .download .app_part .icon-shoujiAppxiazai {
+    font-size: 62px
+}
+
+.top_section .jackpots {
+    width: 850px;
+    height: 150px;
+    position: relative;
+    margin: 0 0 0 20px;
+    background: url(../images/jackpot_in1.jpg) center no-repeat,
+    url(../images/jackpot_out1.jpg) no-repeat;
+}
+
+.top_section .jackpots.light {
+    background: url(../images/jackpot_in1.jpg) center no-repeat,
+    url(../images/jackpot_out2.jpg) no-repeat;
+}
+.top_section .jackpots .jackpot-title{
+    float: left;
+    margin: 47px 1% 47px 12.5%;
+}
+.top_section .jackpots #j-jackpotCount {
+    float:left;
+    font-weight: 600;
+    letter-spacing: 4px;
+    font-size: 50px;
+    color: #fff;
+    line-height: 150px;
+}
+
+.top_section .jackpots .jackpots_bar {
+    position: absolute;
+    right: -60px;
+    top: -5px;
+}
+
+.top_section .jackpots .jackpots_model {
+    position: absolute;
+    left: -40px;
+    top: -32px;
+}
+
+.section_title {
+    padding-left: 20px;
+    background: #b48c68;
+    line-height: 50px;
+    color: #fff;
+    position: relative;
+}
+
+.section_title i {
+    margin-right: 3px;
+}
+
+/* mid_section */
+.mid_section {
+    margin: 20px 0;
+    position: relative;
+    z-index: 2;
+}
+.mid_section .fly-icon{
+    display: none;
+    position: absolute;
+    left:218px;
+    top:-66px;
+    z-index: 20;
+}
+.mid_section .forum {
+    width: 330px;
+    height: 223px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.mid_section .forum_icon {
+    width: 25px;
+    height: 25px;
+    margin: 12px 10px 0 0;
+    fill: #fff;
+}
+
+.mid_section .bg-more_icon {
+    width: 20px;
+    height: 5px;
+    position: relative;
+    margin: 25px 18px 0 0;
+    background: url(../images/content_sprites.png) -10px -10px;
+}
+
+/* 论坛 */
+.mid_section .forum .j-f1List {
+    padding: 0px 14px 18px;
+    color: #787876;
+}
+
+.mid_section .forum .j-f1List li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px dotted;
+}
+
+.mid_section .forum .s1 {
+    width: 70%;
+    margin-right: 18px;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+}
+
+.mid_section .forum .s2 {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.mid_section .game_list {
+    width: 850px;
+    height: 223px;
+    margin: 0 0 0 20px;
+    background: #fff;
+}
+
+.game_content {
+    padding: 0 16px;
+}
+
+.game_list .bg-game_list_icon {
+    width: 20px;
+    height: 20px;
+    margin: 12px 10px 0 0;
+    background: url(../images/content_sprites.png) -10px -75px;
+}
+
+.game_list .game_tab li {
+    height: 20px;
+    margin: 16px -12px 0 15px;
+    padding: 0 12px;
+    line-height: 20px;
+    color: #fff;
+}
+
+.game_list .game_tab li.last_item {
+    margin-right: 10px;
+}
+
+.game_list .game_tab li.on, .game_list .game_tab li:hover {
+    background: #fff;
+    border-radius: 15px;
+    color: #b48c68;
+}
+
+.game_list .arrow {
+    width: 15px;
+    height: 153px;
+    margin: 0 7px;
+    position: relative;
+    font-size: 21px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.game_list .bg-arrow_left {
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: url(../images/arrow_sprites.png) -10px -10px;
+}
+
+.game_list .bg-arrow_right {
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: url(../images/arrow_sprites.png) -45px -10px;
+}
+
+.game_list .left-items {
+    width: 788px;
+    overflow: hidden;
+    position: relative;
+    z-index: 99;
+}
+
+.game_list #items {
+    height: 153px;
+    padding: 0;
+    position: relative;
+    left: 0;
+    padding: 0;
+}
+
+.game_list #items .item {
+    width: 100%;
+    height: 174px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    left: 32px;
+    top: 0;
+}
+
+.game_list #items .on {
+    z-index: 200;
+}
+
+.game_list #items dl {
+    width: 114px;
+    margin: 20px 8.5px;
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+
+.game_list dl dt {
+    overflow: hidden;
+}
+
+.game_list #items .dl-pic {
+    width: 366px;
+    margin-left: 20px;
+    background-color: #171a27;
+}
+
+.game_list .gamename1 {
+    width: 100%;
+    height: 110px;
+    position: absolute;
+    left: 0;
+    top: -100%;
+    padding-top: 0;
+    background: rgba(0, 0, 0, .5);
+    -webkit-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+    text-align: center;
+    color: #fff;
+    font: 400 16px/38px "Microsoft Yahei";
+}
+
+.game_list dl:hover .gamename1 {
+    top: 0;
+}
+
+.game_list .gamename1 .play {
+    display: block;
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    background: #fd4747;
+    margin: 18px auto 16px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.game_list .gamename1 .play:hover {
+    background: #e13f3f;
+}
+
+.game_list .gamename1 .btn-try {
+    display: block;
+    width: 75px;
+    height: 30px;
+    line-height: 30px;
+    background: #b48c68;
+    margin: 0 auto;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.game_list .gamename1 .btn-try:hover {
+    background: #997759;
+}
+
+.game_list .gamename2 h3 {
+    font-size: 14px;
+    text-align: center;
+    color: #000;
+}
+
+/* bottom_section */
+.bottom_section {
+    margin-top: 20px;
+}
+
+.winner_list {
+    width: 330px;
+    background: #fff;
+}
+
+.winner_list .bg-winner_icon {
+    width: 21px;
+    height: 20px;
+    margin: 12px 10px 0 0;
+    background: url(../images/content_sprites.png) -10px -115px;
+}
+
+.winner_list .slide-group .bd {
+    padding: 0 30px;
+}
+
+.winner_list .topLoop {
+    height: 540px !important;
+    overflow: hidden;
+}
+
+.winner_list .infoList li {
+    height: 100px !important;
+    padding: 20px 20px 0;
+    border-bottom: 2px solid #f1f1f1;
+}
+
+.winner_list .infoList li .gamepic {
+    width: 66px;
+    height: 66px;
+    float: left;
+    margin-right: 15px;
+}
+
+.winner_list .infoList li .gamepic img {
+    max-width: 100%;
+}
+
+.winner_list .infoList li .wintext {
+    width: 200px;
+    text-align: left;
+    float: left;
+    font-size: 12px;
+}
+
+.winner_list .infoList li .wintext span {
+    color: red;
+}
+
+.game_group {
+    margin: 0 0 0 20px;
+}
+
+.game_group a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.game_group .slot_game {
+    width: 850px;
+    height: 200px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game_group .live_casino {
+    width: 559px;
+    height: 180px;
+    margin-right: 21px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game_group .sports_events {
+    width: 270px;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game_group .fishing_game {
+    width: 850px;
+    height: 180px;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game_group > div .group_content {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.game_group .slot_game .group_content {
+    background-image: url(../images/slot_game.jpg);
+}
+
+.game_group .live_casino .group_content {
+    background-image: url(../images/live_casino.jpg);
+}
+
+.game_group .sports_events .group_content {
+    background-image: url(../images/sports_events.jpg);
+}
+
+.game_group .fishing_game .group_content {
+    background-image: url(../images/fishing_game.jpg);
+}
+
+.game_group > div > div:hover .group_content {
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.game_group .group_content:before {
+    content: "";
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.game_group > div > div:hover .group_content:before,
+.game_group > div > div:hover .item_list,
+.game_group > div > div:hover .sports_in {
+    display: block;
+}
+
+.game_group .sports_in {
+    width: 140px;
+    height: 40px;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fd4747;
+    font-size: 16px;
+    color: #fff;
+    line-height: 40px;
+
+}
+
+.game_group .group_content .radius_btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 99em;
+    border: 1px solid #fff;
+    font-size: 18px;
+    line-height: 64px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: all .5s ease;
+
+}
+
+.game_group .group_content .item_list {
+    display: none;
+    position: relative;
+    text-align: center;
+}
+
+.game_group .item_list .item {
+    position: relative;
+    padding-top: 50px;
+    color: #fff;
+    font-size: 14px;
+}
+.game_group .item_list .fish-item:not(:last-child){
+    margin-right: 64px;
+}
+.game_group .live_casino li {
+    margin: 0 15px;
+}
+
+.game_group .slot_game li {
+    margin: 0 13px;
+}
+
+.game_group .group_content li:hover .radius_btn {
+    background: #fd4747;
+    border: 1px solid #fd4747;
+    transform: rotate(360deg);
+    transition: transform .5s ease;
+
+}
+
+#modal-activity .modal-dialog {
+    width: 947px;
+    height: 571px;
+    background: none;
+    margin: 50px auto;
+}
+
+#modal-activity .modal-dialog .close {
+    position: relative;
+    top: -571px;
+    right: -649px;
+    width: 65px;
+    height: 65px;
+    cursor: pointer;
+    float: left;
+}
+
+#modal-activity .huodong-box {
+    position: relative;
+    padding: 143px 11px 11px 11px;
+    width: 100%;
+    height: 100%;
+}
+#modal-activity .huodong-box .quick-login{
+    margin-right:11px;
+    margin-left: 4px;
+    padding: 22px 22px 0;
+}
+.com-title{
+    margin: 5px auto;
+    font-size: 24px;
+    font-weight: bold;
+    color: #af9663;
+    text-align: center;
+}
+#modal-activity .huodong-box .quick-login>div{
+    margin-bottom: 8px;
+}
+#modal-activity .huodong-box .quick-login>div input{
+    border: 1px solid #af9663;
+    padding: 2px;
+}
+.login-btn-container{
+    display: inline-block;
+    width: 42%;
+    margin-left: 5%;
+    cursor: pointer;
+}
+.last_item{
+    text-align: right;
+}
+.quick-promotion{
+    padding: 12px;
+}
+.quick-promotion .pro-intro li{
+   margin-bottom: 6px;
+    border-radius: 5px;
+}
+
+.login-btn-container>a{
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #fff;
+    background: #af9663;
+    border: none;
+}
+#modal-activity .huodong-box .huodong-box-text {
+    width: 480px;
+    height: 270px;
+    overflow: hidden;
+    float: left;
+}
+
+#modal-activity .huodong-box .huodong-box-text h3 {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 15px 10px 0;
+    color: #af9663;
+}
+
+#modal-activity .huodong-box .huodong-box-text .text1 {
+    height: 210px;
+    overflow: auto;
+    color: #640004;
+    line-height: 35px;
+    font-size: 16px;
+}
+
+#modal-activity .browser {
+    position: absolute;
+    left: 20px;
+    top: 262px;
+}
+
+#modal-activity .browser a {
+    width: 145px;
+    height: 38px;
+}
+
+#modal-activity .reg-tip {
+    position: absolute;
+    top: 434px;
+    left: 350px;
+    width: 350px;
+    line-height: 1.6;
+    height: 128px;
+    padding-top: 20px;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+#modal-activity .reg-tip .icon-tip {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    border: 4px solid #ed7b1a;
+}
+
+#modal-activity .reg-tip .icon-tip span {
+    display: block;
+    width: 44px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid #fff;
+    background: #ed7b1a;
+    color: #fff;
+    padding-top: 8px;
+}
+
+#modal-activity .reg-tip .tishi-tip {
+    padding: 5px;
+    overflow: hidden;
+    height: 80px;
+    color: #fff;
+}
+
+#j-forum-enter {
+    position: absolute;
+    right: -35px;
+    top: -80px;
+}
+
+.slideshow img {
+    width: 100%;
+}
+
+/*12.8优化领取按钮*/
+.float-close{
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    z-index: 999;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.prize-container{
+    position:fixed;
+    left:0;
+    z-index:999;
+}
+.position1{
+    top:22%;
+}
+
+.position2{
+    top:44%;
+}
+
+.position3{
+    top:66%;
+}
+
+.position4{
+    top:88%;
+}
+
+#j-forum-enter{
+    display:none;
+}
+
+#modal-activity{
+    display: none;
+    margin-top: -25px;
+}

@@ -1,0 +1,53 @@
+{
+  "message": "操作成功",
+  "data": [{
+    "betAmt": "15",
+    "gameName": "三倍猴子",
+    "link": "javascript:void(0);",
+    "platform": "PT",
+    "prize": "18.00",
+    "prizeTime": "2018-06-20 17:05",
+    "userName": "ji***"
+  }, {
+    "betAmt": "12",
+    "gameName": "西部劫匪",
+    "link": "javascript:void(0);",
+    "platform": "QT",
+    "prize": "15820.00",
+    "prizeTime": "2018-06-20 10:45",
+    "userName": "jk***"
+  }, {
+    "betAmt": "10",
+    "gameName": "元素",
+    "link": "javascript:void(0);",
+    "platform": "NT",
+    "prize": "1220.00",
+    "prizeTime": "2018-06-20 10:44",
+    "userName": "ji***"
+  }, {
+    "betAmt": "15",
+    "gameName": "年年有余",
+    "link": "javascript:void(0);",
+    "platform": "PT",
+    "prize": "1452.00",
+    "prizeTime": "2018-06-20 10:44",
+    "userName": "ja***"
+  }, {
+    "betAmt": "12",
+    "gameName": "金库甜心",
+    "link": "javascript:void(0);",
+    "platform": "MG",
+    "prize": "15450.00",
+    "prizeTime": "2018-06-20 10:44",
+    "userName": "wo***"
+  }, {
+    "betAmt": "10",
+    "gameName": "福禄寿",
+    "link": "javascript:void(0);",
+    "platform": "DT",
+    "prize": "155220.00",
+    "prizeTime": "2018-06-20 10:43",
+    "userName": "wo***"
+  }],
+  "code": "10000"
+}
