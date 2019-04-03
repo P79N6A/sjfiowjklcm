@@ -1,36 +1,44 @@
 <template>
   <div class="item-container">
-    <div>
-      <!-- <span>
-        <el-select v-model="filterData.device" placeholder="请选择终端类型">
-          <el-option label="PC" value="PC"></el-option>
-          <el-option label="MOBILE" value="MOBILE"></el-option>
-        </el-select>
-      </span>-->
-      <span>
-        <el-select v-model="filterData.platform" placeholder="请选择游戏平台">
-          <el-option
-            :label="item.name"
-            :value="item.value"
-            v-for="item in platformList"
-            :key="item.value"
-          ></el-option>
-        </el-select>
-      </span>
-      <!-- <span>
-        <el-button type="warning" icon="el-icon-search" @click="getList">搜索</el-button>
-      </span>-->
+    <div style="padding:20px 10px;background:#eee;">
       <span>
         <el-button type="danger" @click="handleCreate">添加游戏</el-button>
       </span>
       <span>
         <el-button type="danger" @click="handleSort">保存生效</el-button>
       </span>
-
-      <!-- <span>
-        <el-button type="danger" @click="dialogInsertVisible=true" icon="el-icon-edit">导出</el-button>
-      </span>-->
     </div>
+
+    <el-form
+      label-position="right"
+      label-width="80px"
+      :model="filterData"
+      style="background:#eee;padding:10px;"
+    >
+      <!-- <el-form-item label prop="platform"> -->
+      <el-radio-group v-model="platformType" size="mini">
+        <el-radio-button label="SLOT">老虎机</el-radio-button>
+        <el-radio-button label="LIVE">真人</el-radio-button>
+        <el-radio-button label="CHESS">棋牌</el-radio-button>
+        <el-radio-button label="LOTTERY">彩票</el-radio-button>
+        <el-radio-button label="FISH">捕鱼</el-radio-button>
+        <el-radio-button label="SPORT">体育</el-radio-button>
+        <el-radio-button label="ESPORT">电竞</el-radio-button>
+      </el-radio-group>
+      <br>
+      <br>
+      <!-- </el-form-item> -->
+      <!-- <el-form-item label="平台：" prop="platform"> -->
+      <el-radio-group v-model="filterData.platform" size="mini">
+        <el-radio-button
+          :label="item.value"
+          v-for="item in platformList"
+          :key="item.value"
+          v-show="item.platformType==platformType"
+        >{{item.name}}</el-radio-button>
+      </el-radio-group>
+      <!-- </el-form-item> -->
+    </el-form>
     <br>
     <br>
     <el-table
@@ -230,7 +238,7 @@
                 >还原</el-button>
               </el-button-group>
             </td>
-            <td>游戏名称:</td>
+            <td>名称:</td>
             <td>
               <div v-if="editName">
                 <input :placeholder="editItem.game.name" v-model="editItem.value.name">
@@ -250,12 +258,11 @@
                 <el-button type="danger" size="mini" @click="editItem.value.name=''">还原</el-button>
               </el-button-group>
             </td>
-            <td>游戏ID/Code:</td>
-            <td>{{editItem.game.id}}</td>
-            <td>{{editItem.game.code}}</td>
+            <td>ID/Code:</td>
+            <td>{{editItem.game.id}}/{{editItem.game.code}}</td>
           </tr>
           <tr>
-            <td>游戏英文名:</td>
+            <td>英文名:</td>
             <td>
               <div v-if="editeName">
                 <input :placeholder="editItem.game.eName" v-model="editItem.value.eName">
@@ -280,24 +287,23 @@
                 <el-button type="danger" size="mini" @click="editItem.value.eName=''">还原</el-button>
               </el-button-group>
             </td>
-            <td>游戏gameName/gameType:</td>
-            <td>{{editItem.game.gameName}}</td>
-            <td>{{editItem.game.gameType}}</td>
+            <td>gameName/gameType:</td>
+            <td>{{editItem.game.gameName}}/{{editItem.game.gameType}}</td>
           </tr>
           <tr>
-            <td>游戏类型:</td>
+            <td>类型:</td>
             <td>{{editItem.game.types}}</td>
-            <td>游戏线注</td>
+            <td>线注</td>
             <td>{{editItem.game.line}}</td>
           </tr>
           <tr>
-            <td>游戏平台:</td>
+            <td>平台:</td>
             <td>{{editItem.game.platform}}</td>
             <td>moduleid</td>
             <td>{{editItem.game.moduleid}}</td>
           </tr>
           <tr>
-            <td>游戏标签</td>
+            <td>标签</td>
             <td colspan="3">
               <el-checkbox-group v-model="editItem.game.tags" disabled>
                 <el-checkbox
@@ -318,14 +324,18 @@
             </td>
           </tr>
           <tr>
-            <td>游戏备注</td>
+            <td>排序</td>
+            <td>
+              <el-input v-model="editItem.sort"></el-input>
+            </td>
+            <td>备注</td>
             <td colspan="3">
               <el-input type="textarea" v-model="editItem.description"></el-input>
             </td>
           </tr>
         </tbody>
       </table>
-      <div>
+      <div style="padding:20px 0;">
         <el-button @click="updateItem" type="primary">提交</el-button>
       </div>
     </el-dialog>
@@ -354,7 +364,7 @@ export default {
     return {
       list: null,
       total: null,
-      listLoading: true,
+      listLoading: false,
       listQuery: {
         page: 1,
         limit: 10
@@ -362,9 +372,10 @@ export default {
       sortable: null,
       //搜索条件
       filterData: {
-        device: getToken("SiteDevice"),
-        platform: "DT"
+        // device: getToken("SiteDevice"),
+        platform: ""
       },
+      platformType: "SLOT",
       // 游戏平台类型
       platformList: [],
       dialogFormVisible: false,
@@ -430,7 +441,6 @@ export default {
   },
   created() {
     this.getPlatforms();
-    this.getList();
     this.$bus.$on("changIcon", eventData => {
       console.log(eventData);
       this.editItem.value.icon = eventData.url;

@@ -30,33 +30,37 @@
       :model="filterData"
       style="background:#eee;padding:10px;"
     >
-      <el-form-item label="终端：" prop="platform">
-        <el-radio-group v-model="filterData.device" size="mini">
-          <el-radio-button label="PC">桌面端</el-radio-button>
-          <el-radio-button label="MOBILE">手机端</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="类型：" prop="platform">
-        <el-radio-group v-model="filterData.platformType" size="mini">
-          <el-radio-button label="SLOT">老虎机</el-radio-button>
-          <el-radio-button label="LIVE">真人</el-radio-button>
-          <el-radio-button label="CHESS">棋牌</el-radio-button>
-          <el-radio-button label="LOTTERY">彩票</el-radio-button>
-          <el-radio-button label="FISH">捕鱼</el-radio-button>
-          <el-radio-button label="SPORT">体育</el-radio-button>
-          <el-radio-button label="ESPORT">电竞</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="平台：" prop="platform">
-        <el-radio-group v-model="filterData.platform" size="mini">
-          <el-radio-button
-            :label="item.value"
-            v-for="item in platformList"
-            :key="item.value"
-            v-show="item.platformType==filterData.platformType"
-          >{{item.name}}</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
+      <!-- <el-form-item label="终端：" prop="platform"> -->
+      <el-radio-group v-model="filterData.device" size="mini">
+        <el-radio-button label="PC">桌面端</el-radio-button>
+        <el-radio-button label="MOBILE">手机端</el-radio-button>
+      </el-radio-group>
+      <br>
+      <br>
+      <!-- </el-form-item> -->
+      <!-- <el-form-item label="类型：" prop="platform"> -->
+      <el-radio-group v-model="filterData.platformType" size="mini">
+        <el-radio-button label="SLOT">老虎机</el-radio-button>
+        <el-radio-button label="LIVE">真人</el-radio-button>
+        <el-radio-button label="CHESS">棋牌</el-radio-button>
+        <el-radio-button label="LOTTERY">彩票</el-radio-button>
+        <el-radio-button label="FISH">捕鱼</el-radio-button>
+        <el-radio-button label="SPORT">体育</el-radio-button>
+        <el-radio-button label="ESPORT">电竞</el-radio-button>
+      </el-radio-group>
+      <br>
+      <br>
+      <!-- </el-form-item> -->
+      <!-- <el-form-item label="平台：" prop="platform"> -->
+      <el-radio-group v-model="filterData.platform" size="mini">
+        <el-radio-button
+          :label="item.value"
+          v-for="item in platformList"
+          :key="item.value"
+          v-show="item.platformType==filterData.platformType"
+        >{{item.name}}</el-radio-button>
+      </el-radio-group>
+      <!-- </el-form-item> -->
     </el-form>
 
     <br>
