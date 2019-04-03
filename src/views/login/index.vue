@@ -182,7 +182,7 @@ $light_gray: #eee;
   height: 100%;
   width: 100%;
   background-color: $bg;
-  background-image: url(./img/login-bg.jpg);
+  background-image: url(~@/assets/bg.jpg);
   background-position: 50%;
   background-size: cover;
   height: 100%;

@@ -61,7 +61,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 .customer-center {
-  background: url(./img/login-bg.jpg) center center no-repeat/cover;
+  background: url(~@/assets/bg.jpg) center center no-repeat/cover;
   min-height: 100%;
 
   .container {
