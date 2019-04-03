@@ -69,7 +69,7 @@
       fit
       highlight-current-row
       style="width: 100%;"
-      max-height="800"
+      max-height="1000"
     >
       <el-table-column fixed :label="$t('table.id')" type="index" align="center" width="50"></el-table-column>
       <el-table-column fixed align="center" label="封面" prop="thumbnail" width="100">
